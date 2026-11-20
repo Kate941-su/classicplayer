@@ -1,0 +1,195 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-20T03:17:00+00:00",
+ "source": "https://classical-sound.seesaa.net/",
+ "license": {
+  "name": "Creative Commons 表示 2.1 日本",
+  "credit": "CMSL クラシック名曲サウンドライブラリー",
+  "url": "https://classical-sound.seesaa.net/",
+  "notes": "暫定フィクスチャ（PLAN 0.2）。ID・URL は架空。PLAN 0.9 で実カタログからの抽出に置き換える。"
+ },
+ "genres": [
+  {
+   "id": "symphony",
+   "name": "交響曲",
+   "nameEn": "Symphonies",
+   "order": 10,
+   "trackCount": 2
+  },
+  {
+   "id": "piano",
+   "name": "ピアノ",
+   "nameEn": "Piano",
+   "order": 40,
+   "trackCount": 4
+  },
+  {
+   "id": "other",
+   "name": "その他",
+   "nameEn": "Other",
+   "order": 999,
+   "trackCount": 1
+  }
+ ],
+ "composers": [
+  {
+   "id": "l-v-beethoven",
+   "name": "ベートーヴェン",
+   "nameEn": "L.V.Beethoven",
+   "trackCount": 5
+  },
+  {
+   "id": "f-chopin",
+   "name": "ショパン",
+   "nameEn": "F.Chopin",
+   "trackCount": 1
+  },
+  {
+   "id": "作曲者不明",
+   "name": "作曲者不明",
+   "nameEn": null,
+   "trackCount": 1
+  }
+ ],
+ "works": [
+  {
+   "id": "l-v-beethoven--piano-sonata-8",
+   "title": "ピアノソナタ 第8番 ハ短調 Op.13 「悲愴」",
+   "composerId": "l-v-beethoven",
+   "genreId": "piano"
+  },
+  {
+   "id": "l-v-beethoven--symphony-5",
+   "title": "交響曲 第5番 ハ短調 Op.67 「運命」",
+   "composerId": "l-v-beethoven",
+   "genreId": "symphony"
+  },
+  {
+   "id": "f-chopin--nocturne-2",
+   "title": "ノクターン 第2番 変ホ長調 Op.9-2",
+   "composerId": "f-chopin",
+   "genreId": "piano"
+  },
+  {
+   "id": "作曲者不明--グリーンスリーブス",
+   "title": "グリーンスリーブス",
+   "composerId": "作曲者不明",
+   "genreId": "other"
+  }
+ ],
+ "tracks": [
+  {
+   "id": "900000001",
+   "title": "ベートーヴェン：ピアノソナタ 第8番 ハ短調 Op.13 「悲愴」 第1楽章 [2020][AR]",
+   "titleEn": "L.V.Beethoven:Piano Sonata No.8 C minor, Op.13 \"Grande Sonate pathetique\":I. Grave - Allegro di molto e con brio",
+   "composerId": "l-v-beethoven",
+   "workId": "l-v-beethoven--piano-sonata-8",
+   "genreId": "piano",
+   "movement": "第1楽章",
+   "tags": [
+    "2020",
+    "AR"
+   ],
+   "audioUrl": "https://classical-sound.up.seesaa.net/image/Sample-Beethoven-PianoSonata-No8-1st.mp3",
+   "fileName": "Sample-Beethoven-PianoSonata-No8-1st.mp3",
+   "articleUrl": "https://classical-sound.seesaa.net/article/900000001.html",
+   "publishedAt": "2020-03-20T18:10:00+09:00",
+   "durationSec": null
+  },
+  {
+   "id": "900000001",
+   "title": "ベートーヴェン：ピアノソナタ 第8番 ハ短調 Op.13 「悲愴」 第2楽章 [2020][AR]",
+   "titleEn": "L.V.Beethoven:Piano Sonata No.8 C minor, Op.13 \"Grande Sonate pathetique\":II. Adagio cantabile",
+   "composerId": "l-v-beethoven",
+   "workId": "l-v-beethoven--piano-sonata-8",
+   "genreId": "piano",
+   "movement": "第2楽章",
+   "tags": [
+    "2020",
+    "AR"
+   ],
+   "audioUrl": "https://classical-sound.up.seesaa.net/image/Sample-Beethoven-PianoSonata-No8-2nd.mp3",
+   "fileName": "Sample-Beethoven-PianoSonata-No8-2nd.mp3",
+   "articleUrl": "https://classical-sound.seesaa.net/article/900000001.html",
+   "publishedAt": "2020-03-20T18:18:00+09:00",
+   "durationSec": null
+  },
+  {
+   "id": "900000003",
+   "title": "ベートーヴェン：ピアノソナタ 第8番 ハ短調 Op.13 「悲愴」 第3楽章",
+   "titleEn": null,
+   "composerId": "l-v-beethoven",
+   "workId": "l-v-beethoven--piano-sonata-8",
+   "genreId": "piano",
+   "movement": "第3楽章",
+   "tags": [],
+   "audioUrl": "https://classical-sound.up.seesaa.net/image/Sample-Beethoven-PianoSonata-No8-3rd.mp3",
+   "fileName": "Sample-Beethoven-PianoSonata-No8-3rd.mp3",
+   "articleUrl": "https://classical-sound.seesaa.net/article/900000003.html",
+   "publishedAt": null,
+   "durationSec": null
+  },
+  {
+   "id": "900000010-0",
+   "title": "ベートーヴェン：交響曲 第5番 ハ短調 Op.67 「運命」 第1楽章 (Sample-Beethoven-Symphony5-1st.mp3)",
+   "titleEn": "L.V.Beethoven:Symphony No.5 C minor, Op.67:I. Allegro con brio",
+   "composerId": "l-v-beethoven",
+   "workId": "l-v-beethoven--symphony-5",
+   "genreId": "symphony",
+   "movement": "第1楽章",
+   "tags": [],
+   "audioUrl": "https://classical-sound.up.seesaa.net/image/Sample-Beethoven-Symphony5-1st.mp3",
+   "fileName": "Sample-Beethoven-Symphony5-1st.mp3",
+   "articleUrl": "https://classical-sound.seesaa.net/article/900000010.html",
+   "publishedAt": "2021-05-01T09:00:00+09:00",
+   "durationSec": null
+  },
+  {
+   "id": "900000010-1",
+   "title": "ベートーヴェン：交響曲 第5番 ハ短調 Op.67 「運命」 第1楽章 (Sample-Beethoven-Symphony5-1st-Short.mp3)",
+   "titleEn": "L.V.Beethoven:Symphony No.5 C minor, Op.67:I. Allegro con brio",
+   "composerId": "l-v-beethoven",
+   "workId": "l-v-beethoven--symphony-5",
+   "genreId": "symphony",
+   "movement": "第1楽章",
+   "tags": [
+    "Short"
+   ],
+   "audioUrl": "https://classical-sound.up.seesaa.net/image/Sample-Beethoven-Symphony5-1st-Short.mp3",
+   "fileName": "Sample-Beethoven-Symphony5-1st-Short.mp3",
+   "articleUrl": "https://classical-sound.seesaa.net/article/900000010.html",
+   "publishedAt": "2021-05-01T09:00:00+09:00",
+   "durationSec": null
+  },
+  {
+   "id": "900000020",
+   "title": "ショパン：ノクターン 第2番 変ホ長調 Op.9-2",
+   "titleEn": "F.Chopin:Nocturne No.2 E flat major, Op.9-2",
+   "composerId": "f-chopin",
+   "workId": "f-chopin--nocturne-2",
+   "genreId": "piano",
+   "movement": null,
+   "tags": [],
+   "audioUrl": "https://classical-sound.up.seesaa.net/image/Sample-Chopin-Nocturne-No2.mp3",
+   "fileName": "Sample-Chopin-Nocturne-No2.mp3",
+   "articleUrl": "https://classical-sound.seesaa.net/article/900000020.html",
+   "publishedAt": "2022-01-15T12:00:00+09:00",
+   "durationSec": null
+  },
+  {
+   "id": "900000030",
+   "title": "グリーンスリーブス",
+   "titleEn": null,
+   "composerId": "作曲者不明",
+   "workId": "作曲者不明--グリーンスリーブス",
+   "genreId": "other",
+   "movement": null,
+   "tags": [],
+   "audioUrl": "https://classical-sound.up.seesaa.net/image/Sample-Greensleeves.mp3",
+   "fileName": "Sample-Greensleeves.mp3",
+   "articleUrl": "https://classical-sound.seesaa.net/article/900000030.html",
+   "publishedAt": "2023-12-24T20:00:00+09:00",
+   "durationSec": null
+  }
+ ]
+}

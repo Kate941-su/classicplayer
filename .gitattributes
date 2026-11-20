@@ -1,0 +1,2 @@
+# fixtures の sha256 がずれないよう、改行を変換しない
+fixtures/** -text

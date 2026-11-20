@@ -9,8 +9,8 @@
 ## リポジトリ構成
 ```
 catalog/    Python: build_catalog.py, validate_catalog.py, make_manifest.py, overrides.json, genre_map.json, tests
-schema/     catalog.schema.json（両アプリ共通の契約）
-fixtures/   catalog.sample.json, search_cases.json（両アプリのテストで共有）
+schema/     catalog.schema.json, manifest.schema.json（両アプリ共通の契約）
+fixtures/   catalog.sample.json, manifest.sample.json, invalid/, search_cases.json（両アプリのテストで共有）
 site/       GitHub Pages: v1/manifest.json, v1/catalog.json, privacy/, support/
 android/    Kotlin + Compose + Media3（Gradle マルチモジュール）
 ios/        Swift 6 + SwiftUI + AVFoundation（Xcode プロジェクト）
