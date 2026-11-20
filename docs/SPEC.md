@@ -283,8 +283,9 @@ CMSL の音源には画像がないため、**アプリ内で生成する抽象�
 
 ### 10.1 ストア
 - アプリ名（案）: 「クラシック名曲プレイヤー – CMSL」など。CMSL の名前を使う場合は、運営者の了承を得る。
+  - TODO(owner): アプリ名を確定する（PLAN 0.10 の CMSL の返信を待つ）。`site/` のページは仮に「クラシック名曲プレイヤー」/ "Classical Masterpieces Player" と表記している。
 - プライバシー: iOS の App Privacy は「データ収集なし」、Google Play のデータセーフティは「収集なし・共有なし」。
-- 必須リンク: サポート URL、プライバシーポリシー（GitHub Pages 上に置く）。
+- 必須リンク: サポート URL `https://kate941-su.github.io/classicplayer/support/`、プライバシーポリシー `https://kate941-su.github.io/classicplayer/privacy/`（英語版は `en.html`）。問い合わせ先は GitHub Issues のみ（2026-11-20、オーナー）。
 - 年齢レーティング: 全年齢。
 
 ### 10.2 権利関係（審査対策）
