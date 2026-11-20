@@ -138,6 +138,7 @@ CMSL のカテゴリをそのまま使うと、名前が長いものや細かす
 { "schemaVersion": 1, "catalogVersion": "2026.12.01", "catalogUrl": "catalog.json",
   "sha256": "…", "trackCount": 812, "generatedAt": "…", "minAppSchema": 1 }
 ```
+正式な定義は `schema/manifest.schema.json`。`sha256` は catalog.json のバイト列のハッシュ。`catalogVersion` は `generatedAt`（UTC）の日付で、中身（sha256）が前回と同じなら前回の値を引き継ぎ、同じ日に出し直すときは `YYYY.MM.DD.2` のように連番を付ける（`make_manifest.py`）。
 アプリは manifest を先に取得し、`catalogVersion` が変わったときだけ catalog を取得する。`schemaVersion` がアプリの対応範囲外なら、更新せず手持ちのカタログを使い続ける。
 
 ---

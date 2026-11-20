@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kate941-su.github.io/classicplayer/v1/manifest.schema.json",
+  "title": "CMSL Classical Catalog Manifest",
+  "description": "SPEC §3.5。アプリは先にこれを取得し、catalogVersion が変わったときだけ catalog.json を取得して sha256 を検証する。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "catalogVersion", "catalogUrl", "sha256", "trackCount", "generatedAt", "minAppSchema"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "minimum": 1, "description": "catalog.json の schemaVersion" },
+    "catalogVersion": { "type": "string", "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(\\.[0-9]+)?$" },
+    "catalogUrl": { "type": "string", "minLength": 1, "description": "manifest.json からの相対 URL" },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$", "description": "catalog.json のバイト列の SHA-256" },
+    "trackCount": { "type": "integer", "minimum": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "minAppSchema": { "type": "integer", "minimum": 1 }
+  }
+}
