@@ -1,0 +1,26 @@
+{
+  "$comment": "CMSL のカテゴリ名 → 表示ジャンル（SPEC §3.3）。categories（完全一致）→ rules（上から順に部分一致）→ default の順に決める。初版の案で、実際のカテゴリ一覧を見て PLAN 0.6 で確定する",
+  "genres": [
+    { "id": "symphony", "name": "交響曲", "nameEn": "Symphonies", "order": 10 },
+    { "id": "orchestral", "name": "管弦楽曲", "nameEn": "Orchestral", "order": 20 },
+    { "id": "concerto", "name": "協奏曲", "nameEn": "Concertos", "order": 30 },
+    { "id": "piano", "name": "ピアノ", "nameEn": "Piano", "order": 40 },
+    { "id": "chamber", "name": "器楽・室内楽", "nameEn": "Chamber & Instrumental", "order": 50 },
+    { "id": "vocal", "name": "声楽・オペラ", "nameEn": "Vocal & Opera", "order": 60 },
+    { "id": "baroque", "name": "バロック", "nameEn": "Baroque", "order": 70 },
+    { "id": "other", "name": "その他", "nameEn": "Other", "order": 999 }
+  ],
+  "categories": {
+    "器楽曲・Piano": "piano"
+  },
+  "rules": [
+    { "contains": ["協奏曲", "Concerto"], "genre": "concerto" },
+    { "contains": ["交響曲", "Symphony"], "genre": "symphony" },
+    { "contains": ["バロック", "Baroque"], "genre": "baroque" },
+    { "contains": ["歌劇", "オペラ", "Opera", "声楽", "歌曲", "合唱", "Vocal"], "genre": "vocal" },
+    { "contains": ["Piano", "ピアノ"], "genre": "piano" },
+    { "contains": ["室内楽", "器楽", "Chamber"], "genre": "chamber" },
+    { "contains": ["管弦楽", "序曲", "Orchestra", "バレエ", "組曲"], "genre": "orchestral" }
+  ],
+  "default": "other"
+}

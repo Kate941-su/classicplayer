@@ -64,8 +64,10 @@ def test_end_to_end():
     assert t["tags"] == ["2020", "AR"]
     assert t["publishedAt"] == "2020-03-20T18:18:00+09:00"
     assert '"Grande Sonate pathetique"' in t["titleEn"]
-    genres = {g["name"] for g in cat["genres"]}
-    assert genres == {"器楽曲・Piano", "交響曲"}, genres
+    genres = {g["name"]: g for g in cat["genres"]}
+    assert set(genres) == {"ピアノ", "交響曲"}, genres   # genre_map.json で表示ジャンルにまとめる
+    assert genres["ピアノ"]["nameEn"] == "Piano" and genres["交響曲"]["order"] == 10
+    assert [g["order"] for g in cat["genres"]] == sorted(g["order"] for g in cat["genres"])
     comps = {c["id"]: c for c in cat["composers"]}
     assert comps[t["composerId"]]["name"] == "ベートーヴェン"
     assert comps[t["composerId"]]["nameEn"] == "L.V.Beethoven"

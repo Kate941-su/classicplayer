@@ -1,0 +1,10 @@
+{
+  "$comment": "手動補正（SPEC §3.4）。exclude: 除外する記事 ID / tracks: 記事 ID ごとの composer・composerEn・work・movement・genre の上書き / composerAliases: 作曲家名の表記揺れ → 正規名 / composerEn: 正規名 → 英語表記。PLAN 0.6 で実データを見て追記する",
+  "exclude": [],
+  "tracks": {},
+  "composerAliases": {
+    "ベートーベン": "ベートーヴェン",
+    "L.v.ベートーヴェン": "ベートーヴェン"
+  },
+  "composerEn": {}
+}

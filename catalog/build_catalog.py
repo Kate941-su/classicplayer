@@ -255,8 +255,8 @@ MOVEMENT_RES = [
 
 
 def slug(s: str) -> str:
-    s = re.sub(r"[^\w]+", "-", s.lower(), flags=re.UNICODE).strip("-")
-    return s or hashlib.sha1(s.encode()).hexdigest()[:8]
+    out = re.sub(r"[^\w]+", "-", s.lower(), flags=re.UNICODE).strip("-")
+    return out or hashlib.sha1(s.encode()).hexdigest()[:8]  # 記号だけの名前は元の文字列のハッシュ
 
 
 def parse_title(title: str) -> dict:
@@ -338,7 +338,71 @@ def crawl(fetcher: Fetcher, max_pages: int | None, verbose: bool):
     return pages, category_listing, category_names
 
 
-def build(pages, category_listing, category_names, exclude: list[str]):
+# ---------------------------------------------------------------- 設定ファイル
+HERE = Path(__file__).resolve().parent
+OTHER_GENRE_ID = "other"
+UNKNOWN_COMPOSER = "作曲者不明"
+
+
+def load_json(path: Path | None, default):
+    if path is None or not Path(path).exists():
+        return default
+    return json.loads(Path(path).read_text(encoding="utf-8"))
+
+
+class GenreMap:
+    """CMSL のカテゴリ名 → 表示ジャンル（genre_map.json。SPEC §3.3）。
+
+    1. categories: カテゴリ名の完全一致
+    2. rules: 上から順に、contains のいずれかを部分一致（大文字小文字を区別しない）
+    3. どれにも当たらなければ default（「その他」）
+    """
+
+    def __init__(self, data: dict):
+        self.genres = {g["id"]: g for g in data.get("genres", [])}
+        self.categories = data.get("categories", {})
+        self.rules = data.get("rules", [])
+        self.default = data.get("default", OTHER_GENRE_ID)
+        if self.default not in self.genres:
+            self.genres[self.default] = {"id": self.default, "name": "その他", "nameEn": "Other", "order": 999}
+        for gid in list(self.categories.values()) + [r["genre"] for r in self.rules]:
+            if gid not in self.genres:
+                raise ValueError(f"genre_map.json: 未定義のジャンル ID {gid!r}")
+
+    def resolve(self, category: str | None) -> tuple[str, bool]:
+        """(genre id, マップで解決できたか)"""
+        if category is None:
+            return self.default, False
+        if category in self.categories:
+            return self.categories[category], True
+        low = category.lower()
+        for r in self.rules:
+            if any(c.lower() in low for c in r["contains"]):
+                return r["genre"], True
+        return self.default, False
+
+
+class Overrides:
+    """手動補正（overrides.json。SPEC §3.4）。"""
+
+    def __init__(self, data: dict):
+        self.exclude = set(map(str, data.get("exclude", [])))
+        self.tracks = {str(k): v for k, v in data.get("tracks", {}).items()}
+        self.aliases = data.get("composerAliases", {})
+        self.composer_en = data.get("composerEn", {})
+
+    def canonical_composer(self, name: str | None) -> str | None:
+        if name is None:
+            return None
+        return self.aliases.get(name, name)
+
+
+# ---------------------------------------------------------------- 組み立て
+def build(pages, category_listing, category_names, exclude: list[str],
+          genre_map: GenreMap | None = None, overrides: Overrides | None = None):
+    genre_map = genre_map or GenreMap({})
+    overrides = overrides or Overrides({})
+
     # 全ページに共通して出る記事リンク（サイドバーの「最近の記事」等）はカテゴリ判定に使わない
     link_freq = Counter()
     for page in pages.values():
@@ -368,42 +432,93 @@ def build(pages, category_listing, category_names, exclude: list[str]):
     def excluded(cat):
         return cat is not None and any(x.lower() in cat.lower() for x in exclude)
 
-    genres, composers, works, tracks = {}, {}, {}, []
-    report = {"noMp3": [], "streamOnly": [], "noComposer": [], "noCategory": [], "excluded": 0}
+    report = {"noMp3": [], "streamOnly": [], "noComposer": [], "noCategory": [], "excluded": 0,
+              "excludedByOverride": [], "categories": {}, "unmappedCategories": {}}
+    category_count: Counter = Counter()
+    unmapped: Counter = Counter()
 
+    # 1 周目: 記事ごとに解釈し、作曲家の英語表記を集める
+    entries = []
+    en_votes: dict[str, Counter] = defaultdict(Counter)
     for art in sorted(articles, key=lambda a: (a.published or "", a.id)):
         if excluded(art.category):
             report["excluded"] += 1
+            continue
+        if art.id in overrides.exclude:
+            report["excludedByOverride"].append(art.id)
             continue
         if not art.mp3s:
             (report["streamOnly"] if art.stream_only else report["noMp3"]).append(art.url)
             continue
         info = parse_title(art.title)
-        genre_name = art.category or "その他"
+        ov = overrides.tracks.get(art.id, {})
+        for key in ("composer", "composerEn", "work", "movement"):
+            if key in ov:
+                info[key] = ov[key]
+        composer = overrides.canonical_composer(info["composer"])
+        if composer is None:
+            report["noComposer"].append(art.url)
+            composer = UNKNOWN_COMPOSER
+        if info["composerEn"]:
+            en_votes[composer][info["composerEn"]] += 1
+
         if art.category is None:
             report["noCategory"].append(art.url)
-        gid = slug(genre_name)
-        genres.setdefault(gid, {"id": gid, "name": genre_name, "trackCount": 0})
+        else:
+            category_count[art.category] += len(art.mp3s)
+        if "genre" in ov:
+            gid, mapped = ov["genre"], True
+            if gid not in genre_map.genres:
+                raise ValueError(f"overrides.json: 記事 {art.id} の未定義のジャンル ID {gid!r}")
+        else:
+            gid, mapped = genre_map.resolve(art.category)
+        if art.category is not None and not mapped:
+            unmapped[art.category] += len(art.mp3s)
+        if art.category is not None:
+            report["categories"][art.category] = gid
+        entries.append((art, info, composer, gid))
 
-        comp_name = info["composer"] or "作曲者不明"
-        if info["composer"] is None:
-            report["noComposer"].append(art.url)
-        cid = slug(info["composerEn"] or comp_name)
-        composers.setdefault(cid, {"id": cid, "name": comp_name, "nameEn": info["composerEn"], "trackCount": 0})
+    # 作曲家: 日本語の正規名でまとめる。英語表記は overrides → タイトルで最も多い表記
+    composers: dict[str, dict] = {}
+    composer_id: dict[str, str] = {}
+    used_ids: set[str] = set()
+    for _, _, composer, _ in entries:
+        if composer in composer_id:
+            continue
+        name_en = overrides.composer_en.get(composer)
+        if name_en is None and en_votes[composer]:
+            name_en = en_votes[composer].most_common(1)[0][0]
+        cid = base = slug(name_en or composer)
+        n = 2
+        while cid in used_ids:  # 英語表記が同じ別人（または別表記）を区別する
+            cid = f"{base}-{n}"
+            n += 1
+        used_ids.add(cid)
+        composer_id[composer] = cid
+        composers[cid] = {"id": cid, "name": composer, "nameEn": name_en, "trackCount": 0}
 
+    genres: dict[str, dict] = {}
+    works: dict[str, dict] = {}
+    tracks = []
+    for art, info, composer, gid in entries:
+        cid = composer_id[composer]
+        g = genre_map.genres[gid]
+        genres.setdefault(gid, {"id": gid, "name": g["name"], "nameEn": g.get("nameEn"),
+                                "order": g.get("order", 999), "trackCount": 0})
         wid = f"{cid}--{slug(info['work'])}"
         works.setdefault(wid, {"id": wid, "title": info["work"], "composerId": cid, "genreId": gid})
 
+        base_title = art.title.split(" / ")[0]
         for i, (mp3, link_text) in enumerate(art.mp3s):
             fname = urllib.parse.unquote(mp3.rsplit("/", 1)[-1])
             tracks.append({
                 "id": f"{art.id}-{i}" if len(art.mp3s) > 1 else art.id,
-                "title": art.title.split(" / ")[0] if len(art.mp3s) == 1 else f"{art.title.split(' / ')[0]} ({fname})",
+                "title": base_title if len(art.mp3s) == 1 else f"{base_title} ({fname})",
                 "titleEn": info["titleEn"],
                 "composerId": cid,
                 "workId": wid,
                 "genreId": gid,
-                "movement": info["movement"],
+                "movement": info["movement"] or None,
                 "tags": info["tags"],
                 "audioUrl": mp3,
                 "fileName": fname,
@@ -413,6 +528,14 @@ def build(pages, category_listing, category_names, exclude: list[str]):
             })
             genres[gid]["trackCount"] += 1
             composers[cid]["trackCount"] += 1
+
+    total = len(tracks) or 1
+    report["unmappedCategories"] = dict(unmapped.most_common())
+    report["categoryTrackCounts"] = dict(category_count.most_common())
+    report["ratios"] = {
+        "otherGenre": round(genres.get(genre_map.default, {}).get("trackCount", 0) / total, 4),
+        "unknownComposer": round(composers.get(composer_id.get(UNKNOWN_COMPOSER, ""), {}).get("trackCount", 0) / total, 4),
+    }
 
     catalog = {
         "schemaVersion": 1,
@@ -424,8 +547,8 @@ def build(pages, category_listing, category_names, exclude: list[str]):
             "url": BASE,
             "notes": "フリー素材・商用利用可・許諾不要（著作権は制作者に帰属）。ストリーミング専用音源は対象外のため除外済み。",
         },
-        "genres": sorted(genres.values(), key=lambda g: -g["trackCount"]),
-        "composers": sorted(composers.values(), key=lambda c: -c["trackCount"]),
+        "genres": sorted(genres.values(), key=lambda g: (g["order"], g["id"])),
+        "composers": sorted(composers.values(), key=lambda c: (-c["trackCount"], c["id"])),
         "works": list(works.values()),
         "tracks": tracks,
     }
@@ -440,13 +563,17 @@ def main(argv=None):
     ap.add_argument("--max-pages", type=int, default=None, help="取得ページ数の上限（お試し用）")
     ap.add_argument("--offline", action="store_true", help="キャッシュのみで作成（通信しない）")
     ap.add_argument("--exclude-category", action="append", default=[], help="除外するカテゴリ名（部分一致）")
+    ap.add_argument("--genre-map", default=str(HERE / "genre_map.json"), help="カテゴリ → 表示ジャンルの対応表")
+    ap.add_argument("--overrides", default=str(HERE / "overrides.json"), help="手動補正ファイル")
     ap.add_argument("-q", "--quiet", action="store_true")
     args = ap.parse_args(argv)
 
     fetcher = Fetcher(Path(args.cache), args.delay, args.offline)
     print("巡回を開始します…", file=sys.stderr)
     pages, listing, names = crawl(fetcher, args.max_pages, not args.quiet)
-    catalog, report = build(pages, listing, names, DEFAULT_EXCLUDE + args.exclude_category)
+    genre_map = GenreMap(load_json(Path(args.genre_map), {}))
+    overrides = Overrides(load_json(Path(args.overrides), {}))
+    catalog, report = build(pages, listing, names, DEFAULT_EXCLUDE + args.exclude_category, genre_map, overrides)
 
     Path(args.output).write_text(json.dumps(catalog, ensure_ascii=False, indent=1), encoding="utf-8")
     Path(args.output).with_suffix(".report.json").write_text(
@@ -462,6 +589,8 @@ def main(argv=None):
           f" / ストリーミングのみ {len(report['streamOnly'])}"
           f" / 作曲家不明 {len(report['noComposer'])} / カテゴリ不明 {len(report['noCategory'])}",
           file=sys.stderr)
+    print(f"  比率: その他 {report['ratios']['otherGenre']:.1%} / 作曲者不明 {report['ratios']['unknownComposer']:.1%}"
+          f" / マップにないカテゴリ {len(report['unmappedCategories'])}", file=sys.stderr)
     print("  ジャンル内訳:", ", ".join(f"{g['name']}({g['trackCount']})" for g in catalog["genres"]), file=sys.stderr)
 
 

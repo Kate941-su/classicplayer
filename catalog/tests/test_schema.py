@@ -81,7 +81,6 @@ def test_invalid_documents_fail(name):
     assert errors(mutate(BAD[name])), f"{name} が検証を通ってしまう"
 
 
-@pytest.mark.xfail(strict=True, reason="genres の nameEn と order は PLAN 0.3 で build_catalog.py に追加する。追加したらこの xfail を外す")
 def test_build_catalog_output_matches_schema():
     import build_catalog as bc
     from test_build_catalog import PAGES
