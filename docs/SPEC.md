@@ -99,6 +99,12 @@
 }
 ```
 
+**契約のルール**（`schema/catalog.schema.json` で検査する）:
+- 生成側はスキーマにあるキーを**すべて出力**する（値がないときは省略せず `null`。`tags` は空配列）。スキーマにないキーは出力しない（`additionalProperties: false`）。
+- アプリのデコーダーは**未知のキーを無視**する（任意フィールドの追加は `schemaVersion` を上げずに行えるようにするため）。
+- URL は `audioUrl` が `https://classical-sound.up.seesaa.net/〜.mp3`、`articleUrl` が `https://classical-sound.seesaa.net/article/{数字}.html` に限る。日時は RFC 3339（タイムゾーン付き）。
+- ID の重複と参照切れ（`composerId` / `workId` / `genreId`）はスキーマでは表せないので、`validate_catalog.py` で検査する（PLAN 0.5）。
+
 **ID の安定性**: `track.id` はお気に入りや再生履歴のキーになるため、生成し直しても変えてはならない。記事ID（Seesaa の `/article/{id}.html`）を元にする。`composer.id` と `work.id` は slug なので、表記揺れの修正で変わることがある。アプリはこれらを永続化しない（永続化するのは `track.id` だけ）。
 
 ### 3.3 ジャンル
