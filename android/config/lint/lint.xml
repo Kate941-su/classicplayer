@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 警告はすべてエラーとして扱う（warningsAsErrors）。ここで外すのは理由のあるものだけ -->
+<lint>
+    <!-- 依存の更新は Dependabot と月次メンテで行う（app-maintenance.md §3）。ビルドがネットワークの状態で変わらないよう外す -->
+    <issue id="GradleDependency" severity="ignore" />
+    <issue id="NewerVersionAvailable" severity="ignore" />
+    <issue id="AndroidGradlePluginVersion" severity="ignore" />
+    <issue id="ObsoleteLintCustomCheck" severity="ignore" />
+</lint>

@@ -1,0 +1,45 @@
+# buildUponDefaultConfig = true。既定から変えるところだけを書く
+complexity:
+  LongParameterList:
+    ignoreDefaultParameters: true
+    ignoreAnnotated: ['Composable']
+    constructorThreshold: 9
+  LongMethod:
+    ignoreAnnotated: ['Composable']
+  CyclomaticComplexMethod:
+    ignoreAnnotated: ['Composable']
+  TooManyFunctions:
+    ignoreOverridden: true
+    ignorePrivate: true
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+  # 日本語のテスト名（`fun \`…\`()`）を許す
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][_A-Z0-9]*'
+
+style:
+  MagicNumber:
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+    ignoreAnnotated: ['Composable', 'Preview']
+    excludes: ['**/test/**', '**/androidTest/**']
+  UnusedPrivateMember:
+    ignoreAnnotated: ['Preview']
+  ReturnCount:
+    max: 4
+  MaxLineLength:
+    maxLineLength: 140
+
+formatting:
+  # Composable は大文字で始まる関数名
+  FunctionName:
+    active: false
+  MaximumLineLength:
+    maxLineLength: 140
+  # 末尾カンマは任意（ktlint 標準ルールの既定と揃える）
+  TrailingCommaOnCallSite:
+    active: false
+  TrailingCommaOnDeclarationSite:
+    active: false
