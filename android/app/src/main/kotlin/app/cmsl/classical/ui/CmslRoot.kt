@@ -1,0 +1,147 @@
+package app.cmsl.classical.ui
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.LibraryMusic
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import app.cmsl.classical.R
+import app.cmsl.classical.di.AppContainer
+import app.cmsl.classical.ui.components.LocalArtwork
+import app.cmsl.classical.ui.composer.ComposerScreen
+import app.cmsl.classical.ui.genre.GenreScreen
+import app.cmsl.classical.ui.home.HomeScreen
+import app.cmsl.classical.ui.info.InfoScreen
+import app.cmsl.classical.ui.info.LicensesScreen
+import app.cmsl.classical.ui.library.LibraryScreen
+import app.cmsl.classical.ui.navigation.ComposerRoute
+import app.cmsl.classical.ui.navigation.GenreRoute
+import app.cmsl.classical.ui.navigation.HomeRoute
+import app.cmsl.classical.ui.navigation.InfoRoute
+import app.cmsl.classical.ui.navigation.LibraryRoute
+import app.cmsl.classical.ui.navigation.LicensesRoute
+import app.cmsl.classical.ui.navigation.PlayerRoute
+import app.cmsl.classical.ui.navigation.SearchRoute
+import app.cmsl.classical.ui.navigation.WorkRoute
+import app.cmsl.classical.ui.player.MiniPlayer
+import app.cmsl.classical.ui.player.PlayerScreen
+import app.cmsl.classical.ui.player.PlayerViewModel
+import app.cmsl.classical.ui.search.SearchScreen
+import app.cmsl.classical.ui.theme.CmslTheme
+import app.cmsl.classical.ui.work.WorkScreen
+
+private data class Tab(val route: Any, val label: Int, val icon: ImageVector)
+
+private val TABS = listOf(
+    Tab(HomeRoute, R.string.tab_home, Icons.Filled.Home),
+    Tab(SearchRoute, R.string.tab_search, Icons.Filled.Search),
+    Tab(LibraryRoute, R.string.tab_library, Icons.Filled.LibraryMusic),
+    Tab(InfoRoute, R.string.tab_info, Icons.Filled.Info),
+)
+
+/** 画面の根。タブ（ホーム・検索・ライブラリ・情報）と、その上のミニプレイヤー（SPEC §4.1）。 */
+@Composable
+fun CmslRoot(container: AppContainer) {
+    CompositionLocalProvider(LocalAppContainer provides container, LocalArtwork provides container.artwork) {
+        CmslTheme {
+            val nav = rememberNavController()
+            val entry by nav.currentBackStackEntryAsState()
+            val onPlayer = entry?.destination?.hasRoute<PlayerRoute>() == true
+            val playerVm = containerViewModel { PlayerViewModel(it) }
+            val playerState by playerVm.state.collectAsStateWithLifecycle()
+            Scaffold(
+                bottomBar = {
+                    if (!onPlayer) {
+                        Column {
+                            MiniPlayer(
+                                state = playerState,
+                                onOpen = { nav.navigate(PlayerRoute) { launchSingleTop = true } },
+                                onPlayPause = playerVm.player::togglePlayPause,
+                                onNext = playerVm.player::skipNext,
+                            )
+                            TabBar(nav)
+                        }
+                    }
+                },
+            ) { padding ->
+                CmslNavHost(nav, Modifier.padding(padding))
+            }
+        }
+    }
+}
+
+@Composable
+private fun TabBar(nav: NavHostController) {
+    val entry by nav.currentBackStackEntryAsState()
+    NavigationBar {
+        TABS.forEach { tab ->
+            val selected = entry?.destination?.hierarchy()?.any { d -> d.hasRoute(tab.route::class) } == true
+            NavigationBarItem(
+                selected = selected,
+                onClick = {
+                    nav.navigate(tab.route) {
+                        popUpTo(nav.graph.findStartDestination().id) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
+                icon = { Icon(tab.icon, contentDescription = null) },
+                label = { Text(stringResource(tab.label)) },
+            )
+        }
+    }
+}
+
+private fun androidx.navigation.NavDestination.hierarchy() = generateSequence(this) { it.parent }
+
+@Composable
+private fun CmslNavHost(nav: NavHostController, modifier: Modifier) {
+    val back: () -> Unit = { nav.popBackStack() }
+    NavHost(nav, startDestination = HomeRoute, modifier = modifier) {
+        composable<HomeRoute> {
+            HomeScreen(onGenre = { nav.navigate(GenreRoute(it)) }, onWork = { nav.navigate(WorkRoute(it)) })
+        }
+        composable<SearchRoute> {
+            SearchScreen(
+                onComposer = { nav.navigate(ComposerRoute(it)) },
+                onWork = { nav.navigate(WorkRoute(it)) },
+                onGenre = { nav.navigate(GenreRoute(it)) },
+            )
+        }
+        composable<LibraryRoute> { LibraryScreen() }
+        composable<InfoRoute> { InfoScreen(onLicenses = { nav.navigate(LicensesRoute) }) }
+        composable<LicensesRoute> { LicensesScreen(onBack = back) }
+        composable<GenreRoute> { e ->
+            val r = e.toRoute<GenreRoute>()
+            GenreScreen(r.genreId, onComposer = { nav.navigate(ComposerRoute(it, r.genreId)) }, onBack = back)
+        }
+        composable<ComposerRoute> { e ->
+            val r = e.toRoute<ComposerRoute>()
+            ComposerScreen(r.composerId, r.genreId, onWork = { nav.navigate(WorkRoute(it)) }, onBack = back)
+        }
+        composable<WorkRoute> { e -> WorkScreen(e.toRoute<WorkRoute>().workId, onBack = back) }
+        composable<PlayerRoute> { PlayerScreen(onClose = back) }
+    }
+}

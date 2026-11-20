@@ -1,4 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">クラシック名曲プレイヤー</string>
+
+    <string name="tab_home">ホーム</string>
+    <string name="tab_search">検索</string>
+    <string name="tab_library">ライブラリ</string>
+    <string name="tab_info">情報</string>
+
+    <string name="home_newest">新着</string>
+    <string name="home_genres">ジャンル</string>
+
+    <plurals name="track_count">
+        <item quantity="other">%d 曲</item>
+    </plurals>
+    <plurals name="movement_count">
+        <item quantity="other">%d 楽章</item>
+    </plurals>
+
+    <string name="action_shuffle_all">おまかせ再生</string>
+    <string name="action_shuffle_genre">このジャンルをシャッフル再生</string>
+    <string name="action_play_all">すべて再生</string>
+    <string name="action_play_work">作品を通して再生</string>
+    <string name="action_play">再生</string>
+    <string name="action_pause">一時停止</string>
+    <string name="action_next">次の曲</string>
+    <string name="action_previous">前の曲</string>
+    <string name="action_shuffle">シャッフル</string>
+    <string name="action_repeat">リピート</string>
+    <string name="action_queue">キュー</string>
+    <string name="action_share">共有</string>
+    <string name="action_favorite">お気に入りに追加</string>
+    <string name="action_unfavorite">お気に入りから外す</string>
+    <string name="action_more">その他の操作</string>
+    <string name="action_play_next">次に再生</string>
+    <string name="action_add_to_queue">キューに追加</string>
+    <string name="action_about_track">この曲について</string>
+    <string name="action_open_article">原典のページを開く</string>
+    <string name="action_close">閉じる</string>
+    <string name="action_back">戻る</string>
+    <string name="action_clear">消去</string>
+    <string name="action_remove_recent">「%1$s」を最近の検索から削除</string>
+    <string name="action_open_player">プレイヤーを開く</string>
+    <string name="action_close_player">プレイヤーを閉じる</string>
+    <string name="action_play_this">この曲を再生</string>
+    <string name="action_move_up">上へ移動</string>
+    <string name="action_move_down">下へ移動</string>
+    <string name="action_remove_from_queue">キューから削除</string>
+    <string name="action_check_update">カタログの更新を確認</string>
+
+    <string name="toggle_on">オン</string>
+    <string name="toggle_off">オフ</string>
+    <string name="repeat_off">オフ</string>
+    <string name="repeat_all">全体をリピート</string>
+    <string name="repeat_one">1 曲をリピート</string>
+
+    <string name="sort_by_count">曲数順</string>
+    <string name="sort_by_name">名前順</string>
+    <string name="sort_by_added">追加日順</string>
+    <string name="sort_by_composer">作曲家順</string>
+
+    <string name="search_hint">作曲家・作品・曲名</string>
+    <string name="search_recent">最近の検索</string>
+    <string name="search_no_results">見つかりませんでした。</string>
+    <string name="search_section_composers">作曲家</string>
+    <string name="search_section_works">作品</string>
+    <string name="search_section_tracks">曲</string>
+
+    <string name="library_favorites">お気に入り</string>
+    <string name="library_history">最近再生した曲</string>
+    <string name="library_favorites_empty">曲の ☆ をタップすると、お気に入りに追加できます。</string>
+    <string name="library_history_empty">再生した曲がここに表示されます。</string>
+    <string name="track_unavailable">この曲は現在利用できません</string>
+
+    <string name="player_title">再生中</string>
+    <string name="player_empty">再生中の曲はありません。</string>
+    <string name="player_seek">再生位置</string>
+    <string name="player_seek_state">%2$s 中 %1$s</string>
+
+    <string name="credit_source">音源: %1$s</string>
+    <string name="credit_license">ライセンス: %1$s</string>
+    <string name="credit_note">音源は CMSL のサイトから直接再生しています。著作権は制作者に帰属します。</string>
+
+    <string name="info_about">このアプリについて</string>
+    <string name="info_about_body">広告なしで、クラシックだけを、静かに聴けるプレイヤーです。CMSL クラシック名曲サウンドライブラリーのフリー音源を、ジャンル・作曲家・作品から探して再生できます。</string>
+    <string name="info_version">バージョン %1$s</string>
+    <string name="info_credit">クレジット</string>
+    <string name="info_cmsl_site">CMSL クラシック名曲サウンドライブラリー（サイト）</string>
+    <string name="info_terms_body">音源は CMSL が公開しているフリー素材で、クリエイティブ・コモンズ 表示 2.1 日本 ライセンスのもとで利用しています。このアプリは音源ファイルを再配布せず、CMSL のサーバーから直接再生します。</string>
+    <string name="info_privacy">プライバシー</string>
+    <string name="info_privacy_body">このアプリはデータを収集しません。広告・解析・アカウントはありません。お気に入りと履歴はこの端末の中だけに保存されます。</string>
+    <string name="info_privacy_policy">プライバシーポリシー</string>
+    <string name="info_catalog">カタログ</string>
+    <string name="info_catalog_seed">同梱のカタログ（%1$s 作成、%2$s）</string>
+    <string name="info_catalog_downloaded">版 %1$s（%2$s 作成、%3$s）</string>
+    <string name="info_contact">お問い合わせ・サポート</string>
+    <string name="info_licenses">オープンソースライセンス</string>
+    <string name="site_page_suffix"></string>
+
+    <string name="refresh_checking">確認しています…</string>
+    <string name="refresh_updated">カタログを更新しました。</string>
+    <string name="refresh_up_to_date">カタログは最新です。</string>
+    <string name="refresh_failed">更新を確認できませんでした。時間をおいてお試しください。</string>
+    <string name="refresh_unsupported">新しい形式のカタログがあります。アプリを更新してください。</string>
 </resources>
