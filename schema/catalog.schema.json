@@ -1,84 +1,112 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/cmsl/catalog.schema.json",
+  "$id": "https://kate941-su.github.io/classicplayer/v1/catalog.schema.json",
   "title": "CMSL Classical Catalog",
+  "description": "両アプリとカタログ生成の共通の契約（SPEC §3.2）。schemaVersion 1。キーはすべて出力する（値がない場合は null）。ID の重複や参照切れはスキーマでは表現できないため validate_catalog.py で検査する。",
   "type": "object",
+  "additionalProperties": false,
   "required": ["schemaVersion", "generatedAt", "source", "license", "genres", "composers", "works", "tracks"],
   "properties": {
     "schemaVersion": { "const": 1 },
-    "generatedAt": { "type": "string", "format": "date-time" },
-    "source": { "type": "string", "format": "uri" },
+    "generatedAt": { "$ref": "#/$defs/dateTime" },
+    "source": { "const": "https://classical-sound.seesaa.net/" },
     "license": {
       "type": "object",
+      "additionalProperties": false,
       "required": ["name", "credit", "url"],
       "properties": {
-        "name": { "type": "string" },
-        "credit": { "type": "string" },
-        "url": { "type": "string", "format": "uri" },
+        "name": { "$ref": "#/$defs/text" },
+        "credit": { "$ref": "#/$defs/text" },
+        "url": { "type": "string", "pattern": "^https://" },
         "notes": { "type": "string" }
       }
     },
     "genres": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "name", "trackCount"],
+        "additionalProperties": false,
+        "required": ["id", "name", "nameEn", "order", "trackCount"],
         "properties": {
-          "id": { "type": "string", "minLength": 1 },
-          "name": { "type": "string" },
-          "nameEn": { "type": ["string", "null"] },
-          "order": { "type": "integer" },
+          "id": { "$ref": "#/$defs/slugId" },
+          "name": { "$ref": "#/$defs/text" },
+          "nameEn": { "$ref": "#/$defs/textOrNull" },
+          "order": { "type": "integer", "description": "表示順（昇順）。SPEC §3.3" },
           "trackCount": { "type": "integer", "minimum": 0 }
         }
       }
     },
     "composers": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "name", "trackCount"],
+        "additionalProperties": false,
+        "required": ["id", "name", "nameEn", "trackCount"],
         "properties": {
-          "id": { "type": "string", "minLength": 1 },
-          "name": { "type": "string" },
-          "nameEn": { "type": ["string", "null"] },
+          "id": { "$ref": "#/$defs/slugId" },
+          "name": { "$ref": "#/$defs/text" },
+          "nameEn": { "$ref": "#/$defs/textOrNull" },
           "trackCount": { "type": "integer", "minimum": 0 }
         }
       }
     },
     "works": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
+        "additionalProperties": false,
         "required": ["id", "title", "composerId", "genreId"],
         "properties": {
-          "id": { "type": "string", "minLength": 1 },
-          "title": { "type": "string" },
-          "composerId": { "type": "string" },
-          "genreId": { "type": "string" }
+          "id": { "$ref": "#/$defs/slugId" },
+          "title": { "$ref": "#/$defs/text" },
+          "composerId": { "$ref": "#/$defs/slugId" },
+          "genreId": { "$ref": "#/$defs/slugId" }
         }
       }
     },
     "tracks": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "title", "composerId", "workId", "genreId", "audioUrl", "articleUrl"],
+        "additionalProperties": false,
+        "required": [
+          "id", "title", "titleEn", "composerId", "workId", "genreId", "movement",
+          "tags", "audioUrl", "fileName", "articleUrl", "publishedAt", "durationSec"
+        ],
         "properties": {
-          "id": { "type": "string", "pattern": "^[0-9]+(-[0-9]+)?$" },
-          "title": { "type": "string" },
-          "titleEn": { "type": ["string", "null"] },
-          "composerId": { "type": "string" },
-          "workId": { "type": "string" },
-          "genreId": { "type": "string" },
-          "movement": { "type": ["string", "null"] },
-          "tags": { "type": "array", "items": { "type": "string" } },
-          "audioUrl": { "type": "string", "pattern": "^https://classical-sound\\.up\\.seesaa\\.net/.+\\.mp3$" },
-          "fileName": { "type": "string" },
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9]+(-[0-9]+)?$",
+            "description": "記事 ID（1 記事に複数 mp3 なら \"{記事ID}-{連番}\"）。恒久的に変えない。アプリが永続化してよい唯一の ID"
+          },
+          "title": { "$ref": "#/$defs/text" },
+          "titleEn": { "$ref": "#/$defs/textOrNull" },
+          "composerId": { "$ref": "#/$defs/slugId" },
+          "workId": { "$ref": "#/$defs/slugId" },
+          "genreId": { "$ref": "#/$defs/slugId" },
+          "movement": { "$ref": "#/$defs/textOrNull" },
+          "tags": { "type": "array", "items": { "$ref": "#/$defs/text" } },
+          "audioUrl": { "type": "string", "pattern": "^https://classical-sound\\.up\\.seesaa\\.net/[^?#]+\\.mp3$" },
+          "fileName": { "type": "string", "pattern": "\\.mp3$" },
           "articleUrl": { "type": "string", "pattern": "^https://classical-sound\\.seesaa\\.net/article/[0-9]+\\.html$" },
-          "publishedAt": { "type": ["string", "null"], "format": "date-time" },
-          "durationSec": { "type": ["number", "null"] }
+          "publishedAt": { "oneOf": [{ "$ref": "#/$defs/dateTime" }, { "type": "null" }] },
+          "durationSec": { "type": ["number", "null"], "exclusiveMinimum": 0, "description": "将来拡張。現状は常に null" }
         }
       }
+    }
+  },
+  "$defs": {
+    "text": { "type": "string", "minLength": 1 },
+    "textOrNull": { "type": ["string", "null"], "minLength": 1 },
+    "slugId": { "type": "string", "pattern": "^[^\\s]+$" },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$"
     }
   }
 }

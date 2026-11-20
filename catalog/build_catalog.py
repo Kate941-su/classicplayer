@@ -409,6 +409,7 @@ def build(pages, category_listing, category_names, exclude: list[str]):
                 "fileName": fname,
                 "articleUrl": art.url,
                 "publishedAt": art.published,
+                "durationSec": None,  # 将来拡張（SPEC §3.2）。キーは常に出力する
             })
             genres[gid]["trackCount"] += 1
             composers[cid]["trackCount"] += 1
