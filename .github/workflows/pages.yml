@@ -1,0 +1,52 @@
+# site/（プライバシーポリシー・サポート）を変えたときに Pages を更新する。
+# カタログは巡回せず、公開中の v1/*.json をそのまま載せ直す。
+name: pages
+
+on:
+  push:
+    branches: [main]
+    paths: ["site/**", "schema/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  PAGES_BASE: https://kate941-su.github.io/classicplayer
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 公開するファイルをまとめる
+        run: |
+          mkdir -p _site
+          cp -R site/. _site/
+          mkdir -p _site/v1
+          for f in catalog.json manifest.json; do
+            curl -fsSL "$PAGES_BASE/v1/$f" -o "_site/v1/$f" || { echo "公開中の $f はまだない"; rm -f "_site/v1/$f"; }
+          done
+          cp schema/catalog.schema.json schema/manifest.schema.json _site/v1/
+          find _site -name .gitkeep -delete
+          find _site -type f | sort
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

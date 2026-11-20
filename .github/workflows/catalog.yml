@@ -1,0 +1,166 @@
+# カタログの月次更新（PLAN 0.7、SPEC §3.1）
+# 巡回 → 検証 → manifest 作成 → site/ と合わせて GitHub Pages へデプロイ。
+# 検証に失敗したら（曲数が 10% 以上減った場合を含む）公開せずに Issue を作る。
+name: catalog
+
+on:
+  schedule:
+    - cron: "17 3 1 * *"   # 毎月 1 日 03:17 UTC
+  workflow_dispatch:
+    inputs:
+      max_pages:
+        description: "取得ページ数の上限（お試し用。空なら全体）"
+        required: false
+        default: ""
+      max_ratio:
+        description: "「その他」「作曲者不明」の比率の上限"
+        required: false
+        default: "0.05"
+      publish:
+        description: "検証に通ったら Pages に公開する"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  PAGES_BASE: https://kate941-su.github.io/classicplayer
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    permissions:
+      contents: read
+      issues: write
+    outputs:
+      publish: ${{ steps.decide.outputs.publish }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r catalog/requirements-dev.txt
+
+      # HTML キャッシュ（CMSL のページ）は公開アーティファクトにせず、Actions のキャッシュに置く。
+      # キーは毎回新しくし、restore-keys で直近のものを使う（cache-keepalive.yml が 7 日ごとに読んで消えないようにする）
+      - name: HTML キャッシュを復元
+        uses: actions/cache/restore@v4
+        with:
+          path: catalog/cache
+          key: cmsl-html-${{ github.run_id }}
+          restore-keys: cmsl-html-
+
+      - name: 公開中の manifest を取得（曲数の減少の検査用。初回はない）
+        run: |
+          mkdir -p prev
+          curl -fsSL "$PAGES_BASE/v1/manifest.json" -o prev/manifest.json || rm -f prev/manifest.json
+          ls prev
+
+      - name: 巡回（差分。間隔 1.5 秒）
+        timeout-minutes: 320
+        working-directory: catalog
+        env:
+          MAX_PAGES: ${{ inputs.max_pages }}
+        run: |
+          mkdir -p ../out
+          args=(--cache cache --refresh-index --delay 1.5 -o ../out/catalog.json)
+          if [ -n "$MAX_PAGES" ]; then args+=(--max-pages "$MAX_PAGES"); fi
+          python build_catalog.py "${args[@]}"
+
+      - name: HTML キャッシュを保存（途中で止まっても進んだ分を残す）
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: catalog/cache
+          key: cmsl-html-${{ github.run_id }}
+
+      - name: カタログとレポートをアーティファクトに保存
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-output
+          path: |
+            out/catalog.json
+            out/catalog.report.json
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: 検証
+        id: validate
+        env:
+          MAX_RATIO: ${{ inputs.max_ratio || '0.05' }}
+        run: |
+          python catalog/validate_catalog.py out/catalog.json \
+            --previous-manifest prev/manifest.json \
+            --max-ratio "$MAX_RATIO" 2>&1 | tee out/validate.log
+          exit "${PIPESTATUS[0]}"
+
+      - name: 検証に失敗したら Issue を作る
+        if: failure() && steps.validate.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "カタログの検証に失敗したため、公開を止めました（公開中のカタログはそのまま）。"
+            echo
+            echo "- 実行: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo "- レポート: 実行ページのアーティファクト \`catalog-output\`"
+            echo
+            echo '```'
+            tail -n 50 out/validate.log
+            echo '```'
+            echo
+            echo "曲数が大きく減っている場合は、CMSL のサイト構造の変化を疑ってください（PLAN「リスクと対策」）。"
+          } > issue.md
+          gh issue create --title "カタログ更新の停止: 検証エラー（$(date -u +%Y-%m-%d)）" --body-file issue.md
+
+      - name: manifest を作る
+        run: python catalog/make_manifest.py out/catalog.json -o out/manifest.json --previous prev/manifest.json
+
+      - name: 公開するファイルをまとめる
+        run: |
+          mkdir -p _site
+          cp -R site/. _site/
+          mkdir -p _site/v1
+          cp out/catalog.json out/manifest.json _site/v1/
+          cp schema/catalog.schema.json schema/manifest.schema.json _site/v1/
+          find _site -name .gitkeep -delete
+          find _site -type f | sort | head -50
+
+      - id: decide
+        env:
+          EVENT: ${{ github.event_name }}
+          PUBLISH: ${{ inputs.publish }}
+          MAX_PAGES: ${{ inputs.max_pages }}
+        run: |
+          # 手動実行で publish=false のとき、または --max-pages のお試しでは公開しない
+          if [ "$EVENT" = "workflow_dispatch" ] && { [ "$PUBLISH" != "true" ] || [ -n "$MAX_PAGES" ]; }; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.decide.outputs.publish == 'true'
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
