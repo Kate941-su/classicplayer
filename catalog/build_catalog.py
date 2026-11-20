@@ -9,6 +9,7 @@ https://classical-sound.seesaa.net/ を巡回し、ダウンロード可能な m
     python3 build_catalog.py                 # 全体を巡回して catalog.json を出力
     python3 build_catalog.py --max-pages 50  # お試し（50ページで打ち切り）
     python3 build_catalog.py --offline       # キャッシュ済みHTMLだけで作り直す
+    python3 build_catalog.py --refresh-index # 差分巡回（一覧ページだけ取り直し、新しい記事だけ取得）
 
 依存ライブラリなし（Python 3.9+ 標準ライブラリのみ）。
 取得したHTMLは cache/ に保存されるので、2回目以降はサーバーにアクセスしません。
@@ -117,55 +118,98 @@ def normalize(url: str, base: str) -> str | None:
 
 
 # ---------------------------------------------------------------- 取得
+MIN_DELAY = 1.0  # 巡回の間隔の下限（秒）。CLAUDE.md の原則
+
+
+def is_listing(url: str) -> bool:
+    """記事以外（トップ・一覧・カテゴリ・アーカイブ）のページか。"""
+    return not ARTICLE_RE.match(urllib.parse.urlsplit(url).path)
+
+
 class Fetcher:
-    def __init__(self, cache_dir: Path, delay: float, offline: bool):
+    """HTML を取得してキャッシュする。
+
+    - キャッシュにあるページは通信しない
+    - refresh_index=True のときは、一覧ページ（記事以外）だけキャッシュを無視して取り直す。
+      記事ページはキャッシュを使うので、2 回目以降の巡回は「一覧ページ + 新しい記事」だけになる
+    - transport / sleep / robots はテスト用に差し替えられる
+    """
+
+    def __init__(self, cache_dir: Path, delay: float, offline: bool, refresh_index: bool = False,
+                 transport=None, sleep=time.sleep, robots="auto"):
+        if delay < MIN_DELAY:
+            raise ValueError(f"--delay は {MIN_DELAY} 秒以上にしてください（指定: {delay}）")
         self.cache_dir = cache_dir
         self.delay = delay
         self.offline = offline
+        self.refresh_index = refresh_index
+        self.transport = transport or self._urlopen
+        self.sleep = sleep
+        self.fetched: list[str] = []  # 実際に通信した URL（テストと集計用）
         self._last = 0.0
         cache_dir.mkdir(parents=True, exist_ok=True)
-        self.robots = urllib.robotparser.RobotFileParser()
-        if not offline:
+        self.robots = None
+        if robots == "auto" and not offline:
             try:
-                self.robots.set_url(urllib.parse.urljoin(BASE, "/robots.txt"))
-                self.robots.read()
+                rp = urllib.robotparser.RobotFileParser()
+                rp.set_url(urllib.parse.urljoin(BASE, "/robots.txt"))
+                rp.read()
+                self.robots = rp
             except Exception:
                 self.robots = None  # 読めない場合は制限なしとして扱う
+        elif robots not in ("auto", None):
+            self.robots = robots
 
     def _path(self, url: str) -> Path:
         return self.cache_dir / (hashlib.sha1(url.encode()).hexdigest() + ".html")
 
+    @staticmethod
+    def _urlopen(url: str) -> tuple[int, bytes | None, str]:
+        """(HTTP ステータス, 本文, 文字コード)。通信エラーは例外。"""
+        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return r.status, r.read(), r.headers.get_content_charset() or "utf-8"
+        except urllib.error.HTTPError as e:
+            return e.code, None, "utf-8"
+
     def get(self, url: str) -> str | None:
         p = self._path(url)
-        if p.exists():
+        use_cache = p.exists() and not (self.refresh_index and is_listing(url) and not self.offline)
+        if use_cache:
             return p.read_text(encoding="utf-8", errors="replace")
+        gone = p.with_suffix(".404")
+        if gone.exists() and not is_listing(url):
+            return None  # 前回 404 だった記事は取り直さない
         if self.offline:
             return None
         if self.robots and not self.robots.can_fetch(USER_AGENT, url):
             print(f"  robots.txt により除外: {url}", file=sys.stderr)
             return None
-        wait = self.delay - (time.time() - self._last)
-        if wait > 0:
-            time.sleep(wait)
-        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-        raw = None
+        raw, charset = None, "utf-8"
         for attempt in range(3):
+            wait = self.delay - (time.time() - self._last)
+            if wait > 0:
+                self.sleep(wait)
             try:
-                with urllib.request.urlopen(req, timeout=30) as r:
-                    raw = r.read()
-                    charset = r.headers.get_content_charset() or "utf-8"
-                break
-            except urllib.error.HTTPError as e:
-                if e.code == 404:
-                    self._last = time.time()
-                    return None
-                time.sleep(5 * (attempt + 1))
+                status, body, charset = self.transport(url)
             except Exception:
-                time.sleep(5 * (attempt + 1))
-        self._last = time.time()
+                status, body = None, None
+            self._last = time.time()
+            if status == 404:
+                self.fetched.append(url)
+                if not is_listing(url):
+                    gone.touch()
+                return None
+            if status == 200 and body is not None:
+                raw = body
+                break
+            self.sleep(5 * (attempt + 1))
+        self.fetched.append(url)
         if raw is None:
             print(f"  取得失敗: {url}", file=sys.stderr)
-            return None
+            # 取り直しに失敗した一覧ページは、古いキャッシュがあればそれを使う
+            return p.read_text(encoding="utf-8", errors="replace") if p.exists() else None
         html = raw.decode(charset, errors="replace")
         p.write_text(html, encoding="utf-8")
         return html
@@ -562,13 +606,17 @@ def main(argv=None):
     ap.add_argument("--delay", type=float, default=1.5, help="リクエスト間隔(秒)。サーバー負荷軽減のため1秒以上推奨")
     ap.add_argument("--max-pages", type=int, default=None, help="取得ページ数の上限（お試し用）")
     ap.add_argument("--offline", action="store_true", help="キャッシュのみで作成（通信しない）")
+    ap.add_argument("--refresh-index", action="store_true",
+                    help="一覧ページ（トップ・カテゴリ・アーカイブ）だけ取り直す。記事はキャッシュを使う（差分巡回）")
     ap.add_argument("--exclude-category", action="append", default=[], help="除外するカテゴリ名（部分一致）")
     ap.add_argument("--genre-map", default=str(HERE / "genre_map.json"), help="カテゴリ → 表示ジャンルの対応表")
     ap.add_argument("--overrides", default=str(HERE / "overrides.json"), help="手動補正ファイル")
     ap.add_argument("-q", "--quiet", action="store_true")
     args = ap.parse_args(argv)
 
-    fetcher = Fetcher(Path(args.cache), args.delay, args.offline)
+    if args.delay < MIN_DELAY:
+        ap.error(f"--delay は {MIN_DELAY} 秒以上にしてください")
+    fetcher = Fetcher(Path(args.cache), args.delay, args.offline, args.refresh_index)
     print("巡回を開始します…", file=sys.stderr)
     pages, listing, names = crawl(fetcher, args.max_pages, not args.quiet)
     genre_map = GenreMap(load_json(Path(args.genre_map), {}))
@@ -580,7 +628,7 @@ def main(argv=None):
         json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
 
     print(f"\n完了: {args.output}", file=sys.stderr)
-    print(f"  取得ページ   {len(pages)}", file=sys.stderr)
+    print(f"  取得ページ   {len(pages)}（うち通信 {len(fetcher.fetched)}）", file=sys.stderr)
     print(f"  曲           {len(catalog['tracks'])}", file=sys.stderr)
     print(f"  ジャンル     {len(catalog['genres'])}", file=sys.stderr)
     print(f"  作曲家       {len(catalog['composers'])}", file=sys.stderr)
