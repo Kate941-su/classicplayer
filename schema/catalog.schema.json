@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/cmsl/catalog.schema.json",
+  "title": "CMSL Classical Catalog",
+  "type": "object",
+  "required": ["schemaVersion", "generatedAt", "source", "license", "genres", "composers", "works", "tracks"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "source": { "type": "string", "format": "uri" },
+    "license": {
+      "type": "object",
+      "required": ["name", "credit", "url"],
+      "properties": {
+        "name": { "type": "string" },
+        "credit": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "notes": { "type": "string" }
+      }
+    },
+    "genres": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "trackCount"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string" },
+          "nameEn": { "type": ["string", "null"] },
+          "order": { "type": "integer" },
+          "trackCount": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "composers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "trackCount"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string" },
+          "nameEn": { "type": ["string", "null"] },
+          "trackCount": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "works": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "composerId", "genreId"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "title": { "type": "string" },
+          "composerId": { "type": "string" },
+          "genreId": { "type": "string" }
+        }
+      }
+    },
+    "tracks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "composerId", "workId", "genreId", "audioUrl", "articleUrl"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[0-9]+(-[0-9]+)?$" },
+          "title": { "type": "string" },
+          "titleEn": { "type": ["string", "null"] },
+          "composerId": { "type": "string" },
+          "workId": { "type": "string" },
+          "genreId": { "type": "string" },
+          "movement": { "type": ["string", "null"] },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "audioUrl": { "type": "string", "pattern": "^https://classical-sound\\.up\\.seesaa\\.net/.+\\.mp3$" },
+          "fileName": { "type": "string" },
+          "articleUrl": { "type": "string", "pattern": "^https://classical-sound\\.seesaa\\.net/article/[0-9]+\\.html$" },
+          "publishedAt": { "type": ["string", "null"], "format": "date-time" },
+          "durationSec": { "type": ["number", "null"] }
+        }
+      }
+    }
+  }
+}
