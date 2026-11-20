@@ -19,4 +19,5 @@ rootProject.name = "cmsl-classical"
 
 include(
     ":app",
+    ":core:model",
 )
