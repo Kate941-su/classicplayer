@@ -21,7 +21,7 @@ jobs:
       - run: pip install -r catalog/requirements-dev.txt
       - run: python -m pytest -q catalog
       # build_catalog.py は標準ライブラリだけで動くこと（オーナーが素の Python で実行するため）
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.9"
-      - run: python catalog/tests/test_build_catalog.py > /dev/null
+      - name: 依存なしの venv で実行
+        run: |
+          python -m venv "$RUNNER_TEMP/bare"
+          "$RUNNER_TEMP/bare/bin/python" catalog/tests/test_build_catalog.py > /dev/null
