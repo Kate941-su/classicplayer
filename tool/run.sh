@@ -61,7 +61,7 @@ need_android() {
     done
   fi
   [[ -x "${JAVA_HOME:-}/bin/java" ]] || die "JDK 17 以上が見つかりません。brew install openjdk@21 するか、JAVA_HOME を設定してください"
-  [[ -x "$ADB" ]] || die "adb が見つかりません（$ADB）。Android SDK の platform-tools を入れるか、ANDROID_HOME を設定してください"
+  [[ -x "$ADB" ]] || die "adb が見つかりません（${ADB}）。Android SDK の platform-tools を入れるか、ANDROID_HOME を設定してください"
   [[ -f "$ROOT/android/local.properties" ]] || echo "sdk.dir=$SDK" > "$ROOT/android/local.properties"
 }
 
@@ -76,7 +76,7 @@ if [[ "$LIST" == true ]]; then
     info "Android: 接続中のデバイス"; "$ADB" devices -l | tail -n +2
     [[ -x "$EMULATOR" ]] && { info "Android: エミュレーター（AVD）"; "$EMULATOR" -list-avds; }
   else
-    warn "Android SDK が見つかりません（$SDK）"
+    warn "Android SDK が見つかりません（${SDK}）"
   fi
   if command -v xcrun > /dev/null; then
     info "iOS: シミュレーター"; xcrun simctl list devices available | grep -E "iPhone|iPad" || true
@@ -89,11 +89,12 @@ fi
 android_serials() { "$ADB" devices | awk 'NR>1 && $2=="device" {print $1}'; }
 
 start_emulator() {
-  [[ -x "$EMULATOR" ]] || die "emulator が見つかりません（$EMULATOR）。Android SDK の emulator を入れてください"
+  [[ -x "$EMULATOR" ]] || die "emulator が見つかりません（${EMULATOR}）。Android SDK の emulator を入れてください"
   local avd="${CMSL_AVD:-$("$EMULATOR" -list-avds | head -1)}"
   [[ -n "$avd" ]] || die "AVD がありません。Android Studio の Device Manager で作成してください"
   info "エミュレーターを起動します: $avd"
-  "$EMULATOR" -avd "$avd" -netdelay none -netspeed full > /dev/null 2>&1 &
+  # スナップショットは保存しない（RAM の内容を数 GB 書き出すため。ディスクの空きが少ない環境で埋まる）
+  "$EMULATOR" -avd "$avd" -no-snapshot-save -netdelay none -netspeed full > /dev/null 2>&1 &
   "$ADB" wait-for-device
   for _ in $(seq 1 90); do
     [[ "$("$ADB" shell getprop sys.boot_completed 2> /dev/null | tr -d '\r')" == "1" ]] && break
@@ -137,7 +138,7 @@ run_android() {
     "$ADB" -s "$SERIAL" shell pm clear "$APP_ID" > /dev/null
   fi
   "$ADB" -s "$SERIAL" shell am start -n "$ACTIVITY" > /dev/null
-  ok "起動しました（$SERIAL）"
+  ok "起動しました（${SERIAL}）"
   if [[ "$LOGS" == true ]]; then
     sleep 1
     local pid; pid="$("$ADB" -s "$SERIAL" shell pidof -s "$APP_ID" | tr -d '\r')"
@@ -169,7 +170,7 @@ run_ios() {
   local derived="$ROOT/ios/build/run"
   local sdk="iphonesimulator" dest="id=$udid" config_dir="Debug-iphonesimulator"
   [[ "$physical" == true ]] && { sdk="iphoneos"; config_dir="Debug-iphoneos"; }
-  info "ビルドします（$sdk）"
+  info "ビルドします（${sdk}）"
   xcodebuild -project "$IOS_PROJECT" -scheme "$IOS_SCHEME" -configuration Debug -sdk "$sdk" \
     -destination "$dest" -derivedDataPath "$derived" ${EXTRA[@]+"${EXTRA[@]}"} build -quiet || die "ビルドに失敗しました"
   local app; app="$(find "$derived/Build/Products/$config_dir" -maxdepth 1 -name '*.app' | head -1)"
@@ -185,7 +186,7 @@ run_ios() {
     xcrun simctl install "$udid" "$app"
     xcrun simctl launch "$udid" "$bundle" > /dev/null
   fi
-  ok "起動しました（$udid）"
+  ok "起動しました（${udid}）"
 }
 
 case "$PLATFORM" in
