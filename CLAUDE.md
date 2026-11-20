@@ -18,7 +18,8 @@ docs/       SPEC.md, PLAN.md, search-normalization.md, screens/
 ```
 
 ## コマンド
-- カタログ: `cd catalog && python3 -m pytest` / `python3 build_catalog.py --max-pages 30`
+- カタログ（テスト）: `cd catalog && uv run --python 3.12 --with-requirements requirements-dev.txt python -m pytest`（CI と同じ。`build_catalog.py` 自体は標準ライブラリだけで、素の `python3` でも動く）
+- カタログ（巡回。オーナーの手元か CI だけで実行）: `cd catalog && python3 build_catalog.py --max-pages 30`
 - Android: `cd android && ./gradlew assembleDebug test lint`
 - iOS（macOS のみ）: `cd ios && xcodebuild -scheme CMSLClassical -destination 'platform=iOS Simulator,name=iPhone 16' test`
 
@@ -37,6 +38,17 @@ docs/       SPEC.md, PLAN.md, search-normalization.md, screens/
 - iOS をビルドできない環境では、コードを書いた上で「未ビルド」と明記し、CI（`ios.yml`）の結果で確認する。
 - 実機・エミュレーターでしか確認できない項目（ロック画面の操作、割り込み処理など）は、`docs/manual-qa.md` のチェックリストに追記する。
 - 分からない仕様は推測で埋めずに、SPEC に「TODO(owner)」として記録し、オーナーに確認する。
+
+## Claude Code 用の設定（`.claude/`）
+- `skills/plan-task` — PLAN のタスクを 1 つ進める（ブランチ → 実装 → DoD → PR）。`/plan-task 0.3` のように使う
+- `skills/schema-change` — スキーマ変更時に同じ PR で更新するもののチェックリスト
+- `skills/catalog-tune` — `catalog.report.json` をもとに解析ルール・`genre_map.json`・`overrides.json` を調整する（PLAN 0.6）
+- `rules/catalog.md` / `rules/android.md` / `rules/ios.md` — 各ディレクトリを触るときだけ読み込まれる約束
+- PR は `.github/pull_request_template.md` の項目を埋める
+
+## 環境メモ
+- リポジトリは**公開**（GitHub）。許諾メールなど `docs/permissions/` は `.gitignore` 済みでコミットしない
+- 開発機は macOS（Xcode あり）なので iOS もローカルでビルドできる。Android は JDK 17+ が必要（未導入なら Phase 1 の前に入れる）
 
 ## コードスタイル
 - Kotlin: ktlint の標準ルール。Compose は、状態を持たない Composable と ViewModel(StateFlow) に分ける。
