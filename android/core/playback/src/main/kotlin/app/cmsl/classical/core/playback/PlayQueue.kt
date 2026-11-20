@@ -37,7 +37,9 @@ class ErrorSkipPolicy(private val maxConsecutiveErrors: Int = 3) {
 
     fun onError(hasNext: Boolean): Decision {
         consecutive++
-        return if (hasNext && consecutive < maxConsecutiveErrors) Decision.Skip else Decision.Stop.also { consecutive = 0 }
+        if (hasNext && consecutive < maxConsecutiveErrors) return Decision.Skip
+        consecutive = 0
+        return Decision.Stop
     }
 
     /** 再生の準備ができたら数え直す。 */
