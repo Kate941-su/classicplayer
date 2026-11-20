@@ -11,6 +11,9 @@ complexity:
   TooManyFunctions:
     ignoreOverridden: true
     ignorePrivate: true
+    # PlayerController など、操作の窓口になるインターフェースはまとまっている方が読みやすい
+    thresholdInInterfaces: 15
+    thresholdInClasses: 15
 
 naming:
   FunctionNaming:
