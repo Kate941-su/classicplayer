@@ -10,6 +10,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import app.cmsl.classical.core.artwork.ArtworkProvider
@@ -21,11 +22,17 @@ val LocalArtwork = staticCompositionLocalOf { ArtworkProvider() }
 fun Artwork(composerId: String, genreId: String, modifier: Modifier = Modifier, cornerRadius: Int = 8) {
     val provider = LocalArtwork.current
     BoxWithConstraints(modifier.clip(RoundedCornerShape(cornerRadius.dp))) {
-        val px = with(LocalDensity.current) { maxWidth.roundToPx() }.coerceAtLeast(1)
+        val px = with(LocalDensity.current) { maxOf(maxWidth, maxHeight).roundToPx() }.coerceAtLeast(1)
         // 小さい画像はサイズをそろえてキャッシュを効かせる
         val size = if (px <= SMALL) SMALL else px
         val bitmap = remember(composerId, genreId, size) { provider.bitmap(composerId, genreId, size).asImageBitmap() }
-        Image(bitmap = bitmap, contentDescription = null, modifier = Modifier.fillMaxSize())
+        // 正方形の絵を、横長・縦長の枠には切り抜いて敷き詰める
+        Image(
+            bitmap = bitmap,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }
 

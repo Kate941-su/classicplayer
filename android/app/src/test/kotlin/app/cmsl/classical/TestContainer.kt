@@ -18,7 +18,7 @@ import okhttp3.OkHttpClient
 import java.io.File
 
 /** 共有フィクスチャをシードにした、通信しないコンテナ。 */
-fun testContainer(context: Context, dir: File, player: FakePlayerController): AppContainer {
+fun testContainer(context: Context, dir: File, player: FakePlayerController, english: Boolean = true): AppContainer {
     val fixtures = File(requireNotNull(System.getProperty("fixturesDir")))
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     val prefs = PreferenceDataStoreFactory.create(scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)) {
@@ -37,7 +37,7 @@ fun testContainer(context: Context, dir: File, player: FakePlayerController): Ap
         artwork = ArtworkProvider(),
         scope = scope,
         playerFactory = { player },
-        english = { true },
+        english = { english },
     )
     runBlocking { container.catalogRepository.load() }
     return container
