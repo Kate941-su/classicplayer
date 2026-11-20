@@ -1,0 +1,52 @@
+# --- OS / エディタ
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# --- Python（catalog/）
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+catalog/cache/
+catalog/catalog.json
+catalog/catalog.report.json
+
+# --- Android
+android/.gradle/
+android/build/
+android/**/build/
+android/local.properties
+android/captures/
+*.apk
+*.aab
+
+# --- iOS / Xcode
+ios/build/
+ios/DerivedData/
+**/xcuserdata/
+*.xcuserstate
+*.ipa
+*.dSYM.zip
+
+# --- 秘密情報（明示的に列挙する）
+*.jks
+*.JKS
+*.keystore
+*.KEYSTORE
+*.p12
+*.P12
+*.p8
+*.P8
+*.mobileprovision
+keystore.properties
+key.properties
+.env
+.env.*
+google-services.json
+GoogleService-Info.plist
+*service-account*.json
+
+# --- 許諾メール（公開リポジトリのためコミットしない。PLAN 0.10）
+docs/permissions/
