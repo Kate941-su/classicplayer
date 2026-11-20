@@ -1,8 +1,8 @@
 name: catalog-test
 
 on:
+  # main の必須チェックなので、パスで絞らずすべての PR で実行する（数秒で終わる）
   pull_request:
-    paths: ["catalog/**", "schema/**", "fixtures/**", ".github/workflows/catalog-test.yml"]
   push:
     branches: [main]
     paths: ["catalog/**", "schema/**", "fixtures/**"]
