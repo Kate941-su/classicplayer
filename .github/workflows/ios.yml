@@ -36,9 +36,18 @@ jobs:
             "https://github.com/yonaskolb/XcodeGen/releases/download/$XCODEGEN_VERSION/xcodegen.zip"
           unzip -q "$RUNNER_TEMP/xcodegen.zip" -d "$RUNNER_TEMP/xcodegen"
           "$RUNNER_TEMP/xcodegen/xcodegen/bin/xcodegen" --version
+          cp CMSLClassical.xcodeproj/project.pbxproj "$RUNNER_TEMP/committed.pbxproj"
           "$RUNNER_TEMP/xcodegen/xcodegen/bin/xcodegen" --quiet
-          git diff --exit-code -- CMSLClassical.xcodeproj || {
+          # プロジェクトの外（../fixtures）を指す項目は、ID とグループ名がチェックアウトした場所（フォルダ名）で変わるので、
+          # ID・コメント・name を除いて比べる（パスや設定の違いは検出できる）
+          strip_ids() { sed -E -e 's/[0-9A-F]{24}//g' -e 's#/\*[^*]*\*/##g' -e '/^[[:space:]]*name = [^;]*;$/d' "$1" | sort; }
+          diff <(strip_ids "$RUNNER_TEMP/committed.pbxproj") <(strip_ids CMSLClassical.xcodeproj/project.pbxproj) || {
             echo "::error::CMSLClassical.xcodeproj が project.yml と違います。cd ios && xcodegen（$XCODEGEN_VERSION）を実行してコミットしてください"
+            exit 1
+          }
+          git diff --quiet -- CMSLClassical.xcodeproj/xcshareddata || {
+            git diff -- CMSLClassical.xcodeproj/xcshareddata
+            echo "::error::スキームが project.yml と違います。cd ios && xcodegen を実行してコミットしてください"
             exit 1
           }
       - name: 依存ライブラリがないこと（SPEC §8.1。追加するときはここを見直す）
