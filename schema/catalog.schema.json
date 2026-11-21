@@ -2,12 +2,12 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://kate941-su.github.io/classicplayer/v1/catalog.schema.json",
   "title": "CMSL Classical Catalog",
-  "description": "両アプリとカタログ生成の共通の契約（SPEC §3.2）。schemaVersion 1。キーはすべて出力する（値がない場合は null）。ID の重複や参照切れはスキーマでは表現できないため validate_catalog.py で検査する。",
+  "description": "両アプリとカタログ生成の共通の契約（SPEC §3.2）。schemaVersion 2（1 から: 旧サーバーの http 音源を許可、replacedTracks を追加）。キーはすべて出力する（値がない場合は null）。ID の重複や参照切れはスキーマでは表現できないため validate_catalog.py で検査する。",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schemaVersion", "generatedAt", "source", "license", "genres", "composers", "works", "tracks"],
+  "required": ["schemaVersion", "generatedAt", "source", "license", "genres", "composers", "works", "tracks", "replacedTracks"],
   "properties": {
-    "schemaVersion": { "const": 1 },
+    "schemaVersion": { "const": 2 },
     "generatedAt": { "$ref": "#/$defs/dateTime" },
     "source": { "const": "https://classical-sound.seesaa.net/" },
     "license": {
@@ -90,13 +90,19 @@
           "genreId": { "$ref": "#/$defs/slugId" },
           "movement": { "$ref": "#/$defs/textOrNull" },
           "tags": { "type": "array", "items": { "$ref": "#/$defs/text" } },
-          "audioUrl": { "type": "string", "pattern": "^https://classical-sound\\.up\\.seesaa\\.net/[^?#]+\\.mp3$" },
+          "audioUrl": { "type": "string", "pattern": "^(https://classical-sound\\.up\\.seesaa\\.net|http://(classical-music\\.aki\\.gs|andotowa\\.sakura\\.ne\\.jp|classical-music\\.sakura\\.ne\\.jp))/[^?#]+\\.mp3$", "description": "CMSL（https）か、制作者の旧サーバー（http のみ。SPEC §1.2）" },
           "fileName": { "type": "string", "pattern": "\\.mp3$" },
           "articleUrl": { "type": "string", "pattern": "^https://classical-sound\\.seesaa\\.net/article/[0-9]+\\.html$" },
           "publishedAt": { "oneOf": [{ "$ref": "#/$defs/dateTime" }, { "type": "null" }] },
           "durationSec": { "type": ["number", "null"], "exclusiveMinimum": 0, "description": "将来拡張。現状は常に null" }
         }
       }
+    },
+    "replacedTracks": {
+      "type": "object",
+      "description": "新しい録音に置き換えてカタログから外した曲の ID → 同じ楽章の新しい録音の曲 ID（SPEC §3.2「作品と録音」）。アプリはお気に入り・履歴・キューの ID を読み替える。値は tracks にある ID（連鎖しない）",
+      "propertyNames": { "pattern": "^[0-9]+(-[0-9]+)?$" },
+      "additionalProperties": { "type": "string", "pattern": "^[0-9]+(-[0-9]+)?$" }
     }
   },
   "$defs": {

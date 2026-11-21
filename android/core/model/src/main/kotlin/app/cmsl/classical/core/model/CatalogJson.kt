@@ -3,7 +3,7 @@ package app.cmsl.classical.core.model
 import kotlinx.serialization.json.Json
 
 /** アプリが読めるカタログの schemaVersion。 */
-const val SUPPORTED_SCHEMA_VERSION = 1
+const val SUPPORTED_SCHEMA_VERSION = 2
 
 object CatalogJson {
     val json: Json = Json {

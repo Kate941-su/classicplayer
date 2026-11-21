@@ -18,11 +18,12 @@
 3. **アカウント不要**。ログイン機能なし。お気に入り等は端末内保存のみ。
 4. **音楽は全曲無料**。課金で再生や曲を制限しない。マネタイズは任意の寄付（チップ）だけ（§9）。
 5. **クレジットを必ず表示**。CMSL のクレジットを「この曲について」画面と「情報」画面に表示する。
-6. **サーバーに負担をかけない**。CMSL のサイトを、アプリから直接スクレイピングしない。カタログは事前生成した静的 JSON を配信し、アプリは mp3 の再生時だけ CMSL のサーバー（`classical-sound.up.seesaa.net`）にアクセスする。
+6. **サーバーに負担をかけない**。CMSL のサイトを、アプリから直接スクレイピングしない。カタログは事前生成した静的 JSON を配信し、アプリは mp3 の再生時だけ音源のサーバーにアクセスする。音源のサーバーは CMSL（`classical-sound.up.seesaa.net`、https）と、2011〜2012 年ごろの記事の mp3 を置いている制作者の旧サーバー 3 つ（`classical-music.aki.gs`、`andotowa.sakura.ne.jp`、`classical-music.sakura.ne.jp`）に限る。旧サーバーは https に対応していない（403 か接続不可。2026-11-21 確認）ため、**この 3 つに限り平文の http を許可する**（Android は `network_security_config.xml`、iOS は ATS の例外。ほかのホストは https のみ）。
 
 ### 1.3 音源の利用条件（CMSL サイトの記載に基づく）
 - ダウンロード用 mp3（「🎵こちら」ボタンなど `.mp3` リンク）はフリー素材。商用利用・加工が可能で、使用許諾も連絡も不要。
 - 著作権は制作者に帰属する（放棄されていない）。表示ライセンスは Creative Commons 表示 2.1 日本。
+- 制作者の旧サーバー（§1.2）に置かれた、古い記事のダウンロード用 mp3 も同じ条件で扱う（オーナーが 2026-11-21 に確認。サイトの記載でフリー素材・連絡不要）。
 - **ストリーミング専用のファイルはライセンス対象外**なので収録しない。
 - 再配布の可否は明記されていない。アプリはファイルを再ホストせず、CMSL の URL から直接再生する。
 - ストア審査に備えて、運営者から**書面（メール）で許諾を得る**（§10.2）。
@@ -46,7 +47,7 @@
            │ HTTPS GET（ETag / If-None-Match）
            ▼
 ┌────────────────┐  ┌────────────────┐
-│ iOS アプリ       │  │ Android アプリ  │  ── 再生時のみ ──▶ classical-sound.up.seesaa.net/*.mp3
+│ iOS アプリ       │  │ Android アプリ  │  ── 再生時のみ ──▶ classical-sound.up.seesaa.net/*.mp3（と旧サーバー 3 つ。§1.2）
 │ SwiftUI+AVPlayer│  │ Compose+Media3 │
 └────────────────┘  └────────────────┘
 ```
@@ -70,12 +71,12 @@
 - 安全弁: 前回より曲数が 10% 以上減ったら公開を止め、Issue を立てる（サイト構造の変化を検知するため）。
 - TODO(owner): 2026-11-21 に `catalog.yml` を手動実行したところ、GitHub Actions からは robots.txt の判定で全面禁止となり、1 ページも取得できなかった（`RobotFileParser` がそう判定するのは、401/403 が返ったときか、内容で禁止されていたとき。どちらだったかは未確認）。手元（同じ日、同じ User-Agent）では robots.txt は 200 で、トップ・記事・カテゴリは許可されている。巡回側の判定は回避しない。月次更新を、オーナーの手元で巡回して結果を公開する運用にするかどうかを決める
 
-### 3.2 スキーマ（schemaVersion 1）
+### 3.2 スキーマ（schemaVersion 2）
 正式な定義は `schema/catalog.schema.json`。要点:
 
 ```jsonc
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "generatedAt": "2026-12-01T03:00:00+00:00",
   "source": "https://classical-sound.seesaa.net/",
   "license": { "name": "...", "credit": "CMSL クラシック名曲サウンドライブラリー", "url": "...", "notes": "..." },
@@ -96,26 +97,30 @@
     "articleUrl": "https://classical-sound.seesaa.net/article/474143449.html",
     "publishedAt": "2020-03-20T18:18:00+09:00",   // null可
     "durationSec": null                             // 将来拡張。現状は null
-  }]
+  }],
+  "replacedTracks": { "427916377": "500111088-0" }  // 新しい録音に置き換えて外した曲 → 置き換え先（下の「作品と録音」）
 }
 ```
 
 **契約のルール**（`schema/catalog.schema.json` で検査する）:
 - 生成側はスキーマにあるキーを**すべて出力**する（値がないときは省略せず `null`。`tags` は空配列）。スキーマにないキーは出力しない（`additionalProperties: false`）。
 - アプリのデコーダーは**未知のキーを無視**する（任意フィールドの追加は `schemaVersion` を上げずに行えるようにするため）。
-- URL は `audioUrl` が `https://classical-sound.up.seesaa.net/〜.mp3`、`articleUrl` が `https://classical-sound.seesaa.net/article/{数字}.html` に限る。日時は RFC 3339（タイムゾーン付き）。
+- URL は `audioUrl` が `https://classical-sound.up.seesaa.net/〜.mp3` か、旧サーバー 3 つの `http://〜.mp3`（§1.2）、`articleUrl` が `https://classical-sound.seesaa.net/article/{数字}.html` に限る。日時は RFC 3339（タイムゾーン付き）。
 - ID の重複と参照切れ（`composerId` / `workId` / `genreId`）はスキーマでは表せないので、`validate_catalog.py` で検査する（PLAN 0.5）。
 
 **ID の安定性**: `track.id` はお気に入りや再生履歴のキーになるため、生成し直しても変えてはならない。記事ID（Seesaa の `/article/{id}.html`）を元にする。`composer.id` と `work.id` は slug なので、表記揺れの修正で変わることがある。アプリはこれらを永続化しない（永続化するのは `track.id` だけ）。
 
-**作品と録音**（PLAN 0.6 で決定。2026-11-21 の全件巡回をもとに）:
-- CMSL には同じ曲の別録音が多い（例: 「運命」に 2014・2015・2018・2019 AR・2020 IR・2023 の録音）。録音が混ざると「作品を通して再生」で同じ楽章が続くため、**作品は「作曲家 + 作品名 + 録音」でまとめる**。録音は「年 + 種別（AR/VR/IR）」で、記事のタグ（`[2019][AR]`）かファイル名（`…-2019-AR.mp3`）から取る。1 記事の mp3 は同じ録音として扱う（カラオケ版などで分けない）
-- 同じ作品名の録音が複数あるときだけ、作品名の末尾に録音を書き添える（例: `交響曲 第5番 ハ短調 Op.67 「運命」（2019 AR）`）。作品名の空白の有無・全角半角は同じ作品として扱う
+**作品と録音**（PLAN 0.6 で決定。2026-11-21 の全件巡回とオーナーの判断をもとに）:
+- CMSL には同じ曲の別録音が多い（例: 「運命」に 2006・2014・2015・2018・2019 AR・2020 IR・2023 の録音）。**同じ作品の別録音は、新しい録音だけを残す**（オーナーの決定、2026-11-21）。作品は「作曲家 + 作品名」でまとめ、作品名に録音は書き添えない。作品名の空白・記号・括弧の種類（「」《》『』）・全角半角の違いと、作品番号の書き方（`作品64`・`Op64`・`Op.64`、`D.821`・`D821`）の違いは同じ作品として扱う。愛称のない作品名（`交響曲第9番 ニ短調 作品125`）は、愛称を除くと同じになる愛称つきの作品名が 1 つだけあれば同じ作品にする（愛称が違う `「夏」`・`「冬」` は別の作品）。作品の ID と作品名は、最も新しい録音の曲の表記を使う。誤記（`ペアレス`・`ニュルンベルグ` など）は `overrides.json` で直す
+- 新しさは**楽章ごと**に比べる。同じ作品・同じ楽章（楽章のない曲は作品全体）に、より新しい録音の曲が別の記事にあれば、古い曲を外す。新しい録音にない楽章は古い録音のまま残す（作品の中で録音が混ざることがある）。複数の楽章を 1 ファイルにした曲（`第3-4楽章`）は、その楽章がすべて新しい録音にあるときだけ外す
+- 録音の新しさは、録音年（記事のタグ `[2019][AR]` かファイル名 `…-2019-AR.mp3`。なければ記事の公開年）→ 記事の公開日時の順で比べる。1 記事の mp3 は同じ録音として扱い、互いに置き換えない（ピアノ版と管弦楽版、カラオケ版など）
+- 外した曲は `replacedTracks`（外した曲 ID → 同じ楽章の新しい録音の曲 ID。値は必ず `tracks` にある）に載せ、`catalog.report.json` の `supersededRecordings` にも載せる。アプリはお気に入り・履歴・保存したキューの ID を読み替える（§6）。CMSL に古い記事が残っている限り、毎回の生成で同じ対応が出る
+- 作品の曲は楽章番号順に並べる（アプリも楽章番号順に表示する。§4.5）
 - **まとめ記事**（「オンライン特別プログラム」や、ファイル名の作曲家が 2 人以上いる記事）は、曲ごとにファイル名（`作曲家-作品-楽章-年-種別.mp3`）から作曲家・作品・楽章を決め、作曲家・作品名・ジャンルは通常の記事の同じ曲に合わせる。トラックのタイトルは `作曲家：作品 楽章[年][種別]` の形で作る
 - 1 記事に mp3 が複数あり、ファイル名に楽章（`1st`・`2nd`…）があれば、曲ごとの楽章にする（記事タイトルの「第1,2楽章」を分ける）
 - 同じ mp3 を再掲した記事（紹介記事・再投稿）は、最初に公開された記事の曲だけ残し、`catalog.report.json` の `duplicateAudio` に載せる
-- TODO(owner): 録音ごとに作品を分ける方針と、作品名への録音の書き添え方（`（2019 AR）`）でよいか確認する
-- TODO(owner): 2011〜2012 年ごろの記事（624 件）は、mp3 を CMSL 以外のサーバー（`classical-music.aki.gs`、`andotowa.sakura.ne.jp`、`classical-music.sakura.ne.jp`。いずれも http）に置いていて、§1.2 の原則（アプリがアクセスするのは `classical-sound.up.seesaa.net` だけ）により収録していない。含めるかどうか（含めるなら、原則の変更、http の扱い〔Android の cleartext・iOS の ATS〕、配信元の利用条件の確認が必要）を決める。2026-11-21 時点の収録は 353 曲
+- 外したくない録音（リハーサル録音が完成版を置き換える場合など）は、`overrides.json` の `exclude` で新しい方の記事を外す。2026-11-21 時点: 第九 第1楽章のリハーサル録音（記事 503525038）を外している（オーナーの指示）
+- 2026-11-21 の全件巡回: 旧サーバーの曲を含めて 739 曲 → 除外 1 曲・重複 4 曲・置き換え 214 曲を除いて **520 曲**（作曲家 118、作品 427）
 
 ### 3.3 ジャンル
 CMSL のカテゴリをそのまま使うと、名前が長いものや細かすぎるものが出る。`genre_map.json` で次の表示ジャンルにまとめる（PLAN 0.6 で、実際のカテゴリ 14 種をもとに確定）。
@@ -148,8 +153,8 @@ CMSL のカテゴリをそのまま使うと、名前が長いものや細かす
 
 ### 3.5 manifest.json
 ```json
-{ "schemaVersion": 1, "catalogVersion": "2026.12.01", "catalogUrl": "catalog.json",
-  "sha256": "…", "trackCount": 812, "generatedAt": "…", "minAppSchema": 1 }
+{ "schemaVersion": 2, "catalogVersion": "2026.12.01", "catalogUrl": "catalog.json",
+  "sha256": "…", "trackCount": 812, "generatedAt": "…", "minAppSchema": 2 }
 ```
 正式な定義は `schema/manifest.schema.json`。`sha256` は catalog.json のバイト列のハッシュ。`catalogVersion` は `generatedAt`（UTC）の日付で、中身（sha256）が前回と同じなら前回の値を引き継ぎ、同じ日に出し直すときは `YYYY.MM.DD.2` のように連番を付ける（`make_manifest.py`）。
 アプリは manifest を先に取得し、`catalogVersion` が変わったときだけ catalog を取得する。`schemaVersion` がアプリの対応範囲外なら、更新せず手持ちのカタログを使い続ける。
@@ -245,7 +250,8 @@ CMSL の音源には画像がないため、**アプリ内で生成する抽象�
 | 最近の検索 | UserDefaults | DataStore |
 | 再生キューと位置 | UserDefaults（JSON） | DataStore |
 
-カタログを更新して `track.id` が消えた場合、そのお気に入りは「この曲は現在利用できません」としてグレー表示する（削除はしない）。
+カタログを読み込むたびに、お気に入りと再生履歴の `track.id` のうち `replacedTracks` にあるものを置き換え先に書き換える（追加日・再生日時はそのまま。置き換え先がすでにあれば古い方を消す）。保存したキューは再生時に読み替える。
+カタログを更新して `track.id` が消え、`replacedTracks` にもない場合、そのお気に入りは「この曲は現在利用できません」としてグレー表示する（削除はしない）。
 
 ---
 
@@ -264,6 +270,7 @@ CMSL の音源には画像がないため、**アプリ内で生成する抽象�
 - iOS 17.0 以上、Swift 6、SwiftUI、Observation（`@Observable`）、SwiftData。
 - 再生: AVFoundation（`AVQueuePlayer`）、`MPNowPlayingInfoCenter`、`MPRemoteCommandCenter`、`AVAudioSession`（`.playback`）。
 - 課金: StoreKit 2（消耗型のチップ）。
+- 通信: 旧サーバー 3 つ（§1.2）だけ `Info.plist` の `NSAppTransportSecurity` → `NSExceptionDomains` で `NSExceptionAllowsInsecureHTTPLoads` を許可する（`NSAllowsArbitraryLoads` は使わない）。審査メモに「音源の制作者の旧サーバーが https に対応していないため」と書く。
 - 依存ライブラリ: **原則ゼロ**（Swift Package を使う場合は MIT/Apache のものだけ）。
 - テスト: XCTest または Swift Testing（カタログのデコード、検索の正規化、キュー生成、ViewModel）。UI テストは主要フローを1本。
 - **ビルドには macOS と Xcode 16 以上が必要**（Linux 環境の Claude Code では iOS のビルドとテストを実行できない）。

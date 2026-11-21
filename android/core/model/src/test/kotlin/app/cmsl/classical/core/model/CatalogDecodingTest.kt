@@ -9,7 +9,8 @@ class CatalogDecodingTest {
     @Test
     fun `サンプルフィクスチャをデコードできる`() {
         val catalog = Fixtures.sample()
-        assertEquals(1, catalog.schemaVersion)
+        assertEquals(2, catalog.schemaVersion)
+        assertTrue(catalog.replacedTracks.isNotEmpty())
         assertEquals(catalog.tracks.size, catalog.genres.sumOf { it.trackCount })
         assertTrue(catalog.license.credit.isNotBlank())
         assertTrue(catalog.tracks.all { it.audioUrl.endsWith(".mp3") })
@@ -34,7 +35,7 @@ class CatalogDecodingTest {
     @Test
     fun `未知のキーを無視する`() {
         val text = Fixtures.text("catalog.sample.json")
-            .replaceFirst("\"schemaVersion\": 1,", "\"schemaVersion\": 1, \"futureField\": {\"a\": [1, 2]},")
+            .replaceFirst("\"schemaVersion\": 2,", "\"schemaVersion\": 2, \"futureField\": {\"a\": [1, 2]},")
             .replace("\"durationSec\": null", "\"durationSec\": null, \"bpm\": 120")
         val catalog = CatalogJson.decodeCatalog(text)
         assertEquals(Fixtures.sample(), catalog)

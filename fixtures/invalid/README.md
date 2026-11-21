@@ -7,5 +7,5 @@
 | `duplicate-track-id.json` | 2 曲目の `id` を 1 曲目と同じにした | ID の重複 |
 | `dangling-work-ref.json` | 1 曲目の `workId` を存在しない作品にした | 参照切れ |
 | `foreign-audio-domain.json` | 1 曲目の `audioUrl` を CMSL 以外のドメインにした | スキーマ |
-| `schema-version-2.json` | `schemaVersion` を 2 にした | スキーマ（アプリは「対応範囲外」として扱う） |
+| `schema-version-3.json` | `schemaVersion` を 3 にした | スキーマ（アプリは「対応範囲外」として扱う） |
 | `trackcount-mismatch.json` | ジャンルの `trackCount` を実数と違う値にした | 整合性 |

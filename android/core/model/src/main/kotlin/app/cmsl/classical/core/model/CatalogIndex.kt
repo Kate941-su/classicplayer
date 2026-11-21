@@ -26,6 +26,17 @@ class CatalogIndex(val catalog: Catalog) {
 
     fun track(id: String): Track? = trackById[id]
 
+    /**
+     * 保存してある曲 ID を今のカタログの ID にする。新しい録音に置き換えた曲は置き換え先（SPEC §3.2）。
+     * カタログにない ID はそのまま返す（お気に入りでグレー表示するため）。
+     */
+    fun currentTrackId(id: String): String =
+        if (id in trackById) id else catalog.replacedTracks[id]?.takeIf { it in trackById } ?: id
+
+    /** 保存してある ID のうち、置き換えたもの（古い ID → 新しい ID）。 */
+    fun replacementsFor(ids: Collection<String>): Map<String, String> =
+        ids.filter { it !in trackById }.associateWith(::currentTrackId).filter { (old, new) -> old != new }
+
     fun tracksOfWork(workId: String): List<Track> = tracksByWork[workId].orEmpty()
 
     /** 作曲家の作品（genreId を指定するとそのジャンルの作品だけ）。 */

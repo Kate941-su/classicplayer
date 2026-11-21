@@ -21,7 +21,7 @@
     { "contains": ["協奏曲", "Concerto"], "genre": "concerto" },
     { "contains": ["交響曲", "Symphony"], "genre": "symphony" },
     { "contains": ["バロック", "Baroque"], "genre": "baroque" },
-    { "contains": ["歌劇", "オペラ", "Opera", "声楽", "歌曲", "合唱", "Vocal"], "genre": "vocal" },
+    { "contains": ["歌劇", "オペラ", "Opera", "声楽", "歌曲", "合唱", "Vocal", "宗教曲", "Religious"], "genre": "vocal" },
     { "contains": ["Piano", "ピアノ"], "genre": "piano" },
     { "contains": ["室内楽", "器楽", "Chamber"], "genre": "chamber" },
     { "contains": ["管弦楽", "序曲", "Orchestra", "バレエ", "組曲"], "genre": "orchestral" }

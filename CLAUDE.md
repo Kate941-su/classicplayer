@@ -25,15 +25,15 @@ tool/       run.sh（起動）, update-seed.sh（シード）, check-android-dep
 - Android: `cd android && ./gradlew assembleDebug test lint detekt`（JDK 17 以上。`JAVA_HOME` 未設定なら `export JAVA_HOME=/opt/homebrew/opt/openjdk@21`）。整形の自動修正は `./gradlew detekt -PdetektAutoCorrect`
 - Android の依存監査（広告・解析 SDK がないこと）: `tool/check-android-deps.sh`
 - 起動（実機・エミュレーター・シミュレーター）: `tool/run.sh`（Android 実機 → なければエミュレーター）、`tool/run.sh android|ios`、`--device <id>`、`--list`、`--fresh`（データを消す）、`--seed <catalog.json>`（同梱カタログを差し替え）、`--logs`。`--` の後ろは gradlew / xcodebuild に渡す
-- 同梱カタログ（シード）: 既定は `fixtures/catalog.sample.json`（実カタログから抜き出した 20 曲。再生もできる）。全件で試すときは `tool/update-seed.sh`（公開中のカタログ）か `tool/update-seed.sh <path>` → `android/seed/catalog.json`（コミットしない）
+- 同梱カタログ（シード）: 既定は `fixtures/catalog.sample.json`（実カタログから抜き出した 20 曲。http の旧サーバーの曲を含む。再生もできる）。全件で試すときは `tool/update-seed.sh`（公開中のカタログ）か `tool/update-seed.sh <path>` → `android/seed/catalog.json`（コミットしない）
 - フィクスチャの作り直し: `cd catalog && python3 extract_fixture.py <catalog.json>`（`fixtures/README.md`）
 - スクリーンショット: `cd android && ./gradlew :app:testDebugUnitTest --tests '*ScreenshotsTest' -Pcmsl.recordScreenshots` → `docs/screens/android/`
 - iOS（macOS のみ）: `cd ios && xcodebuild -scheme CMSLClassical -destination 'platform=iOS Simulator,name=iPhone 16' test`
 
 ## 守るべき原則（SPEC §1.2）
 - 広告・解析・クラッシュ収集の SDK を**追加しない**。依存を追加するときは、ライセンス（MIT/Apache/BSD のみ）と通信の有無を PR に書く。
-- アプリから CMSL の HTML にアクセスしない。アプリがアクセスするのは `site/v1/*` と `classical-sound.up.seesaa.net/*.mp3` だけ。
-- 永続化してよい ID は `track.id` だけ（`composer.id` と `work.id` は変わることがある）。
+- アプリから CMSL の HTML にアクセスしない。アプリがアクセスするのは `site/v1/*` と音源の mp3 だけ。音源のホストは `classical-sound.up.seesaa.net`（https）と、制作者の旧サーバー 3 つ（`classical-music.aki.gs`・`andotowa.sakura.ne.jp`・`classical-music.sakura.ne.jp`。https 非対応のため http を許可）に限る（SPEC §1.2）。ホストを変えるときは `build_catalog.py`・スキーマ・`CatalogValidator`・`network_security_config.xml`・iOS の ATS 例外・プライバシーポリシーを同じ PR で直す。
+- 永続化してよい ID は `track.id` だけ（`composer.id` と `work.id` は変わることがある）。同じ作品の別録音は新しい録音だけ残し、外した曲は `replacedTracks` でアプリが読み替える（SPEC §3.2）。
 - 再生や曲を課金で制限しない。寄付はアプリ内課金の消耗型チップだけ。外部の寄付リンクは置かない。
 - CMSL のクレジット表示を消さない。
 - ストリーミング専用の音源（`<audio>` などで埋め込まれたもの）をカタログに入れない。
