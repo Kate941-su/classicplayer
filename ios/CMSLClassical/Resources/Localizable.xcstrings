@@ -1,0 +1,20 @@
+{
+  "sourceLanguage" : "ja",
+  "strings" : {
+    "app.name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Classical Masterpieces Player" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "クラシック名曲プレイヤー" } }
+      }
+    },
+    "credit.cmsl" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Music: CMSL Classical Masterpieces Sound Library (CC BY 2.1 JP)" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "音源: CMSL クラシック名曲サウンドライブラリー（CC 表示 2.1 日本）" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}
