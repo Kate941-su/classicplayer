@@ -21,6 +21,8 @@
 | 0.8 | `site/` にプライバシーポリシーとサポートページ（日本語と英語の静的 HTML）を置く | 🐧 | Pages 上で閲覧できる |
 | 0.9 | `fixtures/catalog.sample.json`（実カタログから20曲を抽出。ジャンル3以上、作品の楽章が複数あるものを含む）と `fixtures/search_cases.json` | 🐧 | 両プラットフォームのテストから参照できる |
 | 0.10 | 👤 CMSL 運営者へ連絡する（アプリでの利用の報告、アプリ名に CMSL を使ってよいか、許諾メール、寄付の扱いの相談）。文面の下書きは Claude が用意する | 👤 | 返信を `docs/permissions/` に保存する（公開リポジトリならコミットしない） |
+| 0.11 | 作曲家の肖像画（SPEC §3.6）: `fetch_portraits.py` のテスト（`HttpGet` をフェイクにする。ライセンスの採否、P18 の順序、切り抜き）、`build_catalog.py` が `portraits.json` を読んで `composers[].portrait` を出力、スキーマ・`validate_catalog.py`（`url` の形式、画像ファイルの存在と sha256）・フィクスチャの更新（`/schema-change`。`schemaVersion` は 2 のまま）、`.gitignore` | 🐧 | pytest が通る。`portrait` のない catalog と、ある catalog の両方が検証を通る |
+| 0.12 | 👤 `--suggest-only` の候補を確認して `composer_wikidata.json` を `verified: true` にする → 画像を取得して `site/v1/portraits/` と `portraits.json` を PR でコミット | 👤🐧 | `portraits.report.json` の未対応・除外を確認済み。取得した肖像画をオーナーが目視で確認する |
 
 ---
 
@@ -38,6 +40,7 @@
 | 1.8 | 生成アートワーク（SPEC §4.10） | 同じ作曲家なら常に同じ見た目になるテスト |
 | 1.9 | 日本語と英語のリソース、ダークテーマ、アクセシビリティラベル | lint の警告なし。TalkBack の確認項目を記録する |
 | 1.10 | 依存監査: 解析・広告 SDK が入っていないことを CI で検査する（`./gradlew :app:dependencies` を grep） | CI ジョブが通る |
+| 1.11 | 肖像画の表示（SPEC §4.4・§4.8・§4.9・§4.10・§6）: 作曲家の一覧と詳細、ミニ／フルプレイヤー、MediaSession（ロック画面・通知）のアートワーク。シードの作曲家の肖像画の同梱（`tool/update-seed.sh` が `site/v1/portraits/` からシードの分を `android/seed/portraits/` に置き、両アプリのビルドが入れる）、キャッシュ（sha256）、生成アートワークへのフォールバック。情報タブの「画像のクレジット」画面と、作曲家詳細・「この曲について」のクレジット。プライバシーポリシー（`site/privacy/`）の 2-1 に肖像画の取得を書き足す | 肖像画あり・なし・取得失敗のテスト。スクリーンショットを更新する |
 
 ## Phase 2 — iOS MVP（目安 5〜7日）🍎
 
@@ -54,6 +57,7 @@
 | 2.7 | UI 一式（SPEC §4）。NavigationStack と TabView、ミニプレイヤーはタブバーの上に表示する | UI テスト1本。スクリーンショットを `docs/screens/ios/` に保存する |
 | 2.8 | アートワーク、日本語と英語（String Catalog）、Dynamic Type、VoiceOver | 確認項目を記録する |
 | 2.9 | CI: GitHub Actions `ios.yml`（macos-latest でビルドとテスト） | PR で緑になる |
+| 2.10 | 肖像画の表示（Android の 1.11 と同じ仕様） | 同じテストケース。スクリーンショットを更新する |
 
 ※ Phase 1 と Phase 2 は並行して進めてよい。どちらも Phase 0 の 0.2・0.9 だけに依存する。
 

@@ -1,4 +1,7 @@
 import AVFoundation
+import os
+
+private let log = Logger(subsystem: "app.cmsl.classical", category: "playback")
 
 /// 音を鳴らす部分（テストではフェイクに差し替える）。今の曲と、先読みする次の曲だけを持つ。
 @MainActor
@@ -44,6 +47,7 @@ final class AVQueueAudioEngine: AudioEngine {
     private var observations: [NSKeyValueObservation] = []
     private var itemObservations: [NSKeyValueObservation] = []
     private var timeObserver: Any?
+    private var playRequest = 0
 
     init() {
         player.actionAtItemEnd = .advance
@@ -95,18 +99,32 @@ final class AVQueueAudioEngine: AudioEngine {
     }
 
     func play() {
-        // 再生の前にセッションを有効にする（ほかのアプリの音を止める）
-        try? AVAudioSession.sharedInstance().setActive(true)
-        player.play()
+        playRequest += 1
+        let request = playRequest
+        Task {
+            // 再生の前にセッションを有効にする（ほかのアプリの音を止める）。時間がかかることがあるのでメインスレッドの外で
+            await Self.activateSession()
+            // 待っている間に一時停止や別の再生が入ったら、この再生はしない
+            guard request == playRequest else { return }
+            player.play()
+        }
     }
 
-    func pause() { player.pause() }
+    private nonisolated static func activateSession() async {
+        try? AVAudioSession.sharedInstance().setActive(true)
+    }
+
+    func pause() {
+        playRequest += 1
+        player.pause()
+    }
 
     func seek(to position: TimeInterval) {
         player.seek(to: CMTime(seconds: position, preferredTimescale: 600))
     }
 
     func stop() {
+        playRequest += 1
         player.pause()
         player.removeAllItems()
         currentItem = nil
@@ -149,7 +167,9 @@ final class AVQueueAudioEngine: AudioEngine {
         guard item === currentItem else { return }
         switch status {
         case .readyToPlay: delegate?.audioEngineDidBecomeReady()
-        case .failed: delegate?.audioEngineDidFail()
+        case .failed:
+            log.error("再生できない: \(item.error?.localizedDescription ?? "-", privacy: .public)")
+            delegate?.audioEngineDidFail()
         default: break
         }
     }
@@ -159,6 +179,7 @@ final class AVQueueAudioEngine: AudioEngine {
         let id = ObjectIdentifier(object)
         Task { @MainActor in
             guard let current = self.currentItem, ObjectIdentifier(current) == id else { return }
+            log.error("途中で止まった: \(current.error?.localizedDescription ?? "-", privacy: .public)")
             self.delegate?.audioEngineDidFail()
         }
     }
