@@ -60,6 +60,7 @@ cp "$out/catalog.report.json" "$CATALOG_DIR/catalog.report.json"
 info "検証します"
 "${py_dev[@]}" "$CATALOG_DIR/validate_catalog.py" "$out/catalog.json" \
   --previous-manifest "$SITE_DIR/manifest.json" \
+  --assets-dir "$SITE_DIR" \
   || die "検証に失敗しました。site/v1/ は変えていません（レポート: catalog/catalog.report.json）"
 
 # 3. 中身が前回と同じ（generatedAt だけ違う）なら出力しない

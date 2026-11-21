@@ -25,7 +25,8 @@ pytestmark = pytest.mark.skipif(not CATALOG.exists(), reason="site/v1/catalog.js
 
 
 def test_published_catalog_is_valid():
-    errors, _ = vc.validate(json.loads(CATALOG.read_text(encoding="utf-8")))
+    # 肖像画（site/v1/portraits/）のファイルと sha256 も確かめる（SPEC §3.6）
+    errors, _ = vc.validate(json.loads(CATALOG.read_text(encoding="utf-8")), assets_dir=SITE)
     assert errors == []
 
 

@@ -4,7 +4,7 @@
 
 | ファイル | 内容 |
 |---|---|
-| `catalog.sample.json` | 実カタログ（2026-11-21 の全件巡回、520 曲。schemaVersion 2）から抜き出した 20 曲（PLAN 0.9）。`schema/catalog.schema.json` と `validate_catalog.py`（比率の上限 5% を含む）を通る。音源 URL は実在するので、アプリの既定のシードとして再生もできる |
+| `catalog.sample.json` | 実カタログ（2026-11-21 の全件巡回、520 曲。schemaVersion 2）から抜き出した 20 曲（PLAN 0.9）。`schema/catalog.schema.json` と `validate_catalog.py`（比率の上限 5% を含む）を通る。音源 URL は実在するので、アプリの既定のシードとして再生もできる。作曲家の `portrait`（SPEC §3.6）は、肖像画を取得するまではすべて `null`（`extract_fixture.py` が補う） |
 | `manifest.sample.json` | `catalog.sample.json` に対する manifest（`make_manifest.py` の出力） |
 | `invalid/` | `catalog.sample.json` を 1 か所だけ壊した異常系（`invalid/README.md`） |
 | `search_cases.json` | 検索の正規化と照合のテストケース（規則は `docs/search-normalization.md`）。`queries` はこのディレクトリの `catalog.sample.json` に対して実行する |

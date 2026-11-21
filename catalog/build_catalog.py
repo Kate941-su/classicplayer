@@ -623,8 +623,22 @@ def track_title(art: Article, fname: str, info: dict, composer: str | None) -> s
 
 
 # ---------------------------------------------------------------- 組み立て
+def attach_portraits(composers: list[dict], portraits: dict[str, dict], report: dict) -> None:
+    """composers[].portrait を portraits.json（fetch_portraits.py の出力。SPEC §3.6）から埋める。ないときは null。
+
+    portraits.json は composer.id がキー。composer.id は表記の修正で変わることがあるので、カタログにない ID は
+    レポートの portraitsUnmatched に載せる（fetch_portraits.py を実行し直して対応を直す）。
+    """
+    ids = {c["id"] for c in composers}
+    for c in composers:
+        c["portrait"] = portraits.get(c["id"])
+    report["portraitsUnmatched"] = sorted(set(portraits) - ids)
+    report["composersWithoutPortrait"] = sum(1 for c in composers if c["portrait"] is None)
+
+
 def build(pages, category_listing, category_names, exclude: list[str],
-          genre_map: GenreMap | None = None, overrides: Overrides | None = None):
+          genre_map: GenreMap | None = None, overrides: Overrides | None = None,
+          portraits: dict[str, dict] | None = None):
     genre_map = genre_map or GenreMap({})
     overrides = overrides or Overrides({})
 
@@ -907,6 +921,9 @@ def build(pages, category_listing, category_names, exclude: list[str],
         "unknownComposer": round(composers.get(composer_id.get(UNKNOWN_COMPOSER, ""), {}).get("trackCount", 0) / total, 4),
     }
 
+    composer_list = sorted(composers.values(), key=lambda c: (-c["trackCount"], c["id"]))
+    attach_portraits(composer_list, portraits or {}, report)
+
     catalog = {
         "schemaVersion": SCHEMA_VERSION,
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -918,7 +935,7 @@ def build(pages, category_listing, category_names, exclude: list[str],
             "notes": "フリー素材・商用利用可・許諾不要（著作権は制作者に帰属）。ストリーミング専用音源は対象外のため除外済み。",
         },
         "genres": sorted(genres.values(), key=lambda g: (g["order"], g["id"])),
-        "composers": sorted(composers.values(), key=lambda c: (-c["trackCount"], c["id"])),
+        "composers": composer_list,
         "works": list(works.values()),
         "tracks": tracks,
         "replacedTracks": dict(sorted(replaced_tracks.items())),
@@ -938,6 +955,8 @@ def main(argv=None):
     ap.add_argument("--exclude-category", action="append", default=[], help="除外するカテゴリ名（部分一致）")
     ap.add_argument("--genre-map", default=str(HERE / "genre_map.json"), help="カテゴリ → 表示ジャンルの対応表")
     ap.add_argument("--overrides", default=str(HERE / "overrides.json"), help="手動補正ファイル")
+    ap.add_argument("--portraits", default=str(HERE / "portraits.json"),
+                    help="作曲家の肖像画のクレジット（fetch_portraits.py の出力。SPEC §3.6）。なければ portrait は null")
     ap.add_argument("-q", "--quiet", action="store_true")
     args = ap.parse_args(argv)
 
@@ -948,7 +967,9 @@ def main(argv=None):
     pages, listing, names = crawl(fetcher, args.max_pages, not args.quiet)
     genre_map = GenreMap(load_json(Path(args.genre_map), {}))
     overrides = Overrides(load_json(Path(args.overrides), {}))
-    catalog, report = build(pages, listing, names, DEFAULT_EXCLUDE + args.exclude_category, genre_map, overrides)
+    portraits = load_json(Path(args.portraits), {})
+    catalog, report = build(pages, listing, names, DEFAULT_EXCLUDE + args.exclude_category, genre_map, overrides,
+                            portraits)
 
     Path(args.output).write_text(json.dumps(catalog, ensure_ascii=False, indent=1), encoding="utf-8")
     Path(args.output).with_suffix(".report.json").write_text(
@@ -966,6 +987,8 @@ def main(argv=None):
           file=sys.stderr)
     print(f"  比率: その他 {report['ratios']['otherGenre']:.1%} / 作曲者不明 {report['ratios']['unknownComposer']:.1%}"
           f" / マップにないカテゴリ {len(report['unmappedCategories'])}", file=sys.stderr)
+    print(f"  肖像画       {len(catalog['composers']) - report['composersWithoutPortrait']}"
+          f" / 対応しない ID {len(report['portraitsUnmatched'])}", file=sys.stderr)
     print("  ジャンル内訳:", ", ".join(f"{g['name']}({g['trackCount']})" for g in catalog["genres"]), file=sys.stderr)
 
 

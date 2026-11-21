@@ -48,7 +48,11 @@
           "id": { "$ref": "#/$defs/slugId" },
           "name": { "$ref": "#/$defs/text" },
           "nameEn": { "$ref": "#/$defs/textOrNull" },
-          "trackCount": { "type": "integer", "minimum": 0 }
+          "trackCount": { "type": "integer", "minimum": 0 },
+          "portrait": {
+            "description": "作曲家の肖像画（SPEC §3.6）。ないときは null。古いカタログにはキーがないので必須にしない（生成側は常に出力する）",
+            "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/portrait" }]
+          }
         }
       }
     },
@@ -109,6 +113,29 @@
     "text": { "type": "string", "minLength": 1 },
     "textOrNull": { "type": ["string", "null"], "minLength": 1 },
     "slugId": { "type": "string", "pattern": "^[^\\s]+$" },
+    "portrait": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "url", "width", "height", "sha256", "title", "artist", "date",
+        "license", "licenseCode", "licenseUrl", "sourceUrl", "attributionRequired", "wikidata"
+      ],
+      "properties": {
+        "url": { "type": "string", "pattern": "^portraits/[^\\s/]+\\.jpg$", "description": "site/v1/ からの相対パス。portraits/{composer.id}.jpg" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "title": { "$ref": "#/$defs/textOrNull" },
+        "artist": { "$ref": "#/$defs/textOrNull" },
+        "date": { "$ref": "#/$defs/textOrNull" },
+        "license": { "$ref": "#/$defs/text" },
+        "licenseCode": { "type": "string", "pattern": "^(pd|cc0|cc-by-[0-9.]+|cc-by-sa-[0-9.]+)$", "description": "採用するのは PD / CC0 / CC BY / CC BY-SA だけ" },
+        "licenseUrl": { "type": ["string", "null"], "pattern": "^https?://" },
+        "sourceUrl": { "type": "string", "pattern": "^https://commons\\.wikimedia\\.org/" },
+        "attributionRequired": { "type": "boolean" },
+        "wikidata": { "type": "string", "pattern": "^Q[0-9]+$" }
+      }
+    },
     "dateTime": {
       "type": "string",
       "format": "date-time",
