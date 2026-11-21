@@ -1,0 +1,135 @@
+package app.cmsl.classical.di
+
+import android.content.Context
+import androidx.datastore.preferences.preferencesDataStore
+import app.cmsl.classical.BuildConfig
+import app.cmsl.classical.core.artwork.ArtworkProvider
+import app.cmsl.classical.core.data.CatalogRepository
+import app.cmsl.classical.core.data.CatalogState
+import app.cmsl.classical.core.data.RefreshResult
+import app.cmsl.classical.core.db.LibraryDatabase
+import app.cmsl.classical.core.db.QueueStore
+import app.cmsl.classical.core.db.RecentSearchStore
+import app.cmsl.classical.core.model.QueueSnapshot
+import app.cmsl.classical.core.model.displayName
+import app.cmsl.classical.core.model.shortTitle
+import app.cmsl.classical.core.playback.MediaControllerPlayer
+import app.cmsl.classical.core.playback.PlayableTrack
+import app.cmsl.classical.core.playback.PlaybackEnvironment
+import app.cmsl.classical.core.playback.PlayerController
+import app.cmsl.classical.core.search.SearchIndex
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.HttpUrl.Companion.toHttpUrl
+import okhttp3.OkHttpClient
+import java.util.Locale
+import java.util.concurrent.TimeUnit
+
+private val Context.settings by preferencesDataStore(name = "settings")
+
+/**
+ * 手動 DI（SPEC §8.2: シンプルさを優先）。アプリ全体で 1 つ。テストでは部品を差し替えて作る。
+ */
+@OptIn(ExperimentalCoroutinesApi::class)
+class AppContainer(
+    val catalogRepository: CatalogRepository,
+    val database: LibraryDatabase,
+    val recentSearches: RecentSearchStore,
+    private val queueStore: QueueStore,
+    val artwork: ArtworkProvider,
+    val scope: CoroutineScope,
+    playerFactory: (PlaybackEnvironment) -> PlayerController,
+    private val now: () -> Long = System::currentTimeMillis,
+    private val english: () -> Boolean = { Locale.getDefault().language != "ja" },
+) {
+    val catalog: StateFlow<CatalogState?> = catalogRepository.state
+
+    /** カタログが差し替わったら作り直す（重いので Default で）。 */
+    val searchIndex: StateFlow<SearchIndex?> = catalog.filterNotNull()
+        .mapLatest { SearchIndex(it.index) }
+        .flowOn(Dispatchers.Default)
+        .stateIn(scope, SharingStarted.Eagerly, null)
+
+    val favoriteIds: StateFlow<Set<String>> = database.favorites().observeIds()
+        .map { it.toSet() }
+        .stateIn(scope, SharingStarted.Eagerly, emptySet())
+
+    val playbackEnvironment: PlaybackEnvironment = object : PlaybackEnvironment {
+        override suspend fun resolve(trackIds: List<String>): List<PlayableTrack> {
+            val index = catalog.filterNotNull().first().index
+            val en = english()
+            return withContext(Dispatchers.Default) {
+                trackIds.mapNotNull { id ->
+                    val t = index.track(id) ?: return@mapNotNull null
+                    PlayableTrack(
+                        id = t.id,
+                        audioUrl = t.audioUrl,
+                        title = t.shortTitle(en),
+                        composer = index.composer(t.composerId)?.displayName(en).orEmpty(),
+                        workTitle = index.work(t.workId)?.title.orEmpty(),
+                        genre = index.genre(t.genreId)?.displayName(en).orEmpty(),
+                        artworkPng = artwork.png(t.composerId, t.genreId),
+                    )
+                }
+            }
+        }
+
+        override suspend fun loadQueue(): QueueSnapshot? = queueStore.load()
+
+        override suspend fun saveQueue(snapshot: QueueSnapshot) = queueStore.save(snapshot)
+
+        override suspend fun onTrackStarted(trackId: String) = database.history().record(trackId, now())
+    }
+
+    val player: PlayerController = playerFactory(playbackEnvironment)
+
+    fun nowMillis(): Long = now()
+
+    /** 起動時: ローカル（またはシード）を読み、裏で更新を確認する（SPEC §7）。 */
+    fun start() {
+        scope.launch {
+            catalogRepository.load()
+            catalogRepository.refresh()
+        }
+    }
+
+    suspend fun refreshCatalog(force: Boolean): RefreshResult = catalogRepository.refresh(force)
+
+    companion object {
+        private const val TIMEOUT_SECONDS = 20L
+
+        fun create(context: Context): AppContainer {
+            val app = context.applicationContext
+            val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+            val client = OkHttpClient.Builder()
+                .callTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                .build()
+            return AppContainer(
+                catalogRepository = CatalogRepository(
+                    seed = { app.assets.open("catalog.json") },
+                    dir = app.filesDir,
+                    client = client,
+                    manifestUrl = (BuildConfig.CATALOG_BASE_URL + "manifest.json").toHttpUrl(),
+                ),
+                database = LibraryDatabase.create(app),
+                recentSearches = RecentSearchStore(app.settings),
+                queueStore = QueueStore(app.settings),
+                artwork = ArtworkProvider(),
+                scope = scope,
+                playerFactory = { env -> MediaControllerPlayer(app, env) },
+            )
+        }
+    }
+}

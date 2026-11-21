@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- お気に入り・履歴・設定はバックアップしてよい（端末内のデータのみ）。カタログは取り直せるので除く -->
+<full-backup-content>
+    <exclude domain="file" path="catalog.json" />
+    <exclude domain="file" path="catalog.meta.json" />
+</full-backup-content>

@@ -3,3 +3,5 @@
 build/
 local.properties
 captures/
+# 開発用のシードカタログ（tool/update-seed.sh で取得。コミットしない）
+seed/

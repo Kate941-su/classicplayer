@@ -11,6 +11,8 @@ android {
         applicationId = "app.cmsl.classical"
         versionCode = 1
         versionName = "0.1.0"
+        // 配信先（SPEC §2）。アプリがアクセスするのはここと classical-sound.up.seesaa.net の mp3 だけ
+        buildConfigField("String", "CATALOG_BASE_URL", "\"https://kate941-su.github.io/classicplayer/v1/\"")
     }
 
     buildTypes {
@@ -28,16 +30,74 @@ android {
     lint {
         checkDependencies = true
     }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
+}
+
+/**
+ * 同梱カタログ（シード。SPEC §2・§6）を assets/catalog.json に入れる。
+ * 既定は共有フィクスチャ。`-Pcmsl.seedCatalog=<path>`（android/ からの相対パスか絶対パス）で差し替える。
+ * リリース前に公開中の実カタログへ切り替える（tool/update-seed.sh）。
+ */
+abstract class PrepareSeedCatalog : DefaultTask() {
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val source: RegularFileProperty
+
+    @get:OutputDirectory
+    abstract val outputDir: DirectoryProperty
+
+    @TaskAction
+    fun copy() {
+        val out = outputDir.get().asFile
+        out.deleteRecursively()
+        out.mkdirs()
+        source.get().asFile.copyTo(out.resolve("catalog.json"))
+    }
+}
+
+val seedCatalog: Provider<String> = providers.gradleProperty("cmsl.seedCatalog")
+    .orElse("seed/catalog.json")
+    .map { path -> rootProject.file(path).takeIf { it.exists() }?.path ?: rootProject.file("../fixtures/catalog.sample.json").path }
+
+val prepareSeedCatalog = tasks.register<PrepareSeedCatalog>("prepareSeedCatalog") {
+    source.set(layout.file(seedCatalog.map { File(it) }))
+}
+
+androidComponents {
+    onVariants { variant ->
+        variant.sources.assets?.addGeneratedSourceDirectory(prepareSeedCatalog, PrepareSeedCatalog::outputDir)
+    }
 }
 
 dependencies {
+    implementation(project(":core:model"))
+    implementation(project(":core:data"))
+    implementation(project(":core:search"))
+    implementation(project(":core:db"))
+    implementation(project(":core:playback"))
+    implementation(project(":core:artwork"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.material3)
+    implementation(libs.compose.material.icons)
     implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.lifecycle.runtime.compose)
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
     debugImplementation(libs.compose.ui.tooling)
 
     testImplementation(libs.junit4)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(platform(libs.compose.bom))
+    testImplementation(libs.compose.ui.test.junit4)
+    debugImplementation(libs.compose.ui.test.manifest)
 }
