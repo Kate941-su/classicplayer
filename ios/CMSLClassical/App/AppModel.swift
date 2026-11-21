@@ -19,6 +19,7 @@ final class AppModel {
 
     let library: LibraryStore
     let recentSearches: RecentSearchStore
+    let downloads: DownloadStore
     @ObservationIgnored let playback: PlaybackController
     @ObservationIgnored private let store: CatalogStore
     @ObservationIgnored private let queueStore: QueueStore
@@ -32,6 +33,7 @@ final class AppModel {
         library: LibraryStore,
         recentSearches: RecentSearchStore,
         queueStore: QueueStore,
+        downloads: DownloadStore,
         engine: any AudioEngine,
         english: Bool,
         refreshOnStart: Bool = true
@@ -40,10 +42,13 @@ final class AppModel {
         self.library = library
         self.recentSearches = recentSearches
         self.queueStore = queueStore
+        self.downloads = downloads
         self.english = english
         self.refreshOnStart = refreshOnStart
         playback = PlaybackController(engine: engine, environment: environmentBridge)
         environmentBridge.model = self
+        // ダウンロードが終わった・消えた曲は、次に再生するとき URL を選び直す
+        downloads.onChange = { [weak playback] id in playback?.forgetResolved(id) }
     }
 
     /// 本番の部品で作る。`uiTesting` では通信せず、保存先をまっさらにする（UI テスト用）。
@@ -72,6 +77,10 @@ final class AppModel {
             library: LibraryStore(container: container),
             recentSearches: RecentSearchStore(defaults: defaults),
             queueStore: QueueStore(suiteName: suite),
+            downloads: DownloadStore(
+                directory: directory.appendingPathComponent("Downloads", isDirectory: true),
+                downloader: URLSessionDownloader(), defaults: defaults
+            ),
             engine: AVQueueAudioEngine(),
             english: Bundle.main.preferredLocalizations.first?.hasPrefix("ja") != true,
             refreshOnStart: !uiTesting
@@ -115,6 +124,10 @@ final class AppModel {
         guard changedIndex else { return }
         // 新しい録音に置き換えた曲のお気に入り・履歴を読み替える（SPEC §6）
         library.replaceIds(state.index.replacements(for: library.allTrackIds))
+        // 置き換わった曲・消えた曲のダウンロードを消す（SPEC §5.1）。シードのときは消さない（古い同梱カタログで消さないため）
+        if state.source == .downloaded {
+            downloads.prune { state.index.track($0) != nil }
+        }
         let index = state.index
         Task.detached(priority: .userInitiated) {
             let search = SearchIndex(index)
@@ -140,7 +153,7 @@ final class AppModel {
         guard let index = await waitForIndex() else { return [] }
         return ids.compactMap { requested in
             guard let track = index.track(index.currentTrackId(requested)),
-                  let url = URL(string: track.audioUrl) else { return nil }
+                  let url = downloads.localURL(for: track.id) ?? URL(string: track.audioUrl) else { return nil }
             return PlayableTrack(
                 id: track.id,
                 requestedId: requested,

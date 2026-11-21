@@ -12,11 +12,16 @@ struct LibraryView: View {
             Picker("tab.library", selection: $tab) {
                 Text("library.favorites").tag(0)
                 Text("library.history").tag(1)
+                Text("library.downloads").tag(2)
             }
             .pickerStyle(.segmented)
             .listRowSeparator(.hidden)
             if let index = model.index {
-                if tab == 0 { favorites(index) } else { history(index) }
+                switch tab {
+                case 0: favorites(index)
+                case 1: history(index)
+                default: DownloadsSection(index: index)
+                }
             }
         }
         .listStyle(.plain)

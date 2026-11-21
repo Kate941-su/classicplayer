@@ -73,3 +73,10 @@ extension QueueSnapshot {
         return result
     }
 }
+
+/// `any RandomNumberGenerator` を `inout some RandomNumberGenerator` に渡すための入れ物。
+struct AnyRandomNumberGenerator: RandomNumberGenerator {
+    var base: any RandomNumberGenerator
+
+    mutating func next() -> UInt64 { base.next() }
+}

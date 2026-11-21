@@ -67,6 +67,7 @@ struct TrackRow: View {
                         }
                     }
                     Spacer(minLength: 0)
+                    DownloadBadge(trackId: track.id)
                     if isCurrent {
                         Image(systemName: "speaker.wave.2.fill")
                             .foregroundStyle(Color.accentColor)
@@ -123,6 +124,7 @@ struct TrackMenu: View {
             Button {
                 Task { await model.playback.addToQueue(track.id) }
             } label: { Label("action.addToQueue", systemImage: "text.append") }
+            DownloadMenuItem(track: track)
             Button {
                 showAbout = true
             } label: { Label("action.aboutTrack", systemImage: "info.circle") }
@@ -133,6 +135,53 @@ struct TrackMenu: View {
         }
         .foregroundStyle(.secondary)
         .accessibilityLabel(Text("action.more"))
+    }
+}
+
+/// ダウンロード済み・取得中の印（SPEC §5.1）。
+struct DownloadBadge: View {
+    @Environment(AppModel.self) private var model
+    let trackId: String
+
+    var body: some View {
+        let downloads = model.downloads
+        if downloads.isDownloaded(trackId) {
+            Image(systemName: "arrow.down.circle.fill")
+                .foregroundStyle(.secondary)
+                .accessibilityLabel(Text("a11y.downloaded"))
+        } else if downloads.active == trackId {
+            ProgressView(value: downloads.progress)
+                .progressViewStyle(.circular)
+                .controlSize(.small)
+                .accessibilityLabel(Text("a11y.downloading"))
+        } else if downloads.isPending(trackId) {
+            Image(systemName: "clock")
+                .foregroundStyle(.secondary)
+                .accessibilityLabel(Text("a11y.downloading"))
+        }
+    }
+}
+
+/// 曲の「…」メニューのダウンロードの項目。
+struct DownloadMenuItem: View {
+    @Environment(AppModel.self) private var model
+    let track: Track
+
+    var body: some View {
+        let downloads = model.downloads
+        if downloads.isDownloaded(track.id) {
+            Button(role: .destructive) {
+                downloads.remove(track.id)
+            } label: { Label("action.removeDownload", systemImage: "trash") }
+        } else if downloads.isPending(track.id) {
+            Button {
+                downloads.remove(track.id)
+            } label: { Label("action.cancelDownload", systemImage: "xmark.circle") }
+        } else {
+            Button {
+                downloads.enqueue([track])
+            } label: { Label("action.download", systemImage: "arrow.down.circle") }
+        }
     }
 }
 
