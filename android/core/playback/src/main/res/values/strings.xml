@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="playback_error_skipped">Couldn\'t play this track. Skipping to the next one.</string>
+    <string name="playback_error_stopped">Playback stopped because several tracks in a row couldn\'t be played.</string>
+</resources>
