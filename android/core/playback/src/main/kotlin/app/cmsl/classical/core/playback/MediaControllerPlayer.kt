@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import androidx.annotation.OptIn
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.common.util.Util
@@ -15,8 +16,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -43,13 +47,42 @@ class MediaControllerPlayer(
     private var restored = false
     private var tickJob: Job? = null
 
+    private val endOfTrack = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
+    override val stoppedAtEndOfTrack: Flow<Unit> = endOfTrack.asSharedFlow()
+
+    /** Activity が表示されている（onStart〜onStop）。 */
+    private var started = false
+
+    /** 「この曲の終わりまで」の間は、画面を消してもつないだままにする（止まったことを受け取るため）。 */
+    private var stopAtEnd = false
+
     private val listener = object : Player.Listener {
         override fun onEvents(player: Player, events: Player.Events) {
             publish()
         }
+
+        override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
+            if (reason == Player.PLAY_WHEN_READY_CHANGE_REASON_END_OF_MEDIA_ITEM && stopAtEnd) {
+                stopAtEnd = false
+                endOfTrack.tryEmit(Unit)
+                if (!started) release()
+            }
+        }
     }
 
+    /** Activity の onStart で呼ぶ。 */
     fun connect() {
+        started = true
+        open()
+    }
+
+    /** Activity の onStop で呼ぶ。 */
+    fun disconnect() {
+        started = false
+        if (!stopAtEnd) release()
+    }
+
+    private fun open() {
         if (future != null) return
         val token = SessionToken(context, ComponentName(context, PlaybackService::class.java))
         val f = MediaController.Builder(context, token).buildAsync()
@@ -65,7 +98,7 @@ class MediaControllerPlayer(
         }, ContextCompat.getMainExecutor(context))
     }
 
-    fun disconnect() {
+    private fun release() {
         tickJob?.cancel()
         controller?.removeListener(listener)
         future?.let(MediaController::releaseFuture)
@@ -75,7 +108,7 @@ class MediaControllerPlayer(
 
     private fun withController(action: (MediaController) -> Unit) {
         val c = controller
-        if (c != null) action(c) else pending.addLast(action).also { connect() }
+        if (c != null) action(c) else pending.addLast(action).also { open() }
     }
 
     private fun restoreIfEmpty(c: MediaController) {
@@ -163,6 +196,20 @@ class MediaControllerPlayer(
             c.seekToDefaultPosition(index)
             c.play()
         }
+    }
+
+    override fun pause() = withController { it.pause() }
+
+    override val volume: Float get() = controller?.volume ?: 1f
+
+    override fun setVolume(volume: Float) = withController { it.volume = volume.coerceIn(0f, 1f) }
+
+    override fun setStopAtEndOfTrack(enabled: Boolean) {
+        stopAtEnd = enabled
+        withController { c ->
+            c.sendCustomCommand(SessionCommands.STOP_AT_END_OF_TRACK, bundleOf(SessionCommands.KEY_ENABLED to enabled))
+        }
+        if (!enabled && !started) release()
     }
 
     private companion object {

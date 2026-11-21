@@ -2,6 +2,7 @@ package app.cmsl.classical.core.playback
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.OptIn
 import androidx.media3.common.AudioAttributes
@@ -16,6 +17,9 @@ import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSession.MediaItemsWithStartPosition
 import androidx.media3.session.MediaSessionService
+import androidx.media3.session.SessionCommand
+import androidx.media3.session.SessionResult
+import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -156,6 +160,11 @@ class PlaybackService : MediaSessionService() {
             }
         }
 
+        override fun onPlayWhenReadyChanged(playWhenReady: Boolean, reason: Int) {
+            // 「この曲の終わりまで」で止まった。1 回きりなので解除する（▶ で次の曲から）
+            if (reason == Player.PLAY_WHEN_READY_CHANGE_REASON_END_OF_MEDIA_ITEM) player.pauseAtEndOfMediaItems = false
+        }
+
         override fun onPlaybackStateChanged(playbackState: Int) {
             if (playbackState == Player.STATE_READY) errorPolicy.onReady()
         }
@@ -207,6 +216,30 @@ class PlaybackService : MediaSessionService() {
     }
 
     private inner class SessionCallback : MediaSession.Callback {
+        override fun onConnect(
+            session: MediaSession,
+            controller: MediaSession.ControllerInfo,
+        ): MediaSession.ConnectionResult = MediaSession.ConnectionResult.AcceptedResultBuilder(session)
+            .setAvailableSessionCommands(
+                MediaSession.ConnectionResult.DEFAULT_SESSION_COMMANDS.buildUpon()
+                    .add(SessionCommands.STOP_AT_END_OF_TRACK)
+                    .build(),
+            )
+            .build()
+
+        override fun onCustomCommand(
+            session: MediaSession,
+            controller: MediaSession.ControllerInfo,
+            customCommand: SessionCommand,
+            args: Bundle,
+        ): ListenableFuture<SessionResult> {
+            if (customCommand.customAction != SessionCommands.STOP_AT_END_OF_TRACK.customAction) {
+                return super.onCustomCommand(session, controller, customCommand, args)
+            }
+            player.pauseAtEndOfMediaItems = args.getBoolean(SessionCommands.KEY_ENABLED)
+            return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
+        }
+
         override fun onAddMediaItems(
             mediaSession: MediaSession,
             controller: MediaSession.ControllerInfo,

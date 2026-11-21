@@ -132,4 +132,13 @@
     <string name="downloads_remove_all_confirm">ダウンロードした曲をすべて削除しますか？</string>
     <string name="a11y_downloaded">ダウンロード済み</string>
     <string name="a11y_downloading">ダウンロード中</string>
+    <!-- スリープタイマー（SPEC §5.2） -->
+    <string name="sleep_title">スリープタイマー</string>
+    <string name="sleep_off">オフ</string>
+    <plurals name="sleep_minutes">
+        <item quantity="other">%d 分</item>
+    </plurals>
+    <string name="sleep_end_of_track">この曲の終わりまで</string>
+    <string name="sleep_at_end_of_track">曲の終わりで停止</string>
+    <string name="sleep_remaining">残り %1$s</string>
 </resources>

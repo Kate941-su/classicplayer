@@ -4,6 +4,7 @@ import app.cmsl.classical.core.playback.PlayQueue
 import app.cmsl.classical.core.playback.PlayerController
 import app.cmsl.classical.core.playback.PlayerState
 import app.cmsl.classical.core.playback.next
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -45,4 +46,24 @@ class FakePlayerController : PlayerController {
     override fun removeQueueItem(index: Int) = Unit
 
     override fun skipToQueueItem(index: Int) = Unit
+
+    override fun pause() {
+        _state.value = _state.value.copy(isPlaying = false)
+    }
+
+    override var volume: Float = 1f
+        private set
+
+    override fun setVolume(volume: Float) {
+        this.volume = volume
+    }
+
+    var stopAtEndOfTrack = false
+        private set
+
+    override fun setStopAtEndOfTrack(enabled: Boolean) {
+        stopAtEndOfTrack = enabled
+    }
+
+    override val stoppedAtEndOfTrack = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 }
