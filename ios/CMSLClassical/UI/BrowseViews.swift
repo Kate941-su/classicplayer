@@ -3,6 +3,7 @@ import SwiftUI
 /// ホーム（SPEC §4.2）: おまかせ再生、新着、ジャンルのグリッド。
 struct HomeView: View {
     @Environment(AppModel.self) private var model
+    @Environment(\.dynamicTypeSize) private var typeSize
 
     var body: some View {
         Group {
@@ -40,7 +41,9 @@ struct HomeView: View {
 
                 VStack(alignment: .leading, spacing: 12) {
                     Text("home.genres").font(.title3.bold()).accessibilityAddTraits(.isHeader)
-                    LazyVGrid(columns: [GridItem(.flexible(), spacing: 12), GridItem(.flexible(), spacing: 12)], spacing: 12) {
+                    // 文字が大きい設定（アクセシビリティサイズ）では 1 列にする
+                    let columns = Array(repeating: GridItem(.flexible(), spacing: 12), count: typeSize.isAccessibilitySize ? 1 : 2)
+                    LazyVGrid(columns: columns, spacing: 12) {
                         ForEach(index.genres) { genre in
                             NavigationLink(value: Route.genre(genre.id)) {
                                 GenreCard(genre: genre)
@@ -58,6 +61,8 @@ struct HomeView: View {
 
 private struct NewestCard: View {
     @Environment(AppModel.self) private var model
+    /// 文字サイズに合わせて広げる（Dynamic Type）
+    @ScaledMetric(relativeTo: .subheadline) private var width: CGFloat = 140
     let track: Track
     let index: CatalogIndex
 
@@ -69,22 +74,24 @@ private struct NewestCard: View {
         } label: {
             VStack(alignment: .leading, spacing: 6) {
                 ArtworkView(composerId: track.composerId, genreId: track.genreId)
-                    .frame(width: 140, height: 140)
+                    .frame(width: cardWidth, height: cardWidth)
                 Text(track.workTitle(english: model.english, work: index.work(track.workId)))
                     .font(.subheadline)
-                    .lineLimit(2)
+                    .lineLimit(3)
                     .multilineTextAlignment(.leading)
                 Text([composer, movement].compactMap { $0 }.filter { !$0.isEmpty }.joined(separator: " · "))
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                    .lineLimit(2)
+                    .lineLimit(3)
             }
-            .frame(width: 140, alignment: .leading)
+            .frame(width: cardWidth, alignment: .leading)
         }
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
         .accessibilityHint(Text("action.playThis"))
     }
+
+    private var cardWidth: CGFloat { min(width, 280) }
 }
 
 private struct GenreCard: View {
@@ -105,6 +112,11 @@ private struct GenreCard: View {
         .padding(12)
         .background {
             ArtworkView(composerId: genre.id, genreId: genre.id, cornerRadius: 12)
+                .overlay {
+                    // 模様の上でも文字が読めるよう、下側を暗くする（WCAG AA のコントラスト）
+                    LinearGradient(colors: [.clear, .black.opacity(0.55)], startPoint: .top, endPoint: .bottom)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
         }
         .accessibilityElement(children: .combine)
     }

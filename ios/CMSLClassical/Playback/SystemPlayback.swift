@@ -8,6 +8,8 @@ import UIKit
 final class SystemPlayback {
     private let controller: PlaybackController
     private var observers: [any NSObjectProtocol] = []
+    /// ロック画面のアートワーク（今の曲の分だけ描いて持っておく）。
+    private var artwork: (key: String, value: MPMediaItemArtwork)?
     /// 割り込みの前に再生していたか（終わったときに再開するため）。
     private var wasPlayingBeforeInterruption = false
 
@@ -107,6 +109,22 @@ final class SystemPlayback {
         if reason == .oldDeviceUnavailable { controller.pause() }
     }
 
+    private func artwork(for track: PlayableTrack) -> MPMediaItemArtwork? {
+        let key = track.composerId + "\u{1F}" + track.genreId
+        if let artwork, artwork.key == key { return artwork.value }
+        let spec = ArtworkSpec(composerId: track.composerId, genreId: track.genreId)
+        guard let png = ArtworkPainter.png(spec: spec), let image = UIImage(data: png) else { return nil }
+        let value = Self.makeArtwork(image)
+        artwork = (key, value)
+        return value
+    }
+
+    /// MediaPlayer は画像を返すクロージャを自分のキューから呼ぶので、メインアクターに隔離しない場所で作る
+    /// （MainActor の中で作ると Swift 6 の実行時チェックで落ちる）。
+    private nonisolated static func makeArtwork(_ image: UIImage) -> MPMediaItemArtwork {
+        MPMediaItemArtwork(boundsSize: image.size) { _ in image }
+    }
+
     private func updateNowPlaying() {
         let center = MPNowPlayingInfoCenter.default()
         guard let track = controller.currentTrack else {
@@ -123,9 +141,7 @@ final class SystemPlayback {
             MPNowPlayingInfoPropertyMediaType: MPNowPlayingInfoMediaType.audio.rawValue,
         ]
         if controller.duration > 0 { info[MPMediaItemPropertyPlaybackDuration] = controller.duration }
-        if let png = track.artworkPNG, let image = UIImage(data: png) {
-            info[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image.size) { _ in image }
-        }
+        if let artwork = artwork(for: track) { info[MPMediaItemPropertyArtwork] = artwork }
         center.nowPlayingInfo = info
         center.playbackState = controller.isPlaying ? .playing : .paused
     }
