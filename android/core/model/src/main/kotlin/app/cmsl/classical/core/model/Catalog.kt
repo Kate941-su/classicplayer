@@ -2,7 +2,7 @@ package app.cmsl.classical.core.model
 
 import kotlinx.serialization.Serializable
 
-/** カタログ（schemaVersion 1）。正本は `schema/catalog.schema.json`。未知のキーは無視する（SPEC §3.2）。 */
+/** カタログ（schemaVersion 2）。正本は `schema/catalog.schema.json`。未知のキーは無視する（SPEC §3.2）。 */
 @Serializable
 data class Catalog(
     val schemaVersion: Int,
@@ -13,6 +13,8 @@ data class Catalog(
     val composers: List<Composer>,
     val works: List<Work>,
     val tracks: List<Track>,
+    /** 新しい録音に置き換えて外した曲 ID → 同じ楽章の新しい録音の曲 ID（SPEC §3.2「作品と録音」）。 */
+    val replacedTracks: Map<String, String> = emptyMap(),
 )
 
 @Serializable

@@ -61,7 +61,7 @@ class AccessibilityTest {
         compose.onNodeWithText("Symphonies").performClick()
         compose.onAllNodes(hasClickAction()).assertLabeledAndLargeEnough("ジャンル")
         compose.onNodeWithText("L.V.Beethoven").performClick()
-        compose.onNodeWithText("交響曲 第5番 ハ短調 Op.67 「運命」（2015）").performClick()
+        compose.onNodeWithText("交響曲第5番 ハ短調 Op.67 「運命」").performClick()
         compose.onAllNodes(hasClickAction()).assertLabeledAndLargeEnough("作品")
 
         compose.onNodeWithText(context.getString(R.string.action_play_work)).performClick()

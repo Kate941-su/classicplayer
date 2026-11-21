@@ -5,7 +5,7 @@ on:
   pull_request:
   push:
     branches: [main]
-    paths: ["catalog/**", "schema/**", "fixtures/**"]
+    paths: ["catalog/**", "schema/**", "fixtures/**", "site/v1/**"]
 
 permissions:
   contents: read
@@ -25,3 +25,11 @@ jobs:
         run: |
           python -m venv "$RUNNER_TEMP/bare"
           "$RUNNER_TEMP/bare/bin/python" catalog/tests/test_build_catalog.py > /dev/null
+      # 公開するカタログ（site/v1/）を、いま公開中の manifest と比べる（曲数が 10% 以上減っていたら失敗。SPEC §3.1）。
+      # 公開中のものがまだなければ（初回）比べない。検証そのものは pytest の test_site_catalog.py
+      - name: 公開中のカタログからの曲数の減少
+        if: hashFiles('site/v1/catalog.json') != ''
+        run: |
+          curl -fsSL https://kate941-su.github.io/classicplayer/v1/manifest.json -o "$RUNNER_TEMP/published.json" \
+            || { echo "公開中の manifest はまだない"; rm -f "$RUNNER_TEMP/published.json"; }
+          python catalog/validate_catalog.py site/v1/catalog.json --previous-manifest "$RUNNER_TEMP/published.json"

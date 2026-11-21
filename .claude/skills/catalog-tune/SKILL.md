@@ -5,7 +5,7 @@ description: catalog.report.json を読んで、タイトル解析・genre_map.j
 
 # カタログの調整
 
-1. レポートの場所を確認する（オーナーが共有した `catalog.report.json` と `catalog.json`）。巡回は Claude からは実行しない（オーナーの手元か CI で実行する。間隔は 1 秒以上）
+1. レポートの場所を確認する（オーナーが共有した `catalog.report.json` と `catalog.json`）。巡回は Claude からは実行しない（オーナーの手元で `tool/update-catalog.sh` が実行する。CI からは巡回できない。間隔は 1 秒以上）。キャッシュ `catalog/cache/` があれば `tool/update-catalog.sh --offline` で作り直せる
 2. 集計する: 全曲数、`noComposer`、`noCategory`、ジャンル「その他」の曲数と比率、マップにないカテゴリ名
 3. 原因ごとに分ける:
    - タイトルの書式の揺れ → `parse_title` の正規表現を直し、その書式のテストケースを追加する

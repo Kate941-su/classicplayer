@@ -40,7 +40,14 @@ from pathlib import Path
 
 BASE = "https://classical-sound.seesaa.net/"
 HOST = "classical-sound.seesaa.net"
-MP3_RE = re.compile(r"^https?://classical-sound\.up\.seesaa\.net/.+\.mp3$", re.I)
+# 音源の置き場所。CMSL（Seesaa）のほか、2011〜2012 年ごろの記事は制作者の旧サーバー（http のみ。https は 403 か
+# 接続不可）に置いている。アプリが通信してよいホストもこの一覧と同じ（SPEC §1.2。http を許すのは旧サーバーだけ）
+AUDIO_HOSTS = ("classical-sound.up.seesaa.net",)
+LEGACY_AUDIO_HOSTS = ("classical-music.aki.gs", "andotowa.sakura.ne.jp", "classical-music.sakura.ne.jp")
+MP3_RE = re.compile(
+    r"^(?:https://(?:" + "|".join(map(re.escape, AUDIO_HOSTS)) + r")"
+    r"|http://(?:" + "|".join(map(re.escape, LEGACY_AUDIO_HOSTS)) + r"))/[^?#]+\.mp3$", re.I)
+SCHEMA_VERSION = 2  # schema/catalog.schema.json と make_manifest.py の SCHEMA_VERSION と同じ
 USER_AGENT = "CMSL-Catalog-Builder/1.0 (personal classical music app; polite crawler)"
 
 # 巡回対象にするURL（Seesaa標準の構成）
@@ -116,6 +123,17 @@ def normalize(url: str, base: str) -> str | None:
     if s.scheme not in ("http", "https"):
         return None
     return urllib.parse.urlunsplit(("https", s.netloc.lower(), s.path or "/", "", ""))
+
+
+def normalize_audio(url: str, base: str) -> str | None:
+    """音源の URL。CMSL は https、旧サーバーは http（https に対応していない）にそろえる。ほかのホストは None。"""
+    u = normalize(re.sub(r"^(https?:)///", r"\1//", url.strip()), base)  # 「http:///classical-sound…」の書き誤り
+    if u is None:
+        return None
+    s = urllib.parse.urlsplit(u)
+    if s.netloc in LEGACY_AUDIO_HOSTS:
+        u = urllib.parse.urlunsplit(("http", *s[1:]))
+    return u if MP3_RE.match(u) else None
 
 
 # ---------------------------------------------------------------- 取得
@@ -273,15 +291,15 @@ def extract_article(art_id: str, url: str, page: PageParser, blog_name_hint: str
     linked, seen = [], set()
     for ev in page.events:
         if ev[0] == "link":
-            u = normalize(ev[1], url)
-            if u and MP3_RE.match(u) and u not in seen:
+            u = normalize_audio(ev[1], url)
+            if u and u not in seen:
                 seen.add(u)
                 linked.append((u, ev[2]))
     stream_only = []
     for ev in page.events:
         if ev[0] == "media":
-            u = normalize(ev[1], url)
-            if u and MP3_RE.match(u) and u not in seen and u not in stream_only:
+            u = normalize_audio(ev[1], url)
+            if u and u not in seen and u not in stream_only:
                 stream_only.append(u)
 
     return Article(art_id, url, title, category, published, linked, stream_only)
@@ -414,6 +432,27 @@ def is_compilation(art: Article) -> bool:
     return len(composers) > 1
 
 
+_KANJI_DIGITS = {c: i for i, c in enumerate("〇一二三四五六七八九")}
+
+
+def _to_int(s: str) -> int:
+    s = unicodedata.normalize("NFKC", s)
+    if s.isdigit():
+        return int(s)
+    if "十" in s:  # 十、十二、二十
+        tens, _, ones = s.partition("十")
+        return (_KANJI_DIGITS.get(tens, 1) if tens else 1) * 10 + (_KANJI_DIGITS.get(ones, 0) if ones else 0)
+    return _KANJI_DIGITS.get(s, 0)
+
+
+def movement_numbers(movement: str | None) -> list[int]:
+    """楽章名の番号。「第2楽章」→ [2]、「第1楽章-第4楽章」→ [1, 4]、「第3,4楽章」→ [3, 4]。番号がなければ []。"""
+    if not movement:
+        return []
+    m = re.match(rf"\s*({_MULTI})\s*楽章", movement)
+    return [_to_int(n) for n in re.findall(_NUM, m.group(1))] if m else []
+
+
 def movement_label(numbers: list[int]) -> str | None:
     if not numbers:
         return None
@@ -519,6 +558,7 @@ class Overrides:
     def canonical_composer(self, name: str | None) -> str | None:
         if name is None:
             return None
+        name = re.sub(r"[\s\u3000]+", "", name)  # 「瀧 廉太郎」と「瀧廉太郎」を同じ人にする
         return self.aliases.get(name, name)
 
 
@@ -534,6 +574,37 @@ def track_id(art: Article, index: int) -> str:
 def work_slug(title: str) -> str:
     """作品の ID。空白の有無（「交響曲 第5番」と「交響曲第5番」）や全角・半角の違いは同じ作品として扱う。"""
     return slug(re.sub(r"\s+", "", unicodedata.normalize("NFKC", title)))
+
+
+_NICKNAME_RE = re.compile(r"[「《『“\"][^」》』”\"]*[」》』”\"]")
+
+
+def _work_text(title: str) -> str:
+    s = re.sub(r"\s+", "", unicodedata.normalize("NFKC", title)).lower()
+    s = re.sub(r"(?:作品|op\.?)(\d)", r"op\1", s)  # 「作品64」「Op64」「Op.64」
+    return re.sub(r"(?<![a-z])d\.(\d)", r"d\1", s)  # 「D.821」「D821」
+
+
+def work_key(title: str) -> str:
+    """同じ作品かどうかを比べるキー。work_slug と同じく記号・括弧の種類・空白・全角半角の違いを無視し、
+    作品番号の書き方の違いも同じにする。"""
+    return slug(_work_text(title))
+
+
+def work_groups(pairs) -> dict:
+    """(作曲家, 作品名) → 作品のキー。愛称（「合唱」《新世界より》）がない作品名は、愛称を除くと同じになる
+    愛称つきの作品名が同じ作曲家に 1 つだけあれば、そちらにまとめる（「夏」と「冬」のように愛称が違えば別の作品）。"""
+    keys = {(c, w): work_key(w) for c, w in pairs}
+    with_nick: dict[tuple, set] = defaultdict(set)
+    for c, w in keys:
+        text = _work_text(w)
+        if _NICKNAME_RE.search(text):
+            with_nick[(c, slug(_NICKNAME_RE.sub("", text)))].add(keys[(c, w)])
+    for (c, w), k in list(keys.items()):
+        named = with_nick.get((c, k), set())
+        if not _NICKNAME_RE.search(_work_text(w)) and len(named) == 1:
+            keys[(c, w)] = next(iter(named))
+    return {pair: (pair[0], k) for pair, k in keys.items()}
 
 
 def split_en(title: str) -> str:
@@ -587,7 +658,7 @@ def build(pages, category_listing, category_names, exclude: list[str],
         return cat is not None and any(x.lower() in cat.lower() for x in exclude)
 
     report = {"noMp3": [], "streamOnly": [], "noComposer": [], "noCategory": [], "excluded": 0,
-              "excludedByOverride": [], "duplicateAudio": [], "categories": {}, "unmappedCategories": {}}
+              "excludedByOverride": [], "duplicateAudio": [], "supersededRecordings": [], "categories": {}, "unmappedCategories": {}}
     category_count: Counter = Counter()
     unmapped: Counter = Counter()
 
@@ -732,17 +803,69 @@ def build(pages, category_listing, category_names, exclude: list[str],
         composer_id[composer] = cid
         composers[cid] = {"id": cid, "name": composer, "nameEn": name_en, "trackCount": 0}
 
-    # 作品: 作曲家 + 作品名 + 録音でまとめる（別録音が混ざると「作品を通して再生」で同じ楽章が続くため）。
-    # 録音のキーは記事単位（1 記事の mp3 は同じ録音。カラオケ版などのタグの違いで分けない）
+    # 同じ作品の別録音は新しい録音だけ残す（SPEC §3.2「作品と録音」）。楽章ごとに比べ、新しい録音にない楽章は
+    # 古い録音のまま残す。録音の年は記事単位（1 記事の mp3 は同じ録音）
     def recording_of(e) -> str:
         art, _, mp3, fname, info = e[:5]
         if len(art.mp3s) > 1 and not is_compilation(art):
             return recording_key(parse_title(art.title)["tags"], file_name_of(art.mp3s[0][0]))
         return recording_key(info["tags"], fname)  # まとめ記事は曲ごと（過去の録音が載っていることがある）
 
-    recordings: dict[tuple, set] = defaultdict(set)
+    def recorded(e) -> tuple:
+        """録音の新しさ: 録音年（タグ・ファイル名。なければ記事の公開年）→ 記事の公開日時。"""
+        year = re.match(r"\d{4}", recording_of(e))
+        published = e[0].published or ""
+        return (year.group(0) if year else published[:4], published)
+
+    def parts_of(e) -> set:
+        """曲が占める楽章（番号。番号のない楽章名はその文字列、楽章がなければ作品全体）。"""
+        numbers = movement_numbers(e[4]["movement"])
+        if numbers:
+            return set(range(numbers[0], numbers[-1] + 1)) if len(numbers) == 2 and "-" in (e[4]["movement"] or "") \
+                else set(numbers)
+        movement = e[4]["movement"]
+        return {unicodedata.normalize("NFKC", movement).replace(" ", "")} if movement else {"*"}
+
+    group_of = work_groups({(e[5], e[4]["work"]) for e in entries})
+
+    def work_of(e) -> tuple:
+        return group_of[(e[5], e[4]["work"])]
+
+    by_work: dict[tuple, list] = defaultdict(list)
     for e in entries:
-        recordings[(e[5], work_slug(e[4]["work"]))].add(recording_of(e))
+        by_work[work_of(e)].append(e)
+    superseded = set()
+    replaced_tracks: dict[str, str] = {}  # 外した曲 → 同じ楽章の新しい録音（アプリがお気に入り・履歴を引き継ぐ）
+    for group in by_work.values():
+        for e in group:
+            # 同じ記事の mp3 は同じ録音（ピアノ版と管弦楽版、カラオケ版などを並べた記事）なので比べない
+            newer = [x for x in group if x[0] is not e[0] and recorded(x) > recorded(e)]
+            covered = set().union(*(parts_of(x) for x in newer)) if newer else set()
+            if newer and parts_of(e) <= covered:
+                superseded.add(id(e))
+        for e in group:
+            if id(e) not in superseded:
+                continue
+            # 各楽章の最も新しい録音は残っているので、重なる曲が必ずある。複数なら最初の楽章、同じなら新しい録音
+            candidates = [x for x in group if id(x) not in superseded and parts_of(x) & parts_of(e)]
+            first = min(min(movement_numbers(x[4]["movement"]) or [999]) for x in candidates)
+            survivor = max((x for x in candidates if min(movement_numbers(x[4]["movement"]) or [999]) == first),
+                           key=recorded)
+            tid, new_id = track_id(e[0], e[1]), track_id(survivor[0], survivor[1])
+            replaced_tracks[tid] = new_id
+            report["supersededRecordings"].append({"id": tid, "replacedBy": new_id})
+    entries = [e for e in entries if id(e) not in superseded]
+
+    # 作品の曲を楽章順に並べる（アプリはカタログの順に表示・再生する）。作品どうしの位置（公開順）は変えない
+    slots: dict[tuple, list] = defaultdict(list)
+    for e in entries:
+        slots[work_of(e)].append(e)
+    ordered = {k: iter(sorted(v, key=lambda e: (min(movement_numbers(e[4]["movement"]) or [999]),
+                                                e[0].published or "", e[0].id, e[1])))
+               for k, v in slots.items()}
+    entries = [next(ordered[work_of(e)]) for e in entries]
+    # 作品の ID・作品名・ジャンルは、その作品で最も新しい録音の曲のもの
+    newest_of_work = {k: max(v, key=recorded) for k, v in slots.items()}
 
     genres: dict[str, dict] = {}
     works: dict[str, dict] = {}
@@ -753,12 +876,10 @@ def build(pages, category_listing, category_names, exclude: list[str],
         g = genre_map.genres[gid]
         genres.setdefault(gid, {"id": gid, "name": g["name"], "nameEn": g.get("nameEn"),
                                 "order": g.get("order", 999), "trackCount": 0})
-        rec = recording_of(e)
-        wid = f"{cid}--{work_slug(info['work'])}" + (f"--{slug(rec)}" if rec else "")
-        title = info["work"]
-        if len(recordings[(composer, work_slug(info["work"]))]) > 1 and rec:
-            title = f"{title}（{rec}）"  # 同じ作品名の録音が複数あるときだけ、録音を書き添える
-        works.setdefault(wid, {"id": wid, "title": title, "composerId": cid, "genreId": gid})
+        newest = newest_of_work[work_of(e)]
+        wid = f"{cid}--{work_slug(newest[4]['work'])}"  # ID と作品名は、その作品で最も新しい録音の曲の表記
+        if wid not in works:
+            works[wid] = {"id": wid, "title": newest[4]["work"], "composerId": cid, "genreId": newest[6]}
 
         tracks.append({
             "id": track_id(art, i),
@@ -787,7 +908,7 @@ def build(pages, category_listing, category_names, exclude: list[str],
     }
 
     catalog = {
-        "schemaVersion": 1,
+        "schemaVersion": SCHEMA_VERSION,
         "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": BASE,
         "license": {
@@ -800,6 +921,7 @@ def build(pages, category_listing, category_names, exclude: list[str],
         "composers": sorted(composers.values(), key=lambda c: (-c["trackCount"], c["id"])),
         "works": list(works.values()),
         "tracks": tracks,
+        "replacedTracks": dict(sorted(replaced_tracks.items())),
     }
     return catalog, report
 

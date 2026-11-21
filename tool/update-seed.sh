@@ -30,7 +30,7 @@ if [[ -n "${1:-}" ]]; then
   cp "$1" "$tmp/catalog.json"
 else
   command -v curl > /dev/null || die "curl が見つかりません"
-  curl -fsSL "$URL" -o "$tmp/catalog.json" || die "公開中のカタログを取得できません（${URL}）。PLAN 0.7 の catalog.yml がまだ公開していない可能性があります"
+  curl -fsSL "$URL" -o "$tmp/catalog.json" || die "公開中のカタログを取得できません（${URL}）。まだ公開していない可能性があります（tool/update-catalog.sh → PR → マージで公開）"
 fi
 
 # 検査には jsonschema が要る（CLAUDE.md と同じく uv で用意する。なければ素の python3）

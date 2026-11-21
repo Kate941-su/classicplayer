@@ -2,11 +2,15 @@ package app.cmsl.classical.core.model
 
 /**
  * 取得したカタログを差し替える前の検査（SPEC §7）。`catalog/validate_catalog.py` のうち、
- * アプリが壊れないために必要なもの（版、ID の重複、参照切れ、URL のドメイン、件数の整合）だけを見る。
+ * アプリが壊れないために必要なもの（版、ID の重複、参照切れ、URL のドメイン、件数の整合、置き換え先）だけを見る。
  * 「その他」の比率など、公開側の品質の検査はしない。
  */
 object CatalogValidator {
-    private val AUDIO_URL = Regex("""^https://classical-sound\.up\.seesaa\.net/\S+\.mp3$""")
+    // CMSL（https）と、制作者の旧サーバー（http のみ。res/xml/network_security_config.xml で許可しているもの）
+    private val AUDIO_URL = Regex(
+        """^(https://classical-sound\.up\.seesaa\.net|""" +
+            """http://(classical-music\.aki\.gs|andotowa\.sakura\.ne\.jp|classical-music\.sakura\.ne\.jp))/\S+\.mp3$"""
+    )
     private val ARTICLE_URL = Regex("""^https://classical-sound\.seesaa\.net/article/[0-9]+\.html$""")
 
     fun validate(catalog: Catalog): List<String> = buildList {
@@ -22,6 +26,10 @@ object CatalogValidator {
 
         addReferenceErrors(catalog)
         addCountErrors(catalog)
+        val trackIds = catalog.tracks.mapTo(HashSet()) { it.id }
+        catalog.replacedTracks.forEach { (old, new) ->
+            if (new !in trackIds) add("replacedTracks $old: 置き換え先 $new がない")
+        }
     }
 
     private fun MutableList<String>.addReferenceErrors(catalog: Catalog) {
@@ -36,7 +44,7 @@ object CatalogValidator {
             if (t.composerId !in composerIds) add("track ${t.id}: composerId ${t.composerId} がない")
             if (t.workId !in workIds) add("track ${t.id}: workId ${t.workId} がない")
             if (t.genreId !in genreIds) add("track ${t.id}: genreId ${t.genreId} がない")
-            if (!AUDIO_URL.matches(t.audioUrl)) add("track ${t.id}: audioUrl のドメインが CMSL ではない")
+            if (!AUDIO_URL.matches(t.audioUrl)) add("track ${t.id}: audioUrl のドメインが CMSL（と旧サーバー）ではない")
             if (!ARTICLE_URL.matches(t.articleUrl)) add("track ${t.id}: articleUrl の形式が違う")
         }
     }
