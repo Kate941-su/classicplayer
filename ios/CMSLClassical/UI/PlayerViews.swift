@@ -137,6 +137,7 @@ struct PlayerView: View {
                     .accessibilityLabel(Text("action.next"))
                 }
                 secondaryControls(track)
+                sleepTimerRow
             }
             .padding()
         }
@@ -205,6 +206,10 @@ struct PlayerView: View {
             }
             .accessibilityLabel(Text("action.aboutTrack"))
         }
+    }
+
+    private var sleepTimerRow: some View {
+        SleepTimerButton()
         .foregroundStyle(.secondary)
     }
 
@@ -267,6 +272,62 @@ struct QueueView: View {
                 ToolbarItem(placement: .cancellationAction) { Button("action.close") { dismiss() } }
                 ToolbarItem(placement: .primaryAction) { EditButton() }
             }
+        }
+    }
+}
+
+/// スリープタイマー（SPEC §5.2）。設定中は残り時間を出す。
+struct SleepTimerButton: View {
+    @Environment(AppModel.self) private var model
+
+    var body: some View {
+        let timer = model.sleepTimer
+        Menu {
+            Picker("sleep.title", selection: Binding(get: { selection }, set: apply)) {
+                Text("sleep.off").tag(0)
+                ForEach(SleepTimer.choices, id: \.self) { minutes in
+                    Text("sleep.minutes \(minutes)").tag(minutes)
+                }
+                Text("sleep.endOfTrack").tag(-1)
+            }
+        } label: {
+            TimelineView(.periodic(from: .now, by: 1)) { context in
+                HStack(spacing: 6) {
+                    Image(systemName: timer.mode == .off ? "moon" : "moon.fill")
+                    Text(label(at: context.date)).font(.footnote.monospacedDigit())
+                }
+                .foregroundStyle(timer.mode == .off ? Color.secondary : Color.accentColor)
+                .frame(minHeight: 44)
+                .padding(.horizontal, 12)
+            }
+        }
+        .accessibilityLabel(Text("sleep.title"))
+        .accessibilityIdentifier("sleepTimer")
+    }
+
+    /// メニューで選んでいる項目（0: オフ、-1: この曲の終わりまで）。時間はメニューの選択肢と同じとは限らないので、時間で止めるときは選択なし。
+    private var selection: Int {
+        switch model.sleepTimer.mode {
+        case .off: 0
+        case .endOfTrack: -1
+        case .until: -2
+        }
+    }
+
+    private func apply(_ value: Int) {
+        let timer = model.sleepTimer
+        switch value {
+        case 0: timer.cancel()
+        case -1: timer.stopAtEndOfTrack()
+        default: timer.start(minutes: value)
+        }
+    }
+
+    private func label(at date: Date) -> String {
+        switch model.sleepTimer.mode {
+        case .off: String(localized: "sleep.title")
+        case .endOfTrack: String(localized: "sleep.atEndOfTrack")
+        case .until: String(localized: "sleep.remaining \(formatTime(model.sleepTimer.remaining(at: date) ?? 0))")
         }
     }
 }

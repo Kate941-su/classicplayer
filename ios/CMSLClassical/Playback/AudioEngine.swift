@@ -10,6 +10,8 @@ protocol AudioEngine: AnyObject {
     var currentTime: TimeInterval { get }
     /// 不明なら nil。
     var duration: TimeInterval? { get }
+    /// 0〜1（スリープタイマーで音量を下げるときだけ使う。端末の音量とは別）。
+    var volume: Float { get set }
 
     /// 今の曲を差し替える（再生はしない）。`next` は終わったら続けて鳴らす曲（ギャップレスのための先読み）。
     func load(current: URL, next: URL?, at position: TimeInterval)
@@ -69,6 +71,11 @@ final class AVQueueAudioEngine: AudioEngine {
     var currentTime: TimeInterval {
         let seconds = player.currentTime().seconds
         return seconds.isFinite ? max(seconds, 0) : 0
+    }
+
+    var volume: Float {
+        get { player.volume }
+        set { player.volume = newValue }
     }
 
     var duration: TimeInterval? {
