@@ -10,7 +10,7 @@
 <main>
   <header class="site"><a class="home" href="../">クラシック名曲プレイヤー</a><nav class="lang"><a href="en.html" lang="en">English</a></nav></header>
   <h1>プライバシーポリシー</h1>
-  <p class="meta">制定日: 2026年11月20日 ／ 改定日: 2026年11月21日（音源の通信先に、制作者の旧サーバーを追加）</p>
+  <p class="meta">制定日: 2026年11月20日 ／ 改定日: 2026年11月21日（音源の通信先に制作者の旧サーバーを追加。オフライン再生のためのダウンロードを追加）</p>
 
   <div class="card"><strong>本アプリは、利用者の個人情報や利用状況のデータを収集しません。</strong>アカウント登録はなく、広告・アクセス解析・クラッシュ収集の仕組みも組み込んでいません。</div>
 
@@ -21,6 +21,7 @@
     <li>最近再生した曲（最大100件）</li>
     <li>最近の検索語（最大10件）</li>
     <li>再生キューと再生位置</li>
+    <li>オフラインで聴くためにダウンロードした音源ファイルと、ダウンロードの設定（Wi-Fi のときだけ取得するか）</li>
     <li>曲目カタログ（下記 2-1 で取得したもの）</li>
     <li>「応援者」バッジの表示の有無（チップを購入した場合）</li>
   </ul>
@@ -29,7 +30,7 @@
   <p>本アプリが通信するのは、次の 2 つだけです。どちらも、利用者を識別する情報を本アプリから付け加えて送ることはありません。</p>
   <ul>
     <li><strong>2-1. 曲目カタログの取得</strong>: GitHub Pages（<code>kate941-su.github.io</code>）から、曲目の一覧（JSON ファイル）を取得します。</li>
-    <li><strong>2-2. 音源の再生</strong>: 曲を再生するとき、CMSL クラシック名曲サウンドライブラリーの音源ファイル（<code>classical-sound.up.seesaa.net</code>）を直接ストリーミングします。2011〜2012 年ごろに公開された一部の曲は、音源の制作者の旧サーバー（<code>classical-music.aki.gs</code>、<code>andotowa.sakura.ne.jp</code>、<code>classical-music.sakura.ne.jp</code>）から再生します。これらのサーバーは暗号化通信（https）に対応していないため、この通信は暗号化されず、同じネットワーク上の第三者に再生中の曲が分かる可能性があります。</li>
+    <li><strong>2-2. 音源の再生</strong>: 曲を再生するとき、CMSL クラシック名曲サウンドライブラリーの音源ファイル（<code>classical-sound.up.seesaa.net</code>）を直接ストリーミングします。曲をダウンロードするときも、同じ音源ファイルを同じ通信先から取得します。2011〜2012 年ごろに公開された一部の曲は、音源の制作者の旧サーバー（<code>classical-music.aki.gs</code>、<code>andotowa.sakura.ne.jp</code>、<code>classical-music.sakura.ne.jp</code>）から再生します。これらのサーバーは暗号化通信（https）に対応していないため、この通信は暗号化されず、同じネットワーク上の第三者に再生中の曲が分かる可能性があります。</li>
   </ul>
   <p>通信の際、通信先のサーバーには、一般的なインターネット通信と同様に IP アドレスなどが届きます。これらは各サービスの方針に従って扱われます（<a href="https://docs.github.com/ja/site-policy/privacy-policies/github-general-privacy-statement">GitHub のプライバシーステートメント</a>、<a href="https://www.seesaa.co.jp/">Seesaa</a>、旧サーバーの各ホスティング事業者）。開発者がこれらの情報を受け取ることはありません。</p>
 
