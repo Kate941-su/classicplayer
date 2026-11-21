@@ -7,14 +7,18 @@ import UIKit
 @MainActor
 final class SystemPlayback {
     private let controller: PlaybackController
+    private let portraits: Portraits?
+    /// 肖像画を取得中の作曲家（同じ作曲家を重ねて取りに行かない）。
+    private var loadingPortrait: String?
     private var observers: [any NSObjectProtocol] = []
     /// ロック画面のアートワーク（今の曲の分だけ描いて持っておく）。
     private var artwork: (key: String, value: MPMediaItemArtwork)?
     /// 割り込みの前に再生していたか（終わったときに再開するため）。
     private var wasPlayingBeforeInterruption = false
 
-    init(controller: PlaybackController) {
+    init(controller: PlaybackController, portraits: Portraits? = nil) {
         self.controller = controller
+        self.portraits = portraits
     }
 
     func start() {
@@ -109,7 +113,19 @@ final class SystemPlayback {
         if reason == .oldDeviceUnavailable { controller.pause() }
     }
 
+    /// 作曲家の肖像画（なければ生成アートワーク。SPEC §4.10）。肖像画がまだ手元になければ生成アートワークを出し、
+    /// 取得できたら Now Playing を更新する（再生の開始を待たせない）。
     private func artwork(for track: PlayableTrack) -> MPMediaItemArtwork? {
+        if let portraits, let portrait = portraits.portrait(of: track.composerId) {
+            let key = "portrait\u{1F}\(track.composerId)\u{1F}\(portrait.sha256)"
+            if let artwork, artwork.key == key { return artwork.value }
+            if let image = portraits.cachedImage(track.composerId) {
+                let value = Self.makeArtwork(image)
+                artwork = (key, value)
+                return value
+            }
+            loadPortrait(track.composerId)
+        }
         let key = track.composerId + "\u{1F}" + track.genreId
         if let artwork, artwork.key == key { return artwork.value }
         let spec = ArtworkSpec(composerId: track.composerId, genreId: track.genreId)
@@ -117,6 +133,17 @@ final class SystemPlayback {
         let value = Self.makeArtwork(image)
         artwork = (key, value)
         return value
+    }
+
+    private func loadPortrait(_ composerId: String) {
+        guard let portraits, loadingPortrait != composerId else { return }
+        loadingPortrait = composerId
+        Task { [weak self] in
+            let image = await portraits.image(composerId)
+            guard let self else { return }
+            if loadingPortrait == composerId { loadingPortrait = nil }
+            if image != nil, controller.currentTrack?.composerId == composerId { updateNowPlaying() }
+        }
     }
 
     /// MediaPlayer は画像を返すクロージャを自分のキューから呼ぶので、メインアクターに隔離しない場所で作る

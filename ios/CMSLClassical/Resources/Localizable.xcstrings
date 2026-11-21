@@ -938,6 +938,57 @@
         }
       }
     },
+    "imageCredit.artist %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Author: %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "作者: %@"
+          }
+        }
+      }
+    },
+    "imageCredit.source": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Source: Wikimedia Commons"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "出典: Wikimedia Commons"
+          }
+        }
+      }
+    },
+    "imageCredit.title %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Work: %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "作品: %@"
+          }
+        }
+      }
+    },
     "info.about": {
       "extractionState": "manual",
       "localizations": {
@@ -1070,6 +1121,40 @@
           "stringUnit": {
             "state": "translated",
             "value": "クレジット"
+          }
+        }
+      }
+    },
+    "info.imageCredits": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Image credits"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "画像のクレジット"
+          }
+        }
+      }
+    },
+    "info.imageCreditsIntro": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The composer portraits are from Wikimedia Commons. They have been cropped to a square and reduced in size."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "作曲家の肖像画は Wikimedia Commons より。正方形に切り抜き、縮小しています。"
           }
         }
       }
@@ -1427,6 +1512,57 @@
           "stringUnit": {
             "state": "translated",
             "value": "再生中"
+          }
+        }
+      }
+    },
+    "portrait.artistUnknown": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown author"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "作者不明"
+          }
+        }
+      }
+    },
+    "portrait.credit %@ %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Portrait: %1$@ · %2$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "肖像画: %1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "portrait.openSource": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open the image page on Wikimedia Commons"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wikimedia Commons の画像のページを開く"
           }
         }
       }

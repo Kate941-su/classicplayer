@@ -22,6 +22,8 @@ final class AppModel {
     let downloads: DownloadStore
     @ObservationIgnored let playback: PlaybackController
     let sleepTimer: SleepTimer
+    /// 作曲家の肖像画（SPEC §4.10）。画面と Now Playing で共有する。
+    @ObservationIgnored private(set) var portraits: Portraits!
     @ObservationIgnored private let store: CatalogStore
     @ObservationIgnored private let queueStore: QueueStore
     @ObservationIgnored private var systemPlayback: SystemPlayback?
@@ -35,6 +37,7 @@ final class AppModel {
         recentSearches: RecentSearchStore,
         queueStore: QueueStore,
         downloads: DownloadStore,
+        portraitStore: PortraitStore,
         engine: any AudioEngine,
         english: Bool,
         refreshOnStart: Bool = true
@@ -49,6 +52,7 @@ final class AppModel {
         playback = PlaybackController(engine: engine, environment: environmentBridge)
         sleepTimer = SleepTimer(playback: playback)
         environmentBridge.model = self
+        portraits = Portraits(store: portraitStore) { [weak self] id in self?.index?.composer(id)?.portrait }
         // ダウンロードが終わった・消えた曲は、次に再生するとき URL を選び直す
         downloads.onChange = { [weak playback] id in playback?.forgetResolved(id) }
     }
@@ -71,6 +75,10 @@ final class AppModel {
         let directory = uiTesting
             ? FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
             : support
+        let caches = uiTesting
+            ? directory.appendingPathComponent("Caches", isDirectory: true)
+            : FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        let resources = Bundle.main.resourceURL
         return AppModel(
             store: CatalogStore(
                 seed: seed, directory: directory, client: URLSessionHTTPClient.makeDefault(),
@@ -82,6 +90,15 @@ final class AppModel {
             downloads: DownloadStore(
                 directory: directory.appendingPathComponent("Downloads", isDirectory: true),
                 downloader: URLSessionDownloader(), defaults: defaults
+            ),
+            portraitStore: PortraitStore(
+                // 同梱の肖像画（シードの作曲家の分。バンドルの portraits/）
+                bundled: { path in resources.flatMap { try? Data(contentsOf: $0.appendingPathComponent(path)) } },
+                cacheDirectory: caches.appendingPathComponent("portraits", isDirectory: true),
+                // UI テストでは通信しない（同梱だけ）
+                client: uiTesting ? OfflineHTTPClient() : URLSessionHTTPClient.makeDefault(),
+                // 肖像画の url は catalog.json と同じ場所（site/v1/）からの相対（SPEC §3.6）
+                baseURL: catalogBaseURL.appendingPathComponent("catalog.json")
             ),
             engine: AVQueueAudioEngine(),
             english: Bundle.main.preferredLocalizations.first?.hasPrefix("ja") != true,
@@ -101,7 +118,7 @@ final class AppModel {
         Task {
             // 画面に出すカタログを先に読む。オーディオセッションの設定などはその後
             _ = try? await store.load()
-            let system = SystemPlayback(controller: playback)
+            let system = SystemPlayback(controller: playback, portraits: portraits)
             system.start()
             systemPlayback = system
             await playback.restore()
@@ -174,6 +191,11 @@ final class AppModel {
     fileprivate func saveQueue(_ snapshot: QueueSnapshot) { queueStore.save(snapshot) }
 
     fileprivate func trackStarted(_ id: String) { library.recordPlayed(id) }
+}
+
+/// 通信しないクライアント（UI テスト用）。
+struct OfflineHTTPClient: HTTPClient {
+    func data(for request: URLRequest) async throws -> (Data, HTTPURLResponse) { throw URLError(.notConnectedToInternet) }
 }
 
 /// PlaybackController は環境を weak で持つので、AppModel との循環を作らない橋渡し。

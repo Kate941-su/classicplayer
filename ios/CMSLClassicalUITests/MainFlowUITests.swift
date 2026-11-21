@@ -37,6 +37,11 @@ final class MainFlowUITests: XCTestCase {
         save("\(prefix)-genre")
         composer.tap()
 
+        // 作曲家詳細: 肖像画とクレジット（SPEC §4.4）
+        let credit = app.links.matching(NSPredicate(format: "label CONTAINS %@", "Joseph Karl Stieler")).firstMatch
+        XCTAssertTrue(credit.waitForExistence(timeout: 5))
+        save("\(prefix)-composer")
+
         let work = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'work-'")).firstMatch
         XCTAssertTrue(work.waitForExistence(timeout: 5))
         work.tap()
@@ -66,6 +71,15 @@ final class MainFlowUITests: XCTestCase {
         XCTAssertTrue(remaining.waitForExistence(timeout: 5))
         sleep(1)
         save("\(prefix)-player")
+
+        // 情報タブ → 画像のクレジット（SPEC §4.9）
+        app.buttons["closePlayer"].tap()
+        app.tabBars.buttons.element(boundBy: 3).tap()
+        let creditsLink = app.buttons["imageCreditsLink"]
+        for _ in 0..<5 where !creditsLink.isHittable { app.swipeUp() }
+        creditsLink.tap()
+        XCTAssertTrue(app.staticTexts[language == "ja" ? "ショパン" : "Frederic Francois Chopin"].waitForExistence(timeout: 5))
+        save("\(prefix)-image-credits")
     }
 
     private func save(_ name: String) {

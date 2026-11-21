@@ -31,4 +31,29 @@ struct CatalogValidatorTests {
         dangling.replacedTracks = ["1": "2"]
         #expect(CatalogValidator.validate(dangling) == ["replacedTracks 1: 置き換え先 2 がない"])
     }
+
+    @Test func portraitIsOptionalAndPathHashSourceAreChecked() throws {
+        let sample = try Fixtures.sample()
+        let index = try #require(sample.composers.firstIndex { $0.id == "l-v-beethoven" })
+        let portrait = try #require(sample.composers[index].portrait)
+        #expect(portrait.url == "portraits/l-v-beethoven.jpg")
+        func with(_ p: Portrait?) -> Catalog {
+            var c = sample
+            c.composers[index].portrait = p
+            return c
+        }
+        #expect(CatalogValidator.validate(with(nil)).isEmpty)
+        var other = portrait
+        other.url = "portraits/j-s-bach.jpg"
+        #expect(!CatalogValidator.validate(with(other)).isEmpty)
+        other = portrait
+        other.url = "../catalog.json"
+        #expect(!CatalogValidator.validate(with(other)).isEmpty)
+        other = portrait
+        other.sha256 = "ABC"
+        #expect(!CatalogValidator.validate(with(other)).isEmpty)
+        other = portrait
+        other.sourceUrl = "https://example.com/a"
+        #expect(!CatalogValidator.validate(with(other)).isEmpty)
+    }
 }

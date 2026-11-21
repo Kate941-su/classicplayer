@@ -69,7 +69,31 @@ targets:
             [[ -f "$src" ]] || src="$SRCROOT/../fixtures/catalog.sample.json"
           fi
           [[ -f "$src" ]] || { echo "error: シードのカタログがありません: $src"; exit 1; }
-          cp "$src" "$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/catalog.json"
+          res="$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH"
+          cp "$src" "$res/catalog.json"
+          # シードの作曲家の肖像画（SPEC §4.10・§6）を portraits/ に入れる。Android のビルドと同じく
+          # android/seed/portraits/（tool/update-seed.sh）→ site/v1/portraits/ の順に探し、sha256 が合うものだけ
+          rm -rf "$res/portraits"
+          mkdir -p "$res/portraits"
+          /usr/bin/python3 -I - "$src" "$res/portraits" "$SRCROOT/../android/seed/portraits" "$SRCROOT/../site/v1/portraits" <<'PY'
+          import hashlib, json, pathlib, shutil, sys
+          catalog, out, *dirs = sys.argv[1:]
+          n, missing = 0, []
+          for c in json.loads(pathlib.Path(catalog).read_text(encoding="utf-8"))["composers"]:
+              p = c.get("portrait")
+              if not p or p["url"] != f"portraits/{c['id']}.jpg":
+                  continue
+              name = f"{c['id']}.jpg"
+              for d in dirs:
+                  f = pathlib.Path(d) / name
+                  if f.is_file() and hashlib.sha256(f.read_bytes()).hexdigest() == p["sha256"]:
+                      shutil.copyfile(f, pathlib.Path(out) / name)
+                      n += 1
+                      break
+              else:
+                  missing.append(name)
+          print(f"同梱の肖像画: {n} 枚" + (f"（見つからない・sha256 が違う: {', '.join(missing)}）" if missing else ""))
+          PY
     settings:
       base:
         # シードのコピー（リポジトリ内の任意のパスを読む）のためにスクリプトのサンドボックスを外す

@@ -15,6 +15,7 @@
 		0DDD583ED7ED4F7E9D590EFE /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6A63F3E07ABC8C9DAC6AB6 /* Downloader.swift */; };
 		0F823746B3E30BAA48565516 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92AE83C00AB3BED964BBD6A6 /* SearchView.swift */; };
 		10BA3D0C04BBD4BA616C8217 /* Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD140DA17B47DFD7F0BE3229 /* Localized.swift */; };
+		1AD5534AEA4A97331EE5006E /* Portraits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E8CF4CEA89A121A4244EB8 /* Portraits.swift */; };
 		1FC393AE5F7BEF90FC553659 /* SearchCasesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F24F607A3434B3C63FA5C5 /* SearchCasesTests.swift */; };
 		20C6EE05D00566269E6DA5E2 /* CatalogValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385F44BE585041F50E20B386 /* CatalogValidatorTests.swift */; };
 		22F666FE7A8100BC0BA55A7E /* CatalogDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601CC011B6904DA2AB1D0BCF /* CatalogDecodingTests.swift */; };
@@ -44,6 +45,7 @@
 		9C1BFC359D96596257C73503 /* PlaybackControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AF5B4063AF642F0ADA4E8A /* PlaybackControllerTests.swift */; };
 		A3955D0C9388E9EDD125D52D /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A20C2395F4A9C97DEA6FF44 /* InfoView.swift */; };
 		A71608595101E2D4D8E7E267 /* BrowseViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E8B94E8CAD92DCD968A247 /* BrowseViews.swift */; };
+		AB0086E4F0BADA20D8A1400E /* ImageCreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A029805C1CE6A2C0435504 /* ImageCreditsView.swift */; };
 		AE160534C758A65DA2E9D4DB /* CMSLClassicalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B59F8212D4B15C2B7166F57 /* CMSLClassicalApp.swift */; };
 		AEE412475EFB7001AE7724AC /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A505A0093E6FA15035F0F2FE /* LibraryView.swift */; };
 		B30FC5F7C8B6FFAE8AF0384A /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = E372C68E8EC78B980E4B4FAB /* Components.swift */; };
@@ -57,6 +59,7 @@
 		EA68B540A1EE4607C98B0989 /* PlaybackEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD83502BFE8EE37323C2F593 /* PlaybackEnvironment.swift */; };
 		EBCA236449F0149F414AEB0F /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9930A325E1C4B08A6694EFA9 /* RootView.swift */; };
 		F78FA416818A6CD4E546AF1F /* PreferenceStores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E93ABECA52DE3AF528617 /* PreferenceStores.swift */; };
+		F9786AB5B021D55F594D746D /* PortraitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B612EAA7949D9F06609A14B1 /* PortraitStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,8 +80,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03A029805C1CE6A2C0435504 /* ImageCreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCreditsView.swift; sourceTree = "<group>"; };
 		13AEB24C98EC60B5D620A643 /* CatalogIndexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogIndexTests.swift; sourceTree = "<group>"; };
 		1460C143F9D935E578A72A5D /* ArtworkCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkCanvas.swift; sourceTree = "<group>"; };
+		21E8CF4CEA89A121A4244EB8 /* Portraits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portraits.swift; sourceTree = "<group>"; };
 		22C6A24C8B10425B0EDFFBFE /* SleepTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTimer.swift; sourceTree = "<group>"; };
 		28CEF52782F5A0E99A66F6B5 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		30FA8E75D5470DC3430E83E9 /* ProjectSetupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSetupTests.swift; sourceTree = "<group>"; };
@@ -121,6 +126,7 @@
 		AD140DA17B47DFD7F0BE3229 /* Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localized.swift; sourceTree = "<group>"; };
 		B4314B446A0B2AC6BE78CCED /* fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fixtures; path = ../fixtures; sourceTree = SOURCE_ROOT; };
 		B60F830F1BE8CA7523EE6711 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
+		B612EAA7949D9F06609A14B1 /* PortraitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitStore.swift; sourceTree = "<group>"; };
 		C0AA1F5245C89818B1C8F14A /* PlaybackQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackQueue.swift; sourceTree = "<group>"; };
 		C1167A1EE73C0008EFC2D671 /* Movement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movement.swift; sourceTree = "<group>"; };
 		CBBCE8B0A9C05C356D3F7298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -246,6 +252,7 @@
 				A8E8B94E8CAD92DCD968A247 /* BrowseViews.swift */,
 				E372C68E8EC78B980E4B4FAB /* Components.swift */,
 				3DDE7F6CAAA9933BFA5AF27E /* DownloadsSection.swift */,
+				03A029805C1CE6A2C0435504 /* ImageCreditsView.swift */,
 				6A20C2395F4A9C97DEA6FF44 /* InfoView.swift */,
 				A505A0093E6FA15035F0F2FE /* LibraryView.swift */,
 				4B398D13D81F65879F630B44 /* PlayerViews.swift */,
@@ -278,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				28CEF52782F5A0E99A66F6B5 /* AppModel.swift */,
+				21E8CF4CEA89A121A4244EB8 /* Portraits.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -310,6 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				D5E59E3DFC2056CDC2983A83 /* ArtworkSpec.swift */,
+				B612EAA7949D9F06609A14B1 /* PortraitStore.swift */,
 			);
 			path = Artwork;
 			sourceTree = "<group>";
@@ -461,7 +470,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -euo pipefail\nsrc=\"${CMSL_SEED_CATALOG:-}\"\nif [[ -z \"$src\" ]]; then\n  src=\"$SRCROOT/../android/seed/catalog.json\"\n  [[ -f \"$src\" ]] || src=\"$SRCROOT/../fixtures/catalog.sample.json\"\nfi\n[[ -f \"$src\" ]] || { echo \"error: シードのカタログがありません: $src\"; exit 1; }\ncp \"$src\" \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/catalog.json\"\n";
+			shellScript = "set -euo pipefail\nsrc=\"${CMSL_SEED_CATALOG:-}\"\nif [[ -z \"$src\" ]]; then\n  src=\"$SRCROOT/../android/seed/catalog.json\"\n  [[ -f \"$src\" ]] || src=\"$SRCROOT/../fixtures/catalog.sample.json\"\nfi\n[[ -f \"$src\" ]] || { echo \"error: シードのカタログがありません: $src\"; exit 1; }\nres=\"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\ncp \"$src\" \"$res/catalog.json\"\n# シードの作曲家の肖像画（SPEC §4.10・§6）を portraits/ に入れる。Android のビルドと同じく\n# android/seed/portraits/（tool/update-seed.sh）→ site/v1/portraits/ の順に探し、sha256 が合うものだけ\nrm -rf \"$res/portraits\"\nmkdir -p \"$res/portraits\"\n/usr/bin/python3 -I - \"$src\" \"$res/portraits\" \"$SRCROOT/../android/seed/portraits\" \"$SRCROOT/../site/v1/portraits\" <<'PY'\nimport hashlib, json, pathlib, shutil, sys\ncatalog, out, *dirs = sys.argv[1:]\nn, missing = 0, []\nfor c in json.loads(pathlib.Path(catalog).read_text(encoding=\"utf-8\"))[\"composers\"]:\n    p = c.get(\"portrait\")\n    if not p or p[\"url\"] != f\"portraits/{c['id']}.jpg\":\n        continue\n    name = f\"{c['id']}.jpg\"\n    for d in dirs:\n        f = pathlib.Path(d) / name\n        if f.is_file() and hashlib.sha256(f.read_bytes()).hexdigest() == p[\"sha256\"]:\n            shutil.copyfile(f, pathlib.Path(out) / name)\n            n += 1\n            break\n    else:\n        missing.append(name)\nprint(f\"同梱の肖像画: {n} 枚\" + (f\"（見つからない・sha256 が違う: {', '.join(missing)}）\" if missing else \"\"))\nPY\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -512,6 +521,7 @@
 				4BCADD510FEA2B31A3589369 /* DownloadStore.swift in Sources */,
 				0DDD583ED7ED4F7E9D590EFE /* Downloader.swift in Sources */,
 				045F4A915F3C475FC7A46AA3 /* DownloadsSection.swift in Sources */,
+				AB0086E4F0BADA20D8A1400E /* ImageCreditsView.swift in Sources */,
 				A3955D0C9388E9EDD125D52D /* InfoView.swift in Sources */,
 				3A60AC626FEF7AB812569AD5 /* LibraryStore.swift in Sources */,
 				AEE412475EFB7001AE7724AC /* LibraryView.swift in Sources */,
@@ -522,6 +532,8 @@
 				EA68B540A1EE4607C98B0989 /* PlaybackEnvironment.swift in Sources */,
 				D66BCE714427BDA0289E8393 /* PlaybackQueue.swift in Sources */,
 				56FC864B71D211FCDA2F279B /* PlayerViews.swift in Sources */,
+				F9786AB5B021D55F594D746D /* PortraitStore.swift in Sources */,
+				1AD5534AEA4A97331EE5006E /* Portraits.swift in Sources */,
 				F78FA416818A6CD4E546AF1F /* PreferenceStores.swift in Sources */,
 				CB52B831606687461DC08FCF /* QueueSnapshot.swift in Sources */,
 				EBCA236449F0149F414AEB0F /* RootView.swift in Sources */,
