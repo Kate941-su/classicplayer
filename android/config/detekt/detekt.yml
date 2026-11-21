@@ -33,14 +33,14 @@ style:
   ReturnCount:
     max: 4
   MaxLineLength:
-    maxLineLength: 140
+    maxLineLength: 120
 
 formatting:
   # Composable は大文字で始まる関数名
   FunctionName:
     active: false
   MaximumLineLength:
-    maxLineLength: 140
+    maxLineLength: 120
   # 末尾カンマは任意（ktlint 標準ルールの既定と揃える）
   TrailingCommaOnCallSite:
     active: false

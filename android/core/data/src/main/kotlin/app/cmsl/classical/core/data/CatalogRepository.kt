@@ -100,7 +100,7 @@ class CatalogRepository(
             val manifest = CatalogJson.decodeManifest(response.body.string())
             val checked = meta.copy(lastCheckedAtMs = now.toEpochMilli(), manifestEtag = response.header("ETag"))
             return when {
-                manifest.schemaVersion != SUPPORTED_SCHEMA_VERSION || manifest.minAppSchema > SUPPORTED_SCHEMA_VERSION -> {
+                !manifest.isSupported() -> {
                     writeMeta(checked)
                     RefreshResult.Unsupported
                 }
@@ -132,6 +132,9 @@ class CatalogRepository(
         _state.value = CatalogState(CatalogIndex(catalog), CatalogSource.Downloaded, manifest.catalogVersion, now)
         return RefreshResult.Updated(manifest.catalogVersion)
     }
+
+    private fun Manifest.isSupported(): Boolean =
+        schemaVersion == SUPPORTED_SCHEMA_VERSION && minAppSchema <= SUPPORTED_SCHEMA_VERSION
 
     /** 時計が戻った（last が未来）ときは確認する。 */
     private fun isRecent(last: Instant?, now: Instant): Boolean =
