@@ -175,6 +175,24 @@ final class PlaybackController {
 
     func clearNotice() { notice = nil }
 
+    /// 曲の再生情報を取り直す（ダウンロードが終わった・消えたとき。URL を選び直す）。
+    /// 先読みしている次の曲なら、エンジンの先読みも差し替える。
+    func forgetResolved(_ trackId: String) {
+        let keys = resolved.filter { $0.key == trackId || $0.value.id == trackId }.map(\.key)
+        guard !keys.isEmpty, let environment else { return }
+        Task {
+            // 取り直してから差し替える（途中で情報がない時間を作らない）
+            for track in await environment.resolve(keys) {
+                resolved[track.requestedId] = track
+                resolved[track.id] = track
+            }
+            if let key = preloadedKey, queue.item(key: key)?.trackId == trackId {
+                preloadedKey = nil
+                refreshPreload()
+            }
+        }
+    }
+
     // MARK: - 復元と保存
 
     /// 保存しておいたキューと位置を復元する（自動では再生しない。SPEC §5）。最初の 1 回だけ。
@@ -390,11 +408,4 @@ extension PlaybackController: AudioEngineDelegate {
         position = engine.currentTime
         if let seconds = engine.duration { duration = seconds }
     }
-}
-
-/// `any RandomNumberGenerator` を `inout some RandomNumberGenerator` に渡すための入れ物。
-struct AnyRandomNumberGenerator: RandomNumberGenerator {
-    var base: any RandomNumberGenerator
-
-    mutating func next() -> UInt64 { base.next() }
 }

@@ -224,6 +224,20 @@ struct WorkView: View {
                         Label("action.playWork", systemImage: "play.fill").frame(minHeight: 44)
                     }
                     .accessibilityIdentifier("playWork")
+                    let missing = tracks.filter { !model.downloads.isDownloaded($0.id) }
+                    if missing.isEmpty {
+                        Label("downloads.workDone", systemImage: "arrow.down.circle.fill")
+                            .foregroundStyle(.secondary)
+                            .frame(minHeight: 44)
+                    } else {
+                        Button {
+                            model.downloads.enqueue(missing)
+                        } label: {
+                            Label("action.downloadWork", systemImage: "arrow.down.circle").frame(minHeight: 44)
+                        }
+                        .disabled(missing.allSatisfy { model.downloads.isPending($0.id) })
+                        .accessibilityIdentifier("downloadWork")
+                    }
                 }
                 Section {
                     ForEach(tracks) { track in
