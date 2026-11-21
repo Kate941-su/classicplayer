@@ -24,9 +24,9 @@ def png(w=800, h=1200, split=600):
     return buf.getvalue()
 
 
-def entity(qid, *, human=True, composer=True, images=(), label="X"):
+def entity(qid, *, human=True, composer=True, images=(), label="X", occupation="Q36834"):
     claims = {"P31": [{"mainsnak": {"datavalue": {"value": {"id": "Q5" if human else "Q4167410"}}}}],
-              "P106": [{"mainsnak": {"datavalue": {"value": {"id": "Q36834" if composer else "Q33999"}}}}],
+              "P106": [{"mainsnak": {"datavalue": {"value": {"id": occupation if composer else "Q33999"}}}}],
               "P18": [{"rank": rank, "mainsnak": {"datavalue": {"value": f}}} for f, rank in images]}
     return {"id": qid, "claims": claims, "labels": {"ja": {"value": label}, "en": {"value": label}}}
 
@@ -102,6 +102,8 @@ def test_is_composer_requires_human_and_composer():
     assert fp.is_composer(entity("Q1"))
     assert not fp.is_composer(entity("Q2", human=False))
     assert not fp.is_composer(entity("Q3", composer=False))
+    assert fp.is_composer(entity("Q4", occupation="Q21680663"))   # classical composer（ヴィドールなど）
+    assert not fp.is_composer(entity("Q5", occupation="Q765778"))  # organist だけなら作曲家ではない
 
 
 def test_strip_html():
