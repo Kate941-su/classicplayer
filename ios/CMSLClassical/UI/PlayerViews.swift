@@ -283,7 +283,8 @@ struct SleepTimerButton: View {
     var body: some View {
         let timer = model.sleepTimer
         Menu {
-            Picker("sleep.title", selection: Binding(get: { selection }, set: apply)) {
+            // set: にメソッド参照（apply）を直接渡すと Xcode 26.6（Swift 6.3.3）のコンパイラが IRGen で落ちるため、クロージャで包む。
+            Picker("sleep.title", selection: Binding(get: { selection }, set: { apply($0) })) {
                 Text("sleep.off").tag(0)
                 ForEach(SleepTimer.choices, id: \.self) { minutes in
                     Text("sleep.minutes \(minutes)").tag(minutes)
