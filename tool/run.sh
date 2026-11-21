@@ -164,7 +164,8 @@ run_ios() {
       info "シミュレーターを起動します: $udid"
       xcrun simctl boot "$udid"
     fi
-    open -a Simulator
+    # Xcode 27 からは Simulator.app の代わりに DeviceHub.app で画面を表示する
+    open -a Simulator 2> /dev/null || open -a DeviceHub 2> /dev/null || warn "シミュレーターの画面を開けませんでした（起動は続けます）"
   fi
 
   local derived="$ROOT/ios/build/run"

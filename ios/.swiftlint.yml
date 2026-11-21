@@ -1,0 +1,7 @@
+# 任意（PLAN 2.1）。`cd ios && swiftlint` で実行する
+included:
+  - CMSLClassical
+  - CMSLClassicalTests
+line_length:
+  warning: 140
+  error: 200
