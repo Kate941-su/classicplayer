@@ -1,5 +1,5 @@
 {
-  "$comment": "CMSL のカテゴリ名 → 表示ジャンル（SPEC §3.3）。categories（完全一致）→ rules（上から順に部分一致）→ default の順に決める。初版の案で、実際のカテゴリ一覧を見て PLAN 0.6 で確定する",
+  "$comment": "CMSL のカテゴリ名 → 表示ジャンル（SPEC §3.3）。categories（完全一致）→ rules（上から順に部分一致）→ default の順に決める。PLAN 0.6（2026-11-21 の全件巡回。カテゴリ 14 種）で確定。マップにないカテゴリは「その他」に入り、レポートで警告される",
   "genres": [
     { "id": "symphony", "name": "交響曲", "nameEn": "Symphonies", "order": 10 },
     { "id": "orchestral", "name": "管弦楽曲", "nameEn": "Orchestral", "order": 20 },
@@ -11,7 +11,11 @@
     { "id": "other", "name": "その他", "nameEn": "Other", "order": 999 }
   ],
   "categories": {
-    "器楽曲・Piano": "piano"
+    "器楽曲・Piano": "piano",
+    "弦楽合奏曲 (String ensemble)": "orchestral",
+    "吹奏楽曲 (Wind music)": "orchestral",
+    "国歌・賛美歌・民謡 (National Anthem/Hymn/Folk Song)": "other",
+    "映画音楽・ミュージカル・ポピュラー (Soundtrack/Musical/Pops)": "other"
   },
   "rules": [
     { "contains": ["協奏曲", "Concerto"], "genre": "concerto" },

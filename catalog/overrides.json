@@ -1,10 +1,43 @@
 {
-  "$comment": "手動補正（SPEC §3.4）。exclude: 除外する記事 ID / tracks: 記事 ID ごとの composer・composerEn・work・movement・genre の上書き / composerAliases: 作曲家名の表記揺れ → 正規名 / composerEn: 正規名 → 英語表記。PLAN 0.6 で実データを見て追記する",
+  "$comment": "手動補正（SPEC §3.4）。exclude: 除外する記事 ID / tracks: 記事 ID または曲 ID（まとめ記事の「記事ID-連番」）ごとの composer・composerEn・work・movement・genre の上書き / composerAliases: 作曲家名の表記揺れ → 正規名（まとめ記事のファイル名の先頭の語にも使う） / composerEn: 正規名 → 英語表記。PLAN 0.6（2026-11-21 の全件巡回）で追記",
   "exclude": [],
-  "tracks": {},
+  "tracks": {
+    "474408935": { "composer": "コンヴァース", "composerEn": "Charles Crozat Converse", "work": "いつくしみ深き", "movement": null },
+    "476573453-2": { "work": "序曲《レオノーレ》" },
+    "476991508-1": { "work": "交響曲第2番 イ長調" },
+    "476991508-3": { "work": "エチュード Op.10-3 ホ長調 「別れの曲」", "genre": "piano" },
+    "476991508-5": { "work": "交響詩 《モルダウ》 (『わが祖国』より)", "genre": "orchestral" },
+    "476991508-6": { "work": "花の歌 Op.39", "genre": "piano" },
+    "475551819-3": { "work": "楽劇 《ニュルンベルクのマイスタージンガー》 第1幕への前奏曲" },
+    "475551819-5": { "work": "パガニーニの主題による狂詩曲 Op.43 第18変奏", "genre": "concerto" },
+    "475551819-6": { "work": "組曲《展覧会の絵》" }
+  },
   "composerAliases": {
     "ベートーベン": "ベートーヴェン",
-    "L.v.ベートーヴェン": "ベートーヴェン"
+    "L.v.ベートーヴェン": "ベートーヴェン",
+    "ワグナー": "ワーグナー",
+    "Satie": "エリック・サティ",
+    "Lange": "ランゲ"
   },
-  "composerEn": {}
+  "composerEn": {
+    "ランゲ": "Gustav Lange",
+    "ヨハン・シュトラウス1世": "Johann Strauss I",
+    "プッチーニ": "Giacomo Puccini",
+    "ヨハン・シュトラウス2世": "Johann Strauss II",
+    "スメタナ": "Bedřich Smetana",
+    "G.カッチーニ": "Giulio Caccini",
+    "アルビノーニ": "Tomaso Albinoni",
+    "ガーシュウィン": "George Gershwin",
+    "グラナドス": "Enrique Granados",
+    "グリーグ": "Edvard Grieg",
+    "コレッリ": "Arcangelo Corelli",
+    "サン＝サーンス": "Camille Saint-Saëns",
+    "ジョン・ニュートン": "John Newton",
+    "パーセル": "Henry Purcell",
+    "リムスキー＝コルサコフ": "Nikolai Rimsky-Korsakov",
+    "ヴェルディ": "Giuseppe Verdi",
+    "宮城道雄": "Michio Miyagi",
+    "山田耕筰": "Kosaku Yamada",
+    "瀧廉太郎": "Rentaro Taki"
+  }
 }
