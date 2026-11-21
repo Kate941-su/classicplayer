@@ -1,0 +1,78 @@
+name: ios
+
+on:
+  # main の必須チェックにできるよう、パスで絞らずすべての PR で実行する
+  pull_request:
+  push:
+    branches: [main]
+    paths: ["ios/**", "fixtures/**", "schema/**", ".github/workflows/ios.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: ios
+    steps:
+      - uses: actions/checkout@v4
+      - name: Xcode を選ぶ（入っている中で最新）
+        run: |
+          xcode="$(ls -d /Applications/Xcode_*.app | grep -vi beta | sort -V | tail -1)"
+          sudo xcode-select -s "$xcode"
+          xcodebuild -version
+      - name: プロジェクトが project.yml と一致していること（XcodeGen。手元と同じ版に固定）
+        env:
+          XCODEGEN_VERSION: "2.46.0"
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/xcodegen.zip" \
+            "https://github.com/yonaskolb/XcodeGen/releases/download/$XCODEGEN_VERSION/xcodegen.zip"
+          unzip -q "$RUNNER_TEMP/xcodegen.zip" -d "$RUNNER_TEMP/xcodegen"
+          "$RUNNER_TEMP/xcodegen/xcodegen/bin/xcodegen" --version
+          cp CMSLClassical.xcodeproj/project.pbxproj "$RUNNER_TEMP/committed.pbxproj"
+          "$RUNNER_TEMP/xcodegen/xcodegen/bin/xcodegen" --quiet
+          # プロジェクトの外（../fixtures）を指す項目は、ID とグループ名がチェックアウトした場所（フォルダ名）で変わるので、
+          # ID・コメント・name を除いて比べる（パスや設定の違いは検出できる）
+          strip_ids() { sed -E -e 's/[0-9A-F]{24}//g' -e 's#/\*[^*]*\*/##g' -e '/^[[:space:]]*name = [^;]*;$/d' "$1" | sort; }
+          diff <(strip_ids "$RUNNER_TEMP/committed.pbxproj") <(strip_ids CMSLClassical.xcodeproj/project.pbxproj) || {
+            echo "::error::CMSLClassical.xcodeproj が project.yml と違います。cd ios && xcodegen（$XCODEGEN_VERSION）を実行してコミットしてください"
+            exit 1
+          }
+          git diff --quiet -- CMSLClassical.xcodeproj/xcshareddata || {
+            git diff -- CMSLClassical.xcodeproj/xcshareddata
+            echo "::error::スキームが project.yml と違います。cd ios && xcodegen を実行してコミットしてください"
+            exit 1
+          }
+      - name: 依存ライブラリがないこと（SPEC §8.1。追加するときはここを見直す）
+        run: |
+          if grep -q "XCRemoteSwiftPackageReference" CMSLClassical.xcodeproj/project.pbxproj; then
+            echo "::error::Swift Package が追加されています。ライセンス（MIT/Apache/BSD）と通信の有無を確認し、この検査を更新してください"
+            exit 1
+          fi
+      - name: シミュレーターを選ぶ
+        id: sim
+        run: |
+          udid="$(xcrun simctl list devices available | grep -E '^\s+iPhone' | head -1 | grep -Eo '[0-9A-F-]{36}')"
+          [[ -n "$udid" ]] || { xcrun simctl list devices available; echo "::error::iPhone のシミュレーターがありません"; exit 1; }
+          xcrun simctl list devices available | grep "$udid"
+          echo "udid=$udid" >> "$GITHUB_OUTPUT"
+      - name: ビルドとテスト（ユニットテストと UI テスト。シードはフィクスチャ）
+        run: |
+          xcodebuild -scheme CMSLClassical -destination "id=${{ steps.sim.outputs.udid }}" \
+            -derivedDataPath build/ci -resultBundlePath build/ci/tests.xcresult \
+            CMSL_SEED_CATALOG="$GITHUB_WORKSPACE/fixtures/catalog.sample.json" \
+            test
+      - name: テスト結果を保存（失敗時）
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-test-results
+          path: ios/build/ci/tests.xcresult
+          retention-days: 7
