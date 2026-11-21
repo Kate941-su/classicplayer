@@ -25,7 +25,7 @@ tool/       run.sh（起動）, update-catalog.sh（カタログの月次更新�
 - Android: `cd android && ./gradlew assembleDebug test lint detekt`（JDK 17 以上。`JAVA_HOME` 未設定なら `export JAVA_HOME=/opt/homebrew/opt/openjdk@21`）。整形の自動修正は `./gradlew detekt -PdetektAutoCorrect`
 - Android の依存監査（広告・解析 SDK がないこと）: `tool/check-android-deps.sh`
 - 起動（実機・エミュレーター・シミュレーター）: `tool/run.sh`（Android 実機 → なければエミュレーター）、`tool/run.sh android|ios`、`--device <id>`、`--list`、`--fresh`（データを消す）、`--seed <catalog.json>`（同梱カタログを差し替え）、`--logs`。`--` の後ろは gradlew / xcodebuild に渡す
-- 同梱カタログ（シード）: 既定は `fixtures/catalog.sample.json`（実カタログから抜き出した 20 曲。http の旧サーバーの曲を含む。再生もできる）。全件で試すときは `tool/update-seed.sh`（公開中のカタログ）か `tool/update-seed.sh <path>` → `android/seed/catalog.json`（コミットしない）
+- 同梱カタログ（シード）: 既定は `fixtures/catalog.sample.json`（実カタログから抜き出した 20 曲。http の旧サーバーの曲を含む。再生もできる）。全件で試すときは `tool/update-seed.sh`（公開中のカタログ）か `tool/update-seed.sh <path>` → `android/seed/catalog.json`（コミットしない。iOS のビルドも同じファイルを使う）
 - フィクスチャの作り直し: `cd catalog && python3 extract_fixture.py <catalog.json>`（`fixtures/README.md`）
 - スクリーンショット: `cd android && ./gradlew :app:testDebugUnitTest --tests '*ScreenshotsTest' -Pcmsl.recordScreenshots` → `docs/screens/android/`
 - iOS（macOS のみ）: `cd ios && xcodebuild -scheme CMSLClassical -destination 'platform=iOS Simulator,name=iPhone 17' test`（名前は `xcrun simctl list devices available` にあるものを選ぶ）。Lint（任意）: `cd ios && swiftlint`

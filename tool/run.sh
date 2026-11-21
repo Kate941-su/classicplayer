@@ -151,7 +151,11 @@ run_android() {
 run_ios() {
   need_ios
   [[ -d "$IOS_PROJECT" ]] || die "iOS アプリはまだありません（PLAN Phase 2 で ios/CMSLClassical.xcodeproj を作成します）"
-  [[ -z "$SEED" ]] || warn "--seed は Android だけで使えます（iOS では無視します）"
+  local seed_args=()
+  if [[ -n "$SEED" ]]; then
+    [[ -f "$SEED" ]] || die "シードのファイルがありません: $SEED"
+    seed_args=("CMSL_SEED_CATALOG=$(cd "$(dirname "$SEED")" && pwd)/$(basename "$SEED")")
+  fi
 
   local udid="$DEVICE" physical=false
   if [[ -n "$udid" ]]; then
@@ -173,7 +177,7 @@ run_ios() {
   [[ "$physical" == true ]] && { sdk="iphoneos"; config_dir="Debug-iphoneos"; }
   info "ビルドします（${sdk}）"
   xcodebuild -project "$IOS_PROJECT" -scheme "$IOS_SCHEME" -configuration Debug -sdk "$sdk" \
-    -destination "$dest" -derivedDataPath "$derived" ${EXTRA[@]+"${EXTRA[@]}"} build -quiet || die "ビルドに失敗しました"
+    -destination "$dest" -derivedDataPath "$derived" ${seed_args[@]+"${seed_args[@]}"} ${EXTRA[@]+"${EXTRA[@]}"} build -quiet || die "ビルドに失敗しました"
   local app; app="$(find "$derived/Build/Products/$config_dir" -maxdepth 1 -name '*.app' | head -1)"
   [[ -n "$app" ]] || die "ビルドした .app が見つかりません"
   local bundle; bundle="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$app/Info.plist")"
