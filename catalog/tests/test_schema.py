@@ -31,14 +31,27 @@ def test_sample_fixture_passes():
 
 
 def test_sample_fixture_covers_plan_requirements():
-    # PLAN 0.9 の条件の一部（ジャンル 3 以上、複数楽章の作品、複数 mp3 の記事、null の値）
+    # PLAN 0.9: 実カタログから 20 曲、ジャンル 3 以上、楽章が複数ある作品。ほかに複数 mp3 の記事、楽章なし、null の値
+    assert len(SAMPLE["tracks"]) == 20
     assert len(SAMPLE["genres"]) >= 3
     per_work = {}
     for t in SAMPLE["tracks"]:
         per_work[t["workId"]] = per_work.get(t["workId"], 0) + 1
     assert max(per_work.values()) >= 2
     assert any("-" in t["id"] for t in SAMPLE["tracks"])
-    assert any(t["publishedAt"] is None for t in SAMPLE["tracks"])
+    assert any(t["movement"] is None for t in SAMPLE["tracks"])
+    assert any(t["titleEn"] is None for t in SAMPLE["tracks"])
+    assert all(not t["id"].startswith("9000000") for t in SAMPLE["tracks"])  # 暫定版の架空 ID は残さない
+
+
+def test_sample_fixture_is_reproducible_from_its_ids():
+    # extract_fixture.py の ID 一覧と一致する（実カタログから作り直せる）
+    import extract_fixture as ef
+    assert [t["id"] for t in SAMPLE["tracks"]] == [i for i in sorted(
+        ef.SAMPLE_TRACK_IDS, key=[t["id"] for t in SAMPLE["tracks"]].index)]
+    assert sorted(t["id"] for t in SAMPLE["tracks"]) == sorted(ef.SAMPLE_TRACK_IDS)
+    for name, doc in ef.invalid_variants(SAMPLE).items():
+        assert json.loads((ROOT / "fixtures/invalid" / name).read_text(encoding="utf-8")) == doc, name
 
 
 def mutate(fn):

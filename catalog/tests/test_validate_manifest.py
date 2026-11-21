@@ -16,7 +16,7 @@ import validate_catalog as vc  # noqa: E402
 
 FIX = ROOT / "fixtures"
 SAMPLE = json.loads((FIX / "catalog.sample.json").read_text(encoding="utf-8"))
-LOOSE = 1.0  # 暫定フィクスチャは 7 曲中「その他」「作曲者不明」が 1 曲ずつなので、比率の検査を外す
+LOOSE = 1.0  # 比率以外を見るテストでは、比率の検査を外す（サンプルは 20 曲中「その他」1 曲 = 5%）
 MANIFEST_SCHEMA = json.loads((ROOT / "schema/manifest.schema.json").read_text(encoding="utf-8"))
 
 
@@ -59,7 +59,7 @@ def mutate(fn):
     ("work の作曲家が存在しない", lambda d: d["works"][0].update(composerId="nobody"), "参照切れ"),
     ("work のジャンルが存在しない", lambda d: d["works"][0].update(genreId="nope"), "参照切れ"),
     ("track のジャンルが存在しない", lambda d: d["tracks"][0].update(genreId="nope"), "参照切れ"),
-    ("作品と曲の作曲家が違う", lambda d: d["tracks"][0].update(composerId="f-chopin"), "不整合"),
+    ("作品と曲の作曲家が違う", lambda d: d["tracks"][0].update(composerId="john-newton"), "不整合"),
     ("articleUrl の記事 ID が違う", lambda d: d["tracks"][0].update(
         articleUrl="https://classical-sound.seesaa.net/article/1.html"), "articleUrl"),
     ("作曲家 ID の重複", lambda d: d["composers"].append(dict(d["composers"][0])), "ID の重複"),
@@ -70,23 +70,26 @@ def test_integrity_errors(name, fn, needle):
 
 
 def test_ratio_limits():
-    # 7 曲中 1 曲（14.3%）が「その他」、1 曲が「作曲者不明」
+    # 20 曲中 1 曲（5%）が「その他」、「作曲者不明」は 0 曲。上限ちょうどは通す
     errors, _ = vc.validate(SAMPLE)  # 既定 5%
-    assert sum("比率" in e for e in errors) == 2
-    errors, _ = vc.validate(SAMPLE, max_ratio=0.15)
     assert errors == []
+    errors, _ = vc.validate(SAMPLE, max_ratio=0.04)
+    assert sum("比率" in e for e in errors) == 1
+    unknown = mutate(lambda d: [d["composers"][0].update(name="作曲者不明")])
+    errors, _ = vc.validate(unknown, max_ratio=0.3)
+    assert any("作曲者不明" in e for e in errors), errors  # 8 曲（40%）
 
 
-@pytest.mark.parametrize("prev, ok", [(7, True), (7.7, True), (8, False), (100, False)])
+@pytest.mark.parametrize("prev, ok", [(20, True), (22, True), (23, False), (100, False)])
 def test_track_count_drop_threshold(prev, ok):
-    # 7 曲。前回 prev 曲から 10% 以上減ったら NG
+    # 20 曲。前回 prev 曲から 10% 以上減ったら NG（22 → 9.1% 減、23 → 13% 減）
     errors, _ = check(SAMPLE, previous_count=prev)
     assert (errors == []) is ok, errors
 
 
 def test_warnings_for_unused_items():
     d = mutate(lambda d: d["works"].append(
-        {"id": "x--unused", "title": "未使用", "composerId": "f-chopin", "genreId": "piano"}))
+        {"id": "x--unused", "title": "未使用", "composerId": "frederic-francois-chopin", "genreId": "piano"}))
     errors, warnings = check(d)
     assert errors == [] and any("曲のない作品" in w for w in warnings)
 
@@ -132,4 +135,4 @@ def test_catalog_version(generated, sha, previous, expected):
 def test_make_manifest_cli(tmp_path):
     out = tmp_path / "manifest.json"
     assert mm.main([str(FIX / "catalog.sample.json"), "-o", str(out)]) == 0
-    assert json.loads(out.read_text(encoding="utf-8"))["trackCount"] == 7
+    assert json.loads(out.read_text(encoding="utf-8"))["trackCount"] == 20

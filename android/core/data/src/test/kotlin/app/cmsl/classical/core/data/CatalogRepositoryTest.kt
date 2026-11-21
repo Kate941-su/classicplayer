@@ -31,6 +31,7 @@ class CatalogRepositoryTest {
 
     private val fixtures = File(requireNotNull(System.getProperty("fixturesDir")))
     private val sampleBytes = File(fixtures, "catalog.sample.json").readBytes()
+    private val sampleCount = CatalogJson.decodeCatalog(sampleBytes.decodeToString()).tracks.size
 
     /** シードは「サンプルから 1 曲だけの版」にして、ダウンロード版と区別できるようにする。 */
     private val seedBytes = File(fixtures, "catalog.sample.json").readText().let { text ->
@@ -82,7 +83,7 @@ class CatalogRepositoryTest {
     private fun manifest(version: String, bytes: ByteArray = sampleBytes, schemaVersion: Int = 1, sha: String? = null) =
         """
         {"schemaVersion": $schemaVersion, "catalogVersion": "$version", "catalogUrl": "catalog.json",
-         "sha256": "${sha ?: CatalogRepository.sha256(bytes)}", "trackCount": 7,
+         "sha256": "${sha ?: CatalogRepository.sha256(bytes)}", "trackCount": $sampleCount,
          "generatedAt": "2026-12-01T03:17:00+00:00", "minAppSchema": 1}
         """.trimIndent()
 
@@ -112,13 +113,13 @@ class CatalogRepositoryTest {
         enqueueCatalog(sampleBytes)
 
         assertEquals(RefreshResult.Updated("2026.12.01"), repo.refresh())
-        assertEquals(7, repo.state.value!!.index.catalog.tracks.size)
+        assertEquals(sampleCount, repo.state.value!!.index.catalog.tracks.size)
         assertEquals("/v1/catalog.json", server.takeRequest().let { server.takeRequest().url.encodedPath })
 
         val restarted = repository(dispatcher).load()
         assertEquals(CatalogSource.Downloaded, restarted.source)
         assertEquals("2026.12.01", restarted.catalogVersion)
-        assertEquals(7, restarted.index.catalog.tracks.size)
+        assertEquals(sampleCount, restarted.index.catalog.tracks.size)
     }
 
     @Test
@@ -175,7 +176,7 @@ class CatalogRepositoryTest {
             val result = repo.refresh()
             assertTrue("${file.name}: $result", result is RefreshResult.Failed)
             assertEquals("2026.12.01", repo.state.value!!.catalogVersion)
-            assertEquals(7, repo.state.value!!.index.catalog.tracks.size)
+            assertEquals(sampleCount, repo.state.value!!.index.catalog.tracks.size)
         }
         assertEquals("2026.12.01", repository(dispatcher).load().catalogVersion)
     }

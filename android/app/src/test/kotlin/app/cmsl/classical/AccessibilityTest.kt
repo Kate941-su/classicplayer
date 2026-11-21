@@ -57,11 +57,11 @@ class AccessibilityTest {
         compose.setContent { CmslRoot(testContainer(context, tmp.root, player)) }
         compose.onAllNodes(hasClickAction()).assertLabeledAndLargeEnough("ホーム")
 
-        compose.onNodeWithTag("home").performScrollToNode(hasText("Piano"))
-        compose.onNodeWithText("Piano").performClick()
+        compose.onNodeWithTag("home").performScrollToNode(hasText("Symphonies"))
+        compose.onNodeWithText("Symphonies").performClick()
         compose.onAllNodes(hasClickAction()).assertLabeledAndLargeEnough("ジャンル")
         compose.onNodeWithText("L.V.Beethoven").performClick()
-        compose.onNodeWithText("ピアノソナタ 第8番 ハ短調 Op.13 「悲愴」").performClick()
+        compose.onNodeWithText("交響曲 第5番 ハ短調 Op.67 「運命」（2015）").performClick()
         compose.onAllNodes(hasClickAction()).assertLabeledAndLargeEnough("作品")
 
         compose.onNodeWithText(context.getString(R.string.action_play_work)).performClick()

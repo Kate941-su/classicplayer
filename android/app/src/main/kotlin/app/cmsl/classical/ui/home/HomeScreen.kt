@@ -45,6 +45,7 @@ import app.cmsl.classical.core.model.Genre
 import app.cmsl.classical.core.model.Track
 import app.cmsl.classical.core.model.displayName
 import app.cmsl.classical.core.model.shortTitle
+import app.cmsl.classical.core.model.workTitle
 import app.cmsl.classical.core.playback.QueueBuilder
 import app.cmsl.classical.di.AppContainer
 import app.cmsl.classical.ui.components.Artwork
@@ -118,9 +119,15 @@ private fun HomeContent(
                     SectionHeader(stringResource(R.string.home_newest), Modifier.padding(start = 0.dp))
                     LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         items(state.newest, key = { it.id }) { t ->
-                            NewestCard(t, state.index.composer(t.composerId)?.displayName(english).orEmpty()) {
-                                onWork(t.workId)
-                            }
+                            val composer = state.index.composer(t.composerId)?.displayName(english).orEmpty()
+                            NewestCard(
+                                title = t.workTitle(english, state.index.work(t.workId)),
+                                // 楽章名だけでは何の曲か分からないので、作品名の下に「作曲家 · 楽章」
+                                subtitle = listOfNotNull(composer, t.movement?.let { t.shortTitle(english) })
+                                    .filter { it.isNotEmpty() }
+                                    .joinToString(" · "),
+                                track = t,
+                            ) { onWork(t.workId) }
                         }
                     }
                 }
@@ -132,8 +139,7 @@ private fun HomeContent(
 }
 
 @Composable
-private fun NewestCard(track: Track, composer: String, onClick: () -> Unit) {
-    val english = LocalEnglish.current
+private fun NewestCard(title: String, subtitle: String, track: Track, onClick: () -> Unit) {
     Column(
         Modifier
             .width(140.dp)
@@ -141,14 +147,14 @@ private fun NewestCard(track: Track, composer: String, onClick: () -> Unit) {
     ) {
         Artwork(track.composerId, track.genreId, Modifier.size(140.dp))
         Text(
-            track.shortTitle(english),
+            title,
             style = MaterialTheme.typography.bodyMedium,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(top = 6.dp),
         )
         Text(
-            composer,
+            subtitle,
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1
