@@ -7,7 +7,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
@@ -55,5 +57,13 @@ class PreferencesStoresTest {
         assertEquals(snapshot, store.load())
         store.clear()
         assertNull(store.load())
+    }
+
+    @Test
+    fun `Wi-Fi のときだけの設定は既定でオン`() = runTest {
+        val store = DownloadSettingsStore(dataStore())
+        assertTrue(store.wifiOnly.first())
+        store.setWifiOnly(false)
+        assertFalse(store.wifiOnly.first())
     }
 }

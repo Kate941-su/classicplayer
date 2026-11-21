@@ -7,9 +7,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DownloadDone
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.StarOutline
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -24,12 +27,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.cmsl.classical.R
+import app.cmsl.classical.core.data.DownloadState
 import app.cmsl.classical.core.model.Track
 
 /** 曲の行の操作（SPEC §4.5 の「…」メニュー）。 */
@@ -39,6 +46,10 @@ class TrackRowActions(
     val onPlayNext: (Track) -> Unit,
     val onAddToQueue: (Track) -> Unit,
     val onAbout: (Track) -> Unit,
+    /** ダウンロードの状態と操作（SPEC §5.1）。 */
+    val downloads: DownloadState = DownloadState(),
+    val onDownload: (Track) -> Unit = {},
+    val onRemoveDownload: (Track) -> Unit = {},
 )
 
 @Composable
@@ -76,7 +87,8 @@ fun TrackRow(
             else -> null
         },
         trailingContent = {
-            Row {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                DownloadBadge(track.id, actions.downloads)
                 FavoriteButton(isFavorite) { actions.onToggleFavorite(track) }
                 TrackMenu(track, isFavorite, actions)
             }
@@ -113,8 +125,41 @@ fun FavoriteButton(isFavorite: Boolean, onClick: () -> Unit) {
     }
 }
 
+/** ダウンロード済み・取得中・待ちの印（SPEC §4.5・§5.1）。 */
 @Composable
-private fun TrackMenu(track: Track, isFavorite: Boolean, actions: TrackRowActions) {
+private fun DownloadBadge(trackId: String, downloads: DownloadState) {
+    val tint = MaterialTheme.colorScheme.onSurfaceVariant
+    when {
+        downloads.isDownloaded(trackId) -> Icon(
+            Icons.Filled.DownloadDone,
+            contentDescription = stringResource(R.string.a11y_downloaded),
+            tint = tint,
+            modifier = Modifier.size(BADGE_SIZE),
+        )
+        downloads.active == trackId -> {
+            val label = stringResource(R.string.a11y_downloading)
+            CircularProgressIndicator(
+                progress = { downloads.progress },
+                strokeWidth = 2.dp,
+                modifier = Modifier
+                    .size(BADGE_SIZE)
+                    .semantics { contentDescription = label },
+            )
+        }
+        downloads.isPending(trackId) -> Icon(
+            Icons.Outlined.Schedule,
+            contentDescription = stringResource(R.string.a11y_downloading),
+            tint = tint,
+            modifier = Modifier.size(BADGE_SIZE),
+        )
+    }
+}
+
+private val BADGE_SIZE = 20.dp
+
+/** 曲の「…」メニュー（曲の行とフルプレイヤー。SPEC §4.5・§4.8）。 */
+@Composable
+fun TrackMenu(track: Track, isFavorite: Boolean, actions: TrackRowActions) {
     var open by rememberSaveable { mutableStateOf(false) }
     Box {
         IconButton(onClick = { open = true }) {
@@ -146,6 +191,7 @@ private fun TrackMenu(track: Track, isFavorite: Boolean, actions: TrackRowAction
                     actions.onAddToQueue(track)
                 },
             )
+            DownloadMenuItem(track, actions) { open = false }
             DropdownMenuItem(
                 text = { Text(stringResource(R.string.action_about_track)) },
                 onClick = {
@@ -155,4 +201,21 @@ private fun TrackMenu(track: Track, isFavorite: Boolean, actions: TrackRowAction
             )
         }
     }
+}
+
+@Composable
+private fun DownloadMenuItem(track: Track, actions: TrackRowActions, close: () -> Unit) {
+    val downloads = actions.downloads
+    val (label, action) = when {
+        downloads.isDownloaded(track.id) -> R.string.action_remove_download to actions.onRemoveDownload
+        downloads.isPending(track.id) -> R.string.action_cancel_download to actions.onRemoveDownload
+        else -> R.string.action_download to actions.onDownload
+    }
+    DropdownMenuItem(
+        text = { Text(stringResource(label)) },
+        onClick = {
+            close()
+            action(track)
+        },
+    )
 }

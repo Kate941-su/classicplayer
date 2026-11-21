@@ -21,7 +21,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.QueueMusic
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Pause
@@ -70,6 +69,7 @@ import app.cmsl.classical.ui.components.AboutTrackDialog
 import app.cmsl.classical.ui.components.Artwork
 import app.cmsl.classical.ui.components.CmslTopBar
 import app.cmsl.classical.ui.components.FavoriteButton
+import app.cmsl.classical.ui.components.TrackMenu
 import app.cmsl.classical.ui.containerViewModel
 import app.cmsl.classical.ui.theme.LocalEnglish
 
@@ -106,6 +106,7 @@ fun PlayerScreen(onClose: () -> Unit) {
             return@Scaffold
         }
         val english = LocalEnglish.current
+        val downloads by vm.actions.downloads.collectAsStateWithLifecycle()
         val p = state.player
         Column(
             Modifier
@@ -167,9 +168,12 @@ fun PlayerScreen(onClose: () -> Unit) {
                 }) {
                     Icon(Icons.Filled.Share, contentDescription = shareTitle)
                 }
-                IconButton(onClick = { showAbout = true }) {
-                    Icon(Icons.Filled.Info, contentDescription = stringResource(R.string.action_about_track))
-                }
+                // 曲の行と同じ「…」メニュー（ダウンロード・この曲について など。SPEC §4.8）
+                TrackMenu(
+                    now.track,
+                    state.isFavorite,
+                    vm.actions.rowActions(downloads, onPlay = {}, onAbout = { showAbout = true }),
+                )
             }
             Spacer(Modifier.height(24.dp))
         }

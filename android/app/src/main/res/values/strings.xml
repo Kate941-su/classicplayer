@@ -115,4 +115,26 @@
     <string name="image_credit_title">Work: %1$s</string>
     <string name="image_credit_artist">Author: %1$s</string>
     <string name="image_credit_source">Source: Wikimedia Commons</string>
+    <!-- ダウンロード（SPEC §5.1） -->
+    <string name="library_downloads">Downloads</string>
+    <string name="library_downloads_empty">Download tracks from the ⋮ menu or a work\'s page to play them without a connection.</string>
+    <string name="action_download">Download</string>
+    <string name="action_download_work">Download this work</string>
+    <string name="action_remove_download">Remove download</string>
+    <string name="action_cancel_download">Cancel download</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_remove_all_downloads">Remove all</string>
+    <string name="downloads_work_done">Work downloaded</string>
+    <string name="downloads_wifi_only">Download only on Wi-Fi</string>
+    <string name="downloads_in_progress">Downloading</string>
+    <string name="downloads_waiting_for_wifi">Waiting for Wi-Fi</string>
+    <plurals name="downloads_waiting">
+        <item quantity="one">%d waiting</item>
+        <item quantity="other">%d waiting</item>
+    </plurals>
+    <string name="downloads_failed">Some tracks couldn\'t be downloaded. Check your connection and try again.</string>
+    <string name="downloads_total">Total %1$s</string>
+    <string name="downloads_remove_all_confirm">Remove all downloaded tracks?</string>
+    <string name="a11y_downloaded">Downloaded</string>
+    <string name="a11y_downloading">Downloading</string>
 </resources>

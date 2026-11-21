@@ -55,6 +55,7 @@ class HomeToPlaybackTest {
         compose.onNodeWithText("Symphonies").performClick()
         compose.onNodeWithText("L.V.Beethoven").performClick()
         compose.onNodeWithText(FATE).performClick()
+        compose.onNodeWithTag("work").performScrollToNode(hasText("第2楽章"))
         compose.onNodeWithText("第2楽章").performClick() // 英語タイトルのない曲は日本語の楽章名
 
         assertEquals(listOf(PlayQueue(listOf("500111088-1", "500150417"), 0)), player.played)

@@ -15,6 +15,9 @@ object CatalogValidator {
     private val SHA256 = Regex("^[0-9a-f]{64}$")
     private val COMMONS_URL = Regex("^https://commons\\.wikimedia\\.org/\\S+$")
 
+    /** 音源の取得先として許している URL か（ダウンロードもこれだけを取る。SPEC §1.2・§5.1）。 */
+    fun isAllowedAudioUrl(url: String): Boolean = AUDIO_URL.matches(url)
+
     fun validate(catalog: Catalog): List<String> = buildList {
         if (catalog.schemaVersion != SUPPORTED_SCHEMA_VERSION) {
             add("schemaVersion ${catalog.schemaVersion} は対応範囲外")

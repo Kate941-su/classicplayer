@@ -2,6 +2,7 @@ package app.cmsl.classical.core.db
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import app.cmsl.classical.core.model.QueueSnapshot
@@ -68,5 +69,16 @@ class QueueStore(private val dataStore: DataStore<Preferences>) {
 
     suspend fun clear() {
         dataStore.edit { it.remove(key) }
+    }
+}
+
+/** ダウンロードの設定（SPEC §5.1・§6）。「Wi-Fi のときだけ」は既定でオン。 */
+class DownloadSettingsStore(private val dataStore: DataStore<Preferences>) {
+    private val key = booleanPreferencesKey("download_wifi_only")
+
+    val wifiOnly: Flow<Boolean> = dataStore.data.map { it[key] ?: true }
+
+    suspend fun setWifiOnly(value: Boolean) {
+        dataStore.edit { it[key] = value }
     }
 }
