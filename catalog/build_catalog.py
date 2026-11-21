@@ -576,6 +576,37 @@ def work_slug(title: str) -> str:
     return slug(re.sub(r"\s+", "", unicodedata.normalize("NFKC", title)))
 
 
+_NICKNAME_RE = re.compile(r"[「《『“\"][^」》』”\"]*[」》』”\"]")
+
+
+def _work_text(title: str) -> str:
+    s = re.sub(r"\s+", "", unicodedata.normalize("NFKC", title)).lower()
+    s = re.sub(r"(?:作品|op\.?)(\d)", r"op\1", s)  # 「作品64」「Op64」「Op.64」
+    return re.sub(r"(?<![a-z])d\.(\d)", r"d\1", s)  # 「D.821」「D821」
+
+
+def work_key(title: str) -> str:
+    """同じ作品かどうかを比べるキー。work_slug と同じく記号・括弧の種類・空白・全角半角の違いを無視し、
+    作品番号の書き方の違いも同じにする。"""
+    return slug(_work_text(title))
+
+
+def work_groups(pairs) -> dict:
+    """(作曲家, 作品名) → 作品のキー。愛称（「合唱」《新世界より》）がない作品名は、愛称を除くと同じになる
+    愛称つきの作品名が同じ作曲家に 1 つだけあれば、そちらにまとめる（「夏」と「冬」のように愛称が違えば別の作品）。"""
+    keys = {(c, w): work_key(w) for c, w in pairs}
+    with_nick: dict[tuple, set] = defaultdict(set)
+    for c, w in keys:
+        text = _work_text(w)
+        if _NICKNAME_RE.search(text):
+            with_nick[(c, slug(_NICKNAME_RE.sub("", text)))].add(keys[(c, w)])
+    for (c, w), k in list(keys.items()):
+        named = with_nick.get((c, k), set())
+        if not _NICKNAME_RE.search(_work_text(w)) and len(named) == 1:
+            keys[(c, w)] = next(iter(named))
+    return {pair: (pair[0], k) for pair, k in keys.items()}
+
+
 def split_en(title: str) -> str:
     """タイトルの日本語の部分（英語タイトルの前まで）。"""
     m = EN_SEPARATOR_RE.search(title)
@@ -795,9 +826,14 @@ def build(pages, category_listing, category_names, exclude: list[str],
         movement = e[4]["movement"]
         return {unicodedata.normalize("NFKC", movement).replace(" ", "")} if movement else {"*"}
 
+    group_of = work_groups({(e[5], e[4]["work"]) for e in entries})
+
+    def work_of(e) -> tuple:
+        return group_of[(e[5], e[4]["work"])]
+
     by_work: dict[tuple, list] = defaultdict(list)
     for e in entries:
-        by_work[(e[5], work_slug(e[4]["work"]))].append(e)
+        by_work[work_of(e)].append(e)
     superseded = set()
     replaced_tracks: dict[str, str] = {}  # 外した曲 → 同じ楽章の新しい録音（アプリがお気に入り・履歴を引き継ぐ）
     for group in by_work.values():
@@ -823,12 +859,12 @@ def build(pages, category_listing, category_names, exclude: list[str],
     # 作品の曲を楽章順に並べる（アプリはカタログの順に表示・再生する）。作品どうしの位置（公開順）は変えない
     slots: dict[tuple, list] = defaultdict(list)
     for e in entries:
-        slots[(e[5], work_slug(e[4]["work"]))].append(e)
+        slots[work_of(e)].append(e)
     ordered = {k: iter(sorted(v, key=lambda e: (min(movement_numbers(e[4]["movement"]) or [999]),
                                                 e[0].published or "", e[0].id, e[1])))
                for k, v in slots.items()}
-    entries = [next(ordered[(e[5], work_slug(e[4]["work"]))]) for e in entries]
-    # 作品名・ジャンルは、その作品で最も新しい録音の曲のもの
+    entries = [next(ordered[work_of(e)]) for e in entries]
+    # 作品の ID・作品名・ジャンルは、その作品で最も新しい録音の曲のもの
     newest_of_work = {k: max(v, key=recorded) for k, v in slots.items()}
 
     genres: dict[str, dict] = {}
@@ -840,9 +876,9 @@ def build(pages, category_listing, category_names, exclude: list[str],
         g = genre_map.genres[gid]
         genres.setdefault(gid, {"id": gid, "name": g["name"], "nameEn": g.get("nameEn"),
                                 "order": g.get("order", 999), "trackCount": 0})
-        wid = f"{cid}--{work_slug(info['work'])}"
+        newest = newest_of_work[work_of(e)]
+        wid = f"{cid}--{work_slug(newest[4]['work'])}"  # ID と作品名は、その作品で最も新しい録音の曲の表記
         if wid not in works:
-            newest = newest_of_work[(composer, work_slug(info["work"]))]
             works[wid] = {"id": wid, "title": newest[4]["work"], "composerId": cid, "genreId": newest[6]}
 
         tracks.append({

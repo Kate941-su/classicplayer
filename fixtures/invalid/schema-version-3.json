@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "generatedAt": "2026-11-21T12:33:24+00:00",
+  "generatedAt": "2026-11-21T13:55:26+00:00",
   "source": "https://classical-sound.seesaa.net/",
   "license": {
     "name": "Creative Commons 表示 2.1 日本",
@@ -28,6 +28,7 @@
   ],
   "works": [
     { "id": "l-v-beethoven--交響曲第7番イ長調op-92", "title": "交響曲 第7番 イ長調 Op.92", "composerId": "l-v-beethoven", "genreId": "symphony" },
+    { "id": "l-v-beethoven--ピアノソナタ第14番嬰ハ短調作品27-2-月光", "title": "ピアノソナタ 第14番 嬰ハ短調 作品27-2 「月光」", "composerId": "l-v-beethoven", "genreId": "piano" },
     { "id": "frederic-francois-chopin--ノクターン第2番変ホ長調op-9-2", "title": "ノクターン 第2番 変ホ長調 Op.9-2", "composerId": "frederic-francois-chopin", "genreId": "piano" },
     { "id": "giacomo-puccini--歌劇-トゥーランドット-よりアリア-誰も寝てはならぬ", "title": "歌劇 「トゥーランドット」より アリア「誰も寝てはならぬ」", "composerId": "giacomo-puccini", "genreId": "vocal" },
     { "id": "john-newton--アメイジング-グレイス", "title": "アメイジング・グレイス", "composerId": "john-newton", "genreId": "other" },
@@ -37,8 +38,7 @@
     { "id": "sergei-vasil-evich-rachmaninov--ピアノ協奏曲第2番ハ短調op-18", "title": "ピアノ協奏曲第2番 ハ短調 Op.18", "composerId": "sergei-vasil-evich-rachmaninov", "genreId": "concerto" },
     { "id": "johannes-brahms--交響曲第4番ホ短調op-98", "title": "交響曲 第4番 ホ短調 Op.98", "composerId": "johannes-brahms", "genreId": "symphony" },
     { "id": "frederic-francois-chopin--エチュードop-10-3ホ長調-別れの曲", "title": "エチュード Op.10-3 ホ長調 「別れの曲」", "composerId": "frederic-francois-chopin", "genreId": "piano" },
-    { "id": "l-v-beethoven--交響曲第5番ハ短調op-67-運命", "title": "交響曲第5番 ハ短調 Op.67 「運命」", "composerId": "l-v-beethoven", "genreId": "symphony" },
-    { "id": "l-v-beethoven--ピアノソナタ第14番嬰ハ短調作品27-2-月光", "title": "ピアノソナタ 第14番 嬰ハ短調 作品27-2 「月光」", "composerId": "l-v-beethoven", "genreId": "piano" }
+    { "id": "l-v-beethoven--交響曲第5番ハ短調op-67-運命", "title": "交響曲第5番 ハ短調 Op.67 「運命」", "composerId": "l-v-beethoven", "genreId": "symphony" }
   ],
   "tracks": [
     {
@@ -57,18 +57,18 @@
       "durationSec": null
     },
     {
-      "id": "222057312",
-      "title": "ベートーヴェン：交響曲第7番 イ長調 Op.92 第2楽章",
-      "titleEn": null,
+      "id": "501651167",
+      "title": "ベートーヴェン：ピアノソナタ 第14番 嬰ハ短調 作品27-2 「月光」 第1楽章 [2023]",
+      "titleEn": "L.V.Beethoven：Piano Sonata No.14 in C sharp minor, Op.27-2 \"Moonlight\"：I. Adagio sostenuto",
       "composerId": "l-v-beethoven",
-      "workId": "l-v-beethoven--交響曲第7番イ長調op-92",
-      "genreId": "symphony",
-      "movement": "第2楽章",
-      "tags": [],
-      "audioUrl": "http://andotowa.sakura.ne.jp/Room/Beethoven-SymNo7-2.mp3",
-      "fileName": "Beethoven-SymNo7-2.mp3",
-      "articleUrl": "https://classical-sound.seesaa.net/article/222057312.html",
-      "publishedAt": "2006-10-21T03:37:00+09:00",
+      "workId": "l-v-beethoven--ピアノソナタ第14番嬰ハ短調作品27-2-月光",
+      "genreId": "piano",
+      "movement": "第1楽章",
+      "tags": ["2023"],
+      "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-PianoSonata-No14-Moonlight-2023.mp3",
+      "fileName": "Beethoven-PianoSonata-No14-Moonlight-2023.mp3",
+      "articleUrl": "https://classical-sound.seesaa.net/article/501651167.html",
+      "publishedAt": "2023-12-04T13:55:00+09:00",
       "durationSec": null
     },
     {
@@ -237,6 +237,21 @@
       "durationSec": null
     },
     {
+      "id": "493005331",
+      "title": "ベートーヴェン：交響曲 第7番 イ長調 Op92 第2楽章 [2022]",
+      "titleEn": "Ludwig Van Beethoven：Symphony No.7 in A major, Op.92：II. Allegretto",
+      "composerId": "l-v-beethoven",
+      "workId": "l-v-beethoven--交響曲第7番イ長調op-92",
+      "genreId": "symphony",
+      "movement": "第2楽章",
+      "tags": ["2022"],
+      "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-Symphony-No7-2nd-2022.mp3",
+      "fileName": "Beethoven-Symphony-No7-2nd-2022.mp3",
+      "articleUrl": "https://classical-sound.seesaa.net/article/493005331.html",
+      "publishedAt": "2022-10-29T19:08:00+09:00",
+      "durationSec": null
+    },
+    {
       "id": "476156249-3",
       "title": "ブラームス：交響曲第4番 ホ短調 Op.98 第4楽章[2020][IR]",
       "titleEn": null,
@@ -325,21 +340,6 @@
       "articleUrl": "https://classical-sound.seesaa.net/article/500150417.html",
       "publishedAt": "2023-07-26T05:35:00+09:00",
       "durationSec": null
-    },
-    {
-      "id": "501651167",
-      "title": "ベートーヴェン：ピアノソナタ 第14番 嬰ハ短調 作品27-2 「月光」 第1楽章 [2023]",
-      "titleEn": "L.V.Beethoven：Piano Sonata No.14 in C sharp minor, Op.27-2 \"Moonlight\"：I. Adagio sostenuto",
-      "composerId": "l-v-beethoven",
-      "workId": "l-v-beethoven--ピアノソナタ第14番嬰ハ短調作品27-2-月光",
-      "genreId": "piano",
-      "movement": "第1楽章",
-      "tags": ["2023"],
-      "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-PianoSonata-No14-Moonlight-2023.mp3",
-      "fileName": "Beethoven-PianoSonata-No14-Moonlight-2023.mp3",
-      "articleUrl": "https://classical-sound.seesaa.net/article/501651167.html",
-      "publishedAt": "2023-12-04T13:55:00+09:00",
-      "durationSec": null
     }
   ],
   "replacedTracks": {
@@ -355,6 +355,7 @@
     "221978931": "500150417",
     "222052916": "499616036-0",
     "222055883": "499616036-0",
+    "222057312": "493005331",
     "222061001": "499616036-1",
     "222063410": "499616036-1",
     "222527545": "474143449",
@@ -372,10 +373,13 @@
     "470307163": "500111088-1",
     "470519370": "500150417",
     "470797118": "499179250",
+    "471105400": "493005331",
+    "471454034": "499616036-0",
     "472021318": "502781377-0",
     "474922849-0": "499579424-0",
     "475465248-0": "502781377-0",
     "475551819-1": "499179250",
+    "475551819-2": "493005331",
     "475909657-0": "500111088-0",
     "475909657-1": "500111088-1",
     "475909657-2": "500150417",

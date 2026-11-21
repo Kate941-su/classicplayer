@@ -1,6 +1,6 @@
 {
-  "$comment": "手動補正（SPEC §3.4）。exclude: 除外する記事 ID / tracks: 記事 ID または曲 ID（まとめ記事の「記事ID-連番」）ごとの composer・composerEn・work・movement・genre の上書き / composerAliases: 作曲家名の表記揺れ → 正規名（まとめ記事のファイル名の先頭の語にも使う） / composerEn: 正規名 → 英語表記。PLAN 0.6（2026-11-21 の全件巡回）で追記",
-  "exclude": [],
+  "$comment": "手動補正（SPEC §3.4）。exclude: 除外する記事 ID（503525038: 第九 第1楽章のリハーサル録音。完成版の 2020 AR を残す） / tracks: 記事 ID または曲 ID（まとめ記事の「記事ID-連番」）ごとの composer・composerEn・work・movement・genre の上書き / composerAliases: 作曲家名の表記揺れ → 正規名（まとめ記事のファイル名の先頭の語にも使う） / composerEn: 正規名 → 英語表記。PLAN 0.6（2026-11-21 の全件巡回）で追記",
+  "exclude": ["503525038"],
   "tracks": {
     "474408935": { "composer": "コンヴァース", "composerEn": "Charles Crozat Converse", "work": "いつくしみ深き", "movement": null },
     "476573453-2": { "work": "序曲《レオノーレ》" },
@@ -12,7 +12,12 @@
     "475551819-5": { "work": "パガニーニの主題による狂詩曲 Op.43 第18変奏", "genre": "concerto" },
     "475551819-6": { "work": "組曲《展覧会の絵》" },
     "231265683": { "composer": "作曲者不明", "work": "鳥の歌 《スペイン・カタロニア民謡》" },
-    "231267540": { "composer": "林廣守", "composerEn": "Hiromori Hayashi", "work": "日本国歌 「君が代」" }
+    "231267540": { "composer": "林廣守", "composerEn": "Hiromori Hayashi", "work": "日本国歌 「君が代」" },
+    "220618358": { "work": "組曲「ペレアスとメリザンド」 Op.80", "movement": "第3曲 シシリエンヌ" },
+    "476462852-3": { "work": "組曲「ペレアスとメリザンド」 Op.80", "movement": "第3曲 シシリエンヌ" },
+    "426229329": { "work": "組曲「ペレアスとメリザンド」 Op.80", "movement": "第3曲 シシリエンヌ" },
+    "231228626": { "work": "楽劇 《ニュルンベルクのマイスタージンガー》 第1幕への前奏曲" },
+    "440952411": { "work": "《ペール・ギュント》第1組曲 Op.23-4 「山の魔王の宮殿にて」" }
   },
   "composerAliases": {
     "ベートーベン": "ベートーヴェン",

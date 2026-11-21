@@ -222,3 +222,37 @@ def test_track_ids_are_unchanged_by_compilation_and_recording_rules():
     # 300・301 は消えずに、新しい録音（302-0・302-2）への置き換えとして残る
     assert [x["id"] for x in cat["tracks"]] == ["302-0", "302-1", "302-2", "302-3"]
     assert cat["replacedTracks"] == {"300": "302-0", "301": "302-2"}
+
+
+@pytest.mark.parametrize("a, b", [
+    ("交響曲 第5番 ホ短調 作品64", "交響曲 第5番 ホ短調 Op.64"),
+    ("交響曲 第7番 イ長調 Op92", "交響曲 第7番 イ長調 Op.92"),
+    ("アルペジオーネ・ソナタ イ短調 D.821", "アルペジオーネ・ソナタ イ短調 D821"),
+    ("4つの即興曲 作品90、D899", "4つの即興曲 Op90, D899"),
+    ("交響曲 第9番 ホ短調 Op.95 《新世界より》", "交響曲第9番 ホ短調 作品95 「新世界より」"),
+])
+def test_work_key_ignores_opus_notation_brackets_and_punctuation(a, b):
+    assert bc.work_key(a) == bc.work_key(b)
+
+
+def test_title_without_nickname_joins_the_only_nicknamed_title():
+    groups = bc.work_groups({
+        ("b", "交響曲第9番 ニ短調 Op.125 「合唱」"), ("b", "交響曲 第9番 ニ短調 Op.125"), ("b", "交響曲第9番 ニ短調 作品125"),
+        ("v", "協奏曲集 Op.8『四季』より「夏」"), ("v", "協奏曲集 Op.8 『四季』より「冬」"), ("v", "協奏曲集 Op.8"),
+    })
+    assert len({groups[("b", w)] for w in ("交響曲第9番 ニ短調 Op.125 「合唱」", "交響曲 第9番 ニ短調 Op.125",
+                                            "交響曲第9番 ニ短調 作品125")}) == 1
+    # 愛称が違えば別の作品。愛称つきが 2 つあると、愛称のない作品名はどちらにも寄せない
+    assert len({groups[("v", w)] for w in ("協奏曲集 Op.8『四季』より「夏」", "協奏曲集 Op.8 『四季』より「冬」",
+                                            "協奏曲集 Op.8")}) == 3
+
+
+def test_work_title_variants_are_one_work_and_newer_recording_replaces_older():
+    cat, _ = run([
+        ("370", "2019年3月1日", "ドヴォルザーク：交響曲 第9番 ホ短調 Op.95 《新世界より》 第4楽章 [2019][AR]",
+         ["Dvorak-Symphony-No9-4th-2019-AR.mp3"], "交響曲 (Symphony)"),
+        ("371", "2023年6月3日", "ドヴォルザーク：交響曲第9番 ホ短調 作品95 「新世界より」 第4楽章 [2023]",
+         ["Dvorak-Symphony-No9-4th-2023.mp3"], "交響曲 (Symphony)"),
+    ])
+    assert [t["id"] for t in cat["tracks"]] == ["371"] and cat["replacedTracks"] == {"370": "371"}
+    assert [w["title"] for w in cat["works"]] == ["交響曲第9番 ホ短調 作品95 「新世界より」"]  # 最新の曲の表記
