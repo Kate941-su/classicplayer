@@ -17,8 +17,8 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-SCHEMA_VERSION = 1
-MIN_APP_SCHEMA = 1
+SCHEMA_VERSION = 2
+MIN_APP_SCHEMA = 2
 
 
 def catalog_version(generated_at: str, sha256: str, previous: dict | None) -> str:

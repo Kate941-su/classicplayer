@@ -82,6 +82,13 @@ def validate(catalog: dict, max_ratio: float = DEFAULT_MAX_RATIO,
     for wid in works.keys() - used_works:
         warnings.append(f"曲のない作品: {wid}")
 
+    track_ids = {t["id"] for t in tracks}
+    for old_id, new_id in catalog["replacedTracks"].items():
+        if old_id in track_ids:
+            errors.append(f"不整合: replacedTracks の {old_id} が tracks に残っている")
+        if new_id not in track_ids:
+            errors.append(f"参照切れ: replacedTracks の {old_id} → {new_id}")
+
     dup_audio = [u for u, n in Counter(t["audioUrl"] for t in tracks).items() if n > 1]
     if dup_audio:
         warnings.append(f"同じ mp3 を指す曲が複数ある: {len(dup_audio)} 件（例 {dup_audio[0]}）")

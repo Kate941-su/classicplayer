@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  平文の http を許すのは、CMSL の制作者の旧サーバー 3 つだけ（SPEC §1.2）。2011〜2012 年ごろの記事の mp3 がここにあり、
+  https には対応していない（403 か接続不可）。ほかはすべて https のみ（既定）。
+  ホストを変えるときは catalog/build_catalog.py の LEGACY_AUDIO_HOSTS、schema/catalog.schema.json の audioUrl、
+  CatalogValidator、iOS の ATS 例外（Info.plist）を同じ PR で直す。
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">classical-music.aki.gs</domain>
+        <domain includeSubdomains="false">andotowa.sakura.ne.jp</domain>
+        <domain includeSubdomains="false">classical-music.sakura.ne.jp</domain>
+    </domain-config>
+</network-security-config>

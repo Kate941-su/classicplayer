@@ -10,6 +10,7 @@ import app.cmsl.classical.core.data.RefreshResult
 import app.cmsl.classical.core.db.LibraryDatabase
 import app.cmsl.classical.core.db.QueueStore
 import app.cmsl.classical.core.db.RecentSearchStore
+import app.cmsl.classical.core.model.CatalogIndex
 import app.cmsl.classical.core.model.QueueSnapshot
 import app.cmsl.classical.core.model.displayName
 import app.cmsl.classical.core.model.shortTitle
@@ -72,7 +73,8 @@ class AppContainer(
             val en = english()
             return withContext(Dispatchers.Default) {
                 trackIds.mapNotNull { id ->
-                    val t = index.track(id) ?: return@mapNotNull null
+                    // 保存したキューの曲が新しい録音に置き換わっていたら、置き換え先を再生する
+                    val t = index.track(index.currentTrackId(id)) ?: return@mapNotNull null
                     PlayableTrack(
                         id = t.id,
                         audioUrl = t.audioUrl,
@@ -100,12 +102,24 @@ class AppContainer(
     /** 起動時: ローカル（またはシード）を読み、裏で更新を確認する（SPEC §7）。 */
     fun start() {
         scope.launch {
+            // カタログが差し替わるたびに、新しい録音に置き換えた曲のお気に入り・履歴を読み替える（SPEC §6）
+            catalog.filterNotNull().collect { replaceStoredTrackIds(it.index) }
+        }
+        scope.launch {
             catalogRepository.load()
             catalogRepository.refresh()
         }
     }
 
     suspend fun refreshCatalog(force: Boolean): RefreshResult = catalogRepository.refresh(force)
+
+    internal suspend fun replaceStoredTrackIds(index: CatalogIndex) {
+        if (index.catalog.replacedTracks.isEmpty()) return
+        val favorites = database.favorites()
+        favorites.replaceIds(index.replacementsFor(favorites.ids()))
+        val history = database.history()
+        history.replaceIds(index.replacementsFor(history.ids()))
+    }
 
     companion object {
         private const val TIMEOUT_SECONDS = 20L

@@ -58,6 +58,23 @@ interface FavoriteDao {
     @Query("SELECT EXISTS(SELECT 1 FROM favorites WHERE trackId = :trackId)")
     suspend fun contains(trackId: String): Boolean
 
+    @Query("SELECT trackId FROM favorites")
+    suspend fun ids(): List<String>
+
+    @Query("UPDATE OR IGNORE favorites SET trackId = :new WHERE trackId = :old")
+    suspend fun rename(old: String, new: String)
+
+    /**
+     * 新しい録音に置き換えた曲の ID を読み替える（SPEC §6）。追加日はそのまま。置き換え先がすでにお気に入りなら古い方を消す。
+     */
+    @Transaction
+    suspend fun replaceIds(replacements: Map<String, String>) {
+        replacements.forEach { (old, new) ->
+            rename(old, new)
+            remove(old)
+        }
+    }
+
     @Transaction
     suspend fun toggle(trackId: String, now: Long): Boolean {
         val added = !contains(trackId)
@@ -73,6 +90,24 @@ interface HistoryDao {
 
     @Upsert
     suspend fun upsert(entry: HistoryEntity)
+
+    @Query("SELECT trackId FROM history")
+    suspend fun ids(): List<String>
+
+    @Query("UPDATE OR IGNORE history SET trackId = :new WHERE trackId = :old")
+    suspend fun rename(old: String, new: String)
+
+    @Query("DELETE FROM history WHERE trackId = :trackId")
+    suspend fun remove(trackId: String)
+
+    /** お気に入りと同じ読み替え。置き換え先がすでに履歴にあれば、そちらの日時を残す。 */
+    @Transaction
+    suspend fun replaceIds(replacements: Map<String, String>) {
+        replacements.forEach { (old, new) ->
+            rename(old, new)
+            remove(old)
+        }
+    }
 
     @Query(
         "DELETE FROM history WHERE trackId NOT IN " +

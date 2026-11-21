@@ -39,6 +39,34 @@ class LibraryDatabaseTest {
     }
 
     @Test
+    fun `置き換えた曲の ID を読み替え、置き換え先がすでにあれば古い方を消す`() = runTest {
+        val favorites = db.favorites()
+        favorites.add(FavoriteEntity("old1", 100))
+        favorites.add(FavoriteEntity("old2", 200))
+        favorites.add(FavoriteEntity("new2", 300))
+        favorites.add(FavoriteEntity("keep", 400))
+        favorites.replaceIds(mapOf("old1" to "new1", "old2" to "new2"))
+        favorites.observeAll().test {
+            // 追加日はそのまま。new2 はもともとの追加日（300）を残す
+            assertEquals(
+                listOf(FavoriteEntity("keep", 400), FavoriteEntity("new2", 300), FavoriteEntity("new1", 100)),
+                awaitItem(),
+            )
+            cancelAndIgnoreRemainingEvents()
+        }
+
+        val history = db.history()
+        history.record("old1", 10)
+        history.record("new1", 20)
+        history.record("old2", 30)
+        history.replaceIds(mapOf("old1" to "new1", "old2" to "new2"))
+        history.observeRecent().test {
+            assertEquals(listOf(HistoryEntity("new2", 30), HistoryEntity("new1", 20)), awaitItem())
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
     fun `お気に入りの切り替え`() = runTest {
         val dao = db.favorites()
         assertTrue(dao.toggle("a", 1))

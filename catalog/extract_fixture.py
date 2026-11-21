@@ -4,7 +4,7 @@
     python3 extract_fixture.py <catalog.json>    # fixtures/catalog.sample.json と fixtures/invalid/*.json を書く
 
 抜き出す曲は SAMPLE_TRACK_IDS（観点ごとに選んだ 20 曲）。ジャンル・作曲家・作品は、抜き出した曲が参照するものだけを残し、
-trackCount を数え直す。作品名などはカタログのまま（「（2015）」のような録音の書き添えは、全体の録音数で決まったもの）。
+trackCount を数え直す。replacedTracks は、置き換え先が抜き出した曲にあるものだけを残す。作品名などはカタログのまま。
 """
 from __future__ import annotations
 
@@ -15,17 +15,18 @@ import sys
 from pathlib import Path
 
 SAMPLE_TRACK_IDS = [
-    # 複数楽章の作品。同じ作品名の録音が 2 つ（2015 と 2023）。2023 は 1 記事に mp3 が 2 つ（記事ID-連番）
-    "427916377", "428637877", "431342999",
+    # 複数楽章の作品（2023 年の録音）。1 記事に mp3 が 2 つ（記事ID-連番）。2015 年の録音は replacedTracks で読み替える
     "500111088-0", "500111088-1", "500150417",
-    # ピアノ: 楽章ありの単曲と、楽章なしの単曲
-    "474143449", "501651167", "211280853", "211455435",
-    # まとめ記事（オンライン特別プログラム）: 英語タイトルが null、記事のジャンルと違う曲（フォーレ）を含む
-    "476156249-0", "476156249-1", "476156249-2", "476156249-3", "476156249-4",
+    # 新しい録音（2023、https）と制作者の旧サーバーの録音（http）が楽章ごとに混ざった作品。楽章順に並ぶ
+    "499616036-0", "222057312", "222058571", "499616036-1",
+    # ピアノ: 楽章ありの単曲、楽章なしの単曲、まとめ記事の曲を overrides で直したもの（別れの曲）
+    "474143449", "501651167", "314008303", "476991508-3",
+    # まとめ記事（オンライン特別プログラム、英語タイトルが null）の第2〜4楽章と、2023 年の第1楽章が同じ作品
+    "499179250", "476156249-1", "476156249-2", "476156249-3",
     # 英語名にアクセント記号（Antonín Dvořák）
-    "467532689",
+    "499579424-0",
     # 残りのジャンル: 協奏曲・声楽・器楽・その他
-    "228725107", "176681272", "474475833", "174220792",
+    "502781377-0", "176681272", "474475833", "174220792",
 ]
 
 
@@ -51,6 +52,7 @@ def extract(catalog: dict, ids: list[str]) -> dict:
             key=lambda c: (-c["trackCount"], c["id"])),
         "works": [w for w in catalog["works"] if w["id"] in work_ids],
         "tracks": tracks,
+        "replacedTracks": {k: v for k, v in catalog["replacedTracks"].items() if v in wanted},
     }
 
 
@@ -70,7 +72,7 @@ def invalid_variants(sample: dict) -> dict[str, dict]:
         "dangling-work-ref.json": broken(
             lambda d: d["tracks"][0].update(workId=f"{d['tracks'][0]['composerId']}--no-such-work")),
         "foreign-audio-domain.json": broken(lambda d: d["tracks"][0].update(audioUrl="https://example.com/image/a.mp3")),
-        "schema-version-2.json": broken(lambda d: d.update(schemaVersion=2)),
+        "schema-version-3.json": broken(lambda d: d.update(schemaVersion=3)),
         "trackcount-mismatch.json": broken(lambda d: d["genres"][0].update(trackCount=99)),
     }
 

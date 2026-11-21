@@ -1,9 +1,9 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "catalogVersion": "2026.11.21",
   "catalogUrl": "catalog.json",
-  "sha256": "946a9d59a041e615289e0a2abad41544da38206c305e4036318541a0455cbcfa",
+  "sha256": "741390a9df8657d4885ea9e1829ff1614454c704d1d6a91021545bf3180eff73",
   "trackCount": 20,
-  "generatedAt": "2026-11-21T10:28:07+00:00",
-  "minAppSchema": 1
+  "generatedAt": "2026-11-21T12:33:24+00:00",
+  "minAppSchema": 2
 }

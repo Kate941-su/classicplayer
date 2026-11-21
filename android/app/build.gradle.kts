@@ -11,7 +11,8 @@ android {
         applicationId = "app.cmsl.classical"
         versionCode = 1
         versionName = "0.1.0"
-        // 配信先（SPEC §2）。アプリがアクセスするのはここと classical-sound.up.seesaa.net の mp3 だけ
+        // 配信先（SPEC §2）。アプリがアクセスするのはここと音源の mp3 だけ（classical-sound.up.seesaa.net と、
+        // http の旧サーバー 3 つ。res/xml/network_security_config.xml）
         buildConfigField("String", "CATALOG_BASE_URL", "\"https://kate941-su.github.io/classicplayer/v1/\"")
     }
 

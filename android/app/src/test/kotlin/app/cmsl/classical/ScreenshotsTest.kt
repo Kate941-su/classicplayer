@@ -56,7 +56,7 @@ class ScreenshotsTest {
         compose.onNodeWithText(symphonies).performClick()
         save("$prefix-genre")
         compose.onNodeWithText(if (english) "L.V.Beethoven" else "ベートーヴェン").performClick()
-        compose.onNodeWithText("交響曲 第5番 ハ短調 Op.67 「運命」（2015）").performClick()
+        compose.onNodeWithText("交響曲第5番 ハ短調 Op.67 「運命」").performClick()
         compose.onNodeWithText(context.getString(R.string.action_play_work)).performClick()
         save("$prefix-work")
         compose.onNodeWithTag("miniPlayer").performClick()
