@@ -55,8 +55,25 @@ targets:
               NSExceptionAllowsInsecureHTTPLoads: true
             classical-music.sakura.ne.jp:
               NSExceptionAllowsInsecureHTTPLoads: true
+    postCompileScripts:
+      # 同梱カタログ（シード。SPEC §2・§6）を catalog.json としてアプリに入れる。Android と同じく
+      # android/seed/catalog.json（tool/update-seed.sh）があればそれ、なければ fixtures/catalog.sample.json。
+      # ビルド設定 CMSL_SEED_CATALOG=<path> で差し替えられる（tool/run.sh ios --seed）
+      - name: Copy seed catalog
+        basedOnDependencyAnalysis: false
+        script: |
+          set -euo pipefail
+          src="${CMSL_SEED_CATALOG:-}"
+          if [[ -z "$src" ]]; then
+            src="$SRCROOT/../android/seed/catalog.json"
+            [[ -f "$src" ]] || src="$SRCROOT/../fixtures/catalog.sample.json"
+          fi
+          [[ -f "$src" ]] || { echo "error: シードのカタログがありません: $src"; exit 1; }
+          cp "$src" "$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/catalog.json"
     settings:
       base:
+        # シードのコピー（リポジトリ内の任意のパスを読む）のためにスクリプトのサンドボックスを外す
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
         PRODUCT_NAME: CMSLClassical
         PRODUCT_BUNDLE_IDENTIFIER: app.cmsl.classical
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
@@ -81,12 +98,26 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
         TEST_HOST: $(BUILT_PRODUCTS_DIR)/CMSLClassical.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CMSLClassical
         BUNDLE_LOADER: $(TEST_HOST)
+  CMSLClassicalUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: CMSLClassicalUITests
+    dependencies:
+      - target: CMSLClassical
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.cmsl.classical.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: CMSLClassical
 schemes:
   CMSLClassical:
     build:
       targets:
         CMSLClassical: all
         CMSLClassicalTests: [test]
+        CMSLClassicalUITests: [test]
     test:
       targets:
         - CMSLClassicalTests
+        - CMSLClassicalUITests

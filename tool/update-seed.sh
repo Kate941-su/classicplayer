@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # 同梱カタログ（シード。SPEC §2・§6）を差し替える。android/seed/catalog.json に置くと、
-# 以降のビルド（tool/run.sh・./gradlew）がそれを assets に入れる（なければ fixtures/catalog.sample.json）。
+# 以降のビルド（tool/run.sh・./gradlew・iOS の xcodebuild）がそれをアプリに入れる（なければ fixtures/catalog.sample.json）。
 #
 #   tool/update-seed.sh                公開中のカタログ（GitHub Pages）を取得する
 #   tool/update-seed.sh <catalog.json> 手元のファイルを使う（例: build_catalog.py の出力）
