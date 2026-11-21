@@ -51,12 +51,12 @@ class ScreenshotsTest {
         val player = FakePlayerController()
         compose.setContent { CmslRoot(testContainer(context, tmp.root, player, english)) }
         save("$prefix-home")
-        val piano = if (english) "Piano" else "ピアノ"
-        compose.onNodeWithTag("home").performScrollToNode(hasText(piano))
-        compose.onNodeWithText(piano).performClick()
+        val symphonies = if (english) "Symphonies" else "交響曲"
+        compose.onNodeWithTag("home").performScrollToNode(hasText(symphonies))
+        compose.onNodeWithText(symphonies).performClick()
         save("$prefix-genre")
         compose.onNodeWithText(if (english) "L.V.Beethoven" else "ベートーヴェン").performClick()
-        compose.onNodeWithText("ピアノソナタ 第8番 ハ短調 Op.13 「悲愴」").performClick()
+        compose.onNodeWithText("交響曲 第5番 ハ短調 Op.67 「運命」（2015）").performClick()
         compose.onNodeWithText(context.getString(R.string.action_play_work)).performClick()
         save("$prefix-work")
         compose.onNodeWithTag("miniPlayer").performClick()

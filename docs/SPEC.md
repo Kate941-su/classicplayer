@@ -210,6 +210,8 @@ CMSL の音源には画像がないため、**アプリ内で生成する抽象�
 ### 4.11 デザイン
 - トーンは落ち着いた「コンサートホール」。ライトとダークに対応（システム設定に従う）。
 - 日本語を主とし、英語ローカライズも用意する（端末の言語設定に従う）。英語 UI では `nameEn` / `titleEn` を優先して表示し、ない場合は日本語にフォールバックする。
+  - 作品画面の行などに出す短い曲名（英語）: `titleEn` の作曲家の区切り（最初の `:` か `：`）より後ろから、最初の楽章の印（ローマ数字か数字の直後に `.` か `:` と空白。前は空白かコロン）以降を使う。例: `…"pathetique"：II. Adagio cantabile` → `II. Adagio cantabile`、`…"From the New World" I: Adagio - Allegro molto` → `I: Adagio - Allegro molto`。印がなく楽章もない単曲は区切りより後ろ（`Recuerdos de la Alhambra`）。それ以外は日本語の `movement`
+  - ホームの「新着」など、楽章名だけでは曲が分からない所には作品名を出す（下に「作曲家 · 楽章」）。英語は `titleEn` の区切りより後ろから楽章の印の前まで（`Piano Sonata No.14 in C sharp minor, Op.27-2 "Moonlight"`）、なければ作品の `title`
 - アクセシビリティ: Dynamic Type / フォントスケールに対応。VoiceOver / TalkBack 用のラベルを付ける。タップ領域は 44pt / 48dp 以上。コントラストは WCAG AA。
 
 ---

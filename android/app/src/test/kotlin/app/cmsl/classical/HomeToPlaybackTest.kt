@@ -33,13 +33,13 @@ class HomeToPlaybackTest {
         val container = testContainer(context, tmp.root, player)
         compose.setContent { CmslRoot(container) }
 
-        compose.onNodeWithTag("home").performScrollToNode(hasText("Piano"))
-        compose.onNodeWithText("Piano").performClick()
+        compose.onNodeWithTag("home").performScrollToNode(hasText("Symphonies"))
+        compose.onNodeWithText("Symphonies").performClick()
         compose.onNodeWithText("L.V.Beethoven").performClick()
-        compose.onNodeWithText("ピアノソナタ 第8番 ハ短調 Op.13 「悲愴」").performClick()
+        compose.onNodeWithText(FATE_2015).performClick()
         compose.onNodeWithText(context.getString(R.string.action_play_work)).performClick()
 
-        assertEquals(listOf(PlayQueue(listOf("900000001", "900000002", "900000003"), 0)), player.played)
+        assertEquals(listOf(PlayQueue(listOf("427916377", "428637877", "431342999"), 0)), player.played)
         compose.onNodeWithTag("miniPlayer").assertExists()
     }
 
@@ -49,12 +49,16 @@ class HomeToPlaybackTest {
         val container = testContainer(context, tmp.root, player)
         compose.setContent { CmslRoot(container) }
 
-        compose.onNodeWithTag("home").performScrollToNode(hasText("Piano"))
-        compose.onNodeWithText("Piano").performClick()
+        compose.onNodeWithTag("home").performScrollToNode(hasText("Symphonies"))
+        compose.onNodeWithText("Symphonies").performClick()
         compose.onNodeWithText("L.V.Beethoven").performClick()
-        compose.onNodeWithText("ピアノソナタ 第8番 ハ短調 Op.13 「悲愴」").performClick()
-        compose.onNodeWithText("II. Adagio cantabile").performClick()
+        compose.onNodeWithText(FATE_2015).performClick()
+        compose.onNodeWithText("第2楽章").performClick() // 英語タイトルのない曲は日本語の楽章名
 
-        assertEquals(listOf(PlayQueue(listOf("900000002", "900000003"), 0)), player.played)
+        assertEquals(listOf(PlayQueue(listOf("428637877", "431342999"), 0)), player.played)
+    }
+
+    private companion object {
+        const val FATE_2015 = "交響曲 第5番 ハ短調 Op.67 「運命」（2015）"
     }
 }

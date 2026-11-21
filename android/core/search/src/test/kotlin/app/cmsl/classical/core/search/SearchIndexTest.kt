@@ -16,13 +16,18 @@ class SearchIndexTest {
 
     @Test
     fun `主キーで一致した曲を、作曲家名だけで一致した曲より前に出す`() {
-        val tracks = index.search("悲愴").tracks.map { it.id }
-        assertEquals(listOf("900000001", "900000002", "900000003"), tracks)
+        // 「L.V.Beethoven」で始まる英語タイトル（主キー）の 2 曲が先。英語タイトルのない「運命」は作曲家の英語名（副キー）で一致
+        val tracks = index.search("L.V.Beethoven").tracks.map { it.id }
+        assertEquals(setOf("501651167", "474143449"), tracks.take(2).toSet())
+        assertEquals(
+            listOf("427916377", "428637877", "431342999", "500111088-0", "500111088-1", "500150417"),
+            tracks.drop(2),
+        )
     }
 
     @Test
     fun `作品の曲は楽章順`() {
-        val tracks = index.search("ピアノソナタ").tracks.map { it.movement }
-        assertEquals(listOf("第1楽章", "第2楽章", "第3楽章"), tracks)
+        val tracks = index.search("ブラームス").tracks.map { it.movement }
+        assertEquals(listOf("第1楽章", "第2楽章", "第3楽章", "第4楽章"), tracks)
     }
 }

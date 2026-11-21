@@ -1,5 +1,5 @@
 {
-  "$comment": "検索の正規化と照合のテストケース（docs/search-normalization.md）。queries は fixtures/catalog.sample.json に対して実行する。expect は「含むべき ID」、absent は「含んではいけない ID」、empty は「全セクションが空」",
+  "$comment": "検索の正規化と照合のテストケース（docs/search-normalization.md）。queries は fixtures/catalog.sample.json（実カタログから抜き出した 20 曲。PLAN 0.9）に対して実行する。expect は「含むべき ID」、absent は「含んではいけない ID」、empty は「全セクションが空」",
   "normalize": [
     { "input": "ベートーベン", "expected": "ベトベン" },
     { "input": "ベートーヴェン", "expected": "ベトベン" },
@@ -18,17 +18,21 @@
     { "input": "Café", "expected": "cafe" }
   ],
   "queries": [
-    { "query": "ベートーベン", "expect": { "composers": ["l-v-beethoven"], "works": ["l-v-beethoven--piano-sonata-8", "l-v-beethoven--symphony-5"], "tracks": ["900000001", "900000010-0"] }, "first": { "composers": "l-v-beethoven" } },
-    { "query": "beethoven", "expect": { "composers": ["l-v-beethoven"], "tracks": ["900000002"] }, "first": { "composers": "l-v-beethoven" } },
+    { "query": "ベートーベン", "expect": { "composers": ["l-v-beethoven"], "works": ["l-v-beethoven--ピアノソナタ第8番ハ短調op-13-悲愴--2020-ar", "l-v-beethoven--交響曲第5番ハ短調op-67-運命--2015"], "tracks": ["474143449", "427916377"] }, "first": { "composers": "l-v-beethoven" } },
+    { "query": "beethoven", "expect": { "composers": ["l-v-beethoven"], "tracks": ["474143449"] }, "first": { "composers": "l-v-beethoven" } },
     { "query": "べーとーゔぇん", "expect": { "composers": ["l-v-beethoven"] } },
     { "query": "ＢＥＥＴＨＯＶＥＮ", "expect": { "composers": ["l-v-beethoven"] } },
-    { "query": "しょぱん", "expect": { "composers": ["f-chopin"], "works": ["f-chopin--nocturne-2"], "tracks": ["900000020"] }, "absent": { "composers": ["l-v-beethoven"] } },
-    { "query": "chopin", "expect": { "composers": ["f-chopin"] } },
-    { "query": "nocturne", "expect": { "tracks": ["900000020"] }, "absent": { "composers": ["f-chopin"] } },
-    { "query": "悲愴", "expect": { "works": ["l-v-beethoven--piano-sonata-8"], "tracks": ["900000001", "900000002", "900000003"] }, "absent": { "works": ["l-v-beethoven--symphony-5"] } },
-    { "query": "ベートーベン　運命", "expect": { "works": ["l-v-beethoven--symphony-5"], "tracks": ["900000010-0", "900000010-1"] }, "absent": { "works": ["l-v-beethoven--piano-sonata-8"], "tracks": ["900000001"] } },
-    { "query": "op.13", "expect": { "works": ["l-v-beethoven--piano-sonata-8"] } },
-    { "query": "グリーン スリーブス", "expect": { "works": ["作曲者不明--グリーンスリーブス"] } },
+    { "query": "しょぱん", "expect": { "composers": ["frederic-francois-chopin"], "works": ["frederic-francois-chopin--ノクターン第2番変ホ長調op-9-2"], "tracks": ["211280853"] }, "absent": { "composers": ["l-v-beethoven"] } },
+    { "query": "chopin", "expect": { "composers": ["frederic-francois-chopin"] } },
+    { "query": "dvorak", "expect": { "composers": ["antonín-dvořák"], "tracks": ["467532689"] }, "first": { "composers": "antonín-dvořák" } },
+    { "query": "ドボルザーク", "expect": { "composers": ["antonín-dvořák"], "works": ["antonín-dvořák--交響曲第9番ホ短調op-95-新世界より--2019-ar"] } },
+    { "query": "alhambra", "expect": { "tracks": ["474475833"] }, "absent": { "composers": ["francisco-tarrega"] } },
+    { "query": "悲愴", "expect": { "works": ["l-v-beethoven--ピアノソナタ第8番ハ短調op-13-悲愴--2020-ar"], "tracks": ["474143449"] }, "absent": { "works": ["l-v-beethoven--交響曲第5番ハ短調op-67-運命--2015"] } },
+    { "query": "ベートーベン　運命", "expect": { "works": ["l-v-beethoven--交響曲第5番ハ短調op-67-運命--2015", "l-v-beethoven--交響曲第5番ハ短調op-67-運命--2023"], "tracks": ["427916377", "500111088-0", "500150417"] }, "absent": { "works": ["l-v-beethoven--ピアノソナタ第8番ハ短調op-13-悲愴--2020-ar"], "tracks": ["474143449"] } },
+    { "query": "op.13", "expect": { "works": ["l-v-beethoven--ピアノソナタ第8番ハ短調op-13-悲愴--2020-ar"] } },
+    { "query": "ブラームス 第2楽章", "expect": { "tracks": ["476156249-1"] }, "absent": { "tracks": ["476156249-0"] } },
+    { "query": "パヴァーヌ", "expect": { "works": ["gabriel-urbain-faure--パヴァーヌop-50--2020-ir"], "tracks": ["476156249-4"] } },
+    { "query": "アメイジング グレイス", "expect": { "works": ["john-newton--アメイジング-グレイス"], "tracks": ["174220792"] } },
     { "query": "モーツァルト", "empty": true },
     { "query": "  ー・ ", "empty": true }
   ]

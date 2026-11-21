@@ -19,11 +19,16 @@ class CatalogDecodingTest {
     fun `null と空配列を扱える`() {
         val catalog = Fixtures.sample()
         assertTrue(catalog.tracks.any { it.titleEn == null })
-        assertTrue(catalog.tracks.any { it.publishedAt == null })
         assertTrue(catalog.tracks.any { it.movement == null })
         assertTrue(catalog.tracks.any { it.tags.isEmpty() })
-        assertTrue(catalog.composers.any { it.nameEn == null })
         assertNull(catalog.tracks.first().durationSec)
+        // 実カタログ（2026-11-21）には publishedAt と nameEn が null のものがないので、書き換えて確かめる
+        val text = Fixtures.text("catalog.sample.json")
+            .replaceFirst(Regex(""""publishedAt": "[^"]+""""), "\"publishedAt\": null")
+            .replaceFirst(Regex(""""nameEn": "L\.V\.Beethoven""""), "\"nameEn\": null")
+        val nulls = CatalogJson.decodeCatalog(text)
+        assertNull(nulls.tracks.first().publishedAt)
+        assertNull(nulls.composers.single { it.id == "l-v-beethoven" }.nameEn)
     }
 
     @Test

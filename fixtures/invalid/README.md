@@ -1,6 +1,6 @@
 # 異常系のフィクスチャ
 
-`catalog.sample.json` を 1 か所だけ壊したもの。`validate_catalog.py` はすべてを拒否する（`catalog/tests/test_validate_manifest.py`）。アプリのカタログ更新処理（SPEC §7）でも、これらを受け取ったら差し替えずに旧版を維持することのテストに使う。
+`catalog.sample.json` を 1 か所だけ壊したもの（`catalog/extract_fixture.py` が作る）。`validate_catalog.py` はすべてを拒否する（`catalog/tests/test_validate_manifest.py`）。アプリのカタログ更新処理（SPEC §7）でも、これらを受け取ったら差し替えずに旧版を維持することのテストに使う。
 
 | ファイル | 壊し方 | 検出 |
 |---|---|---|
