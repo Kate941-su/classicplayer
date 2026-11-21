@@ -1,6 +1,6 @@
 {
  "schemaVersion": 2,
- "generatedAt": "2026-11-21T12:47:34+00:00",
+ "generatedAt": "2026-11-21T13:58:24+00:00",
  "source": "https://classical-sound.seesaa.net/",
  "license": {
   "name": "Creative Commons 表示 2.1 日本",
@@ -14,14 +14,14 @@
    "name": "交響曲",
    "nameEn": "Symphonies",
    "order": 10,
-   "trackCount": 104
+   "trackCount": 91
   },
   {
    "id": "orchestral",
    "name": "管弦楽曲",
    "nameEn": "Orchestral",
    "order": 20,
-   "trackCount": 119
+   "trackCount": 113
   },
   {
    "id": "concerto",
@@ -35,7 +35,7 @@
    "name": "ピアノ",
    "nameEn": "Piano",
    "order": 40,
-   "trackCount": 124
+   "trackCount": 123
   },
   {
    "id": "chamber",
@@ -64,7 +64,7 @@
    "id": "l-v-beethoven",
    "name": "ベートーヴェン",
    "nameEn": "L.V.Beethoven",
-   "trackCount": 58
+   "trackCount": 50
   },
   {
    "id": "frederic-francois-chopin",
@@ -88,12 +88,6 @@
    "id": "franz-peter-schubert",
    "name": "シューベルト",
    "nameEn": "Franz Peter Schubert",
-   "trackCount": 27
-  },
-  {
-   "id": "peter-ilyich-tchaikovsky",
-   "name": "チャイコフスキー",
-   "nameEn": "Peter Ilyich Tchaikovsky",
    "trackCount": 26
   },
   {
@@ -101,6 +95,12 @@
    "name": "ブラームス",
    "nameEn": "Johannes Brahms",
    "trackCount": 23
+  },
+  {
+   "id": "peter-ilyich-tchaikovsky",
+   "name": "チャイコフスキー",
+   "nameEn": "Peter Ilyich Tchaikovsky",
+   "trackCount": 22
   },
   {
    "id": "sergei-vasil-evich-rachmaninov",
@@ -115,12 +115,6 @@
    "trackCount": 14
   },
   {
-   "id": "antonín-dvořák",
-   "name": "ドヴォルザーク",
-   "nameEn": "Antonín Dvořák",
-   "trackCount": 11
-  },
-  {
    "id": "claude-achille-debussy",
    "name": "ドビュッシー",
    "nameEn": "Claude Achille Debussy",
@@ -133,10 +127,10 @@
    "trackCount": 11
   },
   {
-   "id": "gabriel-urbain-faure",
-   "name": "フォーレ",
-   "nameEn": "Gabriel Urbain Faure",
-   "trackCount": 11
+   "id": "antonín-dvořák",
+   "name": "ドヴォルザーク",
+   "nameEn": "Antonín Dvořák",
+   "trackCount": 10
   },
   {
    "id": "franz-liszt",
@@ -151,21 +145,21 @@
    "trackCount": 10
   },
   {
+   "id": "gabriel-urbain-faure",
+   "name": "フォーレ",
+   "nameEn": "Gabriel Urbain Faure",
+   "trackCount": 8
+  },
+  {
    "id": "richard-wagner",
    "name": "ワーグナー",
    "nameEn": "Richard Wagner",
-   "trackCount": 9
+   "trackCount": 8
   },
   {
    "id": "anton-bruckner",
    "name": "ブルックナー",
    "nameEn": "Anton Bruckner",
-   "trackCount": 7
-  },
-  {
-   "id": "edvard-grieg",
-   "name": "グリーグ",
-   "nameEn": "Edvard Grieg",
    "trackCount": 7
   },
   {
@@ -190,6 +184,12 @@
    "id": "antonio-lucio-vivaldi",
    "name": "ヴィヴァルディ",
    "nameEn": "Antonio Lucio Vivaldi",
+   "trackCount": 6
+  },
+  {
+   "id": "edvard-grieg",
+   "name": "グリーグ",
+   "nameEn": "Edvard Grieg",
    "trackCount": 6
   },
   {
@@ -247,12 +247,6 @@
    "trackCount": 4
   },
   {
-   "id": "richard-strauss",
-   "name": "リヒャルト・シュトラウス",
-   "nameEn": "Richard Strauss",
-   "trackCount": 4
-  },
-  {
    "id": "alessandro-marcello",
    "name": "マルチェッロ",
    "nameEn": "Alessandro Marcello",
@@ -304,6 +298,12 @@
    "id": "rentaro-taki",
    "name": "瀧廉太郎",
    "nameEn": "Rentaro Taki",
+   "trackCount": 3
+  },
+  {
+   "id": "richard-strauss",
+   "name": "リヒャルト・シュトラウス",
+   "nameEn": "Richard Strauss",
    "trackCount": 3
   },
   {
@@ -789,16 +789,16 @@
    "genreId": "chamber"
   },
   {
-   "id": "l-v-beethoven--交響曲第7番イ長調op-92",
-   "title": "交響曲 第7番 イ長調 Op.92",
-   "composerId": "l-v-beethoven",
-   "genreId": "symphony"
-  },
-  {
    "id": "sergei-prokofiev--ロミオとジュリエット-組曲第2番op-64ter-モンタギュー家とキャピュレット家",
    "title": "『ロミオとジュリエット』組曲第2番 Op.64ter \"モンタギュー家とキャピュレット家\"",
    "composerId": "sergei-prokofiev",
    "genreId": "orchestral"
+  },
+  {
+   "id": "l-v-beethoven--交響曲第7番イ長調op-92",
+   "title": "交響曲 第7番 イ長調 Op.92",
+   "composerId": "l-v-beethoven",
+   "genreId": "symphony"
   },
   {
    "id": "nikolai-rimsky-korsakov--歌劇-皇帝サルタンの物語-より-熊蜂の飛行",
@@ -873,12 +873,6 @@
    "genreId": "piano"
   },
   {
-   "id": "gabriel-urbain-faure--組曲-ペレアスとメリザンド-op-80より",
-   "title": "組曲 「ペレアスとメリザンド」 Op.80より",
-   "composerId": "gabriel-urbain-faure",
-   "genreId": "orchestral"
-  },
-  {
    "id": "w-a-mozart--オーボエ協奏曲ハ長調k-314-285d",
    "title": "オーボエ協奏曲 ハ長調 K.314（285d）",
    "composerId": "w-a-mozart",
@@ -915,8 +909,8 @@
    "genreId": "piano"
   },
   {
-   "id": "l-v-beethoven--ピアノソナタ第14番嬰ハ短調op-27-2-月光",
-   "title": "ピアノソナタ第14番 嬰ハ短調 Op.27-2 「月光」",
+   "id": "l-v-beethoven--ピアノソナタ第14番嬰ハ短調作品27-2-月光",
+   "title": "ピアノソナタ 第14番 嬰ハ短調 作品27-2 「月光」",
    "composerId": "l-v-beethoven",
    "genreId": "piano"
   },
@@ -1497,12 +1491,6 @@
    "genreId": "orchestral"
   },
   {
-   "id": "edvard-grieg--ペール-ギュント-第1組曲op-23-4-山の魔王の宮殿にて",
-   "title": "《ペール・ギュント》第1組曲 Op.23-4 「山の魔王の宮殿にて」",
-   "composerId": "edvard-grieg",
-   "genreId": "orchestral"
-  },
-  {
    "id": "johan-halvorsen--ヘンデルの主題によるパッサカリア",
    "title": "ヘンデルの主題によるパッサカリア",
    "composerId": "johan-halvorsen",
@@ -1554,12 +1542,6 @@
    "id": "františek-drdla--思い出",
    "title": "思い出",
    "composerId": "františek-drdla",
-   "genreId": "chamber"
-  },
-  {
-   "id": "franz-peter-schubert--アルペジオーネ-ソナタイ短調d-821",
-   "title": "アルペジオーネ・ソナタ イ短調 D.821",
-   "composerId": "franz-peter-schubert",
    "genreId": "chamber"
   },
   {
@@ -2565,12 +2547,6 @@
    "genreId": "orchestral"
   },
   {
-   "id": "l-v-beethoven--交響曲第9番ニ短調op-125",
-   "title": "交響曲 第9番 ニ短調 Op.125",
-   "composerId": "l-v-beethoven",
-   "genreId": "symphony"
-  },
-  {
    "id": "richard-wagner--楽劇-ワルキューレ-第3幕への前奏曲-ワルキューレの騎行",
    "title": "楽劇 《ワルキューレ》 第3幕への前奏曲 「ワルキューレの騎行」",
    "composerId": "richard-wagner",
@@ -2580,12 +2556,6 @@
    "id": "henry-purcell--アブデラザール組曲z-570",
    "title": "アブデラザール組曲 Z.570",
    "composerId": "henry-purcell",
-   "genreId": "orchestral"
-  },
-  {
-   "id": "gabriel-urbain-faure--組曲-ペアレスとメリザンド-op-80",
-   "title": "組曲「ペアレスとメリザンド」 Op.80",
-   "composerId": "gabriel-urbain-faure",
    "genreId": "orchestral"
   },
   {
@@ -2661,22 +2631,10 @@
    "genreId": "orchestral"
   },
   {
-   "id": "antonín-dvořák--交響曲第9番ホ短調作品95-新世界より",
-   "title": "交響曲第9番 ホ短調 作品95 「新世界より」",
-   "composerId": "antonín-dvořák",
-   "genreId": "symphony"
-  },
-  {
    "id": "gioachino-antonio-rossini--歌劇-ウィリアム-テル-序曲-スイス軍の行進-初",
    "title": "歌劇「ウィリアム・テル」序曲 - 「スイス軍の行進」  (初)",
    "composerId": "gioachino-antonio-rossini",
    "genreId": "orchestral"
-  },
-  {
-   "id": "peter-ilyich-tchaikovsky--交響曲第5番ホ短調作品64",
-   "title": "交響曲 第5番 ホ短調 作品64",
-   "composerId": "peter-ilyich-tchaikovsky",
-   "genreId": "symphony"
   },
   {
    "id": "frederic-francois-chopin--ノクターン第20番嬰ハ短調op-72-2-遺作",
@@ -2688,12 +2646,6 @@
    "id": "erik-satie--ジムノペディno-1-ドビュッシー編曲",
    "title": "ジムノペディ No.1 (ドビュッシー編曲）",
    "composerId": "erik-satie",
-   "genreId": "orchestral"
-  },
-  {
-   "id": "richard-wagner--楽劇-ニュルンベルグのマイスタージンガー-第1幕への前奏曲",
-   "title": "楽劇 《ニュルンベルグのマイスタージンガー》 第1幕への前奏曲",
-   "composerId": "richard-wagner",
    "genreId": "orchestral"
   },
   {
@@ -2751,8 +2703,8 @@
    "genreId": "piano"
   },
   {
-   "id": "edvard-grieg--ペール-ギュント-第1組曲op-23-4-山の魔王の洞窟にて",
-   "title": "《ペール・ギュント》第1組曲 Op.23-4 「山の魔王の洞窟にて」",
+   "id": "edvard-grieg--ペール-ギュント-第1組曲op-23-4-山の魔王の宮殿にて",
+   "title": "《ペール・ギュント》第1組曲 Op.23-4 「山の魔王の宮殿にて」",
    "composerId": "edvard-grieg",
    "genreId": "orchestral"
   },
@@ -2853,12 +2805,6 @@
    "genreId": "orchestral"
   },
   {
-   "id": "l-v-beethoven--交響曲第7番イ長調op92",
-   "title": "交響曲 第7番 イ長調 Op92",
-   "composerId": "l-v-beethoven",
-   "genreId": "symphony"
-  },
-  {
    "id": "pietro-mascagni--歌劇-カヴァレリア-ルスティカーナ-間奏曲",
    "title": "歌劇《カヴァレリア・ルスティカーナ》間奏曲",
    "composerId": "pietro-mascagni",
@@ -2925,12 +2871,6 @@
    "genreId": "symphony"
   },
   {
-   "id": "franz-peter-schubert--4つの即興曲作品90-d899",
-   "title": "4つの即興曲 作品90、D899",
-   "composerId": "franz-peter-schubert",
-   "genreId": "piano"
-  },
-  {
    "id": "scott-joplin--ジ-エンターテイナー",
    "title": "ジ・エンターテイナー",
    "composerId": "scott-joplin",
@@ -2977,12 +2917,6 @@
    "title": "組曲『惑星』 Op.32",
    "composerId": "gustav-holst",
    "genreId": "orchestral"
-  },
-  {
-   "id": "l-v-beethoven--交響曲第9番ニ短調op-125-合唱",
-   "title": "交響曲第9番 ニ短調 Op.125「合唱」",
-   "composerId": "l-v-beethoven",
-   "genreId": "symphony"
   },
   {
    "id": "antonín-dvořák--交響曲第9番ホ短調op-95-新世界より",
@@ -3201,12 +3135,6 @@
    "genreId": "chamber"
   },
   {
-   "id": "richard-strauss--交響詩-死と変容-op-24",
-   "title": "交響詩《死と変容》Op.24",
-   "composerId": "richard-strauss",
-   "genreId": "orchestral"
-  },
-  {
    "id": "frederic-francois-chopin--幻想即興曲嬰ハ短調op-66",
    "title": "幻想即興曲 嬰ハ短調 Op.66",
    "composerId": "frederic-francois-chopin",
@@ -3217,6 +3145,12 @@
    "title": "練習曲 ハ短調 Op.10-12 「革命」",
    "composerId": "frederic-francois-chopin",
    "genreId": "piano"
+  },
+  {
+   "id": "franz-peter-schubert--4つの即興曲op90-d899",
+   "title": "4つの即興曲 Op90, D899",
+   "composerId": "franz-peter-schubert",
+   "genreId": "symphony"
   },
   {
    "id": "alexander-porfir-yevich-borodin--交響詩-中央アジアの草原にて",
@@ -3234,12 +3168,6 @@
    "id": "l-v-beethoven--交響曲第5番ハ短調op-67-運命",
    "title": "交響曲第5番 ハ短調 Op.67 「運命」",
    "composerId": "l-v-beethoven",
-   "genreId": "symphony"
-  },
-  {
-   "id": "franz-peter-schubert--4つの即興曲op90-d899",
-   "title": "4つの即興曲 Op90, D899",
-   "composerId": "franz-peter-schubert",
    "genreId": "symphony"
   },
   {
@@ -3363,12 +3291,6 @@
    "genreId": "piano"
   },
   {
-   "id": "l-v-beethoven--ピアノソナタ第14番嬰ハ短調作品27-2-月光",
-   "title": "ピアノソナタ 第14番 嬰ハ短調 作品27-2 「月光」",
-   "composerId": "l-v-beethoven",
-   "genreId": "piano"
-  },
-  {
    "id": "l-v-beethoven--交響曲第9番ニ短調作品125",
    "title": "交響曲第9番 ニ短調 作品125",
    "composerId": "l-v-beethoven",
@@ -3473,23 +3395,6 @@
    "durationSec": null
   },
   {
-   "id": "499616036-0",
-   "title": "ベートーヴェン：交響曲 第7番 イ長調 Op.92 第1楽章, 第4楽章 [2023] (Beethoven-Symphony-No7-1st-2023.mp3)",
-   "titleEn": null,
-   "composerId": "l-v-beethoven",
-   "workId": "l-v-beethoven--交響曲第7番イ長調op-92",
-   "genreId": "symphony",
-   "movement": "第1楽章",
-   "tags": [
-    "2023"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-Symphony-No7-1st-2023.mp3",
-   "fileName": "Beethoven-Symphony-No7-1st-2023.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/499616036.html",
-   "publishedAt": "2023-06-06T13:51:00+09:00",
-   "durationSec": null
-  },
-  {
    "id": "221788781",
    "title": "プロコフィエフ：『ロミオとジュリエット』組曲第2番 Op.64ter \"モンタギュー家とキャピュレット家\"",
    "titleEn": null,
@@ -3505,18 +3410,20 @@
    "durationSec": null
   },
   {
-   "id": "222057312",
-   "title": "ベートーヴェン：交響曲第7番 イ長調 Op.92 第2楽章",
+   "id": "499616036-0",
+   "title": "ベートーヴェン：交響曲 第7番 イ長調 Op.92 第1楽章, 第4楽章 [2023] (Beethoven-Symphony-No7-1st-2023.mp3)",
    "titleEn": null,
    "composerId": "l-v-beethoven",
    "workId": "l-v-beethoven--交響曲第7番イ長調op-92",
    "genreId": "symphony",
-   "movement": "第2楽章",
-   "tags": [],
-   "audioUrl": "http://andotowa.sakura.ne.jp/Room/Beethoven-SymNo7-2.mp3",
-   "fileName": "Beethoven-SymNo7-2.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/222057312.html",
-   "publishedAt": "2006-10-21T03:37:00+09:00",
+   "movement": "第1楽章",
+   "tags": [
+    "2023"
+   ],
+   "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-Symphony-No7-1st-2023.mp3",
+   "fileName": "Beethoven-Symphony-No7-1st-2023.mp3",
+   "articleUrl": "https://classical-sound.seesaa.net/article/499616036.html",
+   "publishedAt": "2023-06-06T13:51:00+09:00",
    "durationSec": null
   },
   {
@@ -3702,21 +3609,6 @@
    "durationSec": null
   },
   {
-   "id": "220618358",
-   "title": "フォーレ：組曲 「ペレアスとメリザンド」 Op.80より 第3曲 “シシリエンヌ”",
-   "titleEn": null,
-   "composerId": "gabriel-urbain-faure",
-   "workId": "gabriel-urbain-faure--組曲-ペレアスとメリザンド-op-80より",
-   "genreId": "orchestral",
-   "movement": "第3曲 “シシリエンヌ”",
-   "tags": [],
-   "audioUrl": "http://andotowa.sakura.ne.jp/Room/Faure-Sicilienne.mp3",
-   "fileName": "Faure-Sicilienne.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/220618358.html",
-   "publishedAt": "2006-11-26T05:08:00+09:00",
-   "durationSec": null
-  },
-  {
    "id": "226308615",
    "title": "モーツァルト：オーボエ協奏曲 ハ長調 K.314（285d） 第1楽章",
    "titleEn": null,
@@ -3807,18 +3699,20 @@
    "durationSec": null
   },
   {
-   "id": "222530759",
-   "title": "ベートーヴェン：ピアノソナタ第14番 嬰ハ短調 Op.27-2 「月光」 第3楽章",
-   "titleEn": null,
+   "id": "501651167",
+   "title": "ベートーヴェン：ピアノソナタ 第14番 嬰ハ短調 作品27-2 「月光」 第1楽章 [2023]",
+   "titleEn": "L.V.Beethoven：Piano Sonata No.14 in C sharp minor, Op.27-2 \"Moonlight\"：I. Adagio sostenuto",
    "composerId": "l-v-beethoven",
-   "workId": "l-v-beethoven--ピアノソナタ第14番嬰ハ短調op-27-2-月光",
+   "workId": "l-v-beethoven--ピアノソナタ第14番嬰ハ短調作品27-2-月光",
    "genreId": "piano",
-   "movement": "第3楽章",
-   "tags": [],
-   "audioUrl": "http://andotowa.sakura.ne.jp/Room/Beethoven-MoonlightSonata-3.mp3",
-   "fileName": "Beethoven-MoonlightSonata-3.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/222530759.html",
-   "publishedAt": "2006-12-14T00:12:00+09:00",
+   "movement": "第1楽章",
+   "tags": [
+    "2023"
+   ],
+   "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-PianoSonata-No14-Moonlight-2023.mp3",
+   "fileName": "Beethoven-PianoSonata-No14-Moonlight-2023.mp3",
+   "articleUrl": "https://classical-sound.seesaa.net/article/501651167.html",
+   "publishedAt": "2023-12-04T13:55:00+09:00",
    "durationSec": null
   },
   {
@@ -5321,21 +5215,6 @@
    "durationSec": null
   },
   {
-   "id": "208353458",
-   "title": "グリーグ：《ペール・ギュント》第1組曲 Op.23-4 「山の魔王の宮殿にて」",
-   "titleEn": null,
-   "composerId": "edvard-grieg",
-   "workId": "edvard-grieg--ペール-ギュント-第1組曲op-23-4-山の魔王の宮殿にて",
-   "genreId": "orchestral",
-   "movement": null,
-   "tags": [],
-   "audioUrl": "http://classical-music.sakura.ne.jp/ID3v2-2/Grieg-PeerGynt-Suite-MountainKing.mp3",
-   "fileName": "Grieg-PeerGynt-Suite-MountainKing.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/208353458.html",
-   "publishedAt": "2007-10-02T17:24:00+09:00",
-   "durationSec": null
-  },
-  {
    "id": "219011260",
    "title": "ハルヴォルセン：ヘンデルの主題によるパッサカリア",
    "titleEn": null,
@@ -5492,7 +5371,7 @@
    "title": "シューベルト：アルペジオーネ・ソナタ イ短調 D.821 第1楽章",
    "titleEn": null,
    "composerId": "franz-peter-schubert",
-   "workId": "franz-peter-schubert--アルペジオーネ-ソナタイ短調d-821",
+   "workId": "franz-peter-schubert--アルペジオーネ-ソナタイ短調d821",
    "genreId": "chamber",
    "movement": "第1楽章",
    "tags": [],
@@ -8266,23 +8145,6 @@
    "durationSec": null
   },
   {
-   "id": "419821818",
-   "title": "ベートーヴェン：交響曲 第9番 ニ短調 Op.125 第3楽章 [リスト編/ハープ音源]",
-   "titleEn": null,
-   "composerId": "l-v-beethoven",
-   "workId": "l-v-beethoven--交響曲第9番ニ短調op-125",
-   "genreId": "symphony",
-   "movement": "第3楽章",
-   "tags": [
-    "リスト編/ハープ音源"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-Symphony-No9-3rd-HARP2.mp3",
-   "fileName": "Beethoven-Symphony-No9-3rd-HARP2.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/419821818.html",
-   "publishedAt": "2015-05-30T07:38:00+09:00",
-   "durationSec": null
-  },
-  {
    "id": "420504627",
    "title": "ワーグナー：楽劇 《ワルキューレ》 第3幕への前奏曲 「ワルキューレの騎行」 [2015]",
    "titleEn": null,
@@ -8312,23 +8174,6 @@
    "fileName": "Purcell-Abdelazar-Suite-Rondeau.mp3",
    "articleUrl": "https://classical-sound.seesaa.net/article/423019922.html",
    "publishedAt": "2015-07-26T09:38:00+09:00",
-   "durationSec": null
-  },
-  {
-   "id": "426229329",
-   "title": "フォーレ：組曲「ペアレスとメリザンド」 Op.80 - 第3曲 シシリエンヌ [完全版]",
-   "titleEn": null,
-   "composerId": "gabriel-urbain-faure",
-   "workId": "gabriel-urbain-faure--組曲-ペアレスとメリザンド-op-80",
-   "genreId": "orchestral",
-   "movement": "第3曲 シシリエンヌ",
-   "tags": [
-    "完全版"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Faure-Sicilienne-2015.mp3",
-   "fileName": "Faure-Sicilienne-2015.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/426229329.html",
-   "publishedAt": "2015-09-17T13:06:00+09:00",
    "durationSec": null
   },
   {
@@ -8563,21 +8408,6 @@
    "durationSec": null
   },
   {
-   "id": "174477935",
-   "title": "ドヴォルザーク：交響曲第9番 ホ短調 作品95 「新世界より」 第4楽章",
-   "titleEn": null,
-   "composerId": "antonín-dvořák",
-   "workId": "antonín-dvořák--交響曲第9番ホ短調作品95-新世界より",
-   "genreId": "symphony",
-   "movement": "第4楽章",
-   "tags": [],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/dovorak-Symphony-No9-4th.mp3",
-   "fileName": "dovorak-Symphony-No9-4th.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/174477935.html",
-   "publishedAt": "2016-05-05T10:01:00+09:00",
-   "durationSec": null
-  },
-  {
    "id": "437536207",
    "title": "ロッシーニ：歌劇「ウィリアム・テル」序曲 - 「スイス軍の行進」 [リスト編曲] (初)",
    "titleEn": null,
@@ -8592,54 +8422,6 @@
    "fileName": "Rossini-William-Tell-Overture-Liszt-Piano-Timpani.mp3",
    "articleUrl": "https://classical-sound.seesaa.net/article/437536207.html",
    "publishedAt": "2016-05-05T10:07:00+09:00",
-   "durationSec": null
-  },
-  {
-   "id": "213833795",
-   "title": "チャイコフスキー：交響曲 第5番 ホ短調 作品64 第1楽章",
-   "titleEn": null,
-   "composerId": "peter-ilyich-tchaikovsky",
-   "workId": "peter-ilyich-tchaikovsky--交響曲第5番ホ短調作品64",
-   "genreId": "symphony",
-   "movement": "第1楽章",
-   "tags": [],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/062-Tchaikovsky-Symphony-No5-1st.mp3",
-   "fileName": "062-Tchaikovsky-Symphony-No5-1st.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/213833795.html",
-   "publishedAt": "2016-05-07T03:35:00+09:00",
-   "durationSec": null
-  },
-  {
-   "id": "465489829",
-   "title": "チャイコフスキー：交響曲 第5番 ホ短調 作品64 第2楽章 [2019][AR]",
-   "titleEn": "Tchaikovsky : Symphony No.5 in E minor, Op.64 II. Andante cantabile, con alcuna licenza",
-   "composerId": "peter-ilyich-tchaikovsky",
-   "workId": "peter-ilyich-tchaikovsky--交響曲第5番ホ短調作品64",
-   "genreId": "symphony",
-   "movement": "第2楽章",
-   "tags": [
-    "2019",
-    "AR"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Tchaikovsky-Symphony-No5-2nd-2019-AR.mp3",
-   "fileName": "Tchaikovsky-Symphony-No5-2nd-2019-AR.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/465489829.html",
-   "publishedAt": "2019-05-03T17:57:00+09:00",
-   "durationSec": null
-  },
-  {
-   "id": "213837275",
-   "title": "チャイコフスキー：交響曲 第5番 ホ短調 作品64 第3楽章",
-   "titleEn": null,
-   "composerId": "peter-ilyich-tchaikovsky",
-   "workId": "peter-ilyich-tchaikovsky--交響曲第5番ホ短調作品64",
-   "genreId": "symphony",
-   "movement": "第3楽章",
-   "tags": [],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Tchaikovsky-SymNo5-3.mp3",
-   "fileName": "Tchaikovsky-SymNo5-3.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/213837275.html",
-   "publishedAt": "2016-05-13T10:45:00+09:00",
    "durationSec": null
   },
   {
@@ -8685,21 +8467,6 @@
    "fileName": "021-Satie-Gymnopedies-No1.mp3",
    "articleUrl": "https://classical-sound.seesaa.net/article/208752114.html",
    "publishedAt": "2016-07-05T08:02:00+09:00",
-   "durationSec": null
-  },
-  {
-   "id": "231228626",
-   "title": "ワーグナー：楽劇 《ニュルンベルグのマイスタージンガー》 第1幕への前奏曲",
-   "titleEn": null,
-   "composerId": "richard-wagner",
-   "workId": "richard-wagner--楽劇-ニュルンベルグのマイスタージンガー-第1幕への前奏曲",
-   "genreId": "orchestral",
-   "movement": null,
-   "tags": [],
-   "audioUrl": "http://classical-music.aki.gs/mp3-04/214-Wagner-Die-Meistersinger-von-Nuernberg-Vorspiel-act1.mp3",
-   "fileName": "214-Wagner-Die-Meistersinger-von-Nuernberg-Vorspiel-act1.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/231228626.html",
-   "publishedAt": "2016-07-05T08:30:00+09:00",
    "durationSec": null
   },
   {
@@ -8908,7 +8675,7 @@
    "title": "グリーグ：《ペール・ギュント》第1組曲 Op.23-4 「山の魔王の洞窟にて」 [2016]",
    "titleEn": null,
    "composerId": "edvard-grieg",
-   "workId": "edvard-grieg--ペール-ギュント-第1組曲op-23-4-山の魔王の洞窟にて",
+   "workId": "edvard-grieg--ペール-ギュント-第1組曲op-23-4-山の魔王の宮殿にて",
    "genreId": "orchestral",
    "movement": null,
    "tags": [
@@ -9208,21 +8975,6 @@
    "durationSec": null
   },
   {
-   "id": "213838518",
-   "title": "チャイコフスキー：交響曲 第5番 ホ短調 作品64 第4楽章",
-   "titleEn": null,
-   "composerId": "peter-ilyich-tchaikovsky",
-   "workId": "peter-ilyich-tchaikovsky--交響曲第5番ホ短調作品64",
-   "genreId": "symphony",
-   "movement": "第4楽章",
-   "tags": [],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Tchaikovsky-SymNo5-4.mp3",
-   "fileName": "Tchaikovsky-SymNo5-4.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/213838518.html",
-   "publishedAt": "2016-05-13T11:06:00+09:00",
-   "durationSec": null
-  },
-  {
    "id": "465575106",
    "title": "J.S.バッハ：羊は安らかに草を食み 《狩のカンタータ》 BWV.208 [2019][AR]",
    "titleEn": "J.S.Bach：Sheep May Safely Graze BWV.208",
@@ -9327,24 +9079,6 @@
    "fileName": "J.S.Bach-Air-On-G-2019-AR.mp3",
    "articleUrl": "https://classical-sound.seesaa.net/article/470966445.html",
    "publishedAt": "2019-10-19T08:44:00+09:00",
-   "durationSec": null
-  },
-  {
-   "id": "471454034",
-   "title": "ベートーヴェン：交響曲 第7番 イ長調 Op92 第1楽章 [2019][AR]",
-   "titleEn": "Ludwig Van Beethoven：Symphony No.7 in A major, Op.92：I. Poco sostenuto - Vivace",
-   "composerId": "l-v-beethoven",
-   "workId": "l-v-beethoven--交響曲第7番イ長調op92",
-   "genreId": "symphony",
-   "movement": "第1楽章",
-   "tags": [
-    "2019",
-    "AR"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-Symphony-No7-1st-2019-AR.mp3",
-   "fileName": "Beethoven-Symphony-No7-1st-2019-AR.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/471454034.html",
-   "publishedAt": "2019-11-11T04:11:00+09:00",
    "durationSec": null
   },
   {
@@ -9564,24 +9298,6 @@
    "durationSec": null
   },
   {
-   "id": "473701993",
-   "title": "シューベルト：4つの即興曲 作品90、D899 第3曲 [2020][AR]",
-   "titleEn": "Franz Peter Schubert：Impromptus Op90、D899：III. Andante",
-   "composerId": "franz-peter-schubert",
-   "workId": "franz-peter-schubert--4つの即興曲作品90-d899",
-   "genreId": "piano",
-   "movement": "第3曲",
-   "tags": [
-    "2020",
-    "AR"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Schubert-Impromptus-Op90-3-2020-AR.mp3",
-   "fileName": "Schubert-Impromptus-Op90-3-2020-AR.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/473701993.html",
-   "publishedAt": "2020-02-22T22:25:00+09:00",
-   "durationSec": null
-  },
-  {
    "id": "473702177",
    "title": "スコット・ジョプリン：ジ・エンターテイナー [2020][AR]",
    "titleEn": "Scott Joplin：The Entertainer",
@@ -9714,77 +9430,6 @@
    "fileName": "Holst-ThePlanets-Jupiter-2020.mp3",
    "articleUrl": "https://classical-sound.seesaa.net/article/474617857.html",
    "publishedAt": "2020-04-17T04:33:00+09:00",
-   "durationSec": null
-  },
-  {
-   "id": "503525038",
-   "title": "ベートーヴェン：交響曲第9番 ニ短調 Op.125「合唱」第1楽章 [2024 - リハーサル]",
-   "titleEn": "L.V.Beethoven：Symphony No.9 in D minor, Op.125 \"Choral\" 1. Allegro ma non troppo, un poco maestoso",
-   "composerId": "l-v-beethoven",
-   "workId": "l-v-beethoven--交響曲第9番ニ短調op-125-合唱",
-   "genreId": "symphony",
-   "movement": "第1楽章",
-   "tags": [
-    "2024 - リハーサル"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-Symphony-No9-1st-2024-Rehearsal.mp3",
-   "fileName": "Beethoven-Symphony-No9-1st-2024-Rehearsal.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/503525038.html",
-   "publishedAt": "2024-06-02T13:13:00+09:00",
-   "durationSec": null
-  },
-  {
-   "id": "474710680-1",
-   "title": "ベートーヴェン：交響曲第9番 ニ短調 Op.125 「合唱」 第2楽章[2020][AR]",
-   "titleEn": null,
-   "composerId": "l-v-beethoven",
-   "workId": "l-v-beethoven--交響曲第9番ニ短調op-125-合唱",
-   "genreId": "symphony",
-   "movement": "第2楽章",
-   "tags": [
-    "2020",
-    "AR"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-Symphony-No9-2nd-2020-AR.mp3",
-   "fileName": "Beethoven-Symphony-No9-2nd-2020-AR.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/474710680.html",
-   "publishedAt": "2020-04-22T19:44:00+09:00",
-   "durationSec": null
-  },
-  {
-   "id": "474710680-2",
-   "title": "ベートーヴェン：交響曲第9番 ニ短調 Op.125 「合唱」 第3楽章[2020][AR]",
-   "titleEn": null,
-   "composerId": "l-v-beethoven",
-   "workId": "l-v-beethoven--交響曲第9番ニ短調op-125-合唱",
-   "genreId": "symphony",
-   "movement": "第3楽章",
-   "tags": [
-    "2020",
-    "AR"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-Symphony-No9-3rd-2020-AR.mp3",
-   "fileName": "Beethoven-Symphony-No9-3rd-2020-AR.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/474710680.html",
-   "publishedAt": "2020-04-22T19:44:00+09:00",
-   "durationSec": null
-  },
-  {
-   "id": "474710680-3",
-   "title": "ベートーヴェン：交響曲第9番 ニ短調 Op.125 「合唱」 第4楽章[2020][AR]",
-   "titleEn": null,
-   "composerId": "l-v-beethoven",
-   "workId": "l-v-beethoven--交響曲第9番ニ短調op-125-合唱",
-   "genreId": "symphony",
-   "movement": "第4楽章",
-   "tags": [
-    "2020",
-    "AR"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-Symphony-No9-4th-2020-AR.mp3",
-   "fileName": "Beethoven-Symphony-No9-4th-2020-AR.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/474710680.html",
-   "publishedAt": "2020-04-22T19:44:00+09:00",
    "durationSec": null
   },
   {
@@ -10153,24 +9798,6 @@
    "durationSec": null
   },
   {
-   "id": "476462852-3",
-   "title": "フォーレ：組曲 「ペレアスとメリザンド」 Op.80より[2020][IR]",
-   "titleEn": null,
-   "composerId": "gabriel-urbain-faure",
-   "workId": "gabriel-urbain-faure--組曲-ペレアスとメリザンド-op-80より",
-   "genreId": "orchestral",
-   "movement": null,
-   "tags": [
-    "2020",
-    "IR"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Faure-Sicilienne-2020-IR.mp3",
-   "fileName": "Faure-Sicilienne-2020-IR.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/476462852.html",
-   "publishedAt": "2020-07-23T02:27:00+09:00",
-   "durationSec": null
-  },
-  {
    "id": "476573453-2",
    "title": "ベートーヴェン：序曲《レオノーレ》[2020][IR]",
    "titleEn": null,
@@ -10355,7 +9982,7 @@
    "title": "ベートーヴェン：交響曲 第7番 イ長調 Op92 第2楽章 [2022]",
    "titleEn": "Ludwig Van Beethoven：Symphony No.7 in A major, Op.92：II. Allegretto",
    "composerId": "l-v-beethoven",
-   "workId": "l-v-beethoven--交響曲第7番イ長調op92",
+   "workId": "l-v-beethoven--交響曲第7番イ長調op-92",
    "genreId": "symphony",
    "movement": "第2楽章",
    "tags": [
@@ -10856,23 +10483,6 @@
    "durationSec": null
   },
   {
-   "id": "499822945",
-   "title": "リヒャルト・シュトラウス：交響詩《死と変容》Op.24 [2023]",
-   "titleEn": "Richard Strauss：Tod und Verklarung Op.24",
-   "composerId": "richard-strauss",
-   "workId": "richard-strauss--交響詩-死と変容-op-24",
-   "genreId": "orchestral",
-   "movement": null,
-   "tags": [
-    "2023"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Richard-Strauss-Tod-und-Verklarung-2023.mp3",
-   "fileName": "Richard-Strauss-Tod-und-Verklarung-2023.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/499822945.html",
-   "publishedAt": "2023-06-25T09:38:00+09:00",
-   "durationSec": null
-  },
-  {
    "id": "499869450",
    "title": "ショパン：幻想即興曲 嬰ハ短調 Op.66 [2023]",
    "titleEn": "Frederic Francois Chopin：Impromptus No.4 in C-sharp minor, OP.66",
@@ -10911,7 +10521,7 @@
    "title": "シューベルト：4つの即興曲 作品90、D899[2023]",
    "titleEn": null,
    "composerId": "franz-peter-schubert",
-   "workId": "franz-peter-schubert--4つの即興曲作品90-d899",
+   "workId": "franz-peter-schubert--4つの即興曲op90-d899",
    "genreId": "piano",
    "movement": null,
    "tags": [
@@ -11637,20 +11247,18 @@
    "durationSec": null
   },
   {
-   "id": "501651167",
-   "title": "ベートーヴェン：ピアノソナタ 第14番 嬰ハ短調 作品27-2 「月光」 第1楽章 [2023]",
-   "titleEn": "L.V.Beethoven：Piano Sonata No.14 in C sharp minor, Op.27-2 \"Moonlight\"：I. Adagio sostenuto",
+   "id": "222530759",
+   "title": "ベートーヴェン：ピアノソナタ第14番 嬰ハ短調 Op.27-2 「月光」 第3楽章",
+   "titleEn": null,
    "composerId": "l-v-beethoven",
    "workId": "l-v-beethoven--ピアノソナタ第14番嬰ハ短調作品27-2-月光",
    "genreId": "piano",
-   "movement": "第1楽章",
-   "tags": [
-    "2023"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-PianoSonata-No14-Moonlight-2023.mp3",
-   "fileName": "Beethoven-PianoSonata-No14-Moonlight-2023.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/501651167.html",
-   "publishedAt": "2023-12-04T13:55:00+09:00",
+   "movement": "第3楽章",
+   "tags": [],
+   "audioUrl": "http://andotowa.sakura.ne.jp/Room/Beethoven-MoonlightSonata-3.mp3",
+   "fileName": "Beethoven-MoonlightSonata-3.mp3",
+   "articleUrl": "https://classical-sound.seesaa.net/article/222530759.html",
+   "publishedAt": "2006-12-14T00:12:00+09:00",
    "durationSec": null
   },
   {
@@ -11895,24 +11503,6 @@
    "durationSec": null
   },
   {
-   "id": "474710680-4",
-   "title": "ベートーヴェン：交響曲第9番 ニ短調 Op.125 「合唱」 第4楽章[2020][KARAOKE]",
-   "titleEn": null,
-   "composerId": "l-v-beethoven",
-   "workId": "l-v-beethoven--交響曲第9番ニ短調op-125-合唱",
-   "genreId": "symphony",
-   "movement": "第4楽章",
-   "tags": [
-    "2020",
-    "KARAOKE"
-   ],
-   "audioUrl": "https://classical-sound.up.seesaa.net/image/Beethoven-Symphony-No9-4th-2020-KARAOKE.mp3",
-   "fileName": "Beethoven-Symphony-No9-4th-2020-KARAOKE.mp3",
-   "articleUrl": "https://classical-sound.seesaa.net/article/474710680.html",
-   "publishedAt": "2020-04-22T19:44:00+09:00",
-   "durationSec": null
-  },
-  {
    "id": "221872920",
    "title": "ベートーヴェン：交響曲第3番 変ホ長調 Op.55 「英雄」 第4楽章",
    "titleEn": null,
@@ -11949,13 +11539,15 @@
   "174309216": "476462852-0",
   "174325298": "500257859-0",
   "174477245": "500781397",
+  "174477935": "499579424-1",
   "177273461": "471476198",
   "204476359": "475652468-3",
   "204480692": "501727716",
   "204484562": "502471821",
-  "204488768": "499822945",
+  "204488768": "503450938",
   "205535139": "455367078",
   "205536259": "499314930",
+  "208353458": "440952411",
   "210680800": "501024688-0",
   "210681853": "501024688-1",
   "210683404": "492552215",
@@ -11968,7 +11560,10 @@
   "211527821": "497006137",
   "211556819": "500652202",
   "211557687": "500039936-0",
-  "213835625": "465489829",
+  "213833795": "501263820-0",
+  "213835625": "501263820-1",
+  "213837275": "501333691-0",
+  "213838518": "501333691-1",
   "213842971": "476258636-3",
   "214609789": "499648607",
   "214627541": "499051601",
@@ -11977,6 +11572,7 @@
   "215594700": "474922849-2",
   "216816425": "462083281",
   "218982765": "465575106",
+  "220618358": "499444809",
   "220621164": "500495086",
   "221205450": "500257859-1",
   "221206726": "500305953-0",
@@ -11999,11 +11595,12 @@
   "221995481": "475132357-2",
   "222052916": "499616036-0",
   "222055883": "499616036-0",
+  "222057312": "493005331",
   "222061001": "499616036-1",
   "222063410": "499616036-1",
-  "222291904": "503525038",
-  "222293583": "474710680-1",
-  "222295318": "474710680-2",
+  "222291904": "501782513-0",
+  "222293583": "501782513-1",
+  "222295318": "501814528-0",
   "222359365": "500378609",
   "222359707": "493841252",
   "222474099": "499688999-0",
@@ -12023,14 +11620,17 @@
   "228729128": "475465248-2",
   "228858171": "499530980",
   "228870249": "502781377-0",
+  "231228626": "500933820-2",
   "231238430": "500518114",
   "312156442": "476991508-5",
   "329149978": "499648607",
   "366266143": "502781377-0",
   "370321443": "499579424-1",
   "399487962": "500150417",
+  "419821818": "501814528-0",
   "421660075": "476991508-0",
   "423821816": "476742933",
+  "426229329": "499444809",
   "427527813": "500378609",
   "427916377": "500111088-0",
   "428637877": "500111088-1",
@@ -12042,7 +11642,7 @@
   "446782227": "503817795",
   "449817723": "500933820-1",
   "455681233": "494918967",
-  "455863849": "503525038",
+  "455863849": "501782513-0",
   "455914568": "499390651",
   "458444125": "475652468-3",
   "458674608": "500933820-2",
@@ -12054,9 +11654,10 @@
   "464269169": "499410942",
   "464440694": "499493058",
   "464598541": "499579424-1",
-  "464653584": "503525038",
-  "465350718": "499822945",
+  "464653584": "501782513-0",
+  "465350718": "503450938",
   "465448569": "503817795",
+  "465489829": "501263820-1",
   "465956445": "493841252",
   "466306358": "501727716",
   "467026434": "500257859-0",
@@ -12074,25 +11675,31 @@
   "470519370": "500150417",
   "470797118": "499179250",
   "471105400": "493005331",
+  "471454034": "499616036-0",
   "471609404": "499530980",
   "472021318": "502781377-0",
-  "472352478": "503525038",
-  "472402475": "503525038",
+  "472352478": "501782513-0",
+  "472402475": "501782513-0",
   "472777470": "494918967",
-  "472805010": "474710680-2",
+  "472805010": "501814528-0",
   "473000059": "500781397",
   "473222255": "501217872-0",
   "473222300": "501217872-1",
   "473224705": "497230396",
   "473305336": "501024688-0",
-  "473520204": "499822945",
+  "473520204": "503450938",
+  "473701993": "500197036",
   "473809436": "502356267",
   "474154731": "501263820-1",
   "474257799": "498218566",
   "474357164": "476258636-3",
   "474474701": "501562530",
   "474480945": "475652468-2",
-  "474710680-0": "503525038",
+  "474710680-0": "501782513-0",
+  "474710680-1": "501782513-1",
+  "474710680-2": "501814528-0",
+  "474710680-3": "501814528-1",
+  "474710680-4": "501814528-1",
   "474840757-0": "500257859-0",
   "474840757-1": "500257859-1",
   "474840757-2": "500305953-0",
@@ -12124,11 +11731,12 @@
   "476156249-4": "500495086",
   "476258636-0": "498218566",
   "476258636-4": "499956185",
+  "476462852-3": "499444809",
   "476573453-0": "493841252",
   "476573453-1": "500378609",
   "476573453-3": "500652202",
   "476991508-2": "499054051",
-  "483037528": "503525038",
+  "483037528": "501782513-0",
   "491008883": "500933820-0",
   "491397293": "500933820-1",
   "491757967": "502781377-0",
@@ -12138,6 +11746,7 @@
   "498638083": "502356267",
   "498742359": "503817795",
   "499717429": "502781377-0",
+  "499822945": "503450938",
   "500738826": "503817795"
  }
 }
