@@ -53,11 +53,18 @@ fun Artwork(composerId: String, genreId: String, modifier: Modifier = Modifier, 
 fun GeneratedArtwork(composerId: String, genreId: String, modifier: Modifier = Modifier, cornerRadius: Int = 8) {
     val provider = LocalArtwork.current
     BoxWithConstraints(modifier.clip(RoundedCornerShape(cornerRadius.dp))) {
-        val px = with(LocalDensity.current) { maxOf(maxWidth, maxHeight).roundToPx() }.coerceAtLeast(1)
-        // 小さい画像はサイズをそろえてキャッシュを効かせる
-        val size = if (px <= SMALL) SMALL else px
-        val bitmap = remember(composerId, genreId, size) { provider.bitmap(composerId, genreId, size).asImageBitmap() }
-        // 正方形の絵を、横長・縦長の枠には切り抜いて敷き詰める
+        val density = LocalDensity.current
+        val w = with(density) { maxWidth.roundToPx() }.coerceAtLeast(1)
+        val h = with(density) { maxHeight.roundToPx() }.coerceAtLeast(1)
+        // 小さい正方形はサイズをそろえてキャッシュを効かせる。横長・縦長の枠はその比率で描く
+        // （イラストが切れないように。模様とイラストの置き方は ArtworkRenderer）
+        val (width, height) = when {
+            w == h && w <= SMALL -> SMALL to SMALL
+            else -> w to h
+        }
+        val bitmap = remember(composerId, genreId, width, height) {
+            provider.bitmap(composerId, genreId, width, height).asImageBitmap()
+        }
         Image(
             bitmap = bitmap,
             contentDescription = null,

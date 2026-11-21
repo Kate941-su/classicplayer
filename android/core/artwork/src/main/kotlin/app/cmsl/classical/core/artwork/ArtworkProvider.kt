@@ -6,14 +6,14 @@ import java.io.ByteArrayOutputStream
 
 /** 描いたアートワークをメモリにためておく（画面と通知で共有する）。 */
 class ArtworkProvider(maxEntries: Int = 64) {
-    private data class Key(val spec: ArtworkSpec, val sizePx: Int)
+    private data class Key(val spec: ArtworkSpec, val widthPx: Int, val heightPx: Int)
 
     private val cache = LruCache<Key, Bitmap>(maxEntries)
 
-    fun bitmap(composerId: String, genreId: String, sizePx: Int): Bitmap {
-        val key = Key(ArtworkSpec.of(composerId, genreId), sizePx)
+    fun bitmap(composerId: String, genreId: String, widthPx: Int, heightPx: Int = widthPx): Bitmap {
+        val key = Key(ArtworkSpec.of(composerId, genreId), widthPx, heightPx)
         return synchronized(cache) {
-            cache.get(key) ?: ArtworkRenderer.render(key.spec, sizePx).also { cache.put(key, it) }
+            cache.get(key) ?: ArtworkRenderer.render(key.spec, widthPx, heightPx).also { cache.put(key, it) }
         }
     }
 

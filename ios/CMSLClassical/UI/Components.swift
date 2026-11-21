@@ -32,6 +32,7 @@ struct ArtworkView: View {
     let genreId: String
     var cornerRadius: CGFloat = 8
     var usePortrait = true
+    var illustrationAlignment: HorizontalAlignment = .center
 
     @State private var loaded: (composerId: String, image: UIImage)?
 
@@ -45,7 +46,7 @@ struct ArtworkView: View {
                     .resizable()
                     .scaledToFill()
             } else {
-                ArtworkCanvas(spec: ArtworkSpec(composerId: composerId, genreId: genreId))
+                ArtworkCanvas(spec: ArtworkSpec(composerId: composerId, genreId: genreId), illustrationAlignment: illustrationAlignment)
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))

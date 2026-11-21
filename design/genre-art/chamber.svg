@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- 器楽・室内楽: ギター -->
+  <g transform="rotate(-24 50 50)">
+    <path fill="#fff" d="M50 40 C59 40 63 43 63 50 C63 55 60 57 60 60 C60 63 68 66 68 75 C68 84 60 89 50 89 C40 89 32 84 32 75 C32 66 40 63 40 60 C40 57 37 55 37 50 C37 43 41 40 50 40 Z"/>
+    <rect fill="#fff" x="47" y="14" width="6" height="28"/>
+    <path fill="#fff" d="M46 4 L54 4 L55 15 L45 15 Z"/>
+    <circle fill="#000" cx="50" cy="64" r="6"/>
+    <rect fill="#000" x="44" y="77" width="12" height="2.4"/>
+    <rect fill="#000" x="48.6" y="14" width="2.8" height="44"/>
+  </g>
+</svg>

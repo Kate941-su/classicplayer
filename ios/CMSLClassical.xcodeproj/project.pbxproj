@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020F92B46D4934DCF943710A /* PortraitStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5BDE2C78628A055D4FB63C /* PortraitStoreTests.swift */; };
 		045F4A915F3C475FC7A46AA3 /* DownloadsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE7F6CAAA9933BFA5AF27E /* DownloadsSection.swift */; };
 		048966D394010A58F73626EE /* CatalogValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387069700556BDF180B9BF75 /* CatalogValidator.swift */; };
 		04F7C2B426B93DA73C972D21 /* ArtworkSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E59E3DFC2056CDC2983A83 /* ArtworkSpec.swift */; };
@@ -40,6 +41,7 @@
 		7E07FC2DF1B6F7F336D196E1 /* ArtworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5227B14CD1E0EC49876519F /* ArtworkTests.swift */; };
 		86C30E185DEDD93E0813F214 /* SearchNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2757A9E790FE635078BF3 /* SearchNormalizer.swift */; };
 		87423928BFE8F6FDE39BD755 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866C5DEB341FF64B8165240E /* AudioEngine.swift */; };
+		8BD1E886B71EE022A65CE0B7 /* GenreIllustrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3951730A84F45D1EB15A6C7 /* GenreIllustrations.swift */; };
 		9092F88EE91E61990041482D /* CatalogIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44106EB2E1F8B82DC35FB0B8 /* CatalogIndex.swift */; };
 		96F23D63A92E74F8AA62DE6D /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC784E75FFB3C9F53BB3254 /* Catalog.swift */; };
 		9C1BFC359D96596257C73503 /* PlaybackControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AF5B4063AF642F0ADA4E8A /* PlaybackControllerTests.swift */; };
@@ -59,6 +61,7 @@
 		EA68B540A1EE4607C98B0989 /* PlaybackEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD83502BFE8EE37323C2F593 /* PlaybackEnvironment.swift */; };
 		EBCA236449F0149F414AEB0F /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9930A325E1C4B08A6694EFA9 /* RootView.swift */; };
 		F78FA416818A6CD4E546AF1F /* PreferenceStores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E93ABECA52DE3AF528617 /* PreferenceStores.swift */; };
+		F8A9BDDCAD332B3D9A66C2F6 /* IllustrationShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9AE9E9494DED08EF0555AC /* IllustrationShape.swift */; };
 		F9786AB5B021D55F594D746D /* PortraitStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B612EAA7949D9F06609A14B1 /* PortraitStore.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +102,7 @@
 		48C3F674C387547F8DA6BA30 /* PlayQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueue.swift; sourceTree = "<group>"; };
 		4B398D13D81F65879F630B44 /* PlayerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViews.swift; sourceTree = "<group>"; };
 		4B59F8212D4B15C2B7166F57 /* CMSLClassicalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMSLClassicalApp.swift; sourceTree = "<group>"; };
+		4B5BDE2C78628A055D4FB63C /* PortraitStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitStoreTests.swift; sourceTree = "<group>"; };
 		5B70050317AD5CD2CAD9B488 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
 		5D6EDBD1C391B87BBFA5D43B /* CMSLClassicalTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CMSLClassicalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		600E93ABECA52DE3AF528617 /* PreferenceStores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceStores.swift; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 		A8E8B94E8CAD92DCD968A247 /* BrowseViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViews.swift; sourceTree = "<group>"; };
 		ABE210A03E0000B66BB1B5CA /* PlaybackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackTests.swift; sourceTree = "<group>"; };
 		AD140DA17B47DFD7F0BE3229 /* Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localized.swift; sourceTree = "<group>"; };
+		AF9AE9E9494DED08EF0555AC /* IllustrationShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustrationShape.swift; sourceTree = "<group>"; };
+		B3951730A84F45D1EB15A6C7 /* GenreIllustrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreIllustrations.swift; sourceTree = "<group>"; };
 		B4314B446A0B2AC6BE78CCED /* fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fixtures; path = ../fixtures; sourceTree = SOURCE_ROOT; };
 		B60F830F1BE8CA7523EE6711 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
 		B612EAA7949D9F06609A14B1 /* PortraitStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitStore.swift; sourceTree = "<group>"; };
@@ -252,6 +258,8 @@
 				A8E8B94E8CAD92DCD968A247 /* BrowseViews.swift */,
 				E372C68E8EC78B980E4B4FAB /* Components.swift */,
 				3DDE7F6CAAA9933BFA5AF27E /* DownloadsSection.swift */,
+				B3951730A84F45D1EB15A6C7 /* GenreIllustrations.swift */,
+				AF9AE9E9494DED08EF0555AC /* IllustrationShape.swift */,
 				03A029805C1CE6A2C0435504 /* ImageCreditsView.swift */,
 				6A20C2395F4A9C97DEA6FF44 /* InfoView.swift */,
 				A505A0093E6FA15035F0F2FE /* LibraryView.swift */,
@@ -274,6 +282,7 @@
 				3D95858ADF16F65FCA97DCF3 /* LibraryStoreTests.swift */,
 				67AF5B4063AF642F0ADA4E8A /* PlaybackControllerTests.swift */,
 				ABE210A03E0000B66BB1B5CA /* PlaybackTests.swift */,
+				4B5BDE2C78628A055D4FB63C /* PortraitStoreTests.swift */,
 				30FA8E75D5470DC3430E83E9 /* ProjectSetupTests.swift */,
 				43F24F607A3434B3C63FA5C5 /* SearchCasesTests.swift */,
 				D921F23DB43F4CD4F6607EE2 /* SleepTimerTests.swift */,
@@ -489,6 +498,7 @@
 				7BB316D36D8DBC880B914262 /* LibraryStoreTests.swift in Sources */,
 				9C1BFC359D96596257C73503 /* PlaybackControllerTests.swift in Sources */,
 				D3E9C289716822F7FBE08A32 /* PlaybackTests.swift in Sources */,
+				020F92B46D4934DCF943710A /* PortraitStoreTests.swift in Sources */,
 				48F75B2847722D5053D0F456 /* ProjectSetupTests.swift in Sources */,
 				1FC393AE5F7BEF90FC553659 /* SearchCasesTests.swift in Sources */,
 				307EE4BB9F633283F7D124CD /* SleepTimerTests.swift in Sources */,
@@ -521,6 +531,8 @@
 				4BCADD510FEA2B31A3589369 /* DownloadStore.swift in Sources */,
 				0DDD583ED7ED4F7E9D590EFE /* Downloader.swift in Sources */,
 				045F4A915F3C475FC7A46AA3 /* DownloadsSection.swift in Sources */,
+				8BD1E886B71EE022A65CE0B7 /* GenreIllustrations.swift in Sources */,
+				F8A9BDDCAD332B3D9A66C2F6 /* IllustrationShape.swift in Sources */,
 				AB0086E4F0BADA20D8A1400E /* ImageCreditsView.swift in Sources */,
 				A3955D0C9388E9EDD125D52D /* InfoView.swift in Sources */,
 				3A60AC626FEF7AB812569AD5 /* LibraryStore.swift in Sources */,

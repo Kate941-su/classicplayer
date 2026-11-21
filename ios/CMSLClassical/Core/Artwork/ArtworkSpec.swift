@@ -7,12 +7,23 @@ struct ArtworkSpec: Equatable, Sendable {
     let hue: Double
     let variant: Int
     let pattern: Pattern
+    /// イラストの種類（`design/genre-art/{illustration}.svg`）。既知の 6 ジャンルの ID か `other`。
+    let illustration: String
 
     init(composerId: String, genreId: String) {
         let h = Self.fnv1a32(composerId)
         hue = Double(h % 360)
         variant = Int((h >> 16) & 0xff)
         pattern = Self.pattern(genreId: genreId)
+        illustration = Self.illustration(genreId: genreId)
+    }
+
+    static let illustrationOther = "other"
+    private static let illustrated: Set<String> = ["symphony", "orchestral", "concerto", "piano", "chamber", "vocal"]
+
+    /// ジャンル ID → イラストの種類。未知のジャンル（baroque を含む）は「その他」（音符）。
+    static func illustration(genreId: String) -> String {
+        illustrated.contains(genreId) ? genreId : illustrationOther
     }
 
     static func pattern(genreId: String) -> Pattern {

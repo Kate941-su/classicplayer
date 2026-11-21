@@ -11,6 +11,11 @@ detekt {
     source.setFrom("src/main/kotlin", "src/test/kotlin", "src/androidTest/kotlin")
 }
 
+// 生成したファイル（design/genre-art/generate.py）は検査しない
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    exclude("**/GenreIllustrations.kt")
+}
+
 val catalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 dependencies {
