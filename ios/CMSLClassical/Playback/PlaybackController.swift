@@ -428,6 +428,9 @@ extension PlaybackController: AudioEngineDelegate {
     func audioEngineTimeChanged() {
         guard loadedKey != nil else { return }
         position = engine.currentTime
-        if let seconds = engine.duration { duration = seconds }
+        if let seconds = engine.duration, seconds != duration {
+            duration = seconds
+            changed()   // ロック画面（Now Playing）の長さも更新する
+        }
     }
 }

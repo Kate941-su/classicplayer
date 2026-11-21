@@ -4,9 +4,24 @@
     "CFBundleDisplayName" : {
       "extractionState" : "manual",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Classical Player" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "クラシック名曲" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Classical Player"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クラシック名曲"
+          }
+        }
       }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name（ホーム画面には CFBundleDisplayName を出す。翻訳しない）",
+      "extractionState" : "extracted_with_value",
+      "shouldTranslate" : false
     }
   },
   "version" : "1.0"

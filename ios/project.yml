@@ -80,6 +80,8 @@ targets:
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         TARGETED_DEVICE_FAMILY: "1,2"
         CODE_SIGN_STYLE: Automatic
+        # 実機で動かすときの開発チーム（Apple の Team ID。署名済みのアプリに含まれるもので秘密ではない）
+        DEVELOPMENT_TEAM: WATT786F4L
         GENERATE_INFOPLIST_FILE: NO
   CMSLClassicalTests:
     type: bundle.unit-test

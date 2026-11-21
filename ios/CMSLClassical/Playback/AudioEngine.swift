@@ -50,6 +50,8 @@ final class AVQueueAudioEngine: AudioEngine {
     private var itemObservations: [NSKeyValueObservation] = []
     private var timeObserver: Any?
     private var playRequest = 0
+    /// 読み込んだ曲の長さ（AVPlayerItem.duration が不明のままの mp3 のため。キーは AVPlayerItem）。
+    private var loadedDurations: [ObjectIdentifier: TimeInterval] = [:]
 
     init() {
         player.actionAtItemEnd = .advance
@@ -79,12 +81,16 @@ final class AVQueueAudioEngine: AudioEngine {
     }
 
     var duration: TimeInterval? {
-        guard let seconds = player.currentItem?.duration.seconds, seconds.isFinite, seconds > 0 else { return nil }
-        return seconds
+        guard let item = player.currentItem else { return nil }
+        let seconds = item.duration.seconds
+        if seconds.isFinite, seconds > 0 { return seconds }
+        // ストリーミングの mp3 では item.duration が indefinite のままのことがある。アセットから読んだ長さを使う
+        return loadedDurations[ObjectIdentifier(item)]
     }
 
     func load(current: URL, next: URL?, at position: TimeInterval) {
         player.removeAllItems()
+        loadedDurations = [:]
         let item = makeItem(current)
         currentItem = item
         nextItem = nil
@@ -137,10 +143,20 @@ final class AVQueueAudioEngine: AudioEngine {
         currentItem = nil
         nextItem = nil
         itemObservations = []
+        loadedDurations = [:]
     }
 
     private func makeItem(_ url: URL) -> AVPlayerItem {
-        let item = AVPlayerItem(url: url)
+        let asset = AVURLAsset(url: url)
+        // 長さも読み込ませる（AVPlayerItem(url:) だけでは mp3 の長さが分からないままになり、シークバーが 0:00 になる）
+        let item = AVPlayerItem(asset: asset, automaticallyLoadedAssetKeys: [.duration])
+        let id = ObjectIdentifier(item)
+        Task { [weak self] in
+            guard let time = try? await asset.load(.duration), time.seconds.isFinite, time.seconds > 0 else { return }
+            guard let self, self.currentItem === item || self.nextItem === item else { return }
+            self.loadedDurations[id] = time.seconds
+            if self.currentItem === item { self.delegate?.audioEngineTimeChanged() }
+        }
         NotificationCenter.default.addObserver(
             self, selector: #selector(itemFailedToPlayToEnd(_:)),
             name: AVPlayerItem.failedToPlayToEndTimeNotification, object: item

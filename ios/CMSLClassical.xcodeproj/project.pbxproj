@@ -392,6 +392,7 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					803F54FBE58C3E97BAFCDF79 = {
+						DevelopmentTeam = WATT786F4L;
 						ProvisioningStyle = Automatic;
 					};
 					EEC4FB434390CD81FAE796A8 = {
@@ -705,6 +706,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WATT786F4L;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CMSLClassical/Info.plist;
@@ -777,6 +779,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WATT786F4L;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CMSLClassical/Info.plist;
