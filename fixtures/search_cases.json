@@ -1,0 +1,35 @@
+{
+  "$comment": "検索の正規化と照合のテストケース（docs/search-normalization.md）。queries は fixtures/catalog.sample.json に対して実行する。expect は「含むべき ID」、absent は「含んではいけない ID」、empty は「全セクションが空」",
+  "normalize": [
+    { "input": "ベートーベン", "expected": "ベトベン" },
+    { "input": "ベートーヴェン", "expected": "ベトベン" },
+    { "input": "べーとーゔぇん", "expected": "ベトベン" },
+    { "input": "ﾍﾞｰﾄｰｳﾞｪﾝ", "expected": "ベトベン" },
+    { "input": "ＢＥＥＴＨＯＶＥＮ", "expected": "beethoven" },
+    { "input": "L.V.Beethoven", "expected": "lvbeethoven" },
+    { "input": "しょぱん", "expected": "ショパン" },
+    { "input": "Dvořák", "expected": "dvorak" },
+    { "input": "ドヴォルザーク", "expected": "ドボルザク" },
+    { "input": "ヴィヴァルディ", "expected": "ビバルディ" },
+    { "input": "グリーン スリーブス", "expected": "グリンスリブス" },
+    { "input": "ピアノソナタ 第８番 ハ短調 Op.13 「悲愴」", "expected": "ピアノソナタ第8番ハ短調op13悲愴" },
+    { "input": "Op.9-2", "expected": "op92" },
+    { "input": "　全角　空白　", "expected": "全角空白" },
+    { "input": "Café", "expected": "cafe" }
+  ],
+  "queries": [
+    { "query": "ベートーベン", "expect": { "composers": ["l-v-beethoven"], "works": ["l-v-beethoven--piano-sonata-8", "l-v-beethoven--symphony-5"], "tracks": ["900000001", "900000010-0"] }, "first": { "composers": "l-v-beethoven" } },
+    { "query": "beethoven", "expect": { "composers": ["l-v-beethoven"], "tracks": ["900000002"] }, "first": { "composers": "l-v-beethoven" } },
+    { "query": "べーとーゔぇん", "expect": { "composers": ["l-v-beethoven"] } },
+    { "query": "ＢＥＥＴＨＯＶＥＮ", "expect": { "composers": ["l-v-beethoven"] } },
+    { "query": "しょぱん", "expect": { "composers": ["f-chopin"], "works": ["f-chopin--nocturne-2"], "tracks": ["900000020"] }, "absent": { "composers": ["l-v-beethoven"] } },
+    { "query": "chopin", "expect": { "composers": ["f-chopin"] } },
+    { "query": "nocturne", "expect": { "tracks": ["900000020"] }, "absent": { "composers": ["f-chopin"] } },
+    { "query": "悲愴", "expect": { "works": ["l-v-beethoven--piano-sonata-8"], "tracks": ["900000001", "900000002", "900000003"] }, "absent": { "works": ["l-v-beethoven--symphony-5"] } },
+    { "query": "ベートーベン　運命", "expect": { "works": ["l-v-beethoven--symphony-5"], "tracks": ["900000010-0", "900000010-1"] }, "absent": { "works": ["l-v-beethoven--piano-sonata-8"], "tracks": ["900000001"] } },
+    { "query": "op.13", "expect": { "works": ["l-v-beethoven--piano-sonata-8"] } },
+    { "query": "グリーン スリーブス", "expect": { "works": ["作曲者不明--グリーンスリーブス"] } },
+    { "query": "モーツァルト", "empty": true },
+    { "query": "  ー・ ", "empty": true }
+  ]
+}
