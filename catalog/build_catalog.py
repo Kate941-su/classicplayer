@@ -641,8 +641,11 @@ def build(pages, category_listing, category_names, exclude: list[str],
             fname = file_name_of(mp3)
             track_info = info
             if len(art.mp3s) > 1 and "movement" not in ov and (numbers := parse_file_name(fname)["movements"]):
-                # 「第1,2楽章」の記事に mp3 が 2 つ → 1st / 2nd をそれぞれの楽章にする
-                track_info = {**info, "movement": movement_label(numbers)}
+                # 「第1,2楽章」の記事に mp3 が 2 つ → 1st / 2nd をそれぞれの楽章にする。記事の英語タイトルは
+                # 1 曲目の楽章名（「1. Allegro」）で終わることが多く、2 曲目に付けると誤りになるので外す
+                movement = movement_label(numbers)
+                track_info = {**info, "movement": movement,
+                              "titleEn": info["titleEn"] if movement == info["movement"] else None}
             entries.append([art, i, mp3, fname, track_info, composer, gid])
 
     # 2 周目: まとめ記事の曲を、ファイル名と通常の記事の対応（作曲家の語 → 作曲家、作品の語 → 作品名・ジャンル）で解釈する

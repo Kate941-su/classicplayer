@@ -149,11 +149,12 @@ def test_works_are_split_by_recording_and_labeled_only_when_needed():
 
 
 def test_movements_of_multi_file_article_come_from_file_names_and_share_one_work():
-    cat, _ = run([("320", "2023年1月1日", "ブラームス：交響曲 第1番 ハ短調 Op.68 第1,2楽章 [2023]",
+    cat, _ = run([("320", "2023年1月1日", "ブラームス：交響曲 第1番 ハ短調 Op.68 第1,2楽章 [2023] / J.Brahms：Symphony No.1 1. Allegro",
                    ["Brahms-Symphony-No1-1st-2023.mp3", "Brahms-Symphony-No1-2nd-2023.mp3",
                     "Brahms-Symphony-No1-2nd-2023-KARAOKE.mp3"], "交響曲 (Symphony)")])
     t = by_id(cat)
     assert [t[f"320-{i}"]["movement"] for i in range(3)] == ["第1楽章", "第2楽章", "第2楽章"]
+    assert all(t[f"320-{i}"]["titleEn"] is None for i in range(3))  # 記事の英語タイトルは曲ごとに正しくないので外す
     assert len({t[f"320-{i}"]["workId"] for i in range(3)}) == 1  # カラオケ版も同じ録音（記事単位）
 
 
