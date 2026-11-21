@@ -21,7 +21,7 @@ class SearchIndexTest {
         val tracks = index.search("L.V.Beethoven").tracks.map { it.id }
         assertEquals(setOf("501651167", "474143449"), tracks.take(2).toSet())
         assertEquals(
-            listOf("499616036-0", "222057312", "222058571", "499616036-1", "500111088-0", "500111088-1", "500150417"),
+            listOf("499616036-0", "493005331", "222058571", "499616036-1", "500111088-0", "500111088-1", "500150417"),
             tracks.drop(2),
         )
     }

@@ -20,9 +20,9 @@ class CatalogIndexTest {
         // 1 記事に mp3 が 2 つ（500111088-0・-1）と、別の記事の続き
         val ids = index.tracksOfWork(FATE).map { it.id }
         assertEquals(listOf("500111088-0", "500111088-1", "500150417"), ids)
-        // 新しい録音（2023、1 記事に 2 曲）と旧サーバーの録音（2006）が混ざった作品も楽章順
+        // 新しい録音（2023 の 1 記事に 2 曲、2022）と旧サーバーの録音（2006）が混ざった作品も楽章順
         val seventh = index.tracksOfWork(SEVENTH)
-        assertEquals(listOf("499616036-0", "222057312", "222058571", "499616036-1"), seventh.map { it.id })
+        assertEquals(listOf("499616036-0", "493005331", "222058571", "499616036-1"), seventh.map { it.id })
         assertEquals(listOf("第1楽章", "第2楽章", "第3楽章", "第4楽章"), seventh.map { it.movement })
     }
 

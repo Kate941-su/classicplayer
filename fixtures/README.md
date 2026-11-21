@@ -4,7 +4,7 @@
 
 | ファイル | 内容 |
 |---|---|
-| `catalog.sample.json` | 実カタログ（2026-11-21 の全件巡回、540 曲。schemaVersion 2）から抜き出した 20 曲（PLAN 0.9）。`schema/catalog.schema.json` と `validate_catalog.py`（比率の上限 5% を含む）を通る。音源 URL は実在するので、アプリの既定のシードとして再生もできる |
+| `catalog.sample.json` | 実カタログ（2026-11-21 の全件巡回、520 曲。schemaVersion 2）から抜き出した 20 曲（PLAN 0.9）。`schema/catalog.schema.json` と `validate_catalog.py`（比率の上限 5% を含む）を通る。音源 URL は実在するので、アプリの既定のシードとして再生もできる |
 | `manifest.sample.json` | `catalog.sample.json` に対する manifest（`make_manifest.py` の出力） |
 | `invalid/` | `catalog.sample.json` を 1 か所だけ壊した異常系（`invalid/README.md`） |
 | `search_cases.json` | 検索の正規化と照合のテストケース（規則は `docs/search-normalization.md`）。`queries` はこのディレクトリの `catalog.sample.json` に対して実行する |
@@ -27,7 +27,7 @@ python3 make_manifest.py ../fixtures/catalog.sample.json -o ../fixtures/manifest
 |---|---|
 | ジャンル 6 つ（「その他」を含む）| 交響曲・協奏曲・ピアノ・器楽・声楽・その他 |
 | 楽章が複数ある作品。旧録音（2015）は `replacedTracks` で 2023 の曲に読み替える | ベートーヴェン「運命」2023（3 曲） |
-| 新しい録音（https）と制作者の旧サーバーの録音（`http://classical-music.aki.gs` など）が楽章ごとに混ざり、楽章順に並ぶ作品 | ベートーヴェン 7 番（`499616036-0`、`222057312`、`222058571`、`499616036-1`） |
+| 新しい録音（https）と制作者の旧サーバーの録音（`http://classical-music.aki.gs` など）が楽章ごとに混ざり、楽章順に並ぶ作品 | ベートーヴェン 7 番（`499616036-0`、`493005331`（2022、作品名の「Op92」の表記ゆれを同じ作品にまとめたもの）、`222058571`（旧サーバー）、`499616036-1`） |
 | 1 記事に mp3 が複数（`{記事ID}-{連番}`）。楽章はファイル名から | `500111088-0`・`-1`、`499616036-0`・`-1` |
 | まとめ記事（作曲家・ジャンルが曲ごとに違う）、`titleEn` が `null`。2023 の第1楽章と同じ作品 | `476156249-1`〜`-3` と `499179250`（ブラームス 4 番）、`476991508-3`（別れの曲） |
 | 楽章なしの単曲 | ショパン「ノクターン」「別れの曲」、タレガ、プッチーニ、アメイジング・グレイス |
