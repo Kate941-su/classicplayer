@@ -3,9 +3,11 @@ package app.cmsl.classical.di
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
 import app.cmsl.classical.BuildConfig
+import app.cmsl.classical.artwork.Portraits
 import app.cmsl.classical.core.artwork.ArtworkProvider
 import app.cmsl.classical.core.data.CatalogRepository
 import app.cmsl.classical.core.data.CatalogState
+import app.cmsl.classical.core.data.PortraitRepository
 import app.cmsl.classical.core.data.RefreshResult
 import app.cmsl.classical.core.db.LibraryDatabase
 import app.cmsl.classical.core.db.QueueStore
@@ -35,8 +37,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.InputStream
 import java.util.Locale
 import java.util.concurrent.TimeUnit
+
+/** 同梱の肖像画（シードの作曲家の分。assets/portraits/）。なければ null。 */
+private fun openAsset(context: Context, path: String): InputStream? = try {
+    context.assets.open(path)
+} catch (_: FileNotFoundException) {
+    null
+}
 
 private val Context.settings by preferencesDataStore(name = "settings")
 
@@ -50,12 +62,15 @@ class AppContainer(
     val recentSearches: RecentSearchStore,
     private val queueStore: QueueStore,
     val artwork: ArtworkProvider,
+    portraitRepository: PortraitRepository,
     val scope: CoroutineScope,
     playerFactory: (PlaybackEnvironment) -> PlayerController,
     private val now: () -> Long = System::currentTimeMillis,
     private val english: () -> Boolean = { Locale.getDefault().language != "ja" },
 ) {
     val catalog: StateFlow<CatalogState?> = catalogRepository.state
+
+    val portraits = Portraits(portraitRepository, catalog)
 
     /** カタログが差し替わったら作り直す（重いので Default で）。 */
     val searchIndex: StateFlow<SearchIndex?> = catalog.filterNotNull()
@@ -82,10 +97,18 @@ class AppContainer(
                         composer = index.composer(t.composerId)?.displayName(en).orEmpty(),
                         workTitle = index.work(t.workId)?.title.orEmpty(),
                         genre = index.genre(t.genreId)?.displayName(en).orEmpty(),
-                        artworkPng = artwork.png(t.composerId, t.genreId),
+                        // 通信は待たない（取得したら artwork() でサービスが差し替える）
+                        artworkData = portraits.jpeg(t.composerId, network = false)
+                            ?: artwork.png(t.composerId, t.genreId),
                     )
                 }
             }
+        }
+
+        override suspend fun artwork(trackId: String): ByteArray? {
+            val index = catalog.filterNotNull().first().index
+            val track = index.track(index.currentTrackId(trackId)) ?: return null
+            return portraits.jpeg(track.composerId, network = true)
         }
 
         override suspend fun loadQueue(): QueueSnapshot? = queueStore.load()
@@ -141,6 +164,13 @@ class AppContainer(
                 recentSearches = RecentSearchStore(app.settings),
                 queueStore = QueueStore(app.settings),
                 artwork = ArtworkProvider(),
+                portraitRepository = PortraitRepository(
+                    bundled = { path -> openAsset(app, path) },
+                    cacheDir = File(app.cacheDir, "portraits"),
+                    client = client,
+                    // 肖像画の url は catalog.json と同じ場所（site/v1/）からの相対（SPEC §3.6）
+                    baseUrl = (BuildConfig.CATALOG_BASE_URL + "catalog.json").toHttpUrl(),
+                ),
                 scope = scope,
                 playerFactory = { env -> MediaControllerPlayer(app, env) },
             )

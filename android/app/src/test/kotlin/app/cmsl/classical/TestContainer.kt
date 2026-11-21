@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.room.Room
 import app.cmsl.classical.core.artwork.ArtworkProvider
 import app.cmsl.classical.core.data.CatalogRepository
+import app.cmsl.classical.core.data.PortraitRepository
 import app.cmsl.classical.core.db.LibraryDatabase
 import app.cmsl.classical.core.db.QueueStore
 import app.cmsl.classical.core.db.RecentSearchStore
@@ -18,7 +19,16 @@ import okhttp3.OkHttpClient
 import java.io.File
 
 /** 共有フィクスチャをシードにした、通信しないコンテナ。 */
-fun testContainer(context: Context, dir: File, player: FakePlayerController, english: Boolean = true): AppContainer {
+fun testContainer(
+    context: Context,
+    dir: File,
+    player: FakePlayerController,
+    english: Boolean = true,
+    /** 同梱の肖像画を置く場所（`portraits/{id}.jpg`）。null ならリポジトリの site/v1/。 */
+    portraitsDir: File? = null,
+    /** シードのカタログ。null なら共有フィクスチャ。 */
+    seed: File? = null,
+): AppContainer {
     val fixtures = File(requireNotNull(System.getProperty("fixturesDir")))
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     val prefs = PreferenceDataStoreFactory.create(scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)) {
@@ -26,7 +36,7 @@ fun testContainer(context: Context, dir: File, player: FakePlayerController, eng
     }
     val container = AppContainer(
         catalogRepository = CatalogRepository(
-            seed = { File(fixtures, "catalog.sample.json").inputStream() },
+            seed = { (seed ?: File(fixtures, "catalog.sample.json")).inputStream() },
             dir = dir,
             client = OkHttpClient(),
             manifestUrl = "https://example.invalid/v1/manifest.json".toHttpUrl(),
@@ -35,6 +45,18 @@ fun testContainer(context: Context, dir: File, player: FakePlayerController, eng
         recentSearches = RecentSearchStore(prefs),
         queueStore = QueueStore(prefs),
         artwork = ArtworkProvider(),
+        // 同梱の肖像画の代わりに、リポジトリの site/v1/portraits/ を読む（配信元は通信しない宛先）
+        portraitRepository = PortraitRepository(
+            bundled = { path ->
+                File(
+                    portraitsDir ?: File(fixtures, "../site/v1"),
+                    path
+                ).takeIf { it.exists() }?.inputStream()
+            },
+            cacheDir = File(dir, "portraits"),
+            client = OkHttpClient(),
+            baseUrl = "https://example.invalid/v1/catalog.json".toHttpUrl(),
+        ),
         scope = scope,
         playerFactory = { player },
         english = { english },

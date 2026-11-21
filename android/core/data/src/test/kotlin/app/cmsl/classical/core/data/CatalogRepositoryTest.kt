@@ -216,7 +216,7 @@ class CatalogRepositoryTest {
     }
 }
 
-private class MutableClock(private var now: Instant) : Clock() {
+internal class MutableClock(private var now: Instant) : Clock() {
     fun advance(d: Duration) {
         now = now.plus(d)
     }

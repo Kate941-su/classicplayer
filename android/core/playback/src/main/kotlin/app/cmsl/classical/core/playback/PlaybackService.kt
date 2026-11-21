@@ -7,6 +7,7 @@ import androidx.annotation.OptIn
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
 import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
@@ -45,6 +46,7 @@ class PlaybackService : MediaSessionService() {
     private var saveJob: Job? = null
     private var tickJob: Job? = null
     private var startedMediaId: String? = null
+    private var artworkJob: Job? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -118,6 +120,7 @@ class PlaybackService : MediaSessionService() {
         override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
             startedMediaId = null
             if (player.isPlaying) recordStarted()
+            updateArtwork()
         }
 
         override fun onIsPlayingChanged(isPlaying: Boolean) {
@@ -158,6 +161,25 @@ class PlaybackService : MediaSessionService() {
             if (id == startedMediaId) return
             startedMediaId = id
             saveScope.launch { env.onTrackStarted(id) }
+        }
+    }
+
+    /**
+     * 今の曲のアートワークを、取得した肖像画に差し替える（ロック画面・通知。SPEC §4.10）。
+     * 同じ URI の MediaItem への置き換えなので、再生は途切れない。同じ画像なら何もしない（置き換えの繰り返しを防ぐ）。
+     */
+    private fun updateArtwork() {
+        val id = player.currentMediaItem?.mediaId ?: return
+        artworkJob?.cancel()
+        artworkJob = scope.launch {
+            val data = env.artwork(id) ?: return@launch
+            val index = player.currentMediaItemIndex
+            val item = player.currentMediaItem ?: return@launch
+            if (item.mediaId != id || item.mediaMetadata.artworkData?.contentEquals(data) == true) return@launch
+            val metadata = item.mediaMetadata.buildUpon()
+                .setArtworkData(data, MediaMetadata.PICTURE_TYPE_FRONT_COVER)
+                .build()
+            player.replaceMediaItem(index, item.buildUpon().setMediaMetadata(metadata).build())
         }
     }
 

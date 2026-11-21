@@ -33,6 +33,18 @@ class CatalogDecodingTest {
     }
 
     @Test
+    fun `肖像画をデコードでき、キーのない古いカタログは null になる`() {
+        val catalog = Fixtures.sample()
+        val portrait = requireNotNull(catalog.composers.single { it.id == "l-v-beethoven" }.portrait)
+        assertEquals("portraits/l-v-beethoven.jpg", portrait.url)
+        assertEquals(64, portrait.sha256.length)
+        assertTrue(portrait.sourceUrl.startsWith("https://commons.wikimedia.org/"))
+        val withoutKey = Fixtures.text("catalog.sample.json").replace(Regex(""", "portrait": \{[^{}]*\}"""), "")
+        assertTrue(!withoutKey.contains("\"portrait\""))
+        assertTrue(CatalogJson.decodeCatalog(withoutKey).composers.all { it.portrait == null })
+    }
+
+    @Test
     fun `未知のキーを無視する`() {
         val text = Fixtures.text("catalog.sample.json")
             .replaceFirst("\"schemaVersion\": 2,", "\"schemaVersion\": 2, \"futureField\": {\"a\": [1, 2]},")

@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
@@ -56,11 +57,18 @@ class ScreenshotsTest {
         compose.onNodeWithText(symphonies).performClick()
         save("$prefix-genre")
         compose.onNodeWithText(if (english) "L.V.Beethoven" else "ベートーヴェン").performClick()
+        save("$prefix-composer")
         compose.onNodeWithText("交響曲第5番 ハ短調 Op.67 「運命」").performClick()
         compose.onNodeWithText(context.getString(R.string.action_play_work)).performClick()
         save("$prefix-work")
         compose.onNodeWithTag("miniPlayer").performClick()
         save("$prefix-player")
+        compose.onNodeWithContentDescription(context.getString(R.string.action_close_player)).performClick()
+        compose.onNodeWithText(context.getString(R.string.tab_info)).performClick()
+        val credits = context.getString(R.string.image_credits)
+        compose.onNodeWithTag("info").performScrollToNode(hasText(credits))
+        compose.onNodeWithText(credits).performClick()
+        save("$prefix-image-credits")
     }
 
     @Test

@@ -106,4 +106,13 @@
     <string name="refresh_up_to_date">The catalog is up to date.</string>
     <string name="refresh_failed">Couldn\'t check for updates. Please try again later.</string>
     <string name="refresh_unsupported">A newer catalog is available. Please update the app.</string>
+
+    <string name="image_credits">Image credits</string>
+    <string name="image_credits_intro">The composer portraits are from Wikimedia Commons. They have been cropped to a square and reduced in size.</string>
+    <string name="portrait_credit">Portrait: %1$s · %2$s</string>
+    <string name="portrait_artist_unknown">Unknown author</string>
+    <string name="portrait_open_source">Open the image page on Wikimedia Commons</string>
+    <string name="image_credit_title">Work: %1$s</string>
+    <string name="image_credit_artist">Author: %1$s</string>
+    <string name="image_credit_source">Source: Wikimedia Commons</string>
 </resources>

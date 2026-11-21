@@ -41,6 +41,33 @@ data class Composer(
     val name: String,
     val nameEn: String? = null,
     val trackCount: Int,
+    /** 肖像画（SPEC §3.6）。ない作曲家と、キーのない古いカタログでは null（生成アートワークを使う）。 */
+    val portrait: Portrait? = null,
+)
+
+/**
+ * 作曲家の肖像画（SPEC §3.6）。画像は `url`（`portraits/{composer.id}.jpg`）を catalog のベース URL から解決して取る。
+ * `title`〜`sourceUrl` はクレジットの表示に使う（SPEC §4.9）。
+ */
+@Serializable
+data class Portrait(
+    val url: String,
+    val width: Int? = null,
+    val height: Int? = null,
+    /** JPEG のハッシュ（小文字の 16 進）。キャッシュの検証と更新の判定に使う。 */
+    val sha256: String,
+    val title: String? = null,
+    val artist: String? = null,
+    val date: String? = null,
+    /** 表示用のライセンス名（`CC BY-SA 4.0`、`Public domain`）。 */
+    val license: String,
+    /** `pd` / `cc0` / `cc-by-4.0` / `cc-by-sa-3.0` など。 */
+    val licenseCode: String? = null,
+    val licenseUrl: String? = null,
+    /** Commons のファイルページ。 */
+    val sourceUrl: String,
+    val attributionRequired: Boolean = true,
+    val wikidata: String? = null,
 )
 
 /** `id` は表記揺れの修正で変わることがあるので永続化しない。 */

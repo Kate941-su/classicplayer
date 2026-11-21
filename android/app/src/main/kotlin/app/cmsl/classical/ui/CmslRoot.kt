@@ -32,15 +32,19 @@ import androidx.navigation.toRoute
 import app.cmsl.classical.R
 import app.cmsl.classical.di.AppContainer
 import app.cmsl.classical.ui.components.LocalArtwork
+import app.cmsl.classical.ui.components.LocalOpenImageCredits
+import app.cmsl.classical.ui.components.LocalPortraits
 import app.cmsl.classical.ui.composer.ComposerScreen
 import app.cmsl.classical.ui.genre.GenreScreen
 import app.cmsl.classical.ui.home.HomeScreen
+import app.cmsl.classical.ui.info.ImageCreditsScreen
 import app.cmsl.classical.ui.info.InfoScreen
 import app.cmsl.classical.ui.info.LicensesScreen
 import app.cmsl.classical.ui.library.LibraryScreen
 import app.cmsl.classical.ui.navigation.ComposerRoute
 import app.cmsl.classical.ui.navigation.GenreRoute
 import app.cmsl.classical.ui.navigation.HomeRoute
+import app.cmsl.classical.ui.navigation.ImageCreditsRoute
 import app.cmsl.classical.ui.navigation.InfoRoute
 import app.cmsl.classical.ui.navigation.LibraryRoute
 import app.cmsl.classical.ui.navigation.LicensesRoute
@@ -66,7 +70,11 @@ private val TABS = listOf(
 /** 画面の根。タブ（ホーム・検索・ライブラリ・情報）と、その上のミニプレイヤー（SPEC §4.1）。 */
 @Composable
 fun CmslRoot(container: AppContainer) {
-    CompositionLocalProvider(LocalAppContainer provides container, LocalArtwork provides container.artwork) {
+    CompositionLocalProvider(
+        LocalAppContainer provides container,
+        LocalArtwork provides container.artwork,
+        LocalPortraits provides container.portraits,
+    ) {
         CmslTheme {
             val nav = rememberNavController()
             val entry by nav.currentBackStackEntryAsState()
@@ -123,6 +131,14 @@ private fun androidx.navigation.NavDestination.hierarchy() = generateSequence(th
 @Composable
 private fun CmslNavHost(nav: NavHostController, modifier: Modifier) {
     val back: () -> Unit = { nav.popBackStack() }
+    val openImageCredits: () -> Unit = { nav.navigate(ImageCreditsRoute) { launchSingleTop = true } }
+    CompositionLocalProvider(LocalOpenImageCredits provides openImageCredits) {
+        CmslNavGraph(nav, modifier, back, openImageCredits)
+    }
+}
+
+@Composable
+private fun CmslNavGraph(nav: NavHostController, modifier: Modifier, back: () -> Unit, openImageCredits: () -> Unit) {
     NavHost(nav, startDestination = HomeRoute, modifier = modifier) {
         composable<HomeRoute> {
             HomeScreen(onGenre = { nav.navigate(GenreRoute(it)) }, onWork = { nav.navigate(WorkRoute(it)) })
@@ -135,7 +151,10 @@ private fun CmslNavHost(nav: NavHostController, modifier: Modifier) {
             )
         }
         composable<LibraryRoute> { LibraryScreen() }
-        composable<InfoRoute> { InfoScreen(onLicenses = { nav.navigate(LicensesRoute) }) }
+        composable<InfoRoute> {
+            InfoScreen(onLicenses = { nav.navigate(LicensesRoute) }, onImageCredits = openImageCredits)
+        }
+        composable<ImageCreditsRoute> { ImageCreditsScreen(onBack = back) }
         composable<LicensesRoute> { LicensesScreen(onBack = back) }
         composable<GenreRoute> { e ->
             val r = e.toRoute<GenreRoute>()

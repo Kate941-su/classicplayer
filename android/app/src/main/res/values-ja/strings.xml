@@ -102,4 +102,13 @@
     <string name="refresh_up_to_date">カタログは最新です。</string>
     <string name="refresh_failed">更新を確認できませんでした。時間をおいてお試しください。</string>
     <string name="refresh_unsupported">新しい形式のカタログがあります。アプリを更新してください。</string>
+
+    <string name="image_credits">画像のクレジット</string>
+    <string name="image_credits_intro">作曲家の肖像画は Wikimedia Commons より。正方形に切り抜き、縮小しています。</string>
+    <string name="portrait_credit">肖像画: %1$s · %2$s</string>
+    <string name="portrait_artist_unknown">作者不明</string>
+    <string name="portrait_open_source">Wikimedia Commons の画像のページを開く</string>
+    <string name="image_credit_title">作品: %1$s</string>
+    <string name="image_credit_artist">作者: %1$s</string>
+    <string name="image_credit_source">出典: Wikimedia Commons</string>
 </resources>
