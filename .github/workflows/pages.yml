@@ -1,5 +1,6 @@
-# site/（プライバシーポリシー・サポート）を変えたときに Pages を更新する。
-# カタログは巡回せず、公開中の v1/*.json をそのまま載せ直す。
+# GitHub Pages を更新する（site/ のプライバシーポリシー・サポートと、カタログ site/v1/*.json）。
+# カタログはオーナーが手元で巡回して PR でコミットする（tool/update-catalog.sh。PLAN 0.7、SPEC §3.1）。
+# GitHub Actions からは CMSL を巡回できない（robots.txt の判定で全面禁止になる）ので、ここでは巡回しない。
 name: pages
 
 on:
@@ -15,22 +16,22 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
-env:
-  PAGES_BASE: https://kate941-su.github.io/classicplayer
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r catalog/requirements-dev.txt
+      # PR の catalog-test でも検証しているが、公開する直前にもう一度確かめる
+      - name: 公開するカタログを検証
+        run: python -m pytest -q catalog/tests/test_site_catalog.py
       - name: 公開するファイルをまとめる
         run: |
           mkdir -p _site
           cp -R site/. _site/
-          mkdir -p _site/v1
-          for f in catalog.json manifest.json; do
-            curl -fsSL "$PAGES_BASE/v1/$f" -o "_site/v1/$f" || { echo "公開中の $f はまだない"; rm -f "_site/v1/$f"; }
-          done
           cp schema/catalog.schema.json schema/manifest.schema.json _site/v1/
           find _site -name .gitkeep -delete
           find _site -type f | sort

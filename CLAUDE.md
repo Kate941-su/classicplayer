@@ -15,13 +15,13 @@ site/       GitHub Pages: v1/manifest.json, v1/catalog.json, privacy/, support/
 android/    Kotlin + Compose + Media3（Gradle マルチモジュール）
 ios/        Swift 6 + SwiftUI + AVFoundation（Xcode プロジェクト）
 docs/       SPEC.md, PLAN.md, search-normalization.md, artwork.md, manual-qa.md, screens/
-tool/       run.sh（起動）, update-seed.sh（シード）, check-android-deps.sh（依存監査）
+tool/       run.sh（起動）, update-catalog.sh（カタログの月次更新）, update-seed.sh（シード）, check-android-deps.sh（依存監査）
 ```
 - Android のモジュール: `core:model`（データクラス・索引・検証）→ `core:search` / `core:data`（カタログ取得）/ `core:db`（Room・DataStore）/ `core:playback`（Media3）/ `core:artwork` → `app`（Compose UI・手動 DI の `AppContainer`）。`model`・`search`・`data` は Android に依存しない
 
 ## コマンド
 - カタログ（テスト）: `cd catalog && uv run --python 3.12 --with-requirements requirements-dev.txt python -m pytest`（CI と同じ。`build_catalog.py` 自体は標準ライブラリだけで、素の `python3` でも動く）
-- カタログ（巡回。オーナーの手元か CI だけで実行）: `cd catalog && python3 build_catalog.py --max-pages 30`
+- カタログの月次更新（オーナーの手元で実行。CI からは巡回できない）: `tool/update-catalog.sh`（差分の巡回 → 検証 → `site/v1/` に出力 → 表示される手順で PR）、`--offline`（キャッシュだけで作り直す）、`--full`。手順は `docs/catalog-pipeline.md`
 - Android: `cd android && ./gradlew assembleDebug test lint detekt`（JDK 17 以上。`JAVA_HOME` 未設定なら `export JAVA_HOME=/opt/homebrew/opt/openjdk@21`）。整形の自動修正は `./gradlew detekt -PdetektAutoCorrect`
 - Android の依存監査（広告・解析 SDK がないこと）: `tool/check-android-deps.sh`
 - 起動（実機・エミュレーター・シミュレーター）: `tool/run.sh`（Android 実機 → なければエミュレーター）、`tool/run.sh android|ios`、`--device <id>`、`--list`、`--fresh`（データを消す）、`--seed <catalog.json>`（同梱カタログを差し替え）、`--logs`。`--` の後ろは gradlew / xcodebuild に渡す
