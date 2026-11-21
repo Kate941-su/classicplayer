@@ -53,4 +53,17 @@ struct CatalogDecodingTests {
         #expect(manifest.sha256.count == 64)
         #expect(manifest.trackCount == (try Fixtures.sample()).tracks.count)
     }
+
+    @Test func decodesPortraitAndOldCatalogWithoutKey() throws {
+        let catalog = try Fixtures.sample()
+        let portrait = try #require(catalog.composers.first { $0.id == "l-v-beethoven" }?.portrait)
+        #expect(portrait.url == "portraits/l-v-beethoven.jpg")
+        #expect(portrait.sha256.count == 64)
+        #expect(portrait.sourceUrl.hasPrefix("https://commons.wikimedia.org/"))
+        let text = try Fixtures.text("catalog.sample.json")
+        let withoutKey = text.replacingOccurrences(of: #", "portrait": \{[^{}]*\}"#, with: "", options: .regularExpression)
+        #expect(!withoutKey.contains("\"portrait\""))
+        let old = try CatalogJSON.decodeCatalog(Data(withoutKey.utf8))
+        #expect(old.composers.allSatisfy { $0.portrait == nil })
+    }
 }

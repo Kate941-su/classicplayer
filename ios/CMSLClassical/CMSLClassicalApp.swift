@@ -9,6 +9,7 @@ struct CMSLClassicalApp: App {
         WindowGroup {
             RootView()
                 .environment(model)
+                .environment(\.portraits, model.portraits)
                 // UI テストのスクリーンショット用（ダークテーマ）
                 .preferredColorScheme(ProcessInfo.processInfo.arguments.contains("-uiDarkMode") ? .dark : nil)
                 .task { model.start() }

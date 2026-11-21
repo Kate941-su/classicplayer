@@ -95,6 +95,7 @@ struct PlayerView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button { dismiss() } label: { Image(systemName: "chevron.down") }
+                        .accessibilityIdentifier("closePlayer")
                         .accessibilityLabel(Text("action.closePlayer"))
                 }
             }

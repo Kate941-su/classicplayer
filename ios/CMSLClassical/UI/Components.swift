@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// 画面の行き先（NavigationStack）。
 enum Route: Hashable {
@@ -6,6 +7,7 @@ enum Route: Hashable {
     case composer(String, genreId: String?)
     case work(String)
     case licenses
+    case imageCredits
 }
 
 struct RouteView: View {
@@ -17,21 +19,41 @@ struct RouteView: View {
         case let .composer(id, genreId): ComposerView(composerId: id, genreId: genreId)
         case let .work(id): WorkView(workId: id)
         case .licenses: LicensesView()
+        case .imageCredits: ImageCreditsView()
         }
     }
 }
 
-/// 生成アートワーク（色相のグラデーション。図形は `ArtworkPatternView`）。
+/// 曲・作曲家のアートワーク（SPEC §4.10）: 作曲家の肖像画があればそれ、なければ（取得中・失敗も）生成アートワーク。
+/// `usePortrait: false` は生成アートワークだけ（ジャンルのカードなど、作曲家の絵でないところ）。装飾なので読み上げない。
 struct ArtworkView: View {
+    @Environment(\.portraits) private var portraits
     let composerId: String
     let genreId: String
     var cornerRadius: CGFloat = 8
+    var usePortrait = true
+
+    @State private var loaded: (composerId: String, image: UIImage)?
 
     var body: some View {
-        let spec = ArtworkSpec(composerId: composerId, genreId: genreId)
-        ArtworkCanvas(spec: spec)
-            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-            .accessibilityHidden(true)
+        let image = usePortrait
+            ? (loaded?.composerId == composerId ? loaded?.image : nil) ?? portraits?.cachedImage(composerId)
+            : nil
+        Group {
+            if let image {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFill()
+            } else {
+                ArtworkCanvas(spec: ArtworkSpec(composerId: composerId, genreId: genreId))
+            }
+        }
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+        .accessibilityHidden(true)
+        .task(id: composerId) {
+            guard usePortrait, let portraits, let image = await portraits.image(composerId) else { return }
+            loaded = (composerId, image)
+        }
     }
 }
 
@@ -209,6 +231,13 @@ struct AboutTrackView: View {
                         }
                     }
                     CreditSection(license: index.catalog.license)
+                    // 肖像画を出している曲は、そのクレジットと「画像のクレジット」画面への導線（SPEC §4.8）
+                    if let portrait = index.composer(track.composerId)?.portrait {
+                        Section("info.imageCredits") {
+                            PortraitCreditLink(portrait: portrait)
+                            NavigationLink { ImageCreditsView() } label: { Text("info.imageCredits") }
+                        }
+                    }
                 }
             }
             .navigationTitle(Text("action.aboutTrack"))

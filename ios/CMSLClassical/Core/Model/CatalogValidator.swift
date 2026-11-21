@@ -22,10 +22,31 @@ enum CatalogValidator {
         errors += duplicates("work", catalog.works.map(\.id))
         errors += duplicates("track", catalog.tracks.map(\.id))
         errors += referenceErrors(catalog)
+        errors += portraitErrors(catalog)
         errors += countErrors(catalog)
         let trackIds = Set(catalog.tracks.map(\.id))
         for (old, new) in catalog.replacedTracks.sorted(by: { $0.key < $1.key }) where !trackIds.contains(new) {
             errors.append("replacedTracks \(old): 置き換え先 \(new) がない")
+        }
+        return errors
+    }
+
+    /// 肖像画のパス（SPEC §3.6）。ほかのパスやホストの画像は読まない。
+    static func portraitPath(_ composerId: String) -> String { "portraits/\(composerId).jpg" }
+
+    private static func portraitErrors(_ catalog: Catalog) -> [String] {
+        var errors: [String] = []
+        for composer in catalog.composers {
+            guard let p = composer.portrait else { continue }
+            if p.url != portraitPath(composer.id) {
+                errors.append("composer \(composer.id): portrait.url が \(portraitPath(composer.id)) ではない")
+            }
+            if p.sha256.count != 64 || !p.sha256.allSatisfy({ $0.isHexDigit && !$0.isUppercase }) {
+                errors.append("composer \(composer.id): portrait.sha256 の形式が違う")
+            }
+            if !p.sourceUrl.hasPrefix("https://commons.wikimedia.org/") || p.sourceUrl.contains(where: \.isWhitespace) {
+                errors.append("composer \(composer.id): portrait.sourceUrl が Commons ではない")
+            }
         }
         return errors
     }

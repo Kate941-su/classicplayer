@@ -156,6 +156,10 @@ struct OfflinePlaybackTests {
             recentSearches: RecentSearchStore(defaults: defaults),
             queueStore: QueueStore(suiteName: suite),
             downloads: DownloadStore(directory: dir.appendingPathComponent("Downloads"), downloader: FakeDownloader(), defaults: defaults),
+            portraitStore: PortraitStore(
+                bundled: { _ in nil }, cacheDirectory: dir.appendingPathComponent("portraits"), client: FakeServer(),
+                baseURL: URL(string: "https://example.github.io/v1/catalog.json")!
+            ),
             engine: engine, english: false, refreshOnStart: false
         )
         let index = try #require(await model.waitForIndex())

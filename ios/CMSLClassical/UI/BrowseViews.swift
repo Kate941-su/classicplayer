@@ -111,7 +111,7 @@ private struct GenreCard: View {
         .frame(maxWidth: .infinity, minHeight: 88, alignment: .bottomLeading)
         .padding(12)
         .background {
-            ArtworkView(composerId: genre.id, genreId: genre.id, cornerRadius: 12)
+            ArtworkView(composerId: genre.id, genreId: genre.id, cornerRadius: 12, usePortrait: false)
                 .overlay {
                     // 模様の上でも文字が読めるよう、下側を暗くする（WCAG AA のコントラスト）
                     LinearGradient(colors: [.clear, .black.opacity(0.55)], startPoint: .top, endPoint: .bottom)
@@ -175,6 +175,15 @@ struct ComposerView: View {
             let works = index.works(of: composerId, genreId: genreId)
             let all = index.tracks(of: composerId, genreId: genreId)
             List {
+                // 肖像画（なければ生成アートワーク）と、肖像画のクレジット（SPEC §4.4）
+                Section {
+                    HStack(spacing: 16) {
+                        ArtworkView(composerId: composerId, genreId: genreId ?? all.first?.genreId ?? "", cornerRadius: 12)
+                            .frame(width: 120, height: 120)
+                        if let portrait = composer.portrait { PortraitCreditLink(portrait: portrait) }
+                    }
+                    .accessibilityIdentifier("composerHeader")
+                }
                 Section {
                     Button {
                         Task { await model.playback.play(QueueBuilder.fromList(all)) }
