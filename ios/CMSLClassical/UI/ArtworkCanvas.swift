@@ -1,13 +1,16 @@
 import SwiftUI
 import UIKit
 
-/// アートワークの描画（`docs/artwork.md`。Android の `ArtworkRenderer` と同じ図形）。座標は辺の長さを 1 とした割合で考える。
+/// アートワークの描画（`docs/artwork.md`。Android の `ArtworkRenderer` と同じ図形）。
+/// 模様の座標は辺の長さを 1 とした割合、イラストは 0〜100 で考える。
 struct ArtworkCanvas: View {
     let spec: ArtworkSpec
+    /// 横長の枠でのイラストの位置（ジャンルのカードは左下に文字があるので右に寄せる）。
+    var illustrationAlignment: HorizontalAlignment = .center
 
     var body: some View {
         Canvas { context, size in
-            ArtworkPainter(spec: spec).paint(in: &context, size: size)
+            ArtworkPainter(spec: spec, illustrationAlignment: illustrationAlignment).paint(in: &context, size: size)
         }
     }
 }
@@ -18,13 +21,19 @@ struct ArtworkPainter {
     private static let lightBottom = 0.18
     private static let hueShift = 28.0
     private static let accentLight = 0.78
-    private static let accentOpacity = 150.0 / 255
+    /// 模様はイラストの後ろなので薄くする。
+    private static let patternOpacity = 70.0 / 255
+    private static let illustrationLight = 0.86
+    private static let detailLight = 0.2
     private static let strokeRatio = 0.018
+    private static let viewBox = 100.0
 
     let spec: ArtworkSpec
+    var illustrationAlignment: HorizontalAlignment = .center
 
+    /// 背景のグラデーションと模様は枠いっぱいに敷き（模様は長い辺の正方形を中央で切り抜いた形）、
+    /// ジャンルのイラストは短い辺の正方形に収める。
     func paint(in context: inout GraphicsContext, size: CGSize) {
-        let s = min(size.width, size.height)
         context.fill(
             Path(CGRect(origin: .zero, size: size)),
             with: .linearGradient(
@@ -35,11 +44,39 @@ struct ArtworkPainter {
                 startPoint: .zero, endPoint: CGPoint(x: size.width, y: size.height)
             )
         )
-        let accent = Self.hsl(spec.hue + Self.hueShift / 2, Self.saturation, Self.accentLight, opacity: Self.accentOpacity)
+        let accent = Self.hsl(spec.hue + Self.hueShift / 2, Self.saturation, Self.accentLight, opacity: Self.patternOpacity)
+        let s = max(size.width, size.height)
         var patterns = Patterns(s: s, variant: spec.variant)
         patterns.draw(spec.pattern)
-        context.stroke(patterns.strokes, with: .color(accent), lineWidth: s * Self.strokeRatio)
-        context.fill(patterns.fills, with: .color(accent))
+        let center = CGAffineTransform(translationX: (size.width - s) / 2, y: (size.height - s) / 2)
+        context.stroke(patterns.strokes.applying(center), with: .color(accent), lineWidth: s * Self.strokeRatio)
+        context.fill(patterns.fills.applying(center), with: .color(accent))
+        paintIllustration(in: &context, size: size)
+    }
+
+    private func paintIllustration(in context: inout GraphicsContext, size: CGSize) {
+        let side = min(size.width, size.height)
+        let scale = side / Self.viewBox
+        let dx: CGFloat = switch illustrationAlignment {
+        case .leading: 0
+        case .trailing: size.width - side
+        default: (size.width - side) / 2
+        }
+        let transform = CGAffineTransform(a: scale, b: 0, c: 0, d: scale, tx: dx, ty: (size.height - side) / 2)
+        let accent = Self.hsl(spec.hue + Self.hueShift / 2, Self.saturation, Self.illustrationLight)
+        let detail = Self.hsl(spec.hue + Self.hueShift, Self.saturation, Self.detailLight)
+        for shape in IllustrationShape.of(spec.illustration) {
+            let path = shape.path.applying(transform)
+            let color = shape.ink == .accent ? accent : detail
+            if shape.strokeWidth == 0 {
+                context.fill(path, with: .color(color))
+            } else {
+                context.stroke(
+                    path, with: .color(color),
+                    style: StrokeStyle(lineWidth: shape.strokeWidth * scale, lineCap: .round, lineJoin: .round)
+                )
+            }
+        }
     }
 
     /// HSL（色相は度、s・l は 0〜1）→ Color。

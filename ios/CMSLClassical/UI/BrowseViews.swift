@@ -111,7 +111,10 @@ private struct GenreCard: View {
         .frame(maxWidth: .infinity, minHeight: 88, alignment: .bottomLeading)
         .padding(12)
         .background {
-            ArtworkView(composerId: genre.id, genreId: genre.id, cornerRadius: 12, usePortrait: false)
+            ArtworkView(
+                composerId: genre.id, genreId: genre.id, cornerRadius: 12, usePortrait: false,
+                illustrationAlignment: .trailing
+            )
                 .overlay {
                     // 模様の上でも文字が読めるよう、下側を暗くする（WCAG AA のコントラスト）
                     LinearGradient(colors: [.clear, .black.opacity(0.55)], startPoint: .top, endPoint: .bottom)

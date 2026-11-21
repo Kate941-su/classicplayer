@@ -41,7 +41,12 @@ class ArtworkSpecTest {
         assertEquals(0xbf9cf968u, ArtworkSpec.fnv1a32("foobar"))
         val beethoven = ArtworkSpec.fnv1a32("l-v-beethoven")
         assertEquals(
-            ArtworkSpec((beethoven % 360u).toInt(), ArtworkPattern.Keys, ((beethoven shr 16) and 0xffu).toInt()),
+            ArtworkSpec(
+                (beethoven % 360u).toInt(),
+                ArtworkPattern.Keys,
+                ((beethoven shr 16) and 0xffu).toInt(),
+                "piano"
+            ),
             ArtworkSpec.of("l-v-beethoven", "piano")
         )
         // 日本語の ID（UTF-8 のバイト列でハッシュする）

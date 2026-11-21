@@ -16,6 +16,7 @@ site/       GitHub Pages: v1/manifest.json, v1/catalog.json, v1/portraits/*.jpg,
 android/    Kotlin + Compose + Media3（Gradle マルチモジュール）
 ios/        Swift 6 + SwiftUI + AVFoundation（Xcode プロジェクト）
 docs/       SPEC.md, PLAN.md, search-normalization.md, artwork.md, manual-qa.md, screens/
+design/    icon/make_icon.py（アプリアイコン。iOS と Android）, genre-art/*.svg と generate.py（ジャンルのイラスト → 両アプリの描画データ）
 tool/       run.sh（起動）, update-catalog.sh（カタログの月次更新）, update-seed.sh（シード）, check-android-deps.sh（依存監査）
 ```
 - Android のモジュール: `core:model`（データクラス・索引・検証）→ `core:search` / `core:data`（カタログ取得）/ `core:db`（Room・DataStore）/ `core:playback`（Media3）/ `core:artwork` → `app`（Compose UI・手動 DI の `AppContainer`）。`model`・`search`・`data` は Android に依存しない
@@ -28,6 +29,8 @@ tool/       run.sh（起動）, update-catalog.sh（カタログの月次更新�
 - Android の依存監査（広告・解析 SDK がないこと）: `tool/check-android-deps.sh`
 - 起動（実機・エミュレーター・シミュレーター）: `tool/run.sh`（Android 実機 → なければエミュレーター）、`tool/run.sh android|ios`、`--device <id>`、`--list`、`--fresh`（データを消す）、`--seed <catalog.json>`（同梱カタログを差し替え）、`--logs`。`--` の後ろは gradlew / xcodebuild に渡す
 - 同梱カタログ（シード）: 既定は `fixtures/catalog.sample.json`（実カタログから抜き出した 20 曲。http の旧サーバーの曲を含む。再生もできる）。全件で試すときは `tool/update-seed.sh`（公開中のカタログ）か `tool/update-seed.sh <path>` → `android/seed/catalog.json` と、シードの作曲家の肖像画 `android/seed/portraits/`（コミットしない。iOS のビルドも同じファイルを使う）。Android のビルドは肖像画を `seed/portraits/` → `site/v1/portraits/` の順に探し、sha256 が合うものを `assets/portraits/` に入れる
+- ジャンルのイラスト: `python3 design/genre-art/generate.py`（SVG → `GenreIllustrations.kt` / `GenreIllustrations.swift`。手で直さない）。確認用の一覧画像は `uv run --with Pillow python design/genre-art/generate.py --preview <out.png>`
+- アプリアイコン: `uv run --with Pillow python design/icon/make_icon.py`（元のイラスト `design/icon/source.png` はコミットしない）
 - フィクスチャの作り直し: `cd catalog && python3 extract_fixture.py <catalog.json>`（`fixtures/README.md`）
 - スクリーンショット: `cd android && ./gradlew :app:testDebugUnitTest --tests '*ScreenshotsTest' -Pcmsl.recordScreenshots` → `docs/screens/android/`
 - iOS（macOS のみ）: `cd ios && xcodebuild -scheme CMSLClassical -destination 'platform=iOS Simulator,name=iPhone 17' test`（名前は `xcrun simctl list devices available` にあるものを選ぶ）。Lint（任意）: `cd ios && swiftlint`
@@ -36,7 +39,7 @@ tool/       run.sh（起動）, update-catalog.sh（カタログの月次更新�
 ## 守るべき原則（SPEC §1.2）
 - 広告・解析・クラッシュ収集の SDK を**追加しない**。依存を追加するときは、ライセンス（MIT/Apache/BSD のみ）と通信の有無を PR に書く。
 - アプリから CMSL の HTML にアクセスしない。アプリがアクセスするのは `site/v1/*` と音源の mp3 だけ。音源のホストは `classical-sound.up.seesaa.net`（https）と、制作者の旧サーバー 3 つ（`classical-music.aki.gs`・`andotowa.sakura.ne.jp`・`classical-music.sakura.ne.jp`。https 非対応のため http を許可）に限る（SPEC §1.2）。ホストを変えるときは `build_catalog.py`・スキーマ・`CatalogValidator`・`network_security_config.xml`・iOS の ATS 例外・プライバシーポリシーを同じ PR で直す。
-- 画像は作曲家の肖像画だけ。Wikimedia Commons の PD / CC0 / CC BY / CC BY-SA のものを事前に加工して `site/v1/portraits/` に置き、アプリはそこから読む（アプリから Wikidata / Wikimedia にアクセスしない）。Wikidata との対応は `verified: true`（オーナーが確認したもの）だけを使う。肖像画はプレイヤー・ロック画面・通知にも使い、同梱シードの作曲家の分はアプリに同梱する。クレジット（作品名・作者・ライセンス・出典・加工したこと）は情報タブの「画像のクレジット」画面にまとめて表示し、消さない。肖像画がなければ生成アートワークにフォールバックする（SPEC §3.6・§4.10）
+- 外部の画像は作曲家の肖像画だけ（ジャンルのイラストは `design/genre-art/*.svg` を正本に、`generate.py` で作った描画データからアプリ内でベクターで描く。SVG を変えたら生成し直して両アプリの出力をコミットする）。Wikimedia Commons の PD / CC0 / CC BY / CC BY-SA のものを事前に加工して `site/v1/portraits/` に置き、アプリはそこから読む（アプリから Wikidata / Wikimedia にアクセスしない）。Wikidata との対応は `verified: true`（オーナーが確認したもの）だけを使う。肖像画はプレイヤー・ロック画面・通知にも使い、同梱シードの作曲家の分はアプリに同梱する。クレジット（作品名・作者・ライセンス・出典・加工したこと）は情報タブの「画像のクレジット」画面にまとめて表示し、消さない。肖像画がなければ生成アートワークにフォールバックする（SPEC §3.6・§4.10）
 - 永続化してよい ID は `track.id` だけ（`composer.id` と `work.id` は変わることがある）。同じ作品の別録音は新しい録音だけ残し、外した曲は `replacedTracks` でアプリが読み替える（SPEC §3.2）。
 - 再生や曲を課金で制限しない。寄付はアプリ内課金の消耗型チップだけ。外部の寄付リンクは置かない。
 - CMSL のクレジット表示を消さない。

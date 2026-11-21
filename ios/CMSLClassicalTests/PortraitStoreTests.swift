@@ -104,7 +104,7 @@ struct PortraitStoreTests {
 @MainActor
 struct PortraitsTests {
     /// リポジトリの site/v1/portraits/（同梱の代わり）。
-    static let sitePortraits = URL(fileURLWithPath: #filePath)
+    nonisolated static let sitePortraits = URL(fileURLWithPath: #filePath)
         .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         .appendingPathComponent("site/v1")
 

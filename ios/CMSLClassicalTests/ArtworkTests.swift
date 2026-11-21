@@ -54,4 +54,23 @@ struct ArtworkTests {
         let png = try #require(ArtworkPainter.png(spec: ArtworkSpec(composerId: "l-v-beethoven", genreId: genre), size: 64))
         #expect(UIImage(data: png)?.size == CGSize(width: 64, height: 64))
     }
+
+    @Test
+    func everyCatalogGenreHasAnIllustration() {
+        let genres = ["symphony", "orchestral", "concerto", "piano", "chamber", "vocal", "other"]
+        #expect(Set(GenreIllustrations.shapes.keys) == Set(genres))
+        for genre in genres { #expect(ArtworkSpec(composerId: "x", genreId: genre).illustration == genre) }
+        #expect(ArtworkSpec(composerId: "x", genreId: "baroque").illustration == "other")
+        #expect(ArtworkSpec(composerId: "x", genreId: "").illustration == "other")
+    }
+
+    @Test
+    func illustrationsStayInsideTheViewBox() {
+        for (genre, shapes) in GenreIllustrations.shapes {
+            for shape in shapes {
+                let box = shape.path.boundingRect
+                #expect(box.minX >= -1 && box.minY >= -1 && box.maxX <= 101 && box.maxY <= 101, "\(genre)")
+            }
+        }
+    }
 }
