@@ -10,3 +10,6 @@ disabled_rules:
 identifier_name:
   min_length: 1 # クロージャや短いループの変数（a, b, t など）を許す
   excluded: [id, en]
+type_body_length:
+  warning: 350
+  error: 500
