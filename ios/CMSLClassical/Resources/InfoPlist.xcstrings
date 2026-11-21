@@ -1,0 +1,13 @@
+{
+  "sourceLanguage" : "ja",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Classical Player" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "クラシック名曲" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}
