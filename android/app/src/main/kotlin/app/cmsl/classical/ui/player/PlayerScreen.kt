@@ -3,6 +3,8 @@ package app.cmsl.classical.ui.player
 import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -72,6 +74,7 @@ import app.cmsl.classical.ui.containerViewModel
 import app.cmsl.classical.ui.theme.LocalEnglish
 
 /** フルプレイヤー（SPEC §4.8）。 */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun PlayerScreen(onClose: () -> Unit) {
     val vm = containerViewModel { PlayerViewModel(it) }
@@ -142,7 +145,8 @@ fun PlayerScreen(onClose: () -> Unit) {
             Spacer(Modifier.height(16.dp))
             SeekBar(p.positionMs, p.durationMs, vm.player::seekTo)
             Controls(p.isPlaying, vm.player::skipPrevious, vm.player::togglePlayPause, vm.player::skipNext)
-            Row(
+            // 狭い画面ではボタンを縮めずに折り返す（タップ領域 48dp を保つ）
+            FlowRow(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {

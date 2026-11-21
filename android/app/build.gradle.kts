@@ -33,6 +33,13 @@ android {
 
     testOptions {
         unitTests.isIncludeAndroidResources = true
+        // ./gradlew :app:testDebugUnitTest -Pcmsl.recordScreenshots で docs/screens/android/ に保存する
+        unitTests.all {
+            if (providers.gradleProperty("cmsl.recordScreenshots").isPresent) {
+                it.systemProperty("screenshotsDir", rootProject.file("../docs/screens/android").absolutePath)
+                it.outputs.upToDateWhen { false }
+            }
+        }
     }
 }
 
