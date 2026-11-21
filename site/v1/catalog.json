@@ -1,6 +1,6 @@
 {
  "schemaVersion": 2,
- "generatedAt": "2026-11-21T13:58:24+00:00",
+ "generatedAt": "2026-11-21T19:35:31+00:00",
  "source": "https://classical-sound.seesaa.net/",
  "license": {
   "name": "Creative Commons 表示 2.1 日本",
@@ -64,709 +64,2367 @@
    "id": "l-v-beethoven",
    "name": "ベートーヴェン",
    "nameEn": "L.V.Beethoven",
-   "trackCount": 50
+   "trackCount": 50,
+   "portrait": {
+    "artist": "Joseph Karl Stieler",
+    "attributionRequired": false,
+    "date": "1820",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "8da343ed57b69ef98bba1a2bfbe84929cf9d8453f097835b3fb0ab8f4f2cd6d4",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Beethoven.jpg",
+    "title": "German: Portrait Beethovens mit der Partitur zur Missa SolemnisPortrait of Ludwig van Beethoven when composing the Missa Solemnistitle QS:P1476,de:\"Portrait Beethovens mit der Partitur zur Missa Solemnis\"label QS:Lde,\"Portrait Beethovens mit der Partitur zur Missa Solemnis\"label QS:Len,\"Portrait of Ludwig van Beethoven when composing the Missa Solemnis\"",
+    "url": "portraits/l-v-beethoven.jpg",
+    "width": 512,
+    "wikidata": "Q255"
+   }
   },
   {
    "id": "frederic-francois-chopin",
    "name": "ショパン",
    "nameEn": "Frederic Francois Chopin",
-   "trackCount": 33
+   "trackCount": 33,
+   "portrait": {
+    "artist": "Louis-Auguste Bisson",
+    "attributionRequired": false,
+    "date": "1849",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "b3ec931ce08d6386fc6bfa6c9e0b85ea2579360406e240615004b226c1242f2a",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Frederic_Chopin_photo.jpeg",
+    "title": "Frederic Chopin photo",
+    "url": "portraits/frederic-francois-chopin.jpg",
+    "width": 512,
+    "wikidata": "Q1268"
+   }
   },
   {
    "id": "w-a-mozart",
    "name": "モーツァルト",
    "nameEn": "W.A.Mozart",
-   "trackCount": 33
+   "trackCount": 33,
+   "portrait": {
+    "artist": "Barbara Krafft",
+    "attributionRequired": false,
+    "date": "1819",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "856694e6d85cff06c3485f83d3afde1db48edd9d97a1c3c348d1a1fdd03eaf82",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wolfgang-amadeus-mozart_1.jpg",
+    "title": "Portrait of Wolfgang Amadeus Mozartlabel QS:Lru,\"Портрет Вольфганга Амадея Моцарта\"label QS:Lde,\"Bildnis von Wolfgang Amadeus Mozart\"label QS:Lsv,\"Porträtt av Wolfgang Amadeus Mozart\"label QS:Len,\"Portrait of Wolfgang Amadeus Mozart\"label QS:Lfr,\"Portrait de Wolfgang Amadeus Mozart\"label QS:Lcs,\"České a moravské malířky portrétů\"label QS:Lnl,\"Portret van Wolfgang Amadeus Mozart\"",
+    "url": "portraits/w-a-mozart.jpg",
+    "width": 512,
+    "wikidata": "Q254"
+   }
   },
   {
    "id": "j-s-bach",
    "name": "J.S.バッハ",
    "nameEn": "J.S.Bach",
-   "trackCount": 29
+   "trackCount": 29,
+   "portrait": {
+    "artist": "Elias Gottlob Haussmann",
+    "attributionRequired": false,
+    "date": "1748",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "bddd63c27ae349d0e67c603f2e0a8e6bbc7c531fa543b7ab536a45e79cecedb0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johann_Sebastian_Bach.png",
+    "title": "Johann Sebastian Bach",
+    "url": "portraits/j-s-bach.jpg",
+    "width": 512,
+    "wikidata": "Q1339"
+   }
   },
   {
    "id": "franz-peter-schubert",
    "name": "シューベルト",
    "nameEn": "Franz Peter Schubert",
-   "trackCount": 26
+   "trackCount": 26,
+   "portrait": {
+    "artist": "Wilhelm August Rieder",
+    "attributionRequired": false,
+    "date": "1875date QS:P571,+1875-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "47cc5dc8f9cb2890a3ea13f7c2c9006c8a524330f363c8259b773283313ed222",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Franz_Schubert_by_Wilhelm_August_Rieder_1875_larger_version.png",
+    "title": "Franz Schubert",
+    "url": "portraits/franz-peter-schubert.jpg",
+    "width": 512,
+    "wikidata": "Q7312"
+   }
   },
   {
    "id": "johannes-brahms",
    "name": "ブラームス",
    "nameEn": "Johannes Brahms",
-   "trackCount": 23
+   "trackCount": 23,
+   "portrait": {
+    "artist": "C. Brasch, Berlin (biography)",
+    "attributionRequired": false,
+    "date": "1889",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "000b39dad9c558d715228091573ff0917fb4361c81b0a343e4630374177d2fb8",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:JohannesBrahms.jpg",
+    "title": "JohannesBrahms",
+    "url": "portraits/johannes-brahms.jpg",
+    "width": 512,
+    "wikidata": "Q7294"
+   }
   },
   {
    "id": "peter-ilyich-tchaikovsky",
    "name": "チャイコフスキー",
    "nameEn": "Peter Ilyich Tchaikovsky",
-   "trackCount": 22
+   "trackCount": 22,
+   "portrait": {
+    "artist": "Nikolai Kuznetsov",
+    "attributionRequired": false,
+    "date": "1906",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "0dc0fd9e731223028e0c5d9551936aef5f89f386d4b2aa6f0f376832e6071dbf",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Portr%C3%A4t_des_Komponisten_Pjotr_I._Tschaikowski_(1840-1893).jpg",
+    "title": "Porträt des Komponisten Pjotr I. Tschaikowski (1840-1893)",
+    "url": "portraits/peter-ilyich-tchaikovsky.jpg",
+    "width": 512,
+    "wikidata": "Q7315"
+   }
   },
   {
    "id": "sergei-vasil-evich-rachmaninov",
    "name": "ラフマニノフ",
    "nameEn": "Sergei Vasil'evich Rachmaninov",
-   "trackCount": 15
+   "trackCount": 15,
+   "portrait": {
+    "artist": "Kubey-Rembrandt Studios",
+    "attributionRequired": false,
+    "date": "1923date QS:P571,+1923-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "7fd8e56a14986d4bbd157db228526ad59adefd3e0d3b4e78886300cf8734121b",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sergei_Rachmaninoff,_pianist_(SAYRE_1608)_(restored).jpg",
+    "title": "Sergei Rachmaninoff, pianist",
+    "url": "portraits/sergei-vasil-evich-rachmaninov.jpg",
+    "width": 512,
+    "wikidata": "Q131861"
+   }
   },
   {
    "id": "georges-bizet",
    "name": "ビゼー",
    "nameEn": "Georges Bizet",
-   "trackCount": 14
+   "trackCount": 14,
+   "portrait": {
+    "artist": "Étienne Carjat",
+    "attributionRequired": false,
+    "date": "1875",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "c65794cdd25b451ffcab9f43c52870e82c6ea5698bd01379542206adbc06185e",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Georges_bizet.jpg",
+    "title": "Georges bizet",
+    "url": "portraits/georges-bizet.jpg",
+    "width": 512,
+    "wikidata": "Q56158"
+   }
   },
   {
    "id": "claude-achille-debussy",
    "name": "ドビュッシー",
    "nameEn": "Claude Achille Debussy",
-   "trackCount": 11
+   "trackCount": 11,
+   "portrait": {
+    "artist": "Adam Cuerden",
+    "attributionRequired": false,
+    "date": "1890-1910",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "6674795fc2d5b417095a54a256a363fbdc46d0cad4deb90b8858199a94a4e502",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Claude_Debussy_by_Atelier_Nadar.jpg",
+    "title": "Claude Debussy by Atelier Nadar",
+    "url": "portraits/claude-achille-debussy.jpg",
+    "width": 512,
+    "wikidata": "Q4700"
+   }
   },
   {
    "id": "felix-mendelssohn",
    "name": "メンデルスゾーン",
    "nameEn": "Felix Mendelssohn",
-   "trackCount": 11
+   "trackCount": 11,
+   "portrait": {
+    "artist": "Eduard Magnus",
+    "attributionRequired": false,
+    "date": "1846date QS:P571,+1846-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "63b41ba6715589e16c1820442198b5be55d45ef95708bf1458da2aace9dc93b0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Felix_Mendelssohn_Bartholdy_by_Eduard_Magnus_(1833).jpg",
+    "title": "Felix Mendelssohn Bartholdy by Eduard Magnus (1833)",
+    "url": "portraits/felix-mendelssohn.jpg",
+    "width": 512,
+    "wikidata": "Q46096"
+   }
   },
   {
    "id": "antonín-dvořák",
    "name": "ドヴォルザーク",
    "nameEn": "Antonín Dvořák",
-   "trackCount": 10
+   "trackCount": 10,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "1882date QS:P571,+1882-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "b69bcf5541d917e8f1c1b47edd62d115f793e3a4510be3cc14ebfa54c5e58bab",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dvorak.jpg",
+    "title": "Dvorak",
+    "url": "portraits/antonín-dvořák.jpg",
+    "width": 512,
+    "wikidata": "Q7298"
+   }
   },
   {
    "id": "franz-liszt",
    "name": "リスト",
    "nameEn": "Franz Liszt",
-   "trackCount": 10
+   "trackCount": 10,
+   "portrait": {
+    "artist": "Franz Hanfstaengl",
+    "attributionRequired": false,
+    "date": "1858date QS:P571,+1858-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "8c082040b24fe6d611e558483ec14a6b51f703adb1d73a410288c19bca41b81d",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:FLisztFXD.jpg",
+    "title": "FLisztFXD",
+    "url": "portraits/franz-liszt.jpg",
+    "width": 512,
+    "wikidata": "Q41309"
+   }
   },
   {
    "id": "maurice-ravel",
    "name": "ラヴェル",
    "nameEn": "Maurice Ravel",
-   "trackCount": 10
+   "trackCount": 10,
+   "portrait": {
+    "artist": "Unknown authorUnknown author The image holder, the Bibliothèque nationale de France has not identified a photographer. (Follow link and click on \"Detailed information\".)",
+    "attributionRequired": false,
+    "date": "1925date QS:P571,+1925-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "54500a0381be2dc265a7bd8bd414548a51bb11ad822e794b489902c3105b9983",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maurice_Ravel_1925.jpg",
+    "title": "Maurice Ravel 1925",
+    "url": "portraits/maurice-ravel.jpg",
+    "width": 512,
+    "wikidata": "Q1178"
+   }
   },
   {
    "id": "gabriel-urbain-faure",
    "name": "フォーレ",
    "nameEn": "Gabriel Urbain Faure",
-   "trackCount": 8
+   "trackCount": 8,
+   "portrait": {
+    "artist": "Eugène Pirou",
+    "attributionRequired": false,
+    "date": "1905",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "93e792826dcfa29338e07abea3b0e9a68c7c51b99a01fe273ecfe09f19d63fb8",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Faur%C3%A9Pirou1905.jpg",
+    "title": "FauréPirou1905",
+    "url": "portraits/gabriel-urbain-faure.jpg",
+    "width": 512,
+    "wikidata": "Q104919"
+   }
   },
   {
    "id": "richard-wagner",
    "name": "ワーグナー",
    "nameEn": "Richard Wagner",
-   "trackCount": 8
+   "trackCount": 8,
+   "portrait": {
+    "artist": "Franz Hanfstaengl",
+    "attributionRequired": false,
+    "date": "1871date QS:P571,+1871-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "3a3296a699f047d396751aa2ad015d66a1e8961d393c244f09ef54c5b6de2b79",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:RichardWagner.jpg",
+    "title": "RichardWagner",
+    "url": "portraits/richard-wagner.jpg",
+    "width": 512,
+    "wikidata": "Q1511"
+   }
   },
   {
    "id": "anton-bruckner",
    "name": "ブルックナー",
    "nameEn": "Anton Bruckner",
-   "trackCount": 7
+   "trackCount": 7,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "1868",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "59a696f4faf39eccf66fa746cf6c7914fdae514f5e2bb3e9de5186c1de1628d8",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joseph_Anton_Bruckner_(1868).jpg",
+    "title": "Joseph Anton Bruckner (1868)",
+    "url": "portraits/anton-bruckner.jpg",
+    "width": 512,
+    "wikidata": "Q81752"
+   }
   },
   {
    "id": "gustav-holst",
    "name": "ホルスト",
    "nameEn": "Gustav Holst",
-   "trackCount": 7
+   "trackCount": 7,
+   "portrait": {
+    "artist": "Herbert Lambert",
+    "attributionRequired": false,
+    "date": "circa 1921date QS:P,+1921-00-00T00:00:00Z/9,P1480,Q5727902",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "9b9ec41c4a30d885bf8482f17b7a09157d971470531d844e6b6036313b74d46c",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gustav_Holst.jpg",
+    "title": "Gustav Holst",
+    "url": "portraits/gustav-holst.jpg",
+    "width": 512,
+    "wikidata": "Q200867"
+   }
   },
   {
    "id": "robert-alexander-schumann",
    "name": "シューマン",
    "nameEn": "Robert Alexander Schumann",
-   "trackCount": 7
+   "trackCount": 7,
+   "portrait": {
+    "artist": "Williamtosun",
+    "attributionRequired": false,
+    "date": "2016-10-12 13:46:39",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "e2c05f9e1183b5f86801de6695330651f13713363251ce45a5023c577445a3ec",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Robert-schumann.jpg",
+    "title": "Robert-schumann",
+    "url": "portraits/robert-alexander-schumann.jpg",
+    "width": 512,
+    "wikidata": "Q7351"
+   }
   },
   {
    "id": "alexander-porfir-yevich-borodin",
    "name": "ボロディン",
    "nameEn": "Alexander Porfir'yevich Borodin",
-   "trackCount": 6
+   "trackCount": 6,
+   "portrait": {
+    "artist": null,
+    "attributionRequired": false,
+    "date": "1865",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "74d3030b5324b0ec4776cc4054e8ae9f3b82362734006a5debd66db40b8a0172",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Borodin.jpg",
+    "title": "Borodin",
+    "url": "portraits/alexander-porfir-yevich-borodin.jpg",
+    "width": 512,
+    "wikidata": "Q164004"
+   }
   },
   {
    "id": "antonio-lucio-vivaldi",
    "name": "ヴィヴァルディ",
    "nameEn": "Antonio Lucio Vivaldi",
-   "trackCount": 6
+   "trackCount": 6,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "2012-04-28 09:49:45",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "21034335926af40c64916ab242605877181e7080190b0dbc6b6f5f669435df96",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Onbekend_-_Antonio_Vivaldi_-_Bologna_Museo_Internationale_e_biblioteca_della_musica_di_bologna_28-04-2012_9-21-050.jpg",
+    "title": "Onbekend - Antonio Vivaldi - Bologna Museo Internationale e biblioteca della musica di bologna 28-04-2012 9-21-050",
+    "url": "portraits/antonio-lucio-vivaldi.jpg",
+    "width": 512,
+    "wikidata": "Q1340"
+   }
   },
   {
    "id": "edvard-grieg",
    "name": "グリーグ",
    "nameEn": "Edvard Grieg",
-   "trackCount": 6
+   "trackCount": 6,
+   "portrait": {
+    "artist": "Elliott & Fry",
+    "attributionRequired": false,
+    "date": "1888-03",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "ef222271d45936955ff7b856eee691865bf63322647b2c3633c2f2cfa9ca8f82",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Edvard_Grieg_(1888)_by_Elliot_and_Fry.jpg",
+    "title": "Edvard Grieg (1888) by Elliot and Fry",
+    "url": "portraits/edvard-grieg.jpg",
+    "width": 512,
+    "wikidata": "Q80621"
+   }
   },
   {
    "id": "edward-elgar",
    "name": "エルガー",
    "nameEn": "Edward Elgar",
-   "trackCount": 6
+   "trackCount": 6,
+   "portrait": {
+    "artist": "not stated",
+    "attributionRequired": false,
+    "date": "2013-03-23 15:19:52",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "07ccb4bdc82c8cb7e2dfc5815532b6575305473aabbade72138391fe4fe1785c",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Edward_Elgar_1857_-_1934.jpg",
+    "title": "Edward Elgar 1857 - 1934",
+    "url": "portraits/edward-elgar.jpg",
+    "width": 512,
+    "wikidata": "Q179631"
+   }
   },
   {
    "id": "giuseppe-verdi",
    "name": "ヴェルディ",
    "nameEn": "Giuseppe Verdi",
-   "trackCount": 6
+   "trackCount": 6,
+   "portrait": {
+    "artist": "Ferdinand Mulnier",
+    "attributionRequired": false,
+    "date": "circa 1870date QS:P,+1870-00-00T00:00:00Z/9,P1480,Q5727902",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "efe3bc1a5d51f310a67234e5e409e41e881bf747cd5afb49a4076f5c0dd7f6db",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Giuseppi_Verdi_by_Ferdinand_Mulnier_c1870.jpg",
+    "title": "Giuseppi Verdi by Ferdinand Mulnier c1870",
+    "url": "portraits/giuseppe-verdi.jpg",
+    "width": 512,
+    "wikidata": "Q7317"
+   }
   },
   {
    "id": "george-frideric-handel",
    "name": "ヘンデル",
    "nameEn": "George Frideric Handel",
-   "trackCount": 5
+   "trackCount": 5,
+   "portrait": {
+    "artist": "Attributed to Balthasar Denner",
+    "attributionRequired": false,
+    "date": "between circa 1726 and circa 1728date QS:P,+1726-00-00T00:00:00Z/8,P1319,+1726-00-00T00:00:00Z/9,P1326,+1728-00-00T00:00:00Z/9,P1480,Q5727902",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "96dcce9a1ed443b9182d4eee23a2e7e42b8a5df809eb5798d240c11dff77e22c",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:George_Frideric_Handel_by_Balthasar_Denner.jpg",
+    "title": "Portrait of Georg Friedrich Händel (1685–1759)",
+    "url": "portraits/george-frideric-handel.jpg",
+    "width": 512,
+    "wikidata": "Q7302"
+   }
   },
   {
    "id": "mussorgsky",
    "name": "ムソルグスキー",
    "nameEn": "Mussorgsky",
-   "trackCount": 5
+   "trackCount": 5,
+   "portrait": {
+    "artist": "Рузана Ширинян",
+    "attributionRequired": false,
+    "date": "1876",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "364c6345b05d22bf1cd842aba048ac010ef6e4ea9210b913f1398dc156f5af25",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Modest_Musorgskiy_1876_(cropped).jpg",
+    "title": "Modest Musorgskiy 1876 (cropped)",
+    "url": "portraits/mussorgsky.jpg",
+    "width": 512,
+    "wikidata": "Q132682"
+   }
   },
   {
    "id": "carl-maria-von-weber",
    "name": "ウェーバー",
    "nameEn": "Carl Maria von Weber",
-   "trackCount": 4
+   "trackCount": 4,
+   "portrait": {
+    "artist": "Caroline Bardua",
+    "attributionRequired": false,
+    "date": "1821date QS:P571,+1821-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "7478a01773638ba966c6dcf8630502389c0e73dfd185c2cd31fe7db840758f73",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Caroline_Bardua_-_Bildnis_des_Komponisten_Carl_Maria_von_Weber.jpg",
+    "title": "German: Bildnis des Komponisten Carl Maria von Weber Portrait of the composer Carl Maria von Weberlabel QS:Les,\"Retrato del compositor Carl Maria von Weber\"label QS:Lfr,\"Portrait du compositeur Carl Maria von Weber\"label QS:Lpl,\"Portret kompozytora Carla Marii von Webera\"label QS:Lru,\"Портрет композитора Карла Марии фон Вебера\"label QS:Lde,\"Bildnis des Komponisten Carl Maria von Weber\"label QS:Lit,\"Ritratto del compositore Carl Maria von Weber\"label QS:Len,\"Portrait of the composer Carl Maria von Weber\"",
+    "url": "portraits/carl-maria-von-weber.jpg",
+    "width": 512,
+    "wikidata": "Q154812"
+   }
   },
   {
    "id": "erik-satie",
    "name": "エリック・サティ",
    "nameEn": "Erik Satie",
-   "trackCount": 4
+   "trackCount": 4,
+   "portrait": {
+    "artist": "Sonia y natalia",
+    "attributionRequired": true,
+    "date": "2012-07-08 20:11:52",
+    "height": 512,
+    "license": "CC BY-SA 3.0",
+    "licenseCode": "cc-by-sa-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sha256": "35aa6df5a321b63d3cdc3a7e8486e37b429811a9d3780ea3307ec533209178c9",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Satie-erik-4ff9d0bde1749.jpg",
+    "title": "Satie-erik-4ff9d0bde1749",
+    "url": "portraits/erik-satie.jpg",
+    "width": 512,
+    "wikidata": "Q187192"
+   }
   },
   {
    "id": "giacomo-puccini",
    "name": "プッチーニ",
    "nameEn": "Giacomo Puccini",
-   "trackCount": 4
+   "trackCount": 4,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "Unknown date",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "ac60dd1ee1a7c776afae6923f123f50476bd8798d07b7c500eb17030c851fe02",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:GiacomoPuccini.jpg",
+    "title": "GiacomoPuccini",
+    "url": "portraits/giacomo-puccini.jpg",
+    "width": 512,
+    "wikidata": "Q7311"
+   }
   },
   {
    "id": "gioachino-antonio-rossini",
    "name": "ロッシーニ",
    "nameEn": "Gioachino Antonio Rossini",
-   "trackCount": 4
+   "trackCount": 4,
+   "portrait": {
+    "artist": "Étienne Carjat",
+    "attributionRequired": false,
+    "date": "1865",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "ecfabfc5721c9fca07fe5ae8bd2a1dc9de7877260411c32e489209514535790d",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Composer_Rossini_G_1865_by_Carjat.jpg",
+    "title": "Composer Rossini G 1865 by Carjat",
+    "url": "portraits/gioachino-antonio-rossini.jpg",
+    "width": 512,
+    "wikidata": "Q9726"
+   }
   },
   {
    "id": "nikolai-rimsky-korsakov",
    "name": "リムスキー＝コルサコフ",
    "nameEn": "Nikolai Rimsky-Korsakov",
-   "trackCount": 4
+   "trackCount": 4,
+   "portrait": {
+    "artist": "Karl Fischer",
+    "attributionRequired": false,
+    "date": "before 1908",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "bbb4f8bc862a3dbe95c2784189ad47bc78f295c6613952c21756680811fbd587",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nikolai_A._Rimsky-Korsakov.jpg",
+    "title": "Nikolai A. Rimsky-Korsakov",
+    "url": "portraits/nikolai-rimsky-korsakov.jpg",
+    "width": 512,
+    "wikidata": "Q93227"
+   }
   },
   {
    "id": "alessandro-marcello",
    "name": "マルチェッロ",
    "nameEn": "Alessandro Marcello",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "before 1748date QS:P,+1748-00-00T00:00:00Z/7,P1326,+1748-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "2764b583f4e4993683fe8153d1a35fc54d0b062a06df3e6cc286391e8c15972d",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Alessandro_Marcello.png",
+    "title": "Alessandro Marcello",
+    "url": "portraits/alessandro-marcello.jpg",
+    "width": 512,
+    "wikidata": "Q336137"
+   }
   },
   {
    "id": "camille-saint-saëns",
    "name": "サン＝サーンス",
    "nameEn": "Camille Saint-Saëns",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": "Agence de presse Meurisse",
+    "attributionRequired": false,
+    "date": "1921. 2014-01-29 for upload",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "4bdc897d547420551f40573c50e37cf1ba7af8591b09be74f5ee1c53464d39d9",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Camille_Saint-Saens_b_Meurisse_1921.jpg",
+    "title": "Camille Saint-Saens b Meurisse 1921",
+    "url": "portraits/camille-saint-saëns.jpg",
+    "width": 512,
+    "wikidata": "Q150445"
+   }
   },
   {
    "id": "edward-macdowell",
    "name": "マクダウェル",
    "nameEn": "Edward MacDowell",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "1921",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "d1f0d8504d7e49b8ffa318cc13f79fd77f27047e296c9adc442b45715a546e0f",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Edward_A._MacDowell.jpg",
+    "title": "Edward A. MacDowell",
+    "url": "portraits/edward-macdowell.jpg",
+    "width": 512,
+    "wikidata": "Q450467"
+   }
   },
   {
    "id": "francisco-tarrega",
    "name": "フランシスコ・タレガ",
    "nameEn": "Francisco Tarrega",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": "Unknown",
+    "attributionRequired": false,
+    "date": "pre-1909",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "b50b4de785a3ada249439d2d79820b18e27c4187d4c22ba47d13b169f94aea46",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Francisco_tarrega_retrato.jpg",
+    "title": "Francisco tarrega retrato",
+    "url": "portraits/francisco-tarrega.jpg",
+    "width": 512,
+    "wikidata": "Q313372"
+   }
   },
   {
    "id": "franz-joseph-haydn",
    "name": "ハイドン",
    "nameEn": "Franz Joseph Haydn",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": "Thomas Hardy",
+    "attributionRequired": false,
+    "date": "1791date QS:P571,+1791-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "fdfa5dad28c6e4362c6404070af7bbb43c0505c2516b622bdbc2955e529a48f5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joseph_Haydn,_m%C3%A5lning_av_Thomas_Hardy_fr%C3%A5n_1792.jpg",
+    "title": "Portrait of Joseph Haydn",
+    "url": "portraits/franz-joseph-haydn.jpg",
+    "width": 512,
+    "wikidata": "Q7349"
+   }
   },
   {
    "id": "isaac-albeniz",
    "name": "イサーク・アルベニス",
    "nameEn": "Isaac Albeniz",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": "Napoleón",
+    "attributionRequired": false,
+    "date": "1909",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "2f77dedd79166dbcf1d594dc6e2b63719a43692d8275d375d28f05634120bde6",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Isaac_Alb%C3%A9niz,_de_Napoleon.jpg",
+    "title": "Isaac Albéniz, de Napoleon",
+    "url": "portraits/isaac-albeniz.jpg",
+    "width": 512,
+    "wikidata": "Q185812"
+   }
   },
   {
    "id": "jean-sibelius",
    "name": "シベリウス",
    "nameEn": "Jean Sibelius",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": "Paul Heckscher",
+    "attributionRequired": false,
+    "date": "1890",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "8d5371887a3de7c08b69051722cf53e8da2163de449c6ced88618e2a3885155c",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jean_Sibelius_in_1890_(cropped).jpg",
+    "title": "Jean Sibelius in 1890 (cropped)",
+    "url": "portraits/jean-sibelius.jpg",
+    "width": 512,
+    "wikidata": "Q45682"
+   }
   },
   {
    "id": "johann-strauss-ii",
    "name": "ヨハン・シュトラウス2世",
    "nameEn": "Johann Strauss II",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": "Fritz Luckhardt",
+    "attributionRequired": false,
+    "date": "2004-12-06",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "218368629e8d4cb83e413690d2e18ffc32ae3ff2fae9d3c4c9d859951ac25d47",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johann_Strauss_II_(3).jpg",
+    "title": "Johann Strauss II (3)",
+    "url": "portraits/johann-strauss-ii.jpg",
+    "width": 512,
+    "wikidata": "Q83309"
+   }
   },
   {
    "id": "rentaro-taki",
    "name": "瀧廉太郎",
    "nameEn": "Rentaro Taki",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": null,
+    "attributionRequired": false,
+    "date": null,
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "b95a97a7fe1627d51ae0da68008bfcbe7f27b8987e3006b644f16e41fc568b94",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Taki_Rentaro.jpg",
+    "title": "Taki Rentaro",
+    "url": "portraits/rentaro-taki.jpg",
+    "width": 512,
+    "wikidata": "Q717957"
+   }
   },
   {
    "id": "richard-strauss",
    "name": "リヒャルト・シュトラウス",
    "nameEn": "Richard Strauss",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": "unidentified photograph",
+    "attributionRequired": false,
+    "date": "~ 1900 - 1910",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "5944facfa3926617ce6745f46ac4c37e836ce158f360e87ce438d502c84d38c6",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Postcard-1910_Strauss_Richard.jpg",
+    "title": "Postcard-1910 Strauss Richard",
+    "url": "portraits/richard-strauss.jpg",
+    "width": 512,
+    "wikidata": "Q13894"
+   }
   },
   {
    "id": "scott-joplin",
    "name": "スコット・ジョプリン",
    "nameEn": "Scott Joplin",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "Taken on 7 June 1903",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "d93cde3159840bbeb734bf654771e8ecb708f5ea50b1c0b6011886086a05bbda",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Scott_Joplin_19072.jpg",
+    "title": "Scott Joplin 19072",
+    "url": "portraits/scott-joplin.jpg",
+    "width": 512,
+    "wikidata": "Q191499"
+   }
   },
   {
    "id": "sergei-prokofiev",
    "name": "プロコフィエフ",
    "nameEn": "Sergei Prokofiev",
-   "trackCount": 3
+   "trackCount": 3,
+   "portrait": {
+    "artist": "Bain News Service, publisher",
+    "attributionRequired": false,
+    "date": "circa 1918date QS:P,+1918-00-00T00:00:00Z/9,P1480,Q5727902",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "a0341a4a5f4d061d651c7989af6533f81f66940488b3d4d72fceb87511c45d89",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sergei_Prokofiev_circa_1918_over_Chair_Bain.jpg",
+    "title": "Sergei Prokofiev circa 1918 over Chair Bain",
+    "url": "portraits/sergei-prokofiev.jpg",
+    "width": 512,
+    "wikidata": "Q49481"
+   }
   },
   {
    "id": "agustín-barrios",
    "name": "バリオス",
    "nameEn": "Agustín Barrios",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "Unknown",
+    "attributionRequired": false,
+    "date": "c. 1922",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "53f2d6fbb930122725ba8d3e127a306275e4e99d4db32e91775db0a425cc5817",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Agustin_pio_barrios.jpg",
+    "title": "Agustin pio barrios",
+    "url": "portraits/agustín-barrios.jpg",
+    "width": 512,
+    "wikidata": "Q399102"
+   }
   },
   {
    "id": "bedřich-smetana",
    "name": "スメタナ",
    "nameEn": "Bedřich Smetana",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "before 1880date QS:P,+1880-00-00T00:00:00Z/7,P1326,+1880-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "40338c91b2847553d0f208a2661a084fcf30b8ab19776d09abf332a227699721",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:FriedrichSmetana.jpg",
+    "title": "FriedrichSmetana",
+    "url": "portraits/bedřich-smetana.jpg",
+    "width": 512,
+    "wikidata": "Q48173"
+   }
   },
   {
    "id": "béla-bartók",
    "name": "バルトーク",
    "nameEn": "Béla Bartók",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "RIA Novosti",
+    "attributionRequired": true,
+    "date": "Taken on 9 September 1943",
+    "height": 512,
+    "license": "CC BY-SA 3.0",
+    "licenseCode": "cc-by-sa-3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sha256": "e4cab6d772f23bcdd5b097f0419244f5876b5997d0c42149dca4a7d8481526b4",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:B%C3%A9la_Bart%C3%B3k_1943.jpg",
+    "title": "Béla Bartók 1943",
+    "url": "portraits/béla-bartók.jpg",
+    "width": 512,
+    "wikidata": "Q83326"
+   }
   },
   {
    "id": "césar-franck",
    "name": "フランク",
    "nameEn": "César Franck",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "Pierre Petit",
+    "attributionRequired": false,
+    "date": "19th centurydate QS:P,+1850-00-00T00:00:00Z/7",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "de073a846c75f4c8012b6f6192066569011bb90c03ad8c2b60cda52c82b68e8a",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:C%C3%A9sar_Franck_by_Pierre_Petit.jpg",
+    "title": "César Franck by Pierre Petit",
+    "url": "portraits/césar-franck.jpg",
+    "width": 512,
+    "wikidata": "Q50187"
+   }
   },
   {
    "id": "george-gershwin",
    "name": "ガーシュウィン",
    "nameEn": "George Gershwin",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "Carl Van Vechten",
+    "attributionRequired": false,
+    "date": "28 March 1937date QS:P571,+1937-03-28T00:00:00Z/11",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "edfc9c0eee2d000b31ba221426ca38384fc968cd056f45304bec5917ea4fcddf",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:George_Gershwin_1937.jpg",
+    "title": "George Gershwin 1937",
+    "url": "portraits/george-gershwin.jpg",
+    "width": 512,
+    "wikidata": "Q123829"
+   }
   },
   {
    "id": "gustav-lange",
    "name": "ランゲ",
    "nameEn": "Gustav Lange",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "UnknownUnknown",
+    "attributionRequired": false,
+    "date": "before 1889",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "5bbca6fd7305ca2c6d57ac41b3e86e2a2affb262332ca3c8619c5cb6dcbd7a9a",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gustav_Lange.jpg",
+    "title": "Gustav Lange",
+    "url": "portraits/gustav-lange.jpg",
+    "width": 512,
+    "wikidata": "Q653501"
+   }
   },
   {
    "id": "hector-berlioz",
    "name": "ベルリオーズ",
    "nameEn": "Hector Berlioz",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "Pierre Petit",
+    "attributionRequired": false,
+    "date": "1863. 2013-03-02 17:35:20 for upload",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "267eb84d1ec139f71c6b3c59008fde3ff784d3e38ac575ce1195c373b59e2f9f",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Berlioz_Petit_BNF_Gallica-crop.jpg",
+    "title": "Berlioz Petit BNF Gallica-crop",
+    "url": "portraits/hector-berlioz.jpg",
+    "width": 512,
+    "wikidata": "Q1151"
+   }
   },
   {
    "id": "henry-purcell",
    "name": "パーセル",
    "nameEn": "Henry Purcell",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "anonymous",
+    "attributionRequired": false,
+    "date": "Unknown date",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "5bd76cd0e199f03ea65efec7c4752774db96a104a33a85c3c7b35ed71b62b089",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Henry_Purcell_by_John_Closterman.jpg",
+    "title": "Henry Purcell title QS:P1476,en:\"Henry Purcell \"label QS:Len,\"Henry Purcell \"",
+    "url": "portraits/henry-purcell.jpg",
+    "width": 512,
+    "wikidata": "Q9695"
+   }
   },
   {
    "id": "johann-krieger",
    "name": "クリーガー",
    "nameEn": "Johann Krieger",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": null
   },
   {
    "id": "mikhail-glinka",
    "name": "グリンカ",
    "nameEn": "Mikhail Glinka",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "Sergey Lvovich Levitsky",
+    "attributionRequired": false,
+    "date": "1856",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "2518e6a5f550202681bff108e2d922cd95b6e0e491feced628d22480fb86ddb1",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mikhail_Glinka.jpg",
+    "title": "Mikhail Glinka",
+    "url": "portraits/mikhail-glinka.jpg",
+    "width": 512,
+    "wikidata": "Q181885"
+   }
   },
   {
    "id": "ottorino-respighi",
    "name": "レスピーギ",
    "nameEn": "Ottorino Respighi",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "Becker & Maass / Marie Boehm",
+    "attributionRequired": false,
+    "date": "1927",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "33dd54ba518dd6738e6b6ce08263df05847d527a78cc755d0f9b033846b69713",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ottorino_Respighi,_1927_(cropped).jpg",
+    "title": "Ottorino Respighi, 1927 (cropped)",
+    "url": "portraits/ottorino-respighi.jpg",
+    "width": 512,
+    "wikidata": "Q243837"
+   }
   },
   {
    "id": "tekla-bądarzewska",
    "name": "バダジェフスカ",
    "nameEn": "Tekla Bądarzewska",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "before 1900date QS:P,+1900-00-00T00:00:00Z/7,P1326,+1900-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "1112b456dd517a2ef5d05222f4bead4410a833e09960a1cb0a8fb5be5fe1917f",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:B%C4%85darzewska_Gebet_einer_Jungfrau.jpg",
+    "title": "Bądarzewska Gebet einer Jungfrau",
+    "url": "portraits/tekla-bądarzewska.jpg",
+    "width": 512,
+    "wikidata": "Q260371"
+   }
   },
   {
    "id": "v-s-kalinnikov",
    "name": "カリンニコフ",
    "nameEn": "V.S.Kalinnikov",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "19th centurydate QS:P,+1850-00-00T00:00:00Z/7",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "4281b11a0ccbc66a0aba35a29fce0276280b2285a5ef07df79f2ed664d1b64b3",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vasily_Kalinnikov.jpg",
+    "title": "Vasily Kalinnikov",
+    "url": "portraits/v-s-kalinnikov.jpg",
+    "width": 512,
+    "wikidata": "Q368147"
+   }
   },
   {
    "id": "vittorio-monti",
    "name": "モンティ",
    "nameEn": "Vittorio Monti",
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": {
+    "artist": "until 1922date QS:P,+1922-00-00T00:00:00Z/7,P582,+1922-00-00T00:00:00Z/9",
+    "attributionRequired": false,
+    "date": "Unknown date",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "f48e40e39ea8860f1451a608866b906924f42ed78d5bd5258bdd511000c09b37",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:MontiVittorio.jpg",
+    "title": "MontiVittorio",
+    "url": "portraits/vittorio-monti.jpg",
+    "width": 512,
+    "wikidata": "Q342543"
+   }
   },
   {
    "id": "作曲者不明",
    "name": "作曲者不明",
    "nameEn": null,
-   "trackCount": 2
+   "trackCount": 2,
+   "portrait": null
   },
   {
    "id": "alexander-scriabin",
    "name": "スクリャービン",
    "nameEn": "Alexander Scriabin",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": null,
+    "attributionRequired": false,
+    "date": null,
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "51e0e7c8409e22a70e9a83ed18718487294300736ae9e9c1a88584653542e3d8",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Skrjabin_Alexander.jpg",
+    "title": "Skrjabin Alexander",
+    "url": "portraits/alexander-scriabin.jpg",
+    "width": 512,
+    "wikidata": "Q185647"
+   }
   },
   {
    "id": "amilcare-ponchielli",
    "name": "ポンキエッリ",
    "nameEn": "Amilcare Ponchielli",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Icilio Calzolari / Adam Cuerden",
+    "attributionRequired": true,
+    "date": "between 1866 and 1886date QS:P571,+1850-00-00T00:00:00Z/7,P1319,+1866-00-00T00:00:00Z/9,P1326,+1886-00-00T00:00:00Z/9[1]",
+    "height": 512,
+    "license": "CC BY-SA 4.0",
+    "licenseCode": "cc-by-sa-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sha256": "2ae833c36f1715e15d075b20b54454e0b4e7cd932adf83f754d6555d68395333",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Amilcare_Ponchielli_(before_1886)_-_Archivio_Storico_Ricordi_FOTO000794_-_Restoration.jpg",
+    "title": "Amilcare Ponchielli (1834-1886)",
+    "url": "portraits/amilcare-ponchielli.jpg",
+    "width": 512,
+    "wikidata": "Q207390"
+   }
   },
   {
    "id": "anton-rubinstein",
    "name": "アントン・ルビンシテイン",
    "nameEn": "Anton Rubinstein",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "J Ganz, Brussels",
+    "attributionRequired": false,
+    "date": null,
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "e0a21ccced4c67c41526cb6590e17604c092c0daabf8fe83e0a210b05d24d119",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Anton_Rubinstein_by_J_Ganz.png",
+    "title": "Anton Rubinstein by J Ganz",
+    "url": "portraits/anton-rubinstein.jpg",
+    "width": 512,
+    "wikidata": "Q87567"
+   }
   },
   {
    "id": "arcangelo-corelli",
    "name": "コレッリ",
    "nameEn": "Arcangelo Corelli",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Hugh Howard (1675-1737)",
+    "attributionRequired": false,
+    "date": "1697-01-01 05:12:08",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "cf6b918d0e36cf724f98865fad52b830705f00bfce824572080e3d34f33c02eb",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Arcangelo_Corelli,_portrait_by_Hugh_Howard_(1697)_-_2.jpg",
+    "title": "Arcangelo Corelli, portrait by Hugh Howard (1697) - 2",
+    "url": "portraits/arcangelo-corelli.jpg",
+    "width": 512,
+    "wikidata": "Q164475"
+   }
   },
   {
    "id": "auguste-durand",
    "name": "デュラン",
    "nameEn": "Auguste Durand",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Liébert, Alphonse (1827-1914). Photographe",
+    "attributionRequired": false,
+    "date": "1890date QS:P571,+1890-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "bee21e1522bb049136ed7ffa7446cd0a3d6af825c48fa59f103b582e9372d18c",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Auguste_Durand_-_A._Li%C3%A9bert_-_btv1b8417501n.jpg",
+    "title": "Auguste Durand / A. Liébert",
+    "url": "portraits/auguste-durand.jpg",
+    "width": 512,
+    "wikidata": "Q2871185"
+   }
   },
   {
    "id": "benjamin-godard",
    "name": "ゴダール",
    "nameEn": "Benjamin Godard",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Unattributed",
+    "attributionRequired": false,
+    "date": "1878",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "da8e21d17960361969484f61c22f84093f90fad9c8ba51b437ba660da71091cd",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Benjamin_Godard_01.jpg",
+    "title": "Benjamin Godard 01",
+    "url": "portraits/benjamin-godard.jpg",
+    "width": 512,
+    "wikidata": "Q817524"
+   }
   },
   {
    "id": "carl-teike",
    "name": "タイケ",
    "nameEn": "Carl Teike",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": null,
+    "attributionRequired": false,
+    "date": null,
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "b4b982ef8fe2f9389d5421551a696e02ab76269e6180502d50580cbfcde2da89",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Carl_Albert_Hermann_Teike.png",
+    "title": "Carl Albert Hermann Teike",
+    "url": "portraits/carl-teike.jpg",
+    "width": 512,
+    "wikidata": "Q373819"
+   }
   },
   {
    "id": "charles-crozat-converse",
    "name": "コンヴァース",
    "nameEn": "Charles Crozat Converse",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "1924-01-01",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "31ca57d4ba719e912f91b9599594fe941dc75dc8d5676e3078f58b449167557e",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Charles_Crozat_Converse_(1832%E2%80%931918).png",
+    "title": "Charles Crozat Converse (1832–1918)",
+    "url": "portraits/charles-crozat-converse.jpg",
+    "width": 512,
+    "wikidata": "Q323458"
+   }
   },
   {
    "id": "charles-marie-widor",
    "name": "ヴィドール",
    "nameEn": "Charles-Marie Widor",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Agence Rol. Agence photographique (commanditaire)",
+    "attributionRequired": false,
+    "date": "1926date QS:P571,+1926-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "163d403af1a78cc524dcbe0a142cde874d00e0c178b8a7328000c0082b77eeaa",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:20-3-26,_Charles_Widor_-_btv1b53158755r.jpg",
+    "title": "20/3/26, Charles Widor : [photographie de presse] / [Agence Rol]",
+    "url": "portraits/charles-marie-widor.jpg",
+    "width": 512,
+    "wikidata": "Q215161"
+   }
   },
   {
    "id": "christoph-willibald-gluck",
    "name": "グルック",
    "nameEn": "Christoph Willibald Gluck",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Joseph-Siffred Duplessis",
+    "attributionRequired": false,
+    "date": "1775",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "46c13946f9326f927e0532b686e2d2dba20c10e7ca2b072ef1c06ae4357082a0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joseph_Siffred_Duplessis_-_Christoph_Willibald_Gluck_-_Google_Art_Project.jpg",
+    "title": "Christoph Willibald Gluck title QS:P1476,en:\"Christoph Willibald Gluck \"label QS:Len,\"Christoph Willibald Gluck \"label QS:Lde,\"Christoph Willibald von Gluck\"",
+    "url": "portraits/christoph-willibald-gluck.jpg",
+    "width": 512,
+    "wikidata": "Q130759"
+   }
   },
   {
    "id": "ciprian-porumbescu",
    "name": "ポルムベスク",
    "nameEn": "Ciprian Porumbescu",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "Unknown date",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "5fd8035f0d292d70bfe2af86a065ea006e7513622fd3324eacc773736c2a598e",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ciprian_Porumbescu_-_Foto02.jpg",
+    "title": "Ciprian Porumbescu - Foto02",
+    "url": "portraits/ciprian-porumbescu.jpg",
+    "width": 512,
+    "wikidata": "Q389000"
+   }
   },
   {
    "id": "claudio-monteverdi",
    "name": "モンテヴェルディ",
    "nameEn": "Claudio Monteverdi",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Bernardo Strozzi",
+    "attributionRequired": false,
+    "date": "circa 1630date QS:P571,+1630-00-00T00:00:00Z/9,P1480,Q5727902",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "0cc40a3c4250220e5b413d0c4489dcf2b168e7c81dcf092dba5cc22ea4ecfe70",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bernardo_Strozzi_-_Claudio_Monteverdi_(c.1630).jpg",
+    "title": "Claudio Monteverdi",
+    "url": "portraits/claudio-monteverdi.jpg",
+    "width": 512,
+    "wikidata": "Q53068"
+   }
   },
   {
    "id": "domenico-scarlatti",
    "name": "スカルラッティ",
    "nameEn": "Domenico Scarlatti",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Domingo Antonio Velasco",
+    "attributionRequired": false,
+    "date": "1738date QS:P571,+1738-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "a656b7fff31b34b8cc22451a45c5bf5ceca736bef4d1ba9de4d5959d927eb1fd",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Retrato_de_Domenico_Scarlatti.jpg",
+    "title": "Portrait of Domenico Scarlatti (1685-1757)label QS:Len,\"Portrait of Domenico Scarlatti (1685-1757)\"",
+    "url": "portraits/domenico-scarlatti.jpg",
+    "width": 512,
+    "wikidata": "Q167837"
+   }
   },
   {
    "id": "edmund-angerer",
    "name": "アンゲラー（L.モーツァルト）",
    "nameEn": "Edmund Angerer",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": null
   },
   {
    "id": "enrico-toselli",
    "name": "トセリ",
    "nameEn": "Enrico Toselli",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Xuandelaxata",
+    "attributionRequired": true,
+    "date": "2016-07-06",
+    "height": 512,
+    "license": "CC BY-SA 4.0",
+    "licenseCode": "cc-by-sa-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sha256": "e77bbfc174f232302c93b4c3d7e500e4bc9ad6843dc6b956f10a204aa3a15553",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Enrico_Toselli_(1883-1926).jpg",
+    "title": "Enrico Toselli (1883-1926)",
+    "url": "portraits/enrico-toselli.jpg",
+    "width": 512,
+    "wikidata": "Q1150461"
+   }
   },
   {
    "id": "enrique-granados",
    "name": "グラナドス",
    "nameEn": "Enrique Granados",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Desconegut",
+    "attributionRequired": false,
+    "date": "1911",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "7419bac0171f0c3a1a28e3ef45d9080d9bfc7b66ddd867e877c4bcd97841c1c1",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Enric_Granados_-_Ilustraci%C3%B3_Catalana.jpg",
+    "title": "Enric Granados - Ilustració Catalana",
+    "url": "portraits/enrique-granados.jpg",
+    "width": 512,
+    "wikidata": "Q294225"
+   }
   },
   {
    "id": "fernando-sor",
    "name": "フェルナンド・ソル",
    "nameEn": "Fernando Sor",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Own work",
+    "attributionRequired": false,
+    "date": "2019",
+    "height": 512,
+    "license": "CC0",
+    "licenseCode": "cc0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sha256": "7d96258b3ace5254cc6ba4c7133f4f6329021387f69e79b4f6a3641c6283ab78",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fernando_Sor_(1778-1839).jpg",
+    "title": "Fernando Sor (1778-1839)",
+    "url": "portraits/fernando-sor.jpg",
+    "width": 512,
+    "wikidata": "Q254110"
+   }
   },
   {
    "id": "frank-white-meacham",
    "name": "ミーチャム",
    "nameEn": "Frank White Meacham",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": null
   },
   {
    "id": "františek-drdla",
    "name": "ドルドラ",
    "nameEn": "František Drdla",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "AnonymousUnknown author",
+    "attributionRequired": false,
+    "date": "before 1928date QS:P,+1928-00-00T00:00:00Z/7,P1326,+1928-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "98a85ea8769497c4bfce39118b34fe5b95dded36a00dd6ca1d83d41d9eadafab",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Franti%C5%A1ek_Drdla_(1868-1944).jpg",
+    "title": "František Drdla (1868-1944)",
+    "url": "portraits/františek-drdla.jpg",
+    "width": 512,
+    "wikidata": "Q3490111"
+   }
   },
   {
    "id": "franz-doppler",
    "name": "ドップラー",
    "nameEn": "Franz Doppler",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Auguste Alexis Canzi",
+    "attributionRequired": false,
+    "date": "1853date QS:P571,+1853-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "531c544183efd751873e1d08a546d0acae87e7c12633bc988e4aea9551ef4920",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Franz_Doppler_by_%C3%81gost_Elek_Canzi_1853.jpg",
+    "title": "Franz Doppler by Ágost Elek Canzi 1853",
+    "url": "portraits/franz-doppler.jpg",
+    "width": 512,
+    "wikidata": "Q711460"
+   }
   },
   {
    "id": "franz-von-suppé",
    "name": "スッペ",
    "nameEn": "Franz von Suppé",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Fritz Luckhardt / Adam Cuerden",
+    "attributionRequired": false,
+    "date": "by 1894. Probably c. 1885 given similar photos.",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "1b1b81e960dd20c994a74f556d4f71b099b6aeb81564283dadeee4569338943b",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Franz_von_Supp%C3%A9_by_Fritz_Luckhardt.jpg",
+    "title": "Franz von Suppé by Fritz Luckhardt",
+    "url": "portraits/franz-von-suppé.jpg",
+    "width": 512,
+    "wikidata": "Q310431"
+   }
   },
   {
    "id": "françois-couperin",
    "name": "クープラン",
    "nameEn": "François Couperin",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Jean Charles Flipart / After André Bouys",
+    "attributionRequired": false,
+    "date": "1735date QS:P571,+1735-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "883d0f98a47665f88b864105a0ae9e044b733f25d9741a8d69ce904a7629a55e",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fran%C3%A7ois_Couperin.jpg",
+    "title": "F. Couperin. Organiste de la Chapelle du Roy",
+    "url": "portraits/françois-couperin.jpg",
+    "width": 512,
+    "wikidata": "Q50186"
+   }
   },
   {
    "id": "françois-joseph-gossec",
    "name": "ゴセック",
    "nameEn": "François-Joseph Gossec",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Antoine Vestier",
+    "attributionRequired": false,
+    "date": "1791date QS:P571,+1791-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "f9520b006246eb8a07e4d811f59d552166c80e50fa57dc981614d023ece2b119",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fran%C3%A7ois-Joseph_Gossec_by_Antoine_Vestier.png",
+    "title": "François-Joseph Gossec by Antoine Vestier",
+    "url": "portraits/françois-joseph-gossec.jpg",
+    "width": 512,
+    "wikidata": "Q313667"
+   }
   },
   {
    "id": "gabriel-marie",
    "name": "ガブリエル＝マリ",
    "nameEn": "Gabriel-Marie",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": null
   },
   {
    "id": "gaetano-braga",
    "name": "ブラーガ",
    "nameEn": "Gaetano Braga",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Étienne Carjat",
+    "attributionRequired": false,
+    "date": "Unspecified",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "58d193bd3d632975ddcbd31ff80edb580c7ea7b2499d1ddbc0d95f0f8093db04",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gaetano_Braga_by_%C3%89tienne_Carjat_(photograph).jpg",
+    "title": "Gaetano Braga by Étienne Carjat (photograph)",
+    "url": "portraits/gaetano-braga.jpg",
+    "width": 512,
+    "wikidata": "Q1265757"
+   }
   },
   {
    "id": "gaetano-donizetti",
    "name": "ドニゼッティ",
    "nameEn": "Gaetano Donizetti",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Rijksmuseum",
+    "attributionRequired": false,
+    "date": "circa 1868date QS:P,+1868-00-00T00:00:00Z/9,P1480,Q5727902",
+    "height": 512,
+    "license": "CC0",
+    "licenseCode": "cc0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "sha256": "a7484f1474b14ef3c1a0188f6473b0365544062060759db0293f099dabb23694",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fotoreproductie_van_Gaetano_Donizetti.png",
+    "title": "Fotoreproductie van Gaetano Donizetti",
+    "url": "portraits/gaetano-donizetti.jpg",
+    "width": 512,
+    "wikidata": "Q101698"
+   }
   },
   {
    "id": "georg-philipp-telemann",
    "name": "テレマン",
    "nameEn": "Georg Philipp Telemann",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Valentin Daniel Preisler",
+    "attributionRequired": false,
+    "date": "1750",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "70bc665672fc45d57a4c6a4e24f97e07d5a5892fec574089123f9a70d451f4e4",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Telemann.jpg",
+    "title": "Georg Philipp Telemann (1681-1767)label QS:Len,\"Georg Philipp Telemann (1681-1767)\"",
+    "url": "portraits/georg-philipp-telemann.jpg",
+    "width": 512,
+    "wikidata": "Q75854"
+   }
   },
   {
    "id": "giulio-caccini",
    "name": "G.カッチーニ",
    "nameEn": "Giulio Caccini",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": null
   },
   {
    "id": "gustav-mahler",
    "name": "マーラー",
    "nameEn": "Gustav Mahler",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Moritz Nähr",
+    "attributionRequired": false,
+    "date": "1907",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "e2a68547f3fc05310065a39d17f53841c0b3ab0efd1f837ce42375a0418cde4b",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Photo_of_Gustav_Mahler_by_Moritz_N%C3%A4hr_01.jpg",
+    "title": "Photo of Gustav Mahler by Moritz Nähr 01",
+    "url": "portraits/gustav-mahler.jpg",
+    "width": 512,
+    "wikidata": "Q7304"
+   }
   },
   {
    "id": "hiromori-hayashi",
    "name": "林廣守",
    "nameEn": "Hiromori Hayashi",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "unknown author",
+    "attributionRequired": false,
+    "date": "1941",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "e23ed1c603a8687e347bf7249ab9082a36d94b829df6a11812caf165659b98b9",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hayashi_Hiromori.jpg",
+    "title": "Hayashi Hiromori",
+    "url": "portraits/hiromori-hayashi.jpg",
+    "width": 512,
+    "wikidata": "Q3783782"
+   }
   },
   {
    "id": "iosif-ivanovici",
    "name": "ヨシフ・イヴァノヴィチ",
    "nameEn": "Iosif Ivanovici",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": null,
+    "attributionRequired": false,
+    "date": null,
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "366e7a9de0d9576b89323f4910f5a0d4fa5d2c0a2bdd7847eb73ec0f52454ab1",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Iosif_Ivanovici.jpg",
+    "title": "Iosif Ivanovici",
+    "url": "portraits/iosif-ivanovici.jpg",
+    "width": 512,
+    "wikidata": "Q375477"
+   }
   },
   {
    "id": "jacques-offenbach",
    "name": "オッフェンバック",
    "nameEn": "Jacques Offenbach",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Nadar",
+    "attributionRequired": false,
+    "date": "before 1880date QS:P,+1880-00-00T00:00:00Z/7,P1326,+1880-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "c98183ffed2c1c917d4138049cb6ec670d0336f7aa5bc52536f9559fad697960",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jacques_Offenbach_by_F%C3%A9lix_Nadar_(restored).jpg",
+    "title": "Jacques Offenbach by Félix Nadar (restored)",
+    "url": "portraits/jacques-offenbach.jpg",
+    "width": 512,
+    "wikidata": "Q41555"
+   }
   },
   {
    "id": "jean-paul-égide-martini",
    "name": "マルティーニ",
    "nameEn": "Jean-Paul-Égide Martini",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "1813",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "60d862503821a8b965232a6cd5ff482cf8ae0df5ff44a3e20a3ecbb2ae60f3f4",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jean_Paul_Egide_Martini.jpg",
+    "title": "Jean Paul Egide Martini",
+    "url": "portraits/jean-paul-égide-martini.jpg",
+    "width": 512,
+    "wikidata": "Q696034"
+   }
   },
   {
    "id": "joachim-raff",
    "name": "ラフ",
    "nameEn": "Joachim Raff",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "August Weger",
+    "attributionRequired": false,
+    "date": "19th centurydate QS:P571,+1850-00-00T00:00:00Z/7",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "b80c17de55d5111cebcc249b331c02bb0968e966b3c36bef806a667480546c7d",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jjraffportrait.jpg",
+    "title": "Jjraffportrait",
+    "url": "portraits/joachim-raff.jpg",
+    "width": 512,
+    "wikidata": "Q547301"
+   }
   },
   {
    "id": "johan-halvorsen",
    "name": "ハルヴォルセン",
    "nameEn": "Johan Halvorsen",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Karl Anton Nyblin (1864-1894), Bergen, Norway",
+    "attributionRequired": false,
+    "date": "before 1895date QS:P,+1895-00-00T00:00:00Z/7,P1326,+1895-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "7afed2ed318f60f65dc708d09cf88498d65fdc1210e9bdfd4f1f185fd2e851cb",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johan_Halvorsen_part.JPG",
+    "title": "Johan Halvorsen part",
+    "url": "portraits/johan-halvorsen.jpg",
+    "width": 512,
+    "wikidata": "Q449172"
+   }
   },
   {
    "id": "johann-pachelbel",
    "name": "パッヘルベル",
    "nameEn": "Johann Pachelbel",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": null
   },
   {
    "id": "johann-strauss-i",
    "name": "ヨハン・シュトラウス1世",
    "nameEn": "Johann Strauss I",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "E. Linde & Co.",
+    "attributionRequired": false,
+    "date": "19th centurydate QS:P,+1850-00-00T00:00:00Z/7",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "f4778b70a1e9d3ad245b832a1a74876cbb59e76fa0843f6f19f1fd1fef420c01",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Johan_Strauss_padre.jpg",
+    "title": "Johan Strauss padre",
+    "url": "portraits/johann-strauss-i.jpg",
+    "width": 512,
+    "wikidata": "Q184178"
+   }
   },
   {
    "id": "johann-strauss-ii-josef-strauss",
    "name": "ヨハン＆ヨーゼフ・シュトラウス",
    "nameEn": "Johann Strauss II & Josef Strauss",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": null
   },
   {
    "id": "john-dowland",
    "name": "ダウランド",
    "nameEn": "John Dowland",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Unknown",
+    "attributionRequired": true,
+    "date": "Século 17",
+    "height": 512,
+    "license": "CC BY-SA 4.0",
+    "licenseCode": "cc-by-sa-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sha256": "9c141414de11ca7cb037bd1a6670062f78932bea3b1db88d8466b6b8f65f74f2",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:John_Dowland.jpg",
+    "title": "John Dowland",
+    "url": "portraits/john-dowland.jpg",
+    "width": 512,
+    "wikidata": "Q207355"
+   }
   },
   {
    "id": "john-field",
    "name": "ジョン・フィールド",
    "nameEn": "John Field",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Anton Wachsmann",
+    "attributionRequired": false,
+    "date": "1820date QS:P571,+1820-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "f65a6e1985883f3f98e336b022a41771a894d928ba366ab6629094bda1590f0c",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:John_field.jpg",
+    "title": "John field",
+    "url": "portraits/john-field.jpg",
+    "width": 512,
+    "wikidata": "Q209684"
+   }
   },
   {
    "id": "john-newton",
    "name": "ジョン・ニュートン",
    "nameEn": "John Newton",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "After John Russell",
+    "attributionRequired": false,
+    "date": "copy of a 18th centurydate QS:P571,+1750-00-00T00:00:00Z/7 portrait",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "ef0f99b2631c5bddedd38342943418c6cfbc140484a9698d37fd9e68e0e2c640",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:John_Newton.jpg",
+    "title": "Portrait of John Henry Newton, Jr. (1725-1807) (copy)",
+    "url": "portraits/john-newton.jpg",
+    "width": 512,
+    "wikidata": "Q357301"
+   }
   },
   {
    "id": "john-philip-sousa",
    "name": "スーザ",
    "nameEn": "John Philip Sousa",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Elmer Chickering",
+    "attributionRequired": false,
+    "date": "1900date QS:P571,+1900-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "e3c287dd51a6d72643955831d02acea634d706f6225cb00e65a4ef06e78fb991",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:JohnPhilipSousa-Chickering.LOC.jpg",
+    "title": "JohnPhilipSousa-Chickering.LOC",
+    "url": "portraits/john-philip-sousa.jpg",
+    "width": 512,
+    "wikidata": "Q295935"
+   }
   },
   {
    "id": "kosaku-yamada",
    "name": "山田耕筰",
    "nameEn": "Kosaku Yamada",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "The Library of Congress",
+    "attributionRequired": false,
+    "date": null,
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "d583887d3b38b692f8e67f658e2fa4e501c58bdd5e6da90410fd04084d45a1c9",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kosaku_Yamada_-_LOC_29638928651_(cropped).jpg",
+    "title": "Kosaku Yamada - LOC 29638928651 (cropped)",
+    "url": "portraits/kosaku-yamada.jpg",
+    "width": 512,
+    "wikidata": "Q947908"
+   }
   },
   {
    "id": "lady-john-scott",
    "name": "スコット夫人",
    "nameEn": "Lady John Scott",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "A.E. Chalon, R.A., painted in 1839",
+    "attributionRequired": false,
+    "date": "1839-01-01",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "0286562d8cc5773243b0ef71fa19e79eed8a4a50ad2b0b2c5ab96261f135425c",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lady_John_Scott.png",
+    "title": "Lady John Scott",
+    "url": "portraits/lady-john-scott.jpg",
+    "width": 512,
+    "wikidata": "Q3931581"
+   }
   },
   {
    "id": "leoš-janáček",
    "name": "ヤナーチェク",
    "nameEn": "Leoš Janáček",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "AnonymousUnknown author",
+    "attributionRequired": false,
+    "date": "1899",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "9c87c85e8a7f4370b9bff3bfd15da55f851d55187bf3df5fff70966fc94dfa68",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Leo%C5%A1_Jan%C3%A1%C4%8Dek.jpg",
+    "title": "Leoš Janáček",
+    "url": "portraits/leoš-janáček.jpg",
+    "width": 512,
+    "wikidata": "Q184933"
+   }
   },
   {
    "id": "luigi-boccherini",
    "name": "ボッケリーニ",
    "nameEn": "Luigi Boccherini",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Pompeo Batoni",
+    "attributionRequired": false,
+    "date": "between circa 1764 and circa 1767date QS:P,+1764-00-00T00:00:00Z/8,P1319,+1764-00-00T00:00:00Z/9,P1326,+1767-00-00T00:00:00Z/9,P1480,Q5727902",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "27f9846eb4f5952439d6e331383165ecf33621999e6e14e96d50a88d07643f37",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:LBoccherini.jpg",
+    "title": "Italian: Ritratto di Luigi Boccherini Luigi Boccherini playing the violoncellolabel QS:Lhu,\"A képen Luigi Boccherini csellózik. A szerző ismeretlen.\"label QS:Lde,\"Luigi Boccherini beim Violoncellospielen\"label QS:Len,\"Luigi Boccherini playing the violoncello\"label QS:Lru,\"Неизвестный художник. Портрет Луиджи Боккерини, играющего на виолончели. Около 1764-1767. Оригинал в Национальной галерее провинции Виктория (Австралия)\"",
+    "url": "portraits/luigi-boccherini.jpg",
+    "width": 512,
+    "wikidata": "Q189766"
+   }
   },
   {
    "id": "manuel-de-falla",
    "name": "ファリャ",
    "nameEn": "Manuel de Falla",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Archivo Manuel de Falla",
+    "attributionRequired": false,
+    "date": "2013-01-25 15:16:00",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "13e5bfc5b3ebc2ce4355a9ba2a801e25d6eaa5af73dd0b6d1ca868dd93953bf5",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Manuel_de_Falla_con_bast%C3%B3n_(cropped).jpg",
+    "title": "Manuel de Falla con bastón (cropped)",
+    "url": "portraits/manuel-de-falla.jpg",
+    "width": 512,
+    "wikidata": "Q193283"
+   }
   },
   {
    "id": "maria-theresia-von-paradis",
    "name": "パラディス",
    "nameEn": "Maria Theresia von Paradis",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "R i p",
+    "attributionRequired": true,
+    "date": "2024-01-02",
+    "height": 512,
+    "license": "CC BY-SA 4.0",
+    "licenseCode": "cc-by-sa-4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sha256": "2f8638229f8744bea838ac36b6c6956d4ea5d7f4234f5e19b601fd8f9d108dda",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Maria_Theresia_Paradis_Wachsstatue.jpg",
+    "title": "Maria Theresia Paradis Wachsstatue",
+    "url": "portraits/maria-theresia-von-paradis.jpg",
+    "width": 512,
+    "wikidata": "Q293171"
+   }
   },
   {
    "id": "michio-miyagi",
    "name": "宮城道雄",
    "nameEn": "Michio Miyagi",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "◆日本音楽の巨匠 Masters of Japan 宮城道雄 生田流箏曲,2005",
+    "attributionRequired": false,
+    "date": null,
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "8e4c46c270a9d6ab61762d8d19871bc696e7b08e8a0a6ab2c475e5b3cb841fc1",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Michio_Miyagi.jpg",
+    "title": "Michio Miyagi",
+    "url": "portraits/michio-miyagi.jpg",
+    "width": 512,
+    "wikidata": "Q1940929"
+   }
   },
   {
    "id": "niccolò-paganini",
    "name": "パガニーニ",
    "nameEn": "Niccolò Paganini",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Jean-Auguste-Dominique Ingres",
+    "attributionRequired": false,
+    "date": "1819date QS:P571,+1819-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "f83c16fb25d51a1b9a6d20d8a16d1683a68b0a82c7483971fc7368662309283e",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:NiccoloPaganini.jpeg",
+    "title": "The Violinist Niccolò Paganini",
+    "url": "portraits/niccolò-paganini.jpg",
+    "width": 512,
+    "wikidata": "Q66075"
+   }
   },
   {
    "id": "pablo-de-sarasate",
    "name": "サラサーテ",
    "nameEn": "Pablo de Sarasate",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "=Unknown authorUnknown author (The photographer is unknown and not mentioned in the source.)",
+    "attributionRequired": false,
+    "date": "by 3 March 1906date QS:P,+1906-03-03T00:00:00Z/7,P1326,+1906-03-03T00:00:00Z/11",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "68bd2f90eb20cce18a176460897b985ebc26b3e49910495d8fd3669391167b5c",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pablo_de_Sarasate_1906.jpg",
+    "title": "Pablo de Sarasate 1906",
+    "url": "portraits/pablo-de-sarasate.jpg",
+    "width": 512,
+    "wikidata": "Q204503"
+   }
   },
   {
    "id": "paul-dukas",
    "name": "デュカス",
    "nameEn": "Paul Dukas",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": null,
+    "attributionRequired": false,
+    "date": null,
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "4f4069b2a4c2bfbfb4091cb3fa30d41569875c3f65e9076e85381e273d7e3e9e",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Paul_Dukas_01.jpg",
+    "title": "Paul Dukas 01",
+    "url": "portraits/paul-dukas.jpg",
+    "width": 512,
+    "wikidata": "Q215556"
+   }
   },
   {
    "id": "pietro-mascagni",
    "name": "マスカーニ",
    "nameEn": "Pietro Mascagni",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Gavo Studio; copyright expire",
+    "attributionRequired": false,
+    "date": "1902-12-22",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "d26ca675cdfb5a27662758a480a0b476ad374d146d84fbc2f63caaada5a4bc1e",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pietro_Mascagni_1.jpg",
+    "title": "Pietro Mascagni 1",
+    "url": "portraits/pietro-mascagni.jpg",
+    "width": 512,
+    "wikidata": "Q181894"
+   }
   },
   {
    "id": "riccardo-drigo",
    "name": "ドリゴ",
    "nameEn": "Riccardo Drigo",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Charles Bergamasco",
+    "attributionRequired": false,
+    "date": "1894date QS:P571,+1894-00-00T00:00:00Z/9",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "c6c7a5ebb812dd9dbcf4b7b227b3e9c9c1ddc4846c5e11975c47ce3ed0b9c4e6",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:RiccardoDrigo.jpg",
+    "title": "RiccardoDrigo",
+    "url": "portraits/riccardo-drigo.jpg",
+    "width": 512,
+    "wikidata": "Q545830"
+   }
   },
   {
    "id": "stephen-foster",
    "name": "フォスター",
    "nameEn": "Stephen Foster",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "circa 1860date QS:P,+1860-00-00T00:00:00Z/9,P1480,Q5727902",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "e8a69d9b7a073f40c4c5b34f90b05682e0022eb13a97f939dd0e4a2977665f84",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stephen_Foster.jpg",
+    "title": "Stephen Foster",
+    "url": "portraits/stephen-foster.jpg",
+    "width": 512,
+    "wikidata": "Q305202"
+   }
   },
   {
    "id": "tomaso-albinoni",
    "name": "アルビノーニ",
    "nameEn": "Tomaso Albinoni",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "anonymous",
+    "attributionRequired": false,
+    "date": null,
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "253d0011c0c0a26fb10558c455872fb963299e57c436cac92aafc345db109091",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tomaso_Albinoni.jpg",
+    "title": "Tomaso Albinoni (1671 - 1751)label QS:Len,\"Tomaso Albinoni (1671 - 1751)\"",
+    "url": "portraits/tomaso-albinoni.jpg",
+    "width": 512,
+    "wikidata": "Q174606"
+   }
   },
   {
    "id": "tomaso-antonio-vitali",
    "name": "T.A.ヴィターリ",
    "nameEn": "Tomaso Antonio Vitali",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Unknown authorUnknown author",
+    "attributionRequired": false,
+    "date": "18th centurydate QS:P,+1750-00-00T00:00:00Z/7",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "5aa330eed7fe581ad7f2ce2c67e3854e2425a12e39e53efd47845d8558848fe3",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tomaso_Antonio_Vitali.jpg",
+    "title": "Tomaso Antonio Vitali",
+    "url": "portraits/tomaso-antonio-vitali.jpg",
+    "width": 512,
+    "wikidata": "Q966026"
+   }
   },
   {
    "id": "zdeněk-fibich",
    "name": "フィビヒ",
    "nameEn": "Zdeněk Fibich",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Jan Vilímek (1860–1938)",
+    "attributionRequired": false,
+    "date": "1890–1898",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "7f430f5975744603ffa279178024cbb012d4b8a432e59a08e6381564e45a1978",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zden%C4%9Bk_Fibich_%E2%80%93_Jan_Vil%C3%ADmek_%E2%80%93_%C4%8Cesk%C3%A9_album_(cropped).jpg",
+    "title": "Zdeněk Fibich – Jan Vilímek – České album (cropped)",
+    "url": "portraits/zdeněk-fibich.jpg",
+    "width": 512,
+    "wikidata": "Q117110"
+   }
   },
   {
    "id": "édouard-lalo",
    "name": "ラロ",
    "nameEn": "Édouard Lalo",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Léon Joliot",
+    "attributionRequired": false,
+    "date": "1893",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "f595e018eaef1180cbf1c0c005ca2f51e94853a3cf2eae95d5a612fd4f1fcf36",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:%C3%89douard_Lalo2.jpeg",
+    "title": "Édouard Lalo2",
+    "url": "portraits/édouard-lalo.jpg",
+    "width": 512,
+    "wikidata": "Q224002"
+   }
   },
   {
    "id": "émile-waldteufel",
    "name": "ワルトトイフェル",
    "nameEn": "Émile Waldteufel",
-   "trackCount": 1
+   "trackCount": 1,
+   "portrait": {
+    "artist": "Atelier Reutlinger",
+    "attributionRequired": false,
+    "date": "circa 1900date QS:P,+1900-00-00T00:00:00Z/9,P1480,Q5727902",
+    "height": 512,
+    "license": "Public domain",
+    "licenseCode": "pd",
+    "licenseUrl": null,
+    "sha256": "baae248864f79edcf30e8b1de1cac5686ded4bb178202ff6bbe201eb5175c6bb",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Waldteufel.jpg",
+    "title": "Waldteufel",
+    "url": "portraits/émile-waldteufel.jpg",
+    "width": 512,
+    "wikidata": "Q286616"
+   }
   }
  ],
  "works": [

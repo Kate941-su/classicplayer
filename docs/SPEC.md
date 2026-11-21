@@ -166,10 +166,10 @@ CMSL のカテゴリをそのまま使うと、名前が長いものや細かす
 ### 3.6 作曲家の肖像画（`composers[].portrait`）
 `catalog/fetch_portraits.py` で作る。手順は `docs/catalog-pipeline.md`。
 
-1. 作曲家ごとに Wikidata の項目（QID）を対応づける。対応は `catalog/composer_wikidata.json`（`composer.id` → `{ qid, verified, exclude?, file?, focus? }`）に置く。未登録の作曲家は Wikidata を検索し、「人物（Q5）で職業が作曲家（Q36834）」の候補を `verified: false` で追記する。**オーナーが確認して `verified: true` にしたものだけ**画像を取得する（同名の別人を防ぐため）
+1. 作曲家ごとに Wikidata の項目（QID）を対応づける。対応は `catalog/composer_wikidata.json`（`composer.id` → `{ qid, verified, exclude?, file?, focus?, zoom? }`）に置く。未登録の作曲家は Wikidata を検索し、「人物（Q5）で職業が作曲家（Q36834）」の候補を `verified: false` で追記する。**オーナーが確認して `verified: true` にしたものだけ**画像を取得する（同名の別人を防ぐため）
 2. QID の画像（P18。preferred ランクを優先、deprecated は除く）か、対応に書いた `file` を使う
 3. Commons のライセンスが **PD / CC0 / CC BY / CC BY-SA** のものだけを採用する（NonFree や他のライセンスは除外し、`portraits.report.json` の `rejected` に載せる）
-4. 正方形に切り抜き（中心は `focus`。既定は横 0.5・縦 0.35）、512×512 の JPEG（EXIF なし）にする
+4. 正方形に切り抜き（中心は `focus`。既定は横 0.5・縦 0.35。`zoom` が 1 より大きければ短い辺の 1/zoom の大きさで切り、全身の写真でも顔を大きくする）、512×512 の JPEG（EXIF なし）にする
 5. クレジットを `portraits.json` に出す
 
 `portrait` の中身（`portraits.json` の値と同じ）:

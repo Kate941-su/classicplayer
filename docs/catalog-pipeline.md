@@ -45,7 +45,7 @@ uv run --python 3.12 --with-requirements requirements-dev.txt python fetch_portr
 # 2. composer_wikidata.json を確認する（人の作業）
 #    - 正しい候補なら "qid" を入れて "verified": true
 #    - 肖像画を使わない作曲家は "exclude": true
-#    - P18 以外の画像を使うなら "file": "<Commons のファイル名>"、顔が切れるなら "focus": [横, 縦]（0〜1）
+#    - P18 以外の画像を使うなら "file": "<Commons のファイル名>"、顔が切れるなら "focus": [横, 縦]（0〜1）、全身で顔が小さいなら "zoom": 2 など（短い辺の 1/zoom で切る）
 # 3. 画像を取得して site/v1/portraits/ と portraits.json を出力する
 uv run --python 3.12 --with-requirements requirements-dev.txt python fetch_portraits.py --catalog ../site/v1/catalog.json \
   --contact https://github.com/kate941-su/classicplayer
