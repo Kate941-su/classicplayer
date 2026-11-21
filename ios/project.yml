@@ -98,12 +98,26 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
         TEST_HOST: $(BUILT_PRODUCTS_DIR)/CMSLClassical.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CMSLClassical
         BUNDLE_LOADER: $(TEST_HOST)
+  CMSLClassicalUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: CMSLClassicalUITests
+    dependencies:
+      - target: CMSLClassical
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.cmsl.classical.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: CMSLClassical
 schemes:
   CMSLClassical:
     build:
       targets:
         CMSLClassical: all
         CMSLClassicalTests: [test]
+        CMSLClassicalUITests: [test]
     test:
       targets:
         - CMSLClassicalTests
+        - CMSLClassicalUITests
