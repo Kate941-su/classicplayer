@@ -84,14 +84,15 @@ final class AppModel {
     func start() {
         guard !started else { return }
         started = true
-        let system = SystemPlayback(controller: playback)
-        system.start()
-        systemPlayback = system
         Task {
             for await state in await store.updates() { apply(state) }
         }
         Task {
+            // 画面に出すカタログを先に読む。オーディオセッションの設定などはその後
             _ = try? await store.load()
+            let system = SystemPlayback(controller: playback)
+            system.start()
+            systemPlayback = system
             await playback.restore()
             if refreshOnStart { _ = await store.refresh() }
         }
@@ -147,7 +148,8 @@ final class AppModel {
                 title: track.shortTitle(english: english),
                 composer: index.composer(track.composerId)?.displayName(english: english) ?? "",
                 workTitle: track.workTitle(english: english, work: index.work(track.workId)),
-                artworkPNG: nil
+                composerId: track.composerId,
+                genreId: track.genreId
             )
         }
     }

@@ -24,5 +24,7 @@ struct PlayableTrack: Equatable, Sendable {
     var title: String
     var composer: String
     var workTitle: String
-    var artworkPNG: Data?
+    /// ロック画面のアートワークを描くための値（描くのは表示するときだけ）。
+    var composerId: String
+    var genreId: String
 }

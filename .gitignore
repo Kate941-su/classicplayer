@@ -50,3 +50,6 @@ GoogleService-Info.plist
 
 # --- 許諾メール（公開リポジトリのためコミットしない。PLAN 0.10）
 docs/permissions/
+
+# アイコンの元のイラスト（素材の再配布にならないようコミットしない）
+design/icon/source.png
