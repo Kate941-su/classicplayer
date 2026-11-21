@@ -16,6 +16,7 @@
 		22F666FE7A8100BC0BA55A7E /* CatalogDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601CC011B6904DA2AB1D0BCF /* CatalogDecodingTests.swift */; };
 		2952D252DD705A5FCEF4D457 /* SystemPlayback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4460687553A7D539388AADE7 /* SystemPlayback.swift */; };
 		2E7B3566C1131FF2DC89F518 /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868E5DD08801A6BBED72ED09 /* Fixtures.swift */; };
+		3A60AC626FEF7AB812569AD5 /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B70050317AD5CD2CAD9B488 /* LibraryStore.swift */; };
 		3E100F36D3DB51AA31CCD3FF /* CatalogStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B800DD8335D6168A743B2 /* CatalogStoreTests.swift */; };
 		42AB12160B03B0D748615432 /* CatalogIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AEB24C98EC60B5D620A643 /* CatalogIndexTests.swift */; };
 		438464C12BE4DBB98A0FF143 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B5DE0437B53DEA4678B4A /* Localizable.xcstrings */; };
@@ -23,6 +24,7 @@
 		51B059905C9EC2932781ED5F /* CatalogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F965D7FDDA55632B861E5C /* CatalogStore.swift */; };
 		607B4CE1F88457FAFB19ACBB /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60F830F1BE8CA7523EE6711 /* PlaybackController.swift */; };
 		659BC03B8971D16986052932 /* fixtures in Resources */ = {isa = PBXBuildFile; fileRef = B4314B446A0B2AC6BE78CCED /* fixtures */; };
+		7BB316D36D8DBC880B914262 /* LibraryStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D95858ADF16F65FCA97DCF3 /* LibraryStoreTests.swift */; };
 		86C30E185DEDD93E0813F214 /* SearchNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2757A9E790FE635078BF3 /* SearchNormalizer.swift */; };
 		87423928BFE8F6FDE39BD755 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866C5DEB341FF64B8165240E /* AudioEngine.swift */; };
 		9092F88EE91E61990041482D /* CatalogIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44106EB2E1F8B82DC35FB0B8 /* CatalogIndex.swift */; };
@@ -37,6 +39,7 @@
 		E1A41436A5AE2EBA9A961A3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AEB8EAF3117909A4DC88089 /* Assets.xcassets */; };
 		EA68B540A1EE4607C98B0989 /* PlaybackEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD83502BFE8EE37323C2F593 /* PlaybackEnvironment.swift */; };
 		EBCA236449F0149F414AEB0F /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9930A325E1C4B08A6694EFA9 /* RootView.swift */; };
+		F78FA416818A6CD4E546AF1F /* PreferenceStores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600E93ABECA52DE3AF528617 /* PreferenceStores.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,12 +58,15 @@
 		385F44BE585041F50E20B386 /* CatalogValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogValidatorTests.swift; sourceTree = "<group>"; };
 		387069700556BDF180B9BF75 /* CatalogValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogValidator.swift; sourceTree = "<group>"; };
 		3B9B5DE0437B53DEA4678B4A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		3D95858ADF16F65FCA97DCF3 /* LibraryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStoreTests.swift; sourceTree = "<group>"; };
 		43F24F607A3434B3C63FA5C5 /* SearchCasesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCasesTests.swift; sourceTree = "<group>"; };
 		44106EB2E1F8B82DC35FB0B8 /* CatalogIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogIndex.swift; sourceTree = "<group>"; };
 		4460687553A7D539388AADE7 /* SystemPlayback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemPlayback.swift; sourceTree = "<group>"; };
 		48C3F674C387547F8DA6BA30 /* PlayQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueue.swift; sourceTree = "<group>"; };
 		4B59F8212D4B15C2B7166F57 /* CMSLClassicalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMSLClassicalApp.swift; sourceTree = "<group>"; };
+		5B70050317AD5CD2CAD9B488 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
 		5D6EDBD1C391B87BBFA5D43B /* CMSLClassicalTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CMSLClassicalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		600E93ABECA52DE3AF528617 /* PreferenceStores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceStores.swift; sourceTree = "<group>"; };
 		601CC011B6904DA2AB1D0BCF /* CatalogDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogDecodingTests.swift; sourceTree = "<group>"; };
 		616A18CE249082039EE23AE8 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		67AF5B4063AF642F0ADA4E8A /* PlaybackControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackControllerTests.swift; sourceTree = "<group>"; };
@@ -112,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				4CC7334D39FDB808227FE04F /* Data */,
+				DAD5A30C1E8E52C03DE6F76D /* Library */,
 				58361966A12D31132AB78FFC /* Model */,
 				A902BF3EAEDBC1B5B6CF7313 /* Search */,
 			);
@@ -176,6 +183,7 @@
 				940B800DD8335D6168A743B2 /* CatalogStoreTests.swift */,
 				385F44BE585041F50E20B386 /* CatalogValidatorTests.swift */,
 				868E5DD08801A6BBED72ED09 /* Fixtures.swift */,
+				3D95858ADF16F65FCA97DCF3 /* LibraryStoreTests.swift */,
 				67AF5B4063AF642F0ADA4E8A /* PlaybackControllerTests.swift */,
 				ABE210A03E0000B66BB1B5CA /* PlaybackTests.swift */,
 				30FA8E75D5470DC3430E83E9 /* ProjectSetupTests.swift */,
@@ -204,6 +212,15 @@
 				4DCDFFB0CAC042668BC9C55A /* Resources */,
 			);
 			path = CMSLClassical;
+			sourceTree = "<group>";
+		};
+		DAD5A30C1E8E52C03DE6F76D /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				5B70050317AD5CD2CAD9B488 /* LibraryStore.swift */,
+				600E93ABECA52DE3AF528617 /* PreferenceStores.swift */,
+			);
+			path = Library;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,6 +352,7 @@
 				3E100F36D3DB51AA31CCD3FF /* CatalogStoreTests.swift in Sources */,
 				20C6EE05D00566269E6DA5E2 /* CatalogValidatorTests.swift in Sources */,
 				2E7B3566C1131FF2DC89F518 /* Fixtures.swift in Sources */,
+				7BB316D36D8DBC880B914262 /* LibraryStoreTests.swift in Sources */,
 				9C1BFC359D96596257C73503 /* PlaybackControllerTests.swift in Sources */,
 				D3E9C289716822F7FBE08A32 /* PlaybackTests.swift in Sources */,
 				48F75B2847722D5053D0F456 /* ProjectSetupTests.swift in Sources */,
@@ -352,12 +370,14 @@
 				9092F88EE91E61990041482D /* CatalogIndex.swift in Sources */,
 				51B059905C9EC2932781ED5F /* CatalogStore.swift in Sources */,
 				048966D394010A58F73626EE /* CatalogValidator.swift in Sources */,
+				3A60AC626FEF7AB812569AD5 /* LibraryStore.swift in Sources */,
 				10BA3D0C04BBD4BA616C8217 /* Localized.swift in Sources */,
 				0A755956D55E49E389486832 /* Movement.swift in Sources */,
 				D844BD6FB9D9886F855006E5 /* PlayQueue.swift in Sources */,
 				607B4CE1F88457FAFB19ACBB /* PlaybackController.swift in Sources */,
 				EA68B540A1EE4607C98B0989 /* PlaybackEnvironment.swift in Sources */,
 				D66BCE714427BDA0289E8393 /* PlaybackQueue.swift in Sources */,
+				F78FA416818A6CD4E546AF1F /* PreferenceStores.swift in Sources */,
 				CB52B831606687461DC08FCF /* QueueSnapshot.swift in Sources */,
 				EBCA236449F0149F414AEB0F /* RootView.swift in Sources */,
 				0BF6C275929B101F5D747D09 /* SearchIndex.swift in Sources */,
