@@ -67,9 +67,9 @@
   - `genre_map.json`: CMSL のカテゴリ名をアプリの表示ジャンルに対応づける（§3.3）。
   - `validate_catalog.py`: `schema/catalog.schema.json` で検証し、整合性をチェックする（ID 重複、参照切れ、URL 形式）。
   - `make_manifest.py`: `manifest.json` を生成する（バージョン、SHA-256、件数、生成日時）。
-- 実行: GitHub Actions（`.github/workflows/catalog.yml`）で毎月1日と手動トリガー時に実行する。HTML キャッシュは Actions の cache に保存し、2回目以降は差分取得（新しい記事だけ）にする。
-- 安全弁: 前回より曲数が 10% 以上減ったら公開を止め、Issue を立てる（サイト構造の変化を検知するため）。
-- TODO(owner): 2026-11-21 に `catalog.yml` を手動実行したところ、GitHub Actions からは robots.txt の判定で全面禁止となり、1 ページも取得できなかった（`RobotFileParser` がそう判定するのは、401/403 が返ったときか、内容で禁止されていたとき。どちらだったかは未確認）。手元（同じ日、同じ User-Agent）では robots.txt は 200 で、トップ・記事・カテゴリは許可されている。巡回側の判定は回避しない。月次更新を、オーナーの手元で巡回して結果を公開する運用にするかどうかを決める
+- 実行: **オーナーの手元**で月 1 回、`tool/update-catalog.sh` を実行する（オーナーの決定、2026-11-21）。巡回（間隔 1.5 秒。HTML キャッシュ `catalog/cache/` を使い、2 回目以降は差分取得）→ 検証 → `manifest.json` 作成 → `site/v1/` に出力し、PR でコミットする。main にマージすると `pages.yml` が GitHub Pages に公開する。手順は `docs/catalog-pipeline.md`
+- GitHub Actions からは巡回しない。2026-11-21 に試したところ、robots.txt の判定で全面禁止となり 1 ページも取得できなかった（手元からは許可されている）。巡回側の判定は回避しない
+- 安全弁: 前回（`site/v1/manifest.json` と公開中の manifest）より曲数が 10% 以上減ったら、スクリプトは出力せず、PR の CI も失敗する（サイト構造の変化を検知するため）。`site/v1/` の検証と manifest の一致は PR と公開の直前に CI で確かめる
 
 ### 3.2 スキーマ（schemaVersion 2）
 正式な定義は `schema/catalog.schema.json`。要点:

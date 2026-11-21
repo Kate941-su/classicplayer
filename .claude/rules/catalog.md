@@ -14,4 +14,4 @@ paths:
 - `track.id` は記事 ID 由来で恒久。生成ロジックを変えるときは、既存 ID が変わらないことをテストで確認する
 - `<audio>` / `<embed>` だけで提供される mp3（ストリーミング専用）は収録しない
 - スキーマを変えたら `/schema-change` スキルに従う（`schemaVersion`、両アプリのデコーダー、フィクスチャを同じ PR で更新）
-- `cache/`、`catalog.json`、`catalog.report.json` のローカル生成物はコミットしない（公開物は `site/v1/` に CI が出力する）
+- `cache/`、`catalog.json`、`catalog.report.json` のローカル生成物はコミットしない。公開物は `tool/update-catalog.sh` が `site/v1/` に出力し、PR でコミットする（`site/v1/catalog.json` と `manifest.json` は手で書き換えない）
