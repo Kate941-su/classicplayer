@@ -28,13 +28,19 @@ jobs:
           xcode="$(ls -d /Applications/Xcode_*.app | grep -vi beta | sort -V | tail -1)"
           sudo xcode-select -s "$xcode"
           xcodebuild -version
-      - name: プロジェクトが project.yml と一致しているか（XcodeGen。版の違いで差が出ることがあるので警告だけ）
+      - name: プロジェクトが project.yml と一致していること（XcodeGen。手元と同じ版に固定）
+        env:
+          XCODEGEN_VERSION: "2.46.0"
         run: |
-          brew install xcodegen > /dev/null
-          xcodegen --quiet
-          git diff --quiet -- CMSLClassical.xcodeproj || \
-            echo "::warning::CMSLClassical.xcodeproj が project.yml から生成したものと違います。cd ios && xcodegen を実行してコミットしてください"
-          git checkout -- CMSLClassical.xcodeproj
+          curl -fsSL -o "$RUNNER_TEMP/xcodegen.zip" \
+            "https://github.com/yonaskolb/XcodeGen/releases/download/$XCODEGEN_VERSION/xcodegen.zip"
+          unzip -q "$RUNNER_TEMP/xcodegen.zip" -d "$RUNNER_TEMP/xcodegen"
+          "$RUNNER_TEMP/xcodegen/xcodegen/bin/xcodegen" --version
+          "$RUNNER_TEMP/xcodegen/xcodegen/bin/xcodegen" --quiet
+          git diff --exit-code -- CMSLClassical.xcodeproj || {
+            echo "::error::CMSLClassical.xcodeproj が project.yml と違います。cd ios && xcodegen（$XCODEGEN_VERSION）を実行してコミットしてください"
+            exit 1
+          }
       - name: 依存ライブラリがないこと（SPEC §8.1。追加するときはここを見直す）
         run: |
           if grep -q "XCRemoteSwiftPackageReference" CMSLClassical.xcodeproj/project.pbxproj; then
