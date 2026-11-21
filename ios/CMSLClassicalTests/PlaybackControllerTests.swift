@@ -7,6 +7,7 @@ final class FakeEngine: AudioEngine {
     weak var delegate: (any AudioEngineDelegate)?
     var currentTime: TimeInterval = 0
     var duration: TimeInterval?
+    var volume: Float = 1
     private(set) var current: URL?
     private(set) var next: URL?
     private(set) var playing = false

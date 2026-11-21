@@ -56,6 +56,14 @@ final class MainFlowUITests: XCTestCase {
         sleep(1)
         // 音源の読み込みを待たずに止める（ネットワークに依存しない）
         playPause.tap()
+
+        // スリープタイマーを 15 分に（SPEC §5.2）
+        app.buttons["sleepTimer"].tap()
+        let fifteen = app.buttons[language == "ja" ? "15 分" : "15 minutes"]
+        XCTAssertTrue(fifteen.waitForExistence(timeout: 5))
+        fifteen.tap()
+        let remaining = app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", language == "ja" ? "残り 1" : " left")).firstMatch
+        XCTAssertTrue(remaining.waitForExistence(timeout: 5))
         sleep(1)
         save("\(prefix)-player")
     }

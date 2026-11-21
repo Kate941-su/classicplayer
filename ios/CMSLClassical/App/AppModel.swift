@@ -21,6 +21,7 @@ final class AppModel {
     let recentSearches: RecentSearchStore
     let downloads: DownloadStore
     @ObservationIgnored let playback: PlaybackController
+    let sleepTimer: SleepTimer
     @ObservationIgnored private let store: CatalogStore
     @ObservationIgnored private let queueStore: QueueStore
     @ObservationIgnored private var systemPlayback: SystemPlayback?
@@ -46,6 +47,7 @@ final class AppModel {
         self.english = english
         self.refreshOnStart = refreshOnStart
         playback = PlaybackController(engine: engine, environment: environmentBridge)
+        sleepTimer = SleepTimer(playback: playback)
         environmentBridge.model = self
         // ダウンロードが終わった・消えた曲は、次に再生するとき URL を選び直す
         downloads.onChange = { [weak playback] id in playback?.forgetResolved(id) }

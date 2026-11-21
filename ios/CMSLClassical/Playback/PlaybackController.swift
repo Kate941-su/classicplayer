@@ -24,6 +24,15 @@ final class PlaybackController {
     private(set) var notice: Notice?
     /// 今の曲の、ロック画面用の情報。
     private(set) var currentTrack: PlayableTrack?
+    /// 今の曲が終わったら止める（スリープタイマーの「この曲の終わりまで」）。次の曲を先読みしない。
+    var stopsAtEndOfTrack = false {
+        didSet {
+            guard stopsAtEndOfTrack != oldValue else { return }
+            refreshPreload()
+        }
+    }
+    /// 曲の終わりで止まったとき（スリープタイマーが解除するため）。
+    @ObservationIgnored var onStoppedAtEndOfTrack: (() -> Void)?
 
     var currentTrackId: String? { currentTrack?.id ?? queue.currentTrackId }
 
@@ -175,6 +184,12 @@ final class PlaybackController {
 
     func clearNotice() { notice = nil }
 
+    /// 0〜1。スリープタイマーで音量を下げるときに使う。
+    var volume: Float {
+        get { engine.volume }
+        set { engine.volume = min(max(newValue, 0), 1) }
+    }
+
     /// 曲の再生情報を取り直す（ダウンロードが終わった・消えたとき。URL を選び直す）。
     /// 先読みしている次の曲なら、エンジンの先読みも差し替える。
     func forgetResolved(_ trackId: String) {
@@ -293,7 +308,7 @@ final class PlaybackController {
     }
 
     private func nextTrack() -> (key: Int, track: PlayableTrack)? {
-        guard let key = queue.nextKey(automatic: true), let item = queue.item(key: key),
+        guard !stopsAtEndOfTrack, let key = queue.nextKey(automatic: true), let item = queue.item(key: key),
               let track = resolved[item.trackId] else { return nil }
         return (key, track)
     }
@@ -358,7 +373,14 @@ extension PlaybackController: AudioEngineDelegate {
     }
 
     func audioEngineDidFinish() {
-        // 最後まで再生した。今の曲の頭で止めておく（もう一度 ▶ で最初から）
+        if stopsAtEndOfTrack {
+            // スリープタイマー: 曲の終わりで止める。次の曲を「今の曲」にして、▶ でそこから聴けるようにする
+            stopsAtEndOfTrack = false
+            if let key = queue.nextKey(automatic: true) { queue.setCurrent(key: key) }
+            currentTrack = queue.currentTrackId.flatMap { resolved[$0] }
+            onStoppedAtEndOfTrack?()
+        }
+        // 最後まで再生した（か、曲の終わりで止めた）。今の曲の頭で止めておく（▶ で頭から）
         loadedKey = nil
         preloadedKey = nil
         pendingPosition = 0
