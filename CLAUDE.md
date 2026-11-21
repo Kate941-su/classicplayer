@@ -28,7 +28,8 @@ tool/       run.sh（起動）, update-seed.sh（シード）, check-android-dep
 - 同梱カタログ（シード）: 既定は `fixtures/catalog.sample.json`（実カタログから抜き出した 20 曲。再生もできる）。全件で試すときは `tool/update-seed.sh`（公開中のカタログ）か `tool/update-seed.sh <path>` → `android/seed/catalog.json`（コミットしない）
 - フィクスチャの作り直し: `cd catalog && python3 extract_fixture.py <catalog.json>`（`fixtures/README.md`）
 - スクリーンショット: `cd android && ./gradlew :app:testDebugUnitTest --tests '*ScreenshotsTest' -Pcmsl.recordScreenshots` → `docs/screens/android/`
-- iOS（macOS のみ）: `cd ios && xcodebuild -scheme CMSLClassical -destination 'platform=iOS Simulator,name=iPhone 16' test`
+- iOS（macOS のみ）: `cd ios && xcodebuild -scheme CMSLClassical -destination 'platform=iOS Simulator,name=iPhone 17' test`（名前は `xcrun simctl list devices available` にあるものを選ぶ）。Lint（任意）: `cd ios && swiftlint`
+- iOS のプロジェクト: 正本は `ios/project.yml`（XcodeGen）。ターゲットや設定を変えたら `cd ios && xcodegen` で `CMSLClassical.xcodeproj` を作り直し、両方コミットする（Xcode の画面で直接変えない）
 
 ## 守るべき原則（SPEC §1.2）
 - 広告・解析・クラッシュ収集の SDK を**追加しない**。依存を追加するときは、ライセンス（MIT/Apache/BSD のみ）と通信の有無を PR に書く。
