@@ -67,6 +67,29 @@ struct Composer: Codable, Equatable, Hashable, Sendable, Identifiable {
     var name: String
     var nameEn: String?
     var trackCount: Int
+    /// 肖像画（SPEC §3.6）。ない作曲家と、キーのない古いカタログでは nil（生成アートワークを使う）。
+    var portrait: Portrait?
+}
+
+/// 作曲家の肖像画（SPEC §3.6）。画像は `url`（`portraits/{composer.id}.jpg`）を catalog のベース URL から解決して取る。
+/// `title`〜`sourceUrl` はクレジットの表示に使う（SPEC §4.9）。
+struct Portrait: Codable, Equatable, Hashable, Sendable {
+    var url: String
+    var width: Int?
+    var height: Int?
+    /// JPEG のハッシュ（小文字の 16 進）。キャッシュの検証と更新の判定に使う。
+    var sha256: String
+    var title: String?
+    var artist: String?
+    var date: String?
+    /// 表示用のライセンス名（`CC BY-SA 4.0`、`Public domain`）。
+    var license: String
+    var licenseCode: String?
+    var licenseUrl: String?
+    /// Commons のファイルページ。
+    var sourceUrl: String
+    var attributionRequired: Bool?
+    var wikidata: String?
 }
 
 /// `id` は表記揺れの修正で変わることがあるので永続化しない。

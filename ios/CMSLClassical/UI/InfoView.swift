@@ -14,6 +14,15 @@ struct InfoView: View {
             if let catalog = model.catalog {
                 CreditSection(license: catalog.index.catalog.license)
                 Section { Text("info.termsBody").font(.footnote) }
+                Section {
+                    NavigationLink(value: Route.imageCredits) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("info.imageCredits")
+                            Text("info.imageCreditsIntro").font(.footnote).foregroundStyle(.secondary)
+                        }
+                    }
+                    .accessibilityIdentifier("imageCreditsLink")
+                }
             }
             Section("info.privacy") {
                 Text("info.privacyBody")

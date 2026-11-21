@@ -10,6 +10,6 @@ cd ios && TEST_RUNNER_SCREENSHOTS_DIR=$PWD/../docs/screens/ios xcodebuild -schem
 
 | ファイル | 内容 |
 |---|---|
-| `{ja,en}-light-*.png` / `ja-dark-*.png` | ホーム・ジャンル・作品（再生開始後）・フルプレイヤー（一時停止後） |
+| `{ja,en}-light-*.png` / `ja-dark-*.png` | ホーム・ジャンル・作曲家（肖像画とクレジット）・作品（再生開始後）・フルプレイヤー（一時停止後）・画像のクレジット |
 
 フルプレイヤーの画面は音源を実際に読み込むので、ネットワークが必要。
