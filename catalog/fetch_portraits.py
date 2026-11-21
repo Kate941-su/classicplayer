@@ -42,7 +42,8 @@ COMMONS_API = "https://commons.wikimedia.org/w/api.php"
 DEFAULT_CONTACT = "set-your-contact@example.com"
 Q_HUMAN = "Q5"
 Q_COMPOSER = "Q36834"
-COMPOSER_OCCUPATIONS = {Q_COMPOSER}
+Q_CLASSICAL_COMPOSER = "Q21680663"  # 例: ヴィドールは composer ではなく classical composer で登録されている
+COMPOSER_OCCUPATIONS = {Q_COMPOSER, Q_CLASSICAL_COMPOSER}
 
 # 採用するライセンス（Commons の extmetadata.License の値）
 ALLOWED_LICENSE_RE = re.compile(r"^(pd|cc0|cc-by-[0-9.]+|cc-by-sa-[0-9.]+)$", re.I)
