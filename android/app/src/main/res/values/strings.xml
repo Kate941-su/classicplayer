@@ -137,4 +137,14 @@
     <string name="downloads_remove_all_confirm">Remove all downloaded tracks?</string>
     <string name="a11y_downloaded">Downloaded</string>
     <string name="a11y_downloading">Downloading</string>
+    <!-- スリープタイマー（SPEC §5.2） -->
+    <string name="sleep_title">Sleep timer</string>
+    <string name="sleep_off">Off</string>
+    <plurals name="sleep_minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <string name="sleep_end_of_track">End of this track</string>
+    <string name="sleep_at_end_of_track">Stops at end of track</string>
+    <string name="sleep_remaining">%1$s left</string>
 </resources>

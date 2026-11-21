@@ -2,6 +2,7 @@ package app.cmsl.classical.ui.player
 
 import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -11,8 +12,10 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -20,6 +23,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.QueueMusic
+import androidx.compose.material.icons.filled.Bedtime
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -33,6 +38,9 @@ import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material.icons.filled.ShuffleOn
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
+import androidx.compose.material.icons.outlined.Bedtime
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
@@ -44,6 +52,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -53,6 +62,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -65,6 +76,8 @@ import app.cmsl.classical.R
 import app.cmsl.classical.core.model.RepeatMode
 import app.cmsl.classical.core.model.displayName
 import app.cmsl.classical.core.model.shortTitle
+import app.cmsl.classical.core.playback.SleepMode
+import app.cmsl.classical.core.playback.SleepTimer
 import app.cmsl.classical.ui.components.AboutTrackDialog
 import app.cmsl.classical.ui.components.Artwork
 import app.cmsl.classical.ui.components.CmslTopBar
@@ -107,6 +120,7 @@ fun PlayerScreen(onClose: () -> Unit) {
         }
         val english = LocalEnglish.current
         val downloads by vm.actions.downloads.collectAsStateWithLifecycle()
+        val sleep by vm.sleep.collectAsStateWithLifecycle()
         val p = state.player
         Column(
             Modifier
@@ -175,12 +189,81 @@ fun PlayerScreen(onClose: () -> Unit) {
                     vm.actions.rowActions(downloads, onPlay = {}, onAbout = { showAbout = true }),
                 )
             }
+            SleepTimerButton(sleep, vm::setSleep)
             Spacer(Modifier.height(24.dp))
         }
         if (showQueue) QueueSheet(state, vm) { showQueue = false }
         if (showAbout) state.license?.let { AboutTrackDialog(now.track, it) { showAbout = false } }
     }
 }
+
+/** スリープタイマー（SPEC §5.2）。設定中は残り時間（か「曲の終わりで停止」）を出す。 */
+@Composable
+private fun SleepTimerButton(state: SleepUiState, onSelect: (SleepChoice) -> Unit) {
+    var open by rememberSaveable { mutableStateOf(false) }
+    val active = state.mode != SleepMode.Off
+    val title = stringResource(R.string.sleep_title)
+    val label = when (state.mode) {
+        SleepMode.Off -> title
+        SleepMode.EndOfTrack -> stringResource(R.string.sleep_at_end_of_track)
+        is SleepMode.Until -> stringResource(
+            R.string.sleep_remaining,
+            formatTime(roundUpToSecond(state.remainingMs ?: 0))
+        )
+    }
+    Box {
+        TextButton(
+            onClick = { open = true },
+            modifier = Modifier
+                .heightIn(min = 48.dp)
+                .testTag("sleepTimer")
+                .semantics { contentDescription = if (active) "$title, $label" else title },
+        ) {
+            val color = if (active) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+            Icon(if (active) Icons.Filled.Bedtime else Icons.Outlined.Bedtime, contentDescription = null, tint = color)
+            Spacer(Modifier.width(8.dp))
+            Text(label, color = color)
+        }
+        DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
+            val choices = listOf(SleepChoice.Off) + SleepTimer.CHOICES.map { SleepChoice.Minutes(it) } +
+                SleepChoice.EndOfTrack
+            choices.forEach { choice ->
+                val selected = when (choice) {
+                    SleepChoice.Off -> state.mode == SleepMode.Off
+                    SleepChoice.EndOfTrack -> state.mode == SleepMode.EndOfTrack
+                    // 時間は残りが変わるので、選んだ分を印にしない
+                    is SleepChoice.Minutes -> false
+                }
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            when (choice) {
+                                SleepChoice.Off -> stringResource(R.string.sleep_off)
+                                SleepChoice.EndOfTrack -> stringResource(R.string.sleep_end_of_track)
+                                is SleepChoice.Minutes ->
+                                    pluralStringResource(R.plurals.sleep_minutes, choice.minutes, choice.minutes)
+                            }
+                        )
+                    },
+                    leadingIcon = if (selected) {
+                        { Icon(Icons.Filled.Check, contentDescription = null) }
+                    } else {
+                        null
+                    },
+                    onClick = {
+                        open = false
+                        onSelect(choice)
+                    },
+                )
+            }
+        }
+    }
+}
+
+/** 残り 0.4 秒を「0:00」にしない（設定した直後に 15:00 と出す）。 */
+private fun roundUpToSecond(ms: Long): Long = (ms + SECOND_MS - 1) / SECOND_MS * SECOND_MS
+
+private const val SECOND_MS = 1000L
 
 @Composable
 private fun SeekBar(positionMs: Long, durationMs: Long, onSeek: (Long) -> Unit) {

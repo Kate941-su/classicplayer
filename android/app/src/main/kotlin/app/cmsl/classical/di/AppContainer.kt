@@ -25,6 +25,7 @@ import app.cmsl.classical.core.playback.MediaControllerPlayer
 import app.cmsl.classical.core.playback.PlayableTrack
 import app.cmsl.classical.core.playback.PlaybackEnvironment
 import app.cmsl.classical.core.playback.PlayerController
+import app.cmsl.classical.core.playback.SleepTimer
 import app.cmsl.classical.core.search.SearchIndex
 import app.cmsl.classical.download.unmeteredNetwork
 import kotlinx.coroutines.CoroutineScope
@@ -134,6 +135,9 @@ class AppContainer(
     }
 
     val player: PlayerController = playerFactory(playbackEnvironment)
+
+    /** スリープタイマー（SPEC §5.2）。保存はしない。 */
+    val sleepTimer = SleepTimer(player, scope)
 
     fun nowMillis(): Long = now()
 

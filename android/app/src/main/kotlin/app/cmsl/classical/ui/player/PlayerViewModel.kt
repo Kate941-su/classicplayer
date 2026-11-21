@@ -8,12 +8,31 @@ import app.cmsl.classical.core.model.License
 import app.cmsl.classical.core.model.Track
 import app.cmsl.classical.core.model.Work
 import app.cmsl.classical.core.playback.PlayerState
+import app.cmsl.classical.core.playback.SleepMode
 import app.cmsl.classical.di.AppContainer
 import app.cmsl.classical.ui.TrackActions
 import app.cmsl.classical.ui.stateInWhileSubscribed
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 
 data class NowPlaying(val track: Track, val work: Work?, val composer: Composer?, val genre: Genre?)
+
+/** スリープタイマーの表示（SPEC §5.2）。残り時間は時間で止めるときだけ。 */
+data class SleepUiState(val mode: SleepMode = SleepMode.Off, val remainingMs: Long? = null)
+
+/** メニューの選択肢。分か、オフ・この曲の終わりまで。 */
+sealed interface SleepChoice {
+    data object Off : SleepChoice
+
+    data class Minutes(val minutes: Int) : SleepChoice
+
+    data object EndOfTrack : SleepChoice
+}
 
 data class PlayerUiState(
     val player: PlayerState = PlayerState(),
@@ -24,6 +43,7 @@ data class PlayerUiState(
     val license: License? = null,
 )
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class PlayerViewModel(private val container: AppContainer) : ViewModel() {
     val actions = TrackActions(container, viewModelScope)
     val player = container.player
@@ -42,6 +62,30 @@ class PlayerViewModel(private val container: AppContainer) : ViewModel() {
         )
     }.stateInWhileSubscribed(viewModelScope, PlayerUiState())
 
+    private val sleepTimer = container.sleepTimer
+
+    /** 時間で止めるときは 1 秒ごとに残り時間を出す。 */
+    val sleep: StateFlow<SleepUiState> = sleepTimer.mode
+        .flatMapLatest { mode ->
+            if (mode is SleepMode.Until) {
+                flow {
+                    while (true) {
+                        emit(SleepUiState(mode, sleepTimer.remainingMs()))
+                        delay(SLEEP_TICK_MS)
+                    }
+                }
+            } else {
+                flowOf(SleepUiState(mode))
+            }
+        }
+        .stateInWhileSubscribed(viewModelScope, SleepUiState())
+
+    fun setSleep(choice: SleepChoice) = when (choice) {
+        SleepChoice.Off -> sleepTimer.cancel()
+        SleepChoice.EndOfTrack -> sleepTimer.stopAtEndOfTrack()
+        is SleepChoice.Minutes -> sleepTimer.start(choice.minutes)
+    }
+
     fun toggleFavorite() {
         state.value.now?.track?.let(actions::toggleFavorite)
     }
@@ -57,5 +101,6 @@ fun formatTime(ms: Long): String {
 }
 
 private const val MS_PER_SECOND = 1000L
+private const val SLEEP_TICK_MS = 1000L
 private const val SECONDS_PER_MINUTE = 60L
 private const val SECONDS_PER_HOUR = 3600L
