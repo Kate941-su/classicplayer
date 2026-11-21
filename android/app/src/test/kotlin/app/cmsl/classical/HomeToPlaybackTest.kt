@@ -7,8 +7,10 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.test.core.app.ApplicationProvider
+import app.cmsl.classical.core.db.FavoriteEntity
 import app.cmsl.classical.core.playback.PlayQueue
 import app.cmsl.classical.ui.CmslRoot
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -36,10 +38,10 @@ class HomeToPlaybackTest {
         compose.onNodeWithTag("home").performScrollToNode(hasText("Symphonies"))
         compose.onNodeWithText("Symphonies").performClick()
         compose.onNodeWithText("L.V.Beethoven").performClick()
-        compose.onNodeWithText(FATE_2015).performClick()
+        compose.onNodeWithText(FATE).performClick()
         compose.onNodeWithText(context.getString(R.string.action_play_work)).performClick()
 
-        assertEquals(listOf(PlayQueue(listOf("427916377", "428637877", "431342999"), 0)), player.played)
+        assertEquals(listOf(PlayQueue(listOf("500111088-0", "500111088-1", "500150417"), 0)), player.played)
         compose.onNodeWithTag("miniPlayer").assertExists()
     }
 
@@ -52,13 +54,25 @@ class HomeToPlaybackTest {
         compose.onNodeWithTag("home").performScrollToNode(hasText("Symphonies"))
         compose.onNodeWithText("Symphonies").performClick()
         compose.onNodeWithText("L.V.Beethoven").performClick()
-        compose.onNodeWithText(FATE_2015).performClick()
+        compose.onNodeWithText(FATE).performClick()
         compose.onNodeWithText("第2楽章").performClick() // 英語タイトルのない曲は日本語の楽章名
 
-        assertEquals(listOf(PlayQueue(listOf("428637877", "431342999"), 0)), player.played)
+        assertEquals(listOf(PlayQueue(listOf("500111088-1", "500150417"), 0)), player.played)
+    }
+
+    @Test
+    fun `新しい録音に置き換えた曲のお気に入りと履歴を読み替える`() = runBlocking {
+        val container = testContainer(context, tmp.root, FakePlayerController())
+        val db = container.database
+        db.favorites().add(FavoriteEntity("427916377", 1)) // 運命 2015 の第1楽章 → 2023 の 500111088-0
+        db.history().record("428637877", 2) // 第2楽章 → 500111088-1
+        db.favorites().add(FavoriteEntity("1", 3)) // カタログにない曲はそのまま（グレー表示）
+        container.replaceStoredTrackIds(container.catalog.value!!.index)
+        assertEquals(setOf("500111088-0", "1"), db.favorites().ids().toSet())
+        assertEquals(listOf("500111088-1"), db.history().ids())
     }
 
     private companion object {
-        const val FATE_2015 = "交響曲 第5番 ハ短調 Op.67 「運命」（2015）"
+        const val FATE = "交響曲第5番 ハ短調 Op.67 「運命」"
     }
 }

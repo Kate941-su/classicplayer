@@ -39,6 +39,11 @@ def test_sample_fixture_covers_plan_requirements():
         per_work[t["workId"]] = per_work.get(t["workId"], 0) + 1
     assert max(per_work.values()) >= 2
     assert any("-" in t["id"] for t in SAMPLE["tracks"])
+    # 旧サーバー（http）の曲、新しい録音への読み替え（置き換え先はサンプルの曲）
+    assert any(t["audioUrl"].startswith("http://") for t in SAMPLE["tracks"])
+    ids = {t["id"] for t in SAMPLE["tracks"]}
+    assert SAMPLE["replacedTracks"] and set(SAMPLE["replacedTracks"].values()) <= ids
+    assert not set(SAMPLE["replacedTracks"]) & ids
     assert any(t["movement"] is None for t in SAMPLE["tracks"])
     assert any(t["titleEn"] is None for t in SAMPLE["tracks"])
     assert all(not t["id"].startswith("9000000") for t in SAMPLE["tracks"])  # 暫定版の架空 ID は残さない
@@ -61,14 +66,18 @@ def mutate(fn):
 
 
 BAD = {
-    "schemaVersion が 2": lambda d: d.update(schemaVersion=2),
+    "schemaVersion が 1": lambda d: d.update(schemaVersion=1),
+    "replacedTracks がない": lambda d: d.pop("replacedTracks"),
+    "replacedTracks の値が曲 ID の形でない": lambda d: d["replacedTracks"].update({"1": "abc"}),
     "未知のトップレベルキー": lambda d: d.update(extra=1),
     "tracks が空": lambda d: d.update(tracks=[]),
     "track.id が slug": lambda d: d["tracks"][0].update(id="beethoven-1"),
     "track.id の連番が 2 段": lambda d: d["tracks"][0].update(id="1-2-3"),
     "audioUrl が別ドメイン": lambda d: d["tracks"][0].update(audioUrl="https://example.com/a.mp3"),
-    "audioUrl が http": lambda d: d["tracks"][0].update(
+    "audioUrl が http（CMSL）": lambda d: d["tracks"][0].update(
         audioUrl="http://classical-sound.up.seesaa.net/image/a.mp3"),
+    "audioUrl が https（旧サーバー。https では取れない）": lambda d: d["tracks"][0].update(
+        audioUrl="https://classical-music.aki.gs/mp3-01/a.mp3"),
     "audioUrl に クエリ": lambda d: d["tracks"][0].update(
         audioUrl="https://classical-sound.up.seesaa.net/image/a.mp3?x=1.mp3"),
     "articleUrl が記事以外": lambda d: d["tracks"][0].update(

@@ -42,6 +42,7 @@ class CatalogRepositoryTest {
             composers = catalog.composers.filter { it.id == track.composerId }.map { it.copy(trackCount = 1) },
             works = catalog.works.filter { it.id == track.workId },
             tracks = listOf(track),
+            replacedTracks = catalog.replacedTracks.filterValues { it == track.id },
         )
         CatalogJson.json.encodeToString(app.cmsl.classical.core.model.Catalog.serializer(), one).encodeToByteArray()
     }
@@ -80,11 +81,11 @@ class CatalogRepositoryTest {
         io = dispatcher,
     )
 
-    private fun manifest(version: String, bytes: ByteArray = sampleBytes, schemaVersion: Int = 1, sha: String? = null) =
+    private fun manifest(version: String, bytes: ByteArray = sampleBytes, schemaVersion: Int = 2, sha: String? = null) =
         """
         {"schemaVersion": $schemaVersion, "catalogVersion": "$version", "catalogUrl": "catalog.json",
          "sha256": "${sha ?: CatalogRepository.sha256(bytes)}", "trackCount": $sampleCount,
-         "generatedAt": "2026-12-01T03:17:00+00:00", "minAppSchema": 1}
+         "generatedAt": "2026-12-01T03:17:00+00:00", "minAppSchema": 2}
         """.trimIndent()
 
     private fun enqueueManifest(body: String, etag: String = "\"m1\"") {
@@ -184,7 +185,7 @@ class CatalogRepositoryTest {
     @Test
     fun `manifest の schemaVersion が対応範囲外なら更新しない`() = runTest {
         val repo = repository(StandardTestDispatcher(testScheduler))
-        enqueueManifest(manifest("2026.12.01", schemaVersion = 2))
+        enqueueManifest(manifest("2026.12.01", schemaVersion = 3))
         assertEquals(RefreshResult.Unsupported, repo.refresh())
         assertEquals(1, server.requestCount)
         assertEquals(CatalogSource.Seed, repo.state.value!!.source)

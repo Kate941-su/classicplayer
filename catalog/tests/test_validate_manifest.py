@@ -45,7 +45,7 @@ def test_invalid_fixtures_fail_for_the_documented_reason():
     assert "ID の重複" in msg["duplicate-track-id"]
     assert "参照切れ" in msg["dangling-work-ref"]
     assert "スキーマ" in msg["foreign-audio-domain"]
-    assert "スキーマ" in msg["schema-version-2"]
+    assert "スキーマ" in msg["schema-version-3"]
     assert "trackCount の不一致" in msg["trackcount-mismatch"]
 
 
@@ -63,6 +63,9 @@ def mutate(fn):
     ("articleUrl の記事 ID が違う", lambda d: d["tracks"][0].update(
         articleUrl="https://classical-sound.seesaa.net/article/1.html"), "articleUrl"),
     ("作曲家 ID の重複", lambda d: d["composers"].append(dict(d["composers"][0])), "ID の重複"),
+    ("置き換え先の曲がない", lambda d: d["replacedTracks"].update({"1": "2"}), "参照切れ: replacedTracks"),
+    ("置き換えた曲が残っている", lambda d: d["replacedTracks"].update({d["tracks"][1]["id"]: d["tracks"][0]["id"]}),
+     "tracks に残っている"),
 ])
 def test_integrity_errors(name, fn, needle):
     errors, _ = check(mutate(fn))
