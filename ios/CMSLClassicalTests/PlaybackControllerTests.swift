@@ -74,7 +74,7 @@ final class FakeEnvironment: PlaybackEnvironment {
             guard available.contains(id) else { return nil }
             return PlayableTrack(
                 id: id, requestedId: requested, audioURL: URL(string: "https://classical-sound.up.seesaa.net/\(id).mp3")!,
-                title: id, composer: "c", workTitle: "w", artworkPNG: nil
+                title: id, composer: "c", workTitle: "w", composerId: "c", genreId: "g"
             )
         }
     }
