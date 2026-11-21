@@ -24,3 +24,11 @@ struct ProjectSetupTests {
 }
 
 private final class BundleToken {}
+
+struct SeedCatalogTests {
+    @Test func seedIsBundledAndValid() throws {
+        let url = try #require(Bundle.main.url(forResource: "catalog", withExtension: "json"))
+        let catalog = try CatalogJSON.decodeCatalog(Data(contentsOf: url))
+        #expect(CatalogValidator.validate(catalog) == [])
+    }
+}

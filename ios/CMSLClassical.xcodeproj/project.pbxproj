@@ -13,9 +13,11 @@
 		20C6EE05D00566269E6DA5E2 /* CatalogValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 385F44BE585041F50E20B386 /* CatalogValidatorTests.swift */; };
 		22F666FE7A8100BC0BA55A7E /* CatalogDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 601CC011B6904DA2AB1D0BCF /* CatalogDecodingTests.swift */; };
 		2E7B3566C1131FF2DC89F518 /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868E5DD08801A6BBED72ED09 /* Fixtures.swift */; };
+		3E100F36D3DB51AA31CCD3FF /* CatalogStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940B800DD8335D6168A743B2 /* CatalogStoreTests.swift */; };
 		42AB12160B03B0D748615432 /* CatalogIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13AEB24C98EC60B5D620A643 /* CatalogIndexTests.swift */; };
 		438464C12BE4DBB98A0FF143 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B5DE0437B53DEA4678B4A /* Localizable.xcstrings */; };
 		48F75B2847722D5053D0F456 /* ProjectSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FA8E75D5470DC3430E83E9 /* ProjectSetupTests.swift */; };
+		51B059905C9EC2932781ED5F /* CatalogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F965D7FDDA55632B861E5C /* CatalogStore.swift */; };
 		659BC03B8971D16986052932 /* fixtures in Resources */ = {isa = PBXBuildFile; fileRef = B4314B446A0B2AC6BE78CCED /* fixtures */; };
 		9092F88EE91E61990041482D /* CatalogIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44106EB2E1F8B82DC35FB0B8 /* CatalogIndex.swift */; };
 		96F23D63A92E74F8AA62DE6D /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBC784E75FFB3C9F53BB3254 /* Catalog.swift */; };
@@ -50,12 +52,14 @@
 		7CF87F898AE91A7EA8C07FB8 /* CMSLClassical.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CMSLClassical.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		868E5DD08801A6BBED72ED09 /* Fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
 		8AEB8EAF3117909A4DC88089 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		940B800DD8335D6168A743B2 /* CatalogStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogStoreTests.swift; sourceTree = "<group>"; };
 		9930A325E1C4B08A6694EFA9 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		9BDA6320432BE0AA9917D84F /* QueueSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueSnapshot.swift; sourceTree = "<group>"; };
 		AD140DA17B47DFD7F0BE3229 /* Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localized.swift; sourceTree = "<group>"; };
 		B4314B446A0B2AC6BE78CCED /* fixtures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fixtures; path = ../fixtures; sourceTree = SOURCE_ROOT; };
 		C1167A1EE73C0008EFC2D671 /* Movement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movement.swift; sourceTree = "<group>"; };
 		CBBCE8B0A9C05C356D3F7298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E3F965D7FDDA55632B861E5C /* CatalogStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogStore.swift; sourceTree = "<group>"; };
 		FBC784E75FFB3C9F53BB3254 /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,9 +76,18 @@
 		3C39D64A213C072E98C4F135 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				4CC7334D39FDB808227FE04F /* Data */,
 				58361966A12D31132AB78FFC /* Model */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		4CC7334D39FDB808227FE04F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E3F965D7FDDA55632B861E5C /* CatalogStore.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		4DCDFFB0CAC042668BC9C55A /* Resources */ = {
@@ -124,6 +137,7 @@
 			children = (
 				601CC011B6904DA2AB1D0BCF /* CatalogDecodingTests.swift */,
 				13AEB24C98EC60B5D620A643 /* CatalogIndexTests.swift */,
+				940B800DD8335D6168A743B2 /* CatalogStoreTests.swift */,
 				385F44BE585041F50E20B386 /* CatalogValidatorTests.swift */,
 				868E5DD08801A6BBED72ED09 /* Fixtures.swift */,
 				30FA8E75D5470DC3430E83E9 /* ProjectSetupTests.swift */,
@@ -151,6 +165,7 @@
 			buildConfigurationList = 3F0A1D5475FC21CF9E16837C /* Build configuration list for PBXNativeTarget "CMSLClassical" */;
 			buildPhases = (
 				E4B897D0492958542F796CB6 /* Sources */,
+				3C4DAF65ECD48C2EA63260B4 /* Copy seed catalog */,
 				B8AF83CAC83E4AB1BE5DDFA4 /* Resources */,
 			);
 			buildRules = (
@@ -239,6 +254,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3C4DAF65ECD48C2EA63260B4 /* Copy seed catalog */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy seed catalog";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -euo pipefail\nsrc=\"${CMSL_SEED_CATALOG:-}\"\nif [[ -z \"$src\" ]]; then\n  src=\"$SRCROOT/../android/seed/catalog.json\"\n  [[ -f \"$src\" ]] || src=\"$SRCROOT/../fixtures/catalog.sample.json\"\nfi\n[[ -f \"$src\" ]] || { echo \"error: シードのカタログがありません: $src\"; exit 1; }\ncp \"$src\" \"$TARGET_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/catalog.json\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		46FF4D1160797DE25B3FC0D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -246,6 +283,7 @@
 			files = (
 				22F666FE7A8100BC0BA55A7E /* CatalogDecodingTests.swift in Sources */,
 				42AB12160B03B0D748615432 /* CatalogIndexTests.swift in Sources */,
+				3E100F36D3DB51AA31CCD3FF /* CatalogStoreTests.swift in Sources */,
 				20C6EE05D00566269E6DA5E2 /* CatalogValidatorTests.swift in Sources */,
 				2E7B3566C1131FF2DC89F518 /* Fixtures.swift in Sources */,
 				48F75B2847722D5053D0F456 /* ProjectSetupTests.swift in Sources */,
@@ -259,6 +297,7 @@
 				AE160534C758A65DA2E9D4DB /* CMSLClassicalApp.swift in Sources */,
 				96F23D63A92E74F8AA62DE6D /* Catalog.swift in Sources */,
 				9092F88EE91E61990041482D /* CatalogIndex.swift in Sources */,
+				51B059905C9EC2932781ED5F /* CatalogStore.swift in Sources */,
 				048966D394010A58F73626EE /* CatalogValidator.swift in Sources */,
 				10BA3D0C04BBD4BA616C8217 /* Localized.swift in Sources */,
 				0A755956D55E49E389486832 /* Movement.swift in Sources */,
@@ -435,6 +474,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CMSLClassical/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -472,6 +512,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CMSLClassical/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
