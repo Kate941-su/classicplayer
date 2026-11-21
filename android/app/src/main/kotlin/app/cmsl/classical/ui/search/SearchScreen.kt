@@ -50,7 +50,6 @@ import app.cmsl.classical.ui.components.CmslTopBar
 import app.cmsl.classical.ui.components.EmptyMessage
 import app.cmsl.classical.ui.components.SectionHeader
 import app.cmsl.classical.ui.components.TrackRow
-import app.cmsl.classical.ui.components.TrackRowActions
 import app.cmsl.classical.ui.containerViewModel
 import app.cmsl.classical.ui.stateInWhileSubscribed
 import app.cmsl.classical.ui.theme.LocalEnglish
@@ -126,13 +125,8 @@ fun SearchScreen(onComposer: (String) -> Unit, onWork: (String) -> Unit, onGenre
     val english = LocalEnglish.current
     val keyboard = LocalSoftwareKeyboardController.current
     var aboutId by rememberSaveable { mutableStateOf<String?>(null) }
-    val rowActions = TrackRowActions(
-        onPlay = vm::play,
-        onToggleFavorite = vm.actions::toggleFavorite,
-        onPlayNext = vm.actions::playNext,
-        onAddToQueue = vm.actions::addToQueue,
-        onAbout = { aboutId = it.id },
-    )
+    val downloads by vm.actions.downloads.collectAsStateWithLifecycle()
+    val rowActions = vm.actions.rowActions(downloads, onPlay = vm::play, onAbout = { aboutId = it.id })
     Scaffold(topBar = { CmslTopBar(stringResource(R.string.tab_search)) }) { padding ->
         LazyColumn(contentPadding = padding) {
             item {

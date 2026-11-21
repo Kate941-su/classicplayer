@@ -111,4 +111,25 @@
     <string name="image_credit_title">作品: %1$s</string>
     <string name="image_credit_artist">作者: %1$s</string>
     <string name="image_credit_source">出典: Wikimedia Commons</string>
+    <!-- ダウンロード（SPEC §5.1） -->
+    <string name="library_downloads">ダウンロード</string>
+    <string name="library_downloads_empty">曲の「⋮」メニューや作品の画面からダウンロードすると、通信なしで再生できます。</string>
+    <string name="action_download">ダウンロード</string>
+    <string name="action_download_work">作品をダウンロード</string>
+    <string name="action_remove_download">ダウンロードを削除</string>
+    <string name="action_cancel_download">ダウンロードを取り消す</string>
+    <string name="action_cancel">キャンセル</string>
+    <string name="action_remove_all_downloads">すべて削除</string>
+    <string name="downloads_work_done">作品をダウンロード済み</string>
+    <string name="downloads_wifi_only">Wi-Fi のときだけダウンロード</string>
+    <string name="downloads_in_progress">ダウンロード中</string>
+    <string name="downloads_waiting_for_wifi">Wi-Fi につながるのを待っています</string>
+    <plurals name="downloads_waiting">
+        <item quantity="other">待機中 %d 曲</item>
+    </plurals>
+    <string name="downloads_failed">ダウンロードできなかった曲があります。通信を確かめて、もう一度お試しください。</string>
+    <string name="downloads_total">合計 %1$s</string>
+    <string name="downloads_remove_all_confirm">ダウンロードした曲をすべて削除しますか？</string>
+    <string name="a11y_downloaded">ダウンロード済み</string>
+    <string name="a11y_downloading">ダウンロード中</string>
 </resources>

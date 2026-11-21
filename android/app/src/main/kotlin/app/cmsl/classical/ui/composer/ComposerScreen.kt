@@ -46,7 +46,6 @@ import app.cmsl.classical.ui.components.CmslTopBar
 import app.cmsl.classical.ui.components.Loading
 import app.cmsl.classical.ui.components.PortraitCredit
 import app.cmsl.classical.ui.components.TrackRow
-import app.cmsl.classical.ui.components.TrackRowActions
 import app.cmsl.classical.ui.containerViewModel
 import app.cmsl.classical.ui.stateInWhileSubscribed
 import app.cmsl.classical.ui.theme.LocalEnglish
@@ -126,13 +125,8 @@ fun ComposerScreen(composerId: String, genreId: String?, onWork: (String) -> Uni
     var aboutId by rememberSaveable { mutableStateOf<String?>(null) }
     Scaffold(topBar = { CmslTopBar(state?.composer?.displayName(english).orEmpty(), onBack = onBack) }) { padding ->
         val s = state ?: return@Scaffold Loading()
-        val rowActions = TrackRowActions(
-            onPlay = vm::playTrack,
-            onToggleFavorite = vm.actions::toggleFavorite,
-            onPlayNext = vm.actions::playNext,
-            onAddToQueue = vm.actions::addToQueue,
-            onAbout = { aboutId = it.id },
-        )
+        val downloads by vm.actions.downloads.collectAsStateWithLifecycle()
+        val rowActions = vm.actions.rowActions(downloads, onPlay = vm::playTrack, onAbout = { aboutId = it.id })
         LazyColumn(contentPadding = padding) {
             item {
                 // ジャンルを指定せずに開いたときは、その作曲家の最初の曲のジャンルの絵にする

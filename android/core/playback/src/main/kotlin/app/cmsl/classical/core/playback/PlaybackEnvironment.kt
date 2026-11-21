@@ -1,6 +1,8 @@
 package app.cmsl.classical.core.playback
 
 import app.cmsl.classical.core.model.QueueSnapshot
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 
 /**
  * 再生サービスがアプリから受け取るもの。Application が [Provider] を実装して渡す。
@@ -16,6 +18,12 @@ interface PlaybackEnvironment {
      */
     suspend fun artwork(trackId: String): ByteArray? = null
 
+    /**
+     * 再生に使う URI が変わった曲（ダウンロードが終わった・消えた。SPEC §5.1）。
+     * サービスはキューのその曲を [resolve] し直して差し替える（再生中の曲はそのまま）。
+     */
+    val trackChanges: Flow<String> get() = emptyFlow()
+
     suspend fun loadQueue(): QueueSnapshot?
 
     suspend fun saveQueue(snapshot: QueueSnapshot)
@@ -28,7 +36,7 @@ interface PlaybackEnvironment {
     }
 }
 
-/** ロック画面・通知に出す情報と、音源の URL。 */
+/** ロック画面・通知に出す情報と、音源の URL（ダウンロード済みなら file:// の URI）。 */
 class PlayableTrack(
     val id: String,
     val audioUrl: String,

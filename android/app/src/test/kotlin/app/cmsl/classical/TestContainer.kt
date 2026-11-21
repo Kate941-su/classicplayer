@@ -4,8 +4,11 @@ import android.content.Context
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.room.Room
 import app.cmsl.classical.core.artwork.ArtworkProvider
+import app.cmsl.classical.core.data.AudioFetcher
 import app.cmsl.classical.core.data.CatalogRepository
+import app.cmsl.classical.core.data.DownloadRepository
 import app.cmsl.classical.core.data.PortraitRepository
+import app.cmsl.classical.core.db.DownloadSettingsStore
 import app.cmsl.classical.core.db.LibraryDatabase
 import app.cmsl.classical.core.db.QueueStore
 import app.cmsl.classical.core.db.RecentSearchStore
@@ -28,6 +31,8 @@ fun testContainer(
     portraitsDir: File? = null,
     /** シードのカタログ。null なら共有フィクスチャ。 */
     seed: File? = null,
+    /** ダウンロードの取得（既定は通信せず、曲の ID を書いたファイルを作る）。 */
+    fetcher: AudioFetcher = AudioFetcher { url, target, _ -> target.writeText("mp3:$url") },
 ): AppContainer {
     val fixtures = File(requireNotNull(System.getProperty("fixturesDir")))
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -57,6 +62,14 @@ fun testContainer(
             client = OkHttpClient(),
             baseUrl = "https://example.invalid/v1/catalog.json".toHttpUrl(),
         ),
+        // 取得はその場で終わらせる（テストから待たずに結果を見られるように）
+        downloads = DownloadRepository(
+            dir = File(dir, "downloads"),
+            fetcher = fetcher,
+            scope = CoroutineScope(SupervisorJob() + Dispatchers.Unconfined),
+            io = Dispatchers.Unconfined,
+        ),
+        downloadSettings = DownloadSettingsStore(prefs),
         scope = scope,
         playerFactory = { player },
         english = { english },

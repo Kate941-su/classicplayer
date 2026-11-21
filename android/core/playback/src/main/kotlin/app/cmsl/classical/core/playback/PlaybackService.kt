@@ -65,6 +65,25 @@ class PlaybackService : MediaSessionService() {
             .setCallback(SessionCallback())
             .apply { launchIntent()?.let(::setSessionActivity) }
             .build()
+        scope.launch { env.trackChanges.collect(::refreshQueueItems) }
+    }
+
+    /**
+     * ダウンロードが終わった・消えた曲を、キューの中で新しい URI に差し替える（SPEC §5.1）。
+     * 再生中の曲は途切れさせないため、そのままにする（次に再生するときから使う）。
+     */
+    private suspend fun refreshQueueItems(trackId: String) {
+        val fresh = env.resolve(listOf(trackId)).firstOrNull() ?: return
+        val stale = (0 until player.mediaItemCount).filter { i ->
+            val item = player.getMediaItemAt(i)
+            i != player.currentMediaItemIndex &&
+                item.mediaId == fresh.id &&
+                item.localConfiguration?.uri?.toString() != fresh.audioUrl
+        }
+        stale.forEach { i ->
+            val metadata = player.getMediaItemAt(i).mediaMetadata
+            player.replaceMediaItem(i, fresh.toMediaItem().buildUpon().setMediaMetadata(metadata).build())
+        }
     }
 
     override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaSession? = session

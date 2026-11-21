@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -47,6 +48,11 @@ class ScreenshotsTest {
         File(outDir, "$name.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
     }
 
+    /** Room・DataStore は別スレッドで読むので、表示されるまで待つ。 */
+    private fun waitForText(text: String) {
+        compose.waitUntil(WAIT_MS) { compose.onAllNodesWithText(text).fetchSemanticsNodes().isNotEmpty() }
+    }
+
     private fun capture(prefix: String, english: Boolean) {
         assumeTrue("記録するときだけ実行する", outDir != null)
         val player = FakePlayerController()
@@ -60,10 +66,17 @@ class ScreenshotsTest {
         save("$prefix-composer")
         compose.onNodeWithText("交響曲第5番 ハ短調 Op.67 「運命」").performClick()
         compose.onNodeWithText(context.getString(R.string.action_play_work)).performClick()
+        // 作品をダウンロードした状態（行の印と「作品をダウンロード済み」。SPEC §5.1）
+        compose.onNodeWithText(context.getString(R.string.action_download_work)).performClick()
         save("$prefix-work")
         compose.onNodeWithTag("miniPlayer").performClick()
         save("$prefix-player")
         compose.onNodeWithContentDescription(context.getString(R.string.action_close_player)).performClick()
+        compose.onNodeWithText(context.getString(R.string.tab_library)).performClick()
+        waitForText(context.getString(R.string.library_downloads))
+        compose.onNodeWithText(context.getString(R.string.library_downloads)).performClick()
+        waitForText(context.getString(R.string.downloads_wifi_only))
+        save("$prefix-downloads")
         compose.onNodeWithText(context.getString(R.string.tab_info)).performClick()
         val credits = context.getString(R.string.image_credits)
         compose.onNodeWithTag("info").performScrollToNode(hasText(credits))
@@ -82,4 +95,8 @@ class ScreenshotsTest {
     @Test
     @Config(qualifiers = "+en")
     fun `英語・ライト`() = capture("en-light", english = true)
+
+    private companion object {
+        const val WAIT_MS = 5_000L
+    }
 }
