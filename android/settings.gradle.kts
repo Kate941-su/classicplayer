@@ -24,4 +24,5 @@ include(
     ":core:data",
     ":core:playback",
     ":core:db",
+    ":core:artwork",
 )
