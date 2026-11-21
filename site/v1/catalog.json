@@ -1,6 +1,6 @@
 {
  "schemaVersion": 2,
- "generatedAt": "2026-11-21T19:35:31+00:00",
+ "generatedAt": "2026-11-21T20:49:08+00:00",
  "source": "https://classical-sound.seesaa.net/",
  "license": {
   "name": "Creative Commons 表示 2.1 日本",
@@ -75,7 +75,7 @@
     "licenseUrl": null,
     "sha256": "8da343ed57b69ef98bba1a2bfbe84929cf9d8453f097835b3fb0ab8f4f2cd6d4",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Beethoven.jpg",
-    "title": "German: Portrait Beethovens mit der Partitur zur Missa SolemnisPortrait of Ludwig van Beethoven when composing the Missa Solemnistitle QS:P1476,de:\"Portrait Beethovens mit der Partitur zur Missa Solemnis\"label QS:Lde,\"Portrait Beethovens mit der Partitur zur Missa Solemnis\"label QS:Len,\"Portrait of Ludwig van Beethoven when composing the Missa Solemnis\"",
+    "title": "Portrait of Ludwig van Beethoven when composing the Missa Solemnis",
     "url": "portraits/l-v-beethoven.jpg",
     "width": 512,
     "wikidata": "Q255"
@@ -117,7 +117,7 @@
     "licenseUrl": null,
     "sha256": "856694e6d85cff06c3485f83d3afde1db48edd9d97a1c3c348d1a1fdd03eaf82",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Wolfgang-amadeus-mozart_1.jpg",
-    "title": "Portrait of Wolfgang Amadeus Mozartlabel QS:Lru,\"Портрет Вольфганга Амадея Моцарта\"label QS:Lde,\"Bildnis von Wolfgang Amadeus Mozart\"label QS:Lsv,\"Porträtt av Wolfgang Amadeus Mozart\"label QS:Len,\"Portrait of Wolfgang Amadeus Mozart\"label QS:Lfr,\"Portrait de Wolfgang Amadeus Mozart\"label QS:Lcs,\"České a moravské malířky portrétů\"label QS:Lnl,\"Portret van Wolfgang Amadeus Mozart\"",
+    "title": "Portrait of Wolfgang Amadeus Mozart",
     "url": "portraits/w-a-mozart.jpg",
     "width": 512,
     "wikidata": "Q254"
@@ -152,7 +152,7 @@
    "portrait": {
     "artist": "Wilhelm August Rieder",
     "attributionRequired": false,
-    "date": "1875date QS:P571,+1875-00-00T00:00:00Z/9",
+    "date": "1875",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -215,7 +215,7 @@
    "portrait": {
     "artist": "Kubey-Rembrandt Studios",
     "attributionRequired": false,
-    "date": "1923date QS:P571,+1923-00-00T00:00:00Z/9",
+    "date": "1923",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -278,7 +278,7 @@
    "portrait": {
     "artist": "Eduard Magnus",
     "attributionRequired": false,
-    "date": "1846date QS:P571,+1846-00-00T00:00:00Z/9",
+    "date": "1846",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -297,9 +297,9 @@
    "nameEn": "Antonín Dvořák",
    "trackCount": 10,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
-    "date": "1882date QS:P571,+1882-00-00T00:00:00Z/9",
+    "date": "1882",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -320,7 +320,7 @@
    "portrait": {
     "artist": "Franz Hanfstaengl",
     "attributionRequired": false,
-    "date": "1858date QS:P571,+1858-00-00T00:00:00Z/9",
+    "date": "1858",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -339,9 +339,9 @@
    "nameEn": "Maurice Ravel",
    "trackCount": 10,
    "portrait": {
-    "artist": "Unknown authorUnknown author The image holder, the Bibliothèque nationale de France has not identified a photographer. (Follow link and click on \"Detailed information\".)",
+    "artist": "Unknown author The image holder, the Bibliothèque nationale de France has not identified a photographer. (Follow link and click on \"Detailed information\".)",
     "attributionRequired": false,
-    "date": "1925date QS:P571,+1925-00-00T00:00:00Z/9",
+    "date": "1925",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -383,7 +383,7 @@
    "portrait": {
     "artist": "Franz Hanfstaengl",
     "attributionRequired": false,
-    "date": "1871date QS:P571,+1871-00-00T00:00:00Z/9",
+    "date": "1871",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -402,7 +402,7 @@
    "nameEn": "Anton Bruckner",
    "trackCount": 7,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
     "date": "1868",
     "height": 512,
@@ -425,7 +425,7 @@
    "portrait": {
     "artist": "Herbert Lambert",
     "attributionRequired": false,
-    "date": "circa 1921date QS:P,+1921-00-00T00:00:00Z/9,P1480,Q5727902",
+    "date": "circa 1921",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -486,7 +486,7 @@
    "nameEn": "Antonio Lucio Vivaldi",
    "trackCount": 6,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
     "date": "2012-04-28 09:49:45",
     "height": 512,
@@ -551,7 +551,7 @@
    "portrait": {
     "artist": "Ferdinand Mulnier",
     "attributionRequired": false,
-    "date": "circa 1870date QS:P,+1870-00-00T00:00:00Z/9,P1480,Q5727902",
+    "date": "circa 1870",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -572,7 +572,7 @@
    "portrait": {
     "artist": "Attributed to Balthasar Denner",
     "attributionRequired": false,
-    "date": "between circa 1726 and circa 1728date QS:P,+1726-00-00T00:00:00Z/8,P1319,+1726-00-00T00:00:00Z/9,P1326,+1728-00-00T00:00:00Z/9,P1480,Q5727902",
+    "date": "between circa 1726 and circa 1728",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -614,14 +614,14 @@
    "portrait": {
     "artist": "Caroline Bardua",
     "attributionRequired": false,
-    "date": "1821date QS:P571,+1821-00-00T00:00:00Z/9",
+    "date": "1821",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
     "licenseUrl": null,
     "sha256": "7478a01773638ba966c6dcf8630502389c0e73dfd185c2cd31fe7db840758f73",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Caroline_Bardua_-_Bildnis_des_Komponisten_Carl_Maria_von_Weber.jpg",
-    "title": "German: Bildnis des Komponisten Carl Maria von Weber Portrait of the composer Carl Maria von Weberlabel QS:Les,\"Retrato del compositor Carl Maria von Weber\"label QS:Lfr,\"Portrait du compositeur Carl Maria von Weber\"label QS:Lpl,\"Portret kompozytora Carla Marii von Webera\"label QS:Lru,\"Портрет композитора Карла Марии фон Вебера\"label QS:Lde,\"Bildnis des Komponisten Carl Maria von Weber\"label QS:Lit,\"Ritratto del compositore Carl Maria von Weber\"label QS:Len,\"Portrait of the composer Carl Maria von Weber\"",
+    "title": "Portrait of the composer Carl Maria von Weber",
     "url": "portraits/carl-maria-von-weber.jpg",
     "width": 512,
     "wikidata": "Q154812"
@@ -654,7 +654,7 @@
    "nameEn": "Giacomo Puccini",
    "trackCount": 4,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
     "date": "Unknown date",
     "height": 512,
@@ -717,9 +717,9 @@
    "nameEn": "Alessandro Marcello",
    "trackCount": 3,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
-    "date": "before 1748date QS:P,+1748-00-00T00:00:00Z/7,P1326,+1748-00-00T00:00:00Z/9",
+    "date": "before 1748",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -759,7 +759,7 @@
    "nameEn": "Edward MacDowell",
    "trackCount": 3,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
     "date": "1921",
     "height": 512,
@@ -803,7 +803,7 @@
    "portrait": {
     "artist": "Thomas Hardy",
     "attributionRequired": false,
-    "date": "1791date QS:P571,+1791-00-00T00:00:00Z/9",
+    "date": "1791",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -927,7 +927,7 @@
    "nameEn": "Scott Joplin",
    "trackCount": 3,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
     "date": "Taken on 7 June 1903",
     "height": 512,
@@ -950,7 +950,7 @@
    "portrait": {
     "artist": "Bain News Service, publisher",
     "attributionRequired": false,
-    "date": "circa 1918date QS:P,+1918-00-00T00:00:00Z/9,P1480,Q5727902",
+    "date": "circa 1918",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -990,9 +990,9 @@
    "nameEn": "Bedřich Smetana",
    "trackCount": 2,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
-    "date": "before 1880date QS:P,+1880-00-00T00:00:00Z/7,P1326,+1880-00-00T00:00:00Z/9",
+    "date": "before 1880",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1034,7 +1034,7 @@
    "portrait": {
     "artist": "Pierre Petit",
     "attributionRequired": false,
-    "date": "19th centurydate QS:P,+1850-00-00T00:00:00Z/7",
+    "date": "19th century",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1055,7 +1055,7 @@
    "portrait": {
     "artist": "Carl Van Vechten",
     "attributionRequired": false,
-    "date": "28 March 1937date QS:P571,+1937-03-28T00:00:00Z/11",
+    "date": "28 March 1937",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1074,7 +1074,7 @@
    "nameEn": "Gustav Lange",
    "trackCount": 2,
    "portrait": {
-    "artist": "UnknownUnknown",
+    "artist": "Unknown",
     "attributionRequired": false,
     "date": "before 1889",
     "height": 512,
@@ -1125,7 +1125,7 @@
     "licenseUrl": null,
     "sha256": "5bd76cd0e199f03ea65efec7c4752774db96a104a33a85c3c7b35ed71b62b089",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Henry_Purcell_by_John_Closterman.jpg",
-    "title": "Henry Purcell title QS:P1476,en:\"Henry Purcell \"label QS:Len,\"Henry Purcell \"",
+    "title": "Henry Purcell",
     "url": "portraits/henry-purcell.jpg",
     "width": 512,
     "wikidata": "Q9695"
@@ -1186,9 +1186,9 @@
    "nameEn": "Tekla Bądarzewska",
    "trackCount": 2,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
-    "date": "before 1900date QS:P,+1900-00-00T00:00:00Z/7,P1326,+1900-00-00T00:00:00Z/9",
+    "date": "before 1900",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1207,9 +1207,9 @@
    "nameEn": "V.S.Kalinnikov",
    "trackCount": 2,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
-    "date": "19th centurydate QS:P,+1850-00-00T00:00:00Z/7",
+    "date": "19th century",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1228,7 +1228,7 @@
    "nameEn": "Vittorio Monti",
    "trackCount": 2,
    "portrait": {
-    "artist": "until 1922date QS:P,+1922-00-00T00:00:00Z/7,P582,+1922-00-00T00:00:00Z/9",
+    "artist": "until 1922",
     "attributionRequired": false,
     "date": "Unknown date",
     "height": 512,
@@ -1279,7 +1279,7 @@
    "portrait": {
     "artist": "Icilio Calzolari / Adam Cuerden",
     "attributionRequired": true,
-    "date": "between 1866 and 1886date QS:P571,+1850-00-00T00:00:00Z/7,P1319,+1866-00-00T00:00:00Z/9,P1326,+1886-00-00T00:00:00Z/9[1]",
+    "date": "between 1866 and 1886[1]",
     "height": 512,
     "license": "CC BY-SA 4.0",
     "licenseCode": "cc-by-sa-4.0",
@@ -1342,7 +1342,7 @@
    "portrait": {
     "artist": "Liébert, Alphonse (1827-1914). Photographe",
     "attributionRequired": false,
-    "date": "1890date QS:P571,+1890-00-00T00:00:00Z/9",
+    "date": "1890",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1403,7 +1403,7 @@
    "nameEn": "Charles Crozat Converse",
    "trackCount": 1,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
     "date": "1924-01-01",
     "height": 512,
@@ -1426,7 +1426,7 @@
    "portrait": {
     "artist": "Agence Rol. Agence photographique (commanditaire)",
     "attributionRequired": false,
-    "date": "1926date QS:P571,+1926-00-00T00:00:00Z/9",
+    "date": "1926",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1454,7 +1454,7 @@
     "licenseUrl": null,
     "sha256": "46c13946f9326f927e0532b686e2d2dba20c10e7ca2b072ef1c06ae4357082a0",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Joseph_Siffred_Duplessis_-_Christoph_Willibald_Gluck_-_Google_Art_Project.jpg",
-    "title": "Christoph Willibald Gluck title QS:P1476,en:\"Christoph Willibald Gluck \"label QS:Len,\"Christoph Willibald Gluck \"label QS:Lde,\"Christoph Willibald von Gluck\"",
+    "title": "Christoph Willibald Gluck",
     "url": "portraits/christoph-willibald-gluck.jpg",
     "width": 512,
     "wikidata": "Q130759"
@@ -1466,7 +1466,7 @@
    "nameEn": "Ciprian Porumbescu",
    "trackCount": 1,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
     "date": "Unknown date",
     "height": 512,
@@ -1489,7 +1489,7 @@
    "portrait": {
     "artist": "Bernardo Strozzi",
     "attributionRequired": false,
-    "date": "circa 1630date QS:P571,+1630-00-00T00:00:00Z/9,P1480,Q5727902",
+    "date": "circa 1630",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1510,14 +1510,14 @@
    "portrait": {
     "artist": "Domingo Antonio Velasco",
     "attributionRequired": false,
-    "date": "1738date QS:P571,+1738-00-00T00:00:00Z/9",
+    "date": "1738",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
     "licenseUrl": null,
     "sha256": "a656b7fff31b34b8cc22451a45c5bf5ceca736bef4d1ba9de4d5959d927eb1fd",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Retrato_de_Domenico_Scarlatti.jpg",
-    "title": "Portrait of Domenico Scarlatti (1685-1757)label QS:Len,\"Portrait of Domenico Scarlatti (1685-1757)\"",
+    "title": "Portrait of Domenico Scarlatti (1685-1757)",
     "url": "portraits/domenico-scarlatti.jpg",
     "width": 512,
     "wikidata": "Q167837"
@@ -1606,9 +1606,9 @@
    "nameEn": "František Drdla",
    "trackCount": 1,
    "portrait": {
-    "artist": "AnonymousUnknown author",
+    "artist": "Anonymous",
     "attributionRequired": false,
-    "date": "before 1928date QS:P,+1928-00-00T00:00:00Z/7,P1326,+1928-00-00T00:00:00Z/9",
+    "date": "before 1928",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1629,7 +1629,7 @@
    "portrait": {
     "artist": "Auguste Alexis Canzi",
     "attributionRequired": false,
-    "date": "1853date QS:P571,+1853-00-00T00:00:00Z/9",
+    "date": "1853",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1671,7 +1671,7 @@
    "portrait": {
     "artist": "Jean Charles Flipart / After André Bouys",
     "attributionRequired": false,
-    "date": "1735date QS:P571,+1735-00-00T00:00:00Z/9",
+    "date": "1735",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1692,7 +1692,7 @@
    "portrait": {
     "artist": "Antoine Vestier",
     "attributionRequired": false,
-    "date": "1791date QS:P571,+1791-00-00T00:00:00Z/9",
+    "date": "1791",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1741,7 +1741,7 @@
    "portrait": {
     "artist": "Rijksmuseum",
     "attributionRequired": false,
-    "date": "circa 1868date QS:P,+1868-00-00T00:00:00Z/9,P1480,Q5727902",
+    "date": "circa 1868",
     "height": 512,
     "license": "CC0",
     "licenseCode": "cc0",
@@ -1769,7 +1769,7 @@
     "licenseUrl": null,
     "sha256": "70bc665672fc45d57a4c6a4e24f97e07d5a5892fec574089123f9a70d451f4e4",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Telemann.jpg",
-    "title": "Georg Philipp Telemann (1681-1767)label QS:Len,\"Georg Philipp Telemann (1681-1767)\"",
+    "title": "Georg Philipp Telemann (1681-1767)",
     "url": "portraits/georg-philipp-telemann.jpg",
     "width": 512,
     "wikidata": "Q75854"
@@ -1853,7 +1853,7 @@
    "portrait": {
     "artist": "Nadar",
     "attributionRequired": false,
-    "date": "before 1880date QS:P,+1880-00-00T00:00:00Z/7,P1326,+1880-00-00T00:00:00Z/9",
+    "date": "before 1880",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1872,7 +1872,7 @@
    "nameEn": "Jean-Paul-Égide Martini",
    "trackCount": 1,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
     "date": "1813",
     "height": 512,
@@ -1895,7 +1895,7 @@
    "portrait": {
     "artist": "August Weger",
     "attributionRequired": false,
-    "date": "19th centurydate QS:P571,+1850-00-00T00:00:00Z/7",
+    "date": "19th century",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1916,7 +1916,7 @@
    "portrait": {
     "artist": "Karl Anton Nyblin (1864-1894), Bergen, Norway",
     "attributionRequired": false,
-    "date": "before 1895date QS:P,+1895-00-00T00:00:00Z/7,P1326,+1895-00-00T00:00:00Z/9",
+    "date": "before 1895",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1944,7 +1944,7 @@
    "portrait": {
     "artist": "E. Linde & Co.",
     "attributionRequired": false,
-    "date": "19th centurydate QS:P,+1850-00-00T00:00:00Z/7",
+    "date": "19th century",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -1993,7 +1993,7 @@
    "portrait": {
     "artist": "Anton Wachsmann",
     "attributionRequired": false,
-    "date": "1820date QS:P571,+1820-00-00T00:00:00Z/9",
+    "date": "1820",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -2014,7 +2014,7 @@
    "portrait": {
     "artist": "After John Russell",
     "attributionRequired": false,
-    "date": "copy of a 18th centurydate QS:P571,+1750-00-00T00:00:00Z/7 portrait",
+    "date": "copy of a 18th century portrait",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -2035,7 +2035,7 @@
    "portrait": {
     "artist": "Elmer Chickering",
     "attributionRequired": false,
-    "date": "1900date QS:P571,+1900-00-00T00:00:00Z/9",
+    "date": "1900",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -2096,7 +2096,7 @@
    "nameEn": "Leoš Janáček",
    "trackCount": 1,
    "portrait": {
-    "artist": "AnonymousUnknown author",
+    "artist": "Anonymous",
     "attributionRequired": false,
     "date": "1899",
     "height": 512,
@@ -2119,14 +2119,14 @@
    "portrait": {
     "artist": "Pompeo Batoni",
     "attributionRequired": false,
-    "date": "between circa 1764 and circa 1767date QS:P,+1764-00-00T00:00:00Z/8,P1319,+1764-00-00T00:00:00Z/9,P1326,+1767-00-00T00:00:00Z/9,P1480,Q5727902",
+    "date": "between circa 1764 and circa 1767",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
     "licenseUrl": null,
     "sha256": "27f9846eb4f5952439d6e331383165ecf33621999e6e14e96d50a88d07643f37",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:LBoccherini.jpg",
-    "title": "Italian: Ritratto di Luigi Boccherini Luigi Boccherini playing the violoncellolabel QS:Lhu,\"A képen Luigi Boccherini csellózik. A szerző ismeretlen.\"label QS:Lde,\"Luigi Boccherini beim Violoncellospielen\"label QS:Len,\"Luigi Boccherini playing the violoncello\"label QS:Lru,\"Неизвестный художник. Портрет Луиджи Боккерини, играющего на виолончели. Около 1764-1767. Оригинал в Национальной галерее провинции Виктория (Австралия)\"",
+    "title": "Luigi Boccherini playing the violoncello",
     "url": "portraits/luigi-boccherini.jpg",
     "width": 512,
     "wikidata": "Q189766"
@@ -2203,7 +2203,7 @@
    "portrait": {
     "artist": "Jean-Auguste-Dominique Ingres",
     "attributionRequired": false,
-    "date": "1819date QS:P571,+1819-00-00T00:00:00Z/9",
+    "date": "1819",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -2222,9 +2222,9 @@
    "nameEn": "Pablo de Sarasate",
    "trackCount": 1,
    "portrait": {
-    "artist": "=Unknown authorUnknown author (The photographer is unknown and not mentioned in the source.)",
+    "artist": "=Unknown author (The photographer is unknown and not mentioned in the source.)",
     "attributionRequired": false,
-    "date": "by 3 March 1906date QS:P,+1906-03-03T00:00:00Z/7,P1326,+1906-03-03T00:00:00Z/11",
+    "date": "by 3 March 1906",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -2287,7 +2287,7 @@
    "portrait": {
     "artist": "Charles Bergamasco",
     "attributionRequired": false,
-    "date": "1894date QS:P571,+1894-00-00T00:00:00Z/9",
+    "date": "1894",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -2306,9 +2306,9 @@
    "nameEn": "Stephen Foster",
    "trackCount": 1,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
-    "date": "circa 1860date QS:P,+1860-00-00T00:00:00Z/9,P1480,Q5727902",
+    "date": "circa 1860",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -2336,7 +2336,7 @@
     "licenseUrl": null,
     "sha256": "253d0011c0c0a26fb10558c455872fb963299e57c436cac92aafc345db109091",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tomaso_Albinoni.jpg",
-    "title": "Tomaso Albinoni (1671 - 1751)label QS:Len,\"Tomaso Albinoni (1671 - 1751)\"",
+    "title": "Tomaso Albinoni (1671 - 1751)",
     "url": "portraits/tomaso-albinoni.jpg",
     "width": 512,
     "wikidata": "Q174606"
@@ -2348,9 +2348,9 @@
    "nameEn": "Tomaso Antonio Vitali",
    "trackCount": 1,
    "portrait": {
-    "artist": "Unknown authorUnknown author",
+    "artist": "Unknown author",
     "attributionRequired": false,
-    "date": "18th centurydate QS:P,+1750-00-00T00:00:00Z/7",
+    "date": "18th century",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",
@@ -2413,7 +2413,7 @@
    "portrait": {
     "artist": "Atelier Reutlinger",
     "attributionRequired": false,
-    "date": "circa 1900date QS:P,+1900-00-00T00:00:00Z/9,P1480,Q5727902",
+    "date": "circa 1900",
     "height": 512,
     "license": "Public domain",
     "licenseCode": "pd",

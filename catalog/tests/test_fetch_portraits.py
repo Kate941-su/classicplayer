@@ -111,6 +111,44 @@ def test_strip_html():
     assert fp.strip_html("<br>") is None and fp.strip_html(None) is None
 
 
+def test_strip_html_drops_hidden_elements():
+    # Commons の作者欄: 非表示の span に同じ名前が重ねてある（以前は "Unknown authorUnknown author" になった）
+    assert fp.strip_html('<div class="fn value">\nUnknown author<span style="display: none;">Unknown author</span></div>') \
+        == "Unknown author"
+    assert fp.strip_html("A<br>B<br/>C") == "A B C"
+
+
+# 2026-11-21 に Commons から取得した ObjectName（File:Wolfgang-amadeus-mozart 1.jpg、File:Beethoven.jpg、
+# File:Henry Purcell by John Closterman.jpg）を短くしたもの
+MOZART = ('<div class="fn">\n<div style="font-weight:bold;display:inline-block;"><div style="display:inline-block" dir="ltr" '
+          'lang="en"><i>Portrait of Wolfgang Amadeus Mozart</i></div></div><div style="display: none;">label QS:Lru,'
+          '"Портрет Вольфганга Амадея Моцарта"</div><div style="display: none;">label QS:Len,"Portrait of Wolfgang '
+          'Amadeus Mozart"</div></div>')
+BEETHOVEN = ('<div class="fn">\n<div style="font-size:0.9em;display:inline-block;">German:  <div style="display:inline-block" '
+             'dir="ltr" lang="de"><i>Portrait <a href="//commons.wikimedia.org/wiki/Ludwig_van_Beethoven">Beethovens</a> mit '
+             'der Partitur zur Missa Solemnis</i></div></div><br><div style="font-weight:bold;display:inline-block;">'
+             '<div style="display:inline-block" dir="ltr" lang="en"><i>Portrait of <a href="x">Ludwig van Beethoven</a> '
+             'when composing the Missa Solemnis</i></div></div><div style="display: none;">title QS:P1476,de:"Portrait '
+             'Beethovens"</div><div style="display: none;">label QS:Len,"Portrait of Ludwig van Beethoven"</div></div>')
+PURCELL = ('<div class="fn">\n<div style="font-weight:bold;display:inline-block;"><div style="display:inline-block" dir="ltr" '
+           'lang="en"><i>Henry Purcell <span class="mw-valign-text-top noprint" typeof="mw:File/Frameless"><a href="https:'
+           '//www.wikidata.org/wiki/Q28044816#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" '
+           'src="x.png" width="10" height="10"></a></span></i></div></div><div style="display: none;">title QS:P1476,en:'
+           '"Henry Purcell "</div></div>')
+WEBER_DE_ONLY = ('<div class="fn"><div style="font-size:0.9em;display:inline-block;">German:  <div style="display:inline-block" '
+                 'dir="ltr" lang="de"><i>Bildnis des Komponisten Carl Maria von Weber</i></div></div></div>')
+
+
+def test_object_name_prefers_english_and_drops_quickstatements():
+    assert fp.object_name(MOZART) == "Portrait of Wolfgang Amadeus Mozart"
+    assert fp.object_name(BEETHOVEN) == "Portrait of Ludwig van Beethoven when composing the Missa Solemnis"
+    assert fp.object_name(PURCELL) == "Henry Purcell"
+    # 英語がなければ最初の言語（言語名の「German:」は付けない）
+    assert fp.object_name(WEBER_DE_ONLY) == "Bildnis des Komponisten Carl Maria von Weber"
+    assert fp.object_name("Plain <i>title</i>") == "Plain title"
+    assert fp.object_name(None) is None
+
+
 def test_make_square_size_format_and_no_exif():
     out = Image.open(io.BytesIO(fp.make_square(png())))
     assert out.format == "JPEG" and out.size == (512, 512)

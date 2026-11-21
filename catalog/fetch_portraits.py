@@ -166,12 +166,32 @@ def search_candidates(get: HttpGet, composer: dict, limit: int = 5) -> list[dict
 
 
 # ---------------------------------------------------------------- Commons
+# Commons の extmetadata の HTML には、画面に出ない要素（display: none の `label QS:…`、作者名の重複）が入っている
+_HIDDEN_RE = re.compile(r'<(div|span)\b[^>]*style="[^"]*display:\s*none[^"]*"[^>]*>.*?</\1>', re.S | re.I)
+# 多言語の作品名（{{title|…}}）。言語ごとに <div lang="xx"> で並ぶ
+_LANG_BLOCK_RE = re.compile(r'<div\b[^>]*\blang="([A-Za-z-]+)"[^>]*>(.*?)</div>', re.S)
+
+
 def strip_html(s: str | None) -> str | None:
+    """HTML をテキストにする。非表示の要素は除き、改行（<br>）は空白にする。"""
     if not s:
         return None
+    s = _HIDDEN_RE.sub("", s)
+    s = re.sub(r"<br\s*/?>", " ", s, flags=re.I)
     s = re.sub(r"<[^>]+>", "", s)
     s = " ".join(unescape(s).split())
     return s or None
+
+
+def object_name(s: str | None, prefer: str = "en") -> str | None:
+    """作品名。複数の言語で書かれていれば prefer の言語（なければ最初の言語）だけを使う。"""
+    if not s:
+        return None
+    blocks = _LANG_BLOCK_RE.findall(_HIDDEN_RE.sub("", s))
+    if blocks:
+        lang, body = next(((lang, body) for lang, body in blocks if lang.lower() == prefer), blocks[0])
+        return strip_html(body) or strip_html(s)
+    return strip_html(s)
 
 
 def commons_info(get: HttpGet, filename: str, width: int = 1024) -> dict | None:
@@ -193,7 +213,7 @@ def commons_info(get: HttpGet, filename: str, width: int = 1024) -> dict | None:
             "licenseUrl": md.get("LicenseUrl"),
             "artist": strip_html(md.get("Artist")),
             "credit": strip_html(md.get("Credit")),
-            "objectName": strip_html(md.get("ObjectName")),
+            "objectName": object_name(md.get("ObjectName")),
             "date": strip_html(md.get("DateTimeOriginal")),
             "attributionRequired": str(md.get("AttributionRequired", "")).lower() == "true",
             "nonFree": str(md.get("NonFree", "")).lower() == "true",
