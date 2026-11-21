@@ -1,6 +1,8 @@
 package app.cmsl.classical.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -71,7 +73,9 @@ fun CmslRoot(container: AppContainer) {
             val onPlayer = entry?.destination?.hasRoute<PlayerRoute>() == true
             val playerVm = containerViewModel { PlayerViewModel(it) }
             val playerState by playerVm.state.collectAsStateWithLifecycle()
+            // 上のシステムバーは各画面の TopAppBar が空ける。ここで空けるのはタブバーとミニプレイヤーの分だけ
             Scaffold(
+                contentWindowInsets = WindowInsets(0, 0, 0, 0),
                 bottomBar = {
                     if (!onPlayer) {
                         Column {
@@ -86,7 +90,7 @@ fun CmslRoot(container: AppContainer) {
                     }
                 },
             ) { padding ->
-                CmslNavHost(nav, Modifier.padding(padding))
+                CmslNavHost(nav, Modifier.padding(padding).consumeWindowInsets(padding))
             }
         }
     }

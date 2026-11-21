@@ -30,6 +30,9 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: ビルド・テスト・lint・detekt
         run: ./gradlew assembleDebug test lint detekt --console=plain
+      - name: 依存監査（広告・解析・クラッシュ収集の SDK がないこと。PLAN 1.10）
+        working-directory: .
+        run: tool/check-android-deps.sh
       - name: レポートを保存（失敗時）
         if: failure()
         uses: actions/upload-artifact@v4
