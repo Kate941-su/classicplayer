@@ -36,6 +36,17 @@ fun AboutTrackDialog(track: Track, license: License, onDismiss: () -> Unit) {
                 Text(stringResource(R.string.credit_license, license.name), style = MaterialTheme.typography.bodyMedium)
                 Spacer(Modifier.height(4.dp))
                 Text(stringResource(R.string.credit_note), style = MaterialTheme.typography.bodySmall)
+                // 肖像画を出している曲は、そのクレジットと「画像のクレジット」画面への導線（SPEC §4.8）
+                LocalPortraits.current?.portraitOf(track.composerId)?.let { portrait ->
+                    Spacer(Modifier.height(8.dp))
+                    PortraitCredit(portrait)
+                    LocalOpenImageCredits.current?.let { open ->
+                        TextButton(onClick = {
+                            onDismiss()
+                            open()
+                        }) { Text(stringResource(R.string.image_credits)) }
+                    }
+                }
             }
         },
         confirmButton = {

@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -74,7 +75,7 @@ class InfoViewModel(private val container: AppContainer) : ViewModel() {
 }
 
 @Composable
-fun InfoScreen(onLicenses: () -> Unit) {
+fun InfoScreen(onLicenses: () -> Unit, onImageCredits: () -> Unit) {
     val vm = containerViewModel { InfoViewModel(it) }
     val state by vm.state.collectAsStateWithLifecycle()
     val uri = LocalUriHandler.current
@@ -83,7 +84,7 @@ fun InfoScreen(onLicenses: () -> Unit) {
         val license = s.catalog.index.catalog.license
         val privacyUrl = PRIVACY_URL_PATH.localized()
         val supportUrl = SUPPORT_URL_PATH.localized()
-        LazyColumn(contentPadding = padding) {
+        LazyColumn(contentPadding = padding, modifier = Modifier.testTag("info")) {
             item {
                 SectionHeader(stringResource(R.string.info_about))
                 Paragraph(stringResource(R.string.info_about_body))
@@ -95,6 +96,11 @@ fun InfoScreen(onLicenses: () -> Unit) {
                 Paragraph(stringResource(R.string.credit_license, license.name))
                 LinkRow(stringResource(R.string.info_cmsl_site)) { uri.openUri(license.url) }
                 Paragraph(stringResource(R.string.info_terms_body))
+                ListItem(
+                    modifier = Modifier.clickable(role = Role.Button, onClick = onImageCredits),
+                    headlineContent = { Text(stringResource(R.string.image_credits)) },
+                    supportingContent = { Text(stringResource(R.string.image_credits_intro)) },
+                )
             }
             item {
                 SectionHeader(stringResource(R.string.info_privacy))

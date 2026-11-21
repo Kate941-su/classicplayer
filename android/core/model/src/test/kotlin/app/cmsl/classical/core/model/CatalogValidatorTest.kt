@@ -36,4 +36,20 @@ class CatalogValidatorTest {
         val dangling = sample.copy(replacedTracks = mapOf("1" to "2"))
         assertEquals(listOf("replacedTracks 1: 置き換え先 2 がない"), CatalogValidator.validate(dangling))
     }
+
+    @Test
+    fun `肖像画はなくても通り、パスとハッシュの形式が違えば拒否する`() {
+        val sample = Fixtures.sample()
+        val beethoven = sample.composers.first { it.id == "l-v-beethoven" }
+        val portrait = requireNotNull(beethoven.portrait)
+        assertEquals("portraits/l-v-beethoven.jpg", portrait.url)
+        fun with(p: Portrait?) = sample.copy(
+            composers = sample.composers.map { if (it == beethoven) it.copy(portrait = p) else it }
+        )
+        assertEquals(emptyList<String>(), CatalogValidator.validate(with(null)))
+        assertTrue(CatalogValidator.validate(with(portrait.copy(url = "portraits/j-s-bach.jpg"))).isNotEmpty())
+        assertTrue(CatalogValidator.validate(with(portrait.copy(url = "../catalog.json"))).isNotEmpty())
+        assertTrue(CatalogValidator.validate(with(portrait.copy(sha256 = "ABC"))).isNotEmpty())
+        assertTrue(CatalogValidator.validate(with(portrait.copy(sourceUrl = "https://example.com/a"))).isNotEmpty())
+    }
 }

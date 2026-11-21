@@ -22,14 +22,14 @@
     <li>最近の検索語（最大10件）</li>
     <li>再生キューと再生位置</li>
     <li>オフラインで聴くためにダウンロードした音源ファイルと、ダウンロードの設定（Wi-Fi のときだけ取得するか）</li>
-    <li>曲目カタログ（下記 2-1 で取得したもの）</li>
+    <li>曲目カタログと作曲家の肖像画（下記 2-1 で取得したもの）</li>
     <li>「応援者」バッジの表示の有無（チップを購入した場合）</li>
   </ul>
 
   <h2>2. アプリが行う通信</h2>
   <p>本アプリが通信するのは、次の 2 つだけです。どちらも、利用者を識別する情報を本アプリから付け加えて送ることはありません。</p>
   <ul>
-    <li><strong>2-1. 曲目カタログの取得</strong>: GitHub Pages（<code>kate941-su.github.io</code>）から、曲目の一覧（JSON ファイル）を取得します。</li>
+    <li><strong>2-1. 曲目カタログの取得</strong>: GitHub Pages（<code>kate941-su.github.io</code>）から、曲目の一覧（JSON ファイル）と、作曲家の肖像画（Wikimedia Commons の画像を開発者が加工して置いたもの）を取得します。アプリが Wikimedia に直接アクセスすることはありません。</li>
     <li><strong>2-2. 音源の再生</strong>: 曲を再生するとき、CMSL クラシック名曲サウンドライブラリーの音源ファイル（<code>classical-sound.up.seesaa.net</code>）を直接ストリーミングします。曲をダウンロードするときも、同じ音源ファイルを同じ通信先から取得します。2011〜2012 年ごろに公開された一部の曲は、音源の制作者の旧サーバー（<code>classical-music.aki.gs</code>、<code>andotowa.sakura.ne.jp</code>、<code>classical-music.sakura.ne.jp</code>）から再生します。これらのサーバーは暗号化通信（https）に対応していないため、この通信は暗号化されず、同じネットワーク上の第三者に再生中の曲が分かる可能性があります。</li>
   </ul>
   <p>通信の際、通信先のサーバーには、一般的なインターネット通信と同様に IP アドレスなどが届きます。これらは各サービスの方針に従って扱われます（<a href="https://docs.github.com/ja/site-policy/privacy-policies/github-general-privacy-statement">GitHub のプライバシーステートメント</a>、<a href="https://www.seesaa.co.jp/">Seesaa</a>、旧サーバーの各ホスティング事業者）。開発者がこれらの情報を受け取ることはありません。</p>

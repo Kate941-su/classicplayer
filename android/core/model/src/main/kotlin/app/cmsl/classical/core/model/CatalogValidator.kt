@@ -12,6 +12,8 @@ object CatalogValidator {
             """http://(classical-music\.aki\.gs|andotowa\.sakura\.ne\.jp|classical-music\.sakura\.ne\.jp))/\S+\.mp3$"""
     )
     private val ARTICLE_URL = Regex("""^https://classical-sound\.seesaa\.net/article/[0-9]+\.html$""")
+    private val SHA256 = Regex("^[0-9a-f]{64}$")
+    private val COMMONS_URL = Regex("^https://commons\\.wikimedia\\.org/\\S+$")
 
     fun validate(catalog: Catalog): List<String> = buildList {
         if (catalog.schemaVersion != SUPPORTED_SCHEMA_VERSION) {
@@ -25,6 +27,7 @@ object CatalogValidator {
         addDuplicates("track", catalog.tracks.map { it.id })
 
         addReferenceErrors(catalog)
+        addPortraitErrors(catalog)
         addCountErrors(catalog)
         val trackIds = catalog.tracks.mapTo(HashSet()) { it.id }
         catalog.replacedTracks.forEach { (old, new) ->
@@ -48,6 +51,18 @@ object CatalogValidator {
             if (!ARTICLE_URL.matches(t.articleUrl)) add("track ${t.id}: articleUrl の形式が違う")
         }
     }
+
+    /** 肖像画は `portraits/{composer.id}.jpg` に限る（ほかのパスやホストの画像を読まないため。SPEC §3.6）。 */
+    private fun MutableList<String>.addPortraitErrors(catalog: Catalog) {
+        catalog.composers.forEach { c ->
+            val p = c.portrait ?: return@forEach
+            if (p.url != portraitPath(c.id)) add("composer ${c.id}: portrait.url が ${portraitPath(c.id)} ではない")
+            if (!SHA256.matches(p.sha256)) add("composer ${c.id}: portrait.sha256 の形式が違う")
+            if (!COMMONS_URL.matches(p.sourceUrl)) add("composer ${c.id}: portrait.sourceUrl が Commons ではない")
+        }
+    }
+
+    fun portraitPath(composerId: String): String = "portraits/$composerId.jpg"
 
     private fun MutableList<String>.addCountErrors(catalog: Catalog) {
         val byGenre = catalog.tracks.groupingBy { it.genreId }.eachCount()

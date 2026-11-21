@@ -27,7 +27,10 @@ def portrait(cid, data=JPG, **kw):
 
 
 def with_portrait(cid=None, **kw):
+    """肖像画を 1 人だけに付けたカタログ（フィクスチャのほかの作曲家の肖像画は外す。画像ファイルの検査を自己完結させるため）。"""
     cat = copy.deepcopy(SAMPLE)
+    for other in cat["composers"]:
+        other["portrait"] = None
     c = cat["composers"][0] if cid is None else next(c for c in cat["composers"] if c["id"] == cid)
     c["portrait"] = portrait(c["id"], **kw)
     return cat, c["id"]

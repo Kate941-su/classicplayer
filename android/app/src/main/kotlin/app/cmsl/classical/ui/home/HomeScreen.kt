@@ -50,6 +50,7 @@ import app.cmsl.classical.core.playback.QueueBuilder
 import app.cmsl.classical.di.AppContainer
 import app.cmsl.classical.ui.components.Artwork
 import app.cmsl.classical.ui.components.CmslTopBar
+import app.cmsl.classical.ui.components.GeneratedArtwork
 import app.cmsl.classical.ui.components.Loading
 import app.cmsl.classical.ui.components.SectionHeader
 import app.cmsl.classical.ui.containerViewModel
@@ -172,7 +173,7 @@ private fun GenreCard(genre: Genre, english: Boolean, onClick: () -> Unit) {
             .fillMaxWidth()
             .semantics(mergeDescendants = true) { contentDescription = "$name, $count" },
     ) {
-        Artwork(
+        GeneratedArtwork(
             composerId = genre.id,
             genreId = genre.id,
             modifier = Modifier.fillMaxWidth().aspectRatio(2f),

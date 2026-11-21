@@ -8,6 +8,6 @@ cd android && ./gradlew :app:testDebugUnitTest --tests '*ScreenshotsTest' -Pcmsl
 
 | ファイル | 内容 |
 |---|---|
-| `{ja,en}-light-*.png` / `ja-dark-*.png` | ホーム・ジャンル・作品（再生開始後）・フルプレイヤー |
+| `{ja,en}-light-*.png` / `ja-dark-*.png` | ホーム・ジャンル・作曲家（肖像画とクレジット）・作品（再生開始後）・フルプレイヤー・画像のクレジット |
 
 実機・エミュレーターでの見た目は `tool/run.sh` で確認する。

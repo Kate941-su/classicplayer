@@ -18,6 +18,9 @@ data object InfoRoute
 data object LicensesRoute
 
 @Serializable
+data object ImageCreditsRoute
+
+@Serializable
 data object PlayerRoute
 
 @Serializable

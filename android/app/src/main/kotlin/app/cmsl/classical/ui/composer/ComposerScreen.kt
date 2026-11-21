@@ -1,9 +1,11 @@
 package app.cmsl.classical.ui.composer
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -38,8 +41,10 @@ import app.cmsl.classical.core.playback.QueueBuilder
 import app.cmsl.classical.di.AppContainer
 import app.cmsl.classical.ui.TrackActions
 import app.cmsl.classical.ui.components.AboutTrackDialog
+import app.cmsl.classical.ui.components.Artwork
 import app.cmsl.classical.ui.components.CmslTopBar
 import app.cmsl.classical.ui.components.Loading
+import app.cmsl.classical.ui.components.PortraitCredit
 import app.cmsl.classical.ui.components.TrackRow
 import app.cmsl.classical.ui.components.TrackRowActions
 import app.cmsl.classical.ui.containerViewModel
@@ -97,6 +102,21 @@ class ComposerViewModel(
     }
 }
 
+/** 肖像画（なければ生成アートワーク）と、肖像画のクレジット（SPEC §4.4）。 */
+@Composable
+private fun ComposerHeader(composer: Composer, genreId: String?) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, top = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Artwork(composer.id, genreId.orEmpty(), Modifier.size(120.dp), cornerRadius = 12)
+        Spacer(Modifier.width(16.dp))
+        composer.portrait?.let { PortraitCredit(it, Modifier.weight(1f)) }
+    }
+}
+
 @Composable
 fun ComposerScreen(composerId: String, genreId: String?, onWork: (String) -> Unit, onBack: () -> Unit) {
     val vm = containerViewModel { ComposerViewModel(it, composerId, genreId) }
@@ -114,6 +134,10 @@ fun ComposerScreen(composerId: String, genreId: String?, onWork: (String) -> Uni
             onAbout = { aboutId = it.id },
         )
         LazyColumn(contentPadding = padding) {
+            item {
+                // ジャンルを指定せずに開いたときは、その作曲家の最初の曲のジャンルの絵にする
+                ComposerHeader(s.composer, genreId ?: s.index.tracksOf(s.composer.id, null).firstOrNull()?.genreId)
+            }
             item {
                 Button(
                     onClick = vm::playAll,

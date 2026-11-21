@@ -22,14 +22,14 @@
     <li>Recent searches (up to 10)</li>
     <li>The playback queue and position</li>
     <li>Audio files you download for offline listening, and the download setting (whether to download only on Wi-Fi)</li>
-    <li>The track catalog (downloaded as described in 2-1)</li>
+    <li>The track catalog and composer portraits (downloaded as described in 2-1)</li>
     <li>Whether to show the "Supporter" badge (if you bought a tip)</li>
   </ul>
 
   <h2>2. Network connections the app makes</h2>
   <p>The app connects to only two places. In neither case does the app add information that identifies you.</p>
   <ul>
-    <li><strong>2-1. Catalog download</strong>: the track list (a JSON file) is downloaded from GitHub Pages (<code>kate941-su.github.io</code>).</li>
+    <li><strong>2-1. Catalog download</strong>: the track list (a JSON file) and the composer portraits (images from Wikimedia Commons, edited and hosted by the developer) are downloaded from GitHub Pages (<code>kate941-su.github.io</code>). The app never connects to Wikimedia directly.</li>
     <li><strong>2-2. Playback</strong>: when you play a track, the audio file is streamed directly from CMSL Classical Masterpieces Sound Library (<code>classical-sound.up.seesaa.net</code>). When you download a track, the same audio file is fetched from the same server. Some tracks published around 2011–2012 are played from the producer's former servers (<code>classical-music.aki.gs</code>, <code>andotowa.sakura.ne.jp</code>, <code>classical-music.sakura.ne.jp</code>). These servers do not support encrypted connections (HTTPS), so this traffic is not encrypted and others on the same network may be able to see which track is playing.</li>
   </ul>
   <p>As with any internet connection, these servers receive your IP address and similar technical information, which they handle under their own policies (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>, <a href="https://www.seesaa.co.jp/">Seesaa</a>, and the hosting providers of the former servers). The developer does not receive this information.</p>
