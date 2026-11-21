@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// 検索（SPEC §4.6）: 端末内のカタログを 150ms のデバウンスで検索し、作曲家・作品・曲に分けて表示する。
-/// 未入力のときは最近の検索とジャンルのチップを出す。
+/// 未入力のときは最近の検索だけを出す（ジャンルのチップはホームにあるので出さない。オーナーの決定 2026-11-21）。
 struct SearchView: View {
     @Environment(AppModel.self) private var model
     @State private var query = ""
@@ -56,22 +56,6 @@ struct SearchView: View {
                     Spacer()
                     Button("action.clear") { model.recentSearches.clear() }.font(.footnote)
                 }
-            }
-        }
-        if let index = model.index {
-            Section("home.genres") {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 120), spacing: 8)], alignment: .leading, spacing: 8) {
-                    ForEach(index.genres) { genre in
-                        NavigationLink(value: Route.genre(genre.id)) {
-                            Text(genre.displayName(english: model.english))
-                                .font(.subheadline)
-                                .frame(maxWidth: .infinity, minHeight: 44)
-                                .background(Color.accentColor.opacity(0.12), in: Capsule())
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-                .padding(.vertical, 4)
             }
         }
     }

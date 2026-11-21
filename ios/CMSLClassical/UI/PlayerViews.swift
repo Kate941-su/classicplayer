@@ -201,10 +201,9 @@ struct PlayerView: View {
                 }
                 .accessibilityLabel(Text("action.share"))
             }
-            Button { showAbout = true } label: {
-                Image(systemName: "info.circle").frame(width: 44, height: 44)
-            }
-            .accessibilityLabel(Text("action.aboutTrack"))
+            // 「…」: ダウンロード・次に再生・キューに追加・この曲について（曲の行と同じメニュー。SPEC §4.8）
+            TrackMenu(track: track, showAbout: $showAbout)
+                .accessibilityIdentifier("playerMore")
         }
     }
 
