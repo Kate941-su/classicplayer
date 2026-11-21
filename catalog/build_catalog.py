@@ -26,6 +26,7 @@ import json
 import re
 import sys
 import time
+import unicodedata
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -232,12 +233,10 @@ TIME_RE = re.compile(r"\bat\s+(\d{1,2}):(\d{2})")
 
 
 def extract_article(art_id: str, url: str, page: PageParser, blog_name_hint: str) -> Article:
-    # タイトル: og:title → <title> から「 : ブログ名」等を除去
+    # タイトル: og:title → <title> から末尾のブログ名（「 : CMSL …」「: CMSL …」「 - CMSL …」など）を除去
     title = (page.og_title or page.title).strip()
-    for sep in (" : ", "：CMSL", ": CMSL", " - ", " | "):
-        if blog_name_hint and sep in title and blog_name_hint in title.split(sep)[-1]:
-            title = sep.join(title.split(sep)[:-1]).strip()
-            break
+    if blog_name_hint:
+        title = re.sub(rf"\s*(?:[:：|]|\s-)\s*{re.escape(blog_name_hint)}\b.*$", "", title)
     title = unescape(" ".join(title.split()))
 
     # カテゴリ: 「posted by」の直後に現れる /category/ リンク
@@ -292,10 +291,16 @@ def extract_article(art_id: str, url: str, page: PageParser, blog_name_hint: str
 # 例: ベートーヴェン：ピアノソナタ 第8番 ハ短調 Op.13 「悲愴」 第2楽章 [2020][AR]
 #     / L.V.Beethoven:Piano Sonata No.8 C minor, Op.13 "Grande Sonate pathetique":II. Adagio cantabile
 TAG_RE = re.compile(r"\[([^\]]+)\]")
+_NUM = r"[0-9０-９一二三四五六七八九十]+"
+# 「第1楽章」のほか、複数の楽章をまとめた「第1,2楽章」「第3-第4楽章」「第1楽章・第2楽章」「第3, 4楽章」
+_MULTI = rf"第\s*{_NUM}(?:\s*楽章)?(?:\s*[,，、・\-－~〜]\s*(?:第\s*)?{_NUM}(?:\s*楽章)?)*"
 MOVEMENT_RES = [
-    re.compile(r"\s*(第\s*[0-9０-９一二三四五六七八九十]+\s*楽章.*)$"),
-    re.compile(r"\s*(第\s*[0-9０-９一二三四五六七八九十]+\s*(?:曲|幕|場|部|変奏)\b.*)$"),
+    re.compile(rf"\s*({_MULTI}\s*楽章.*)$"),
+    re.compile(rf"\s*(第\s*{_NUM}\s*(?:曲|幕|場|部|変奏)\b.*)$"),
 ]
+
+
+EN_SEPARATOR_RE = re.compile(r"\s+/\s+|\s*[/／]\s*(?=[A-Z\"“'])")
 
 
 def slug(s: str) -> str:
@@ -305,10 +310,12 @@ def slug(s: str) -> str:
 
 def parse_title(title: str) -> dict:
     ja, en = title, ""
-    if " / " in title:
-        ja, en = title.split(" / ", 1)
-    elif "／" in title:
-        ja, en = title.split("／", 1)
+    # 日本語 / 英語の区切り。「 / 」のほか、空白が欠けた「]/ 」「 /Antonio」もある。空白のない「/」は後ろが大文字で
+    # 始まる語のときだけ区切る（「モルダウ/クラシック名曲集」のような日本語どうしの「/」は区切らない）
+    if (m := EN_SEPARATOR_RE.search(title)):
+        ja, en = title[: m.start()], title[m.end():]
+        if not re.match(r"[A-Za-z\"“'.]", en):
+            en = ""  # 「革命 / シューベルト：即興曲」のように、2 曲目の日本語タイトルが続く記事
     tags = TAG_RE.findall(ja)
     ja = TAG_RE.sub("", ja).strip()
 
@@ -330,6 +337,7 @@ def parse_title(title: str) -> dict:
             movement = mm.group(1).strip()
             work = rest[: mm.start()].strip()
             break
+    work = work.rstrip(" :：-")
 
     return {
         "composer": composer,
@@ -339,6 +347,79 @@ def parse_title(title: str) -> dict:
         "titleEn": en.strip() or None,
         "tags": tags,
     }
+
+
+# ---------------------------------------------------------------- 複数の作品をまとめた記事
+# 例: 「オンライン特別プログラム - ブラームス 交響曲第4番 バーチャルコンサート」には、交響曲の 4 楽章のほかに
+# アンコール（Faure-Pavane-2020-IR.mp3）も入っている。記事のタイトルでは曲ごとの作曲家・作品が分からないので、
+# ファイル名「作曲家-作品-楽章-録音年-種別.mp3」から解釈し、作曲家と作品名は通常の記事の同じ曲に合わせる。
+COMPILATION_RE = re.compile(r"^オンライン特別プログラム|バーチャルコンサート")
+_ORDINAL_RE = re.compile(r"^(\d+)(?:st|nd|rd|th)$", re.I)
+_YEAR_RE = re.compile(r"^(?:19|20)\d\d$")
+
+
+def ascii_key(s: str) -> str:
+    """ファイル名の語の比較用（アクセント記号を外して小文字に。Dvořák → dvorak）。"""
+    return "".join(c for c in unicodedata.normalize("NFKD", s) if not unicodedata.combining(c)).lower()
+
+
+def parse_file_name(file_name: str) -> dict:
+    """mp3 のファイル名を語に分ける。
+
+    `064-Tchaikovsky-Symphony-No6-4th.mp3` → composer "tchaikovsky", work "symphony-no6", movements [4]
+    `Beethoven-Symphony-No5-3rd-4th-2020-IR.mp3` → movements [3, 4], tags ["2020", "IR"]
+    """
+    stem = re.sub(r"\.mp3$", "", file_name, flags=re.I)
+    stem = re.sub(r"^\d{3}-", "", stem)  # 通し番号（064-…）
+    words = [w for w in re.split(r"[-_\s]+", stem.replace("SymNo", "Symphony-No").replace("No.", "No")) if w]
+    tags: list[str] = []
+    for i, w in enumerate(words):
+        if _YEAR_RE.match(w):
+            tags = words[i:]
+            words = words[:i]
+            break
+    movements = []
+    while words and (m := _ORDINAL_RE.match(words[-1])):
+        movements.insert(0, int(m.group(1)))
+        words.pop()
+    return {
+        "composer": ascii_key(words[0]) if words else None,
+        "work": ascii_key("-".join(words[1:])),
+        "workWords": words[1:],
+        "movements": movements,
+        "tags": tags,
+    }
+
+
+_VARIANT_RE = re.compile(r"(?<![A-Za-z])(AR|VR|IR)(?![A-Za-z])")
+
+
+def recording_key(tags: list[str], file_name: str) -> str:
+    """同じ作品の別録音を区別するキー。「年 + 種別（AR/VR/IR）」をタグ、なければファイル名から取る。
+
+    `["2019", "AR"]` → "2019 AR"、`Beethoven-Symphony-No5-1st-2015.mp3` → "2015"、年も種別もなければ ""。
+    """
+    joined = " ".join(tags)
+    pf = parse_file_name(file_name)
+    year = re.search(r"(?:19|20)\d\d", joined) or re.search(r"(?:19|20)\d\d", " ".join(pf["tags"]))
+    variant = _VARIANT_RE.search(joined) or _VARIANT_RE.search(" ".join(pf["tags"]))
+    return " ".join(x.group(0) for x in (year, variant) if x)
+
+
+def is_compilation(art: Article) -> bool:
+    """曲ごとに作曲家・作品が違う記事。タイトル（オンライン特別プログラム）か、ファイル名の作曲家が 2 人以上いるもの。"""
+    if COMPILATION_RE.search(art.title):
+        return True
+    composers = {parse_file_name(file_name_of(u))["composer"] for u, _ in art.mp3s}
+    return len(composers) > 1
+
+
+def movement_label(numbers: list[int]) -> str | None:
+    if not numbers:
+        return None
+    if len(numbers) == 1:
+        return f"第{numbers[0]}楽章"
+    return f"第{numbers[0]}楽章-第{numbers[-1]}楽章"
 
 
 # ---------------------------------------------------------------- 巡回
@@ -441,6 +522,35 @@ class Overrides:
         return self.aliases.get(name, name)
 
 
+def file_name_of(mp3_url: str) -> str:
+    return urllib.parse.unquote(mp3_url.rsplit("/", 1)[-1])
+
+
+def track_id(art: Article, index: int) -> str:
+    """記事 ID 由来で恒久（SPEC §3.2）。1 記事に複数の mp3 があれば「記事ID-連番」。"""
+    return f"{art.id}-{index}" if len(art.mp3s) > 1 else art.id
+
+
+def work_slug(title: str) -> str:
+    """作品の ID。空白の有無（「交響曲 第5番」と「交響曲第5番」）や全角・半角の違いは同じ作品として扱う。"""
+    return slug(re.sub(r"\s+", "", unicodedata.normalize("NFKC", title)))
+
+
+def split_en(title: str) -> str:
+    """タイトルの日本語の部分（英語タイトルの前まで）。"""
+    m = EN_SEPARATOR_RE.search(title)
+    return title[: m.start()] if m else title
+
+
+def track_title(art: Article, fname: str, info: dict, composer: str | None) -> str:
+    base = split_en(art.title)
+    if is_compilation(art) and composer not in (None, UNKNOWN_COMPOSER):
+        # まとめ記事の曲は、通常の記事と同じ「作曲家：作品 楽章 [年][種別]」の形にする
+        parts = [f"{composer}：{info['work']}"] + ([info["movement"]] if info["movement"] else [])
+        return " ".join(parts) + "".join(f"[{t}]" for t in info["tags"])
+    return base if len(art.mp3s) == 1 else f"{base} ({fname})"
+
+
 # ---------------------------------------------------------------- 組み立て
 def build(pages, category_listing, category_names, exclude: list[str],
           genre_map: GenreMap | None = None, overrides: Overrides | None = None):
@@ -477,13 +587,30 @@ def build(pages, category_listing, category_names, exclude: list[str],
         return cat is not None and any(x.lower() in cat.lower() for x in exclude)
 
     report = {"noMp3": [], "streamOnly": [], "noComposer": [], "noCategory": [], "excluded": 0,
-              "excludedByOverride": [], "categories": {}, "unmappedCategories": {}}
+              "excludedByOverride": [], "duplicateAudio": [], "categories": {}, "unmappedCategories": {}}
     category_count: Counter = Counter()
     unmapped: Counter = Counter()
 
-    # 1 周目: 記事ごとに解釈し、作曲家の英語表記を集める
-    entries = []
+    # 1 周目: 記事ごとに解釈し、作曲家の英語表記を集める。複数の作品をまとめた記事は 2 周目で曲ごとに解釈する
+    entries = []  # 曲ごと: (記事, 連番, mp3, ファイル名, 解釈, 作曲家, ジャンル)
+    compilations = []
     en_votes: dict[str, Counter] = defaultdict(Counter)
+
+    def resolve_genre(art, ov) -> str:
+        if "genre" in ov:
+            if ov["genre"] not in genre_map.genres:
+                raise ValueError(f"overrides.json: 記事 {art.id} の未定義のジャンル ID {ov['genre']!r}")
+            return ov["genre"]
+        gid, mapped = genre_map.resolve(art.category)
+        if art.category is not None and not mapped:
+            unmapped[art.category] += len(art.mp3s)
+        return gid
+
+    def apply(info, ov):
+        for key in ("composer", "composerEn", "work", "movement"):
+            if key in ov:
+                info[key] = ov[key]
+
     for art in sorted(articles, key=lambda a: (a.published or "", a.id)):
         if excluded(art.category):
             report["excluded"] += 1
@@ -494,39 +621,100 @@ def build(pages, category_listing, category_names, exclude: list[str],
         if not art.mp3s:
             (report["streamOnly"] if art.stream_only else report["noMp3"]).append(art.url)
             continue
-        info = parse_title(art.title)
-        ov = overrides.tracks.get(art.id, {})
-        for key in ("composer", "composerEn", "work", "movement"):
-            if key in ov:
-                info[key] = ov[key]
-        composer = overrides.canonical_composer(info["composer"])
-        if composer is None:
-            report["noComposer"].append(art.url)
-            composer = UNKNOWN_COMPOSER
-        if info["composerEn"]:
-            en_votes[composer][info["composerEn"]] += 1
-
         if art.category is None:
             report["noCategory"].append(art.url)
         else:
             category_count[art.category] += len(art.mp3s)
-        if "genre" in ov:
-            gid, mapped = ov["genre"], True
-            if gid not in genre_map.genres:
-                raise ValueError(f"overrides.json: 記事 {art.id} の未定義のジャンル ID {gid!r}")
-        else:
-            gid, mapped = genre_map.resolve(art.category)
-        if art.category is not None and not mapped:
-            unmapped[art.category] += len(art.mp3s)
+        ov = overrides.tracks.get(art.id, {})
+        gid = resolve_genre(art, ov)
         if art.category is not None:
             report["categories"][art.category] = gid
-        entries.append((art, info, composer, gid))
+        if is_compilation(art) and "composer" not in ov:
+            compilations.append((art, gid))
+            continue
+        info = parse_title(art.title)
+        apply(info, ov)
+        composer = overrides.canonical_composer(info["composer"])
+        if composer is not None and info["composerEn"]:
+            en_votes[composer][info["composerEn"]] += 1
+        for i, (mp3, _) in enumerate(art.mp3s):
+            fname = file_name_of(mp3)
+            track_info = info
+            if len(art.mp3s) > 1 and "movement" not in ov and (numbers := parse_file_name(fname)["movements"]):
+                # 「第1,2楽章」の記事に mp3 が 2 つ → 1st / 2nd をそれぞれの楽章にする
+                track_info = {**info, "movement": movement_label(numbers)}
+            entries.append([art, i, mp3, fname, track_info, composer, gid])
+
+    # 2 周目: まとめ記事の曲を、ファイル名と通常の記事の対応（作曲家の語 → 作曲家、作品の語 → 作品名・ジャンル）で解釈する
+    composer_by_word: dict[str, Counter] = defaultdict(Counter)
+    work_by_words: dict[tuple, Counter] = defaultdict(Counter)
+    for _, _, _, fname, info, composer, gid in entries:
+        if composer is None:
+            continue
+        pf = parse_file_name(fname)
+        composer_by_word[pf["composer"]][composer] += 1
+        work_by_words[(composer, pf["work"])][(info["work"], gid)] += 1
+    alias_by_word = {ascii_key(k): v for k, v in overrides.aliases.items()}
+    for art, article_gid in compilations:
+        for i, (mp3, _) in enumerate(art.mp3s):
+            fname = file_name_of(mp3)
+            pf = parse_file_name(fname)
+            composer = alias_by_word.get(pf["composer"])
+            if composer is None and composer_by_word[pf["composer"]]:
+                composer = composer_by_word[pf["composer"]].most_common(1)[0][0]
+            titled = parse_title(art.title)
+            title_composer = overrides.canonical_composer(titled["composer"])
+            if composer is None and title_composer is not None:
+                # 通常の記事にない語でも、タイトルの作曲家の英語名の姓と一致すれば、その作曲家（Elgar-… → エルガー）
+                names_en = [titled["composerEn"], overrides.composer_en.get(title_composer), *en_votes[title_composer]]
+                if any(n and ascii_key(re.split(r"[\s.]+", n.strip())[-1]) == pf["composer"] for n in names_en):
+                    composer = title_composer
+            gid = article_gid
+            info = {"composer": composer, "composerEn": None, "work": " ".join(pf["workWords"]) or art.title,
+                    "movement": movement_label(pf["movements"]), "titleEn": None, "tags": pf["tags"]}
+            if composer is not None and work_by_words[(composer, pf["work"])]:
+                info["work"], gid = work_by_words[(composer, pf["work"])].most_common(1)[0][0]
+            elif composer is not None and composer == title_composer:
+                # 記事の主役の曲（タイトルの作曲家と同じ）は、タイトルの作品名・楽章・英語タイトルを使う
+                info.update({k: titled[k] for k in ("work", "movement", "titleEn", "tags", "composerEn")})
+            entries.append([art, i, mp3, fname, info, composer, gid])
+
+    # 同じ mp3 を再掲した記事（紹介記事・再投稿）は、最初に公開された記事の曲だけ残す
+    entries.sort(key=lambda e: (e[0].published or "", e[0].id, e[1]))  # 公開順、記事内は mp3 の順
+    first_by_audio: dict[str, str] = {}
+    kept = []
+    for e in entries:
+        tid = track_id(e[0], e[1])
+        if e[2] in first_by_audio:
+            report["duplicateAudio"].append({"id": tid, "sameAs": first_by_audio[e[2]]})
+            continue
+        first_by_audio[e[2]] = tid
+        kept.append(e)
+    entries = kept
+
+    # 曲ごとの上書き（キーが曲 ID。まとめ記事の曲は「記事ID-連番」で 1 曲ずつ直せる）。記事単位の上書きは適用済みで、
+    # 同じ内容をもう一度当てても変わらない
+    for e in entries:
+        art, i = e[0], e[1]
+        tid = track_id(art, i)
+        if tid in overrides.tracks:
+            ov = overrides.tracks[tid]
+            e[4] = info = dict(e[4])
+            apply(info, ov)
+            e[5] = overrides.canonical_composer(info["composer"])
+            if "genre" in ov:
+                e[6] = resolve_genre(art, ov)
+        if e[5] is None:
+            if art.url not in report["noComposer"]:
+                report["noComposer"].append(art.url)
+            e[5] = UNKNOWN_COMPOSER
 
     # 作曲家: 日本語の正規名でまとめる。英語表記は overrides → タイトルで最も多い表記
     composers: dict[str, dict] = {}
     composer_id: dict[str, str] = {}
     used_ids: set[str] = set()
-    for _, _, composer, _ in entries:
+    for e in entries:
+        composer = e[5]
         if composer in composer_id:
             continue
         name_en = overrides.composer_en.get(composer)
@@ -541,37 +729,51 @@ def build(pages, category_listing, category_names, exclude: list[str],
         composer_id[composer] = cid
         composers[cid] = {"id": cid, "name": composer, "nameEn": name_en, "trackCount": 0}
 
+    # 作品: 作曲家 + 作品名 + 録音でまとめる（別録音が混ざると「作品を通して再生」で同じ楽章が続くため）。
+    # 録音のキーは記事単位（1 記事の mp3 は同じ録音。カラオケ版などのタグの違いで分けない）
+    def recording_of(e) -> str:
+        art, _, mp3, fname, info = e[:5]
+        if len(art.mp3s) > 1 and not is_compilation(art):
+            return recording_key(parse_title(art.title)["tags"], file_name_of(art.mp3s[0][0]))
+        return recording_key(info["tags"], fname)  # まとめ記事は曲ごと（過去の録音が載っていることがある）
+
+    recordings: dict[tuple, set] = defaultdict(set)
+    for e in entries:
+        recordings[(e[5], work_slug(e[4]["work"]))].add(recording_of(e))
+
     genres: dict[str, dict] = {}
     works: dict[str, dict] = {}
     tracks = []
-    for art, info, composer, gid in entries:
+    for e in entries:
+        art, i, mp3, fname, info, composer, gid = e
         cid = composer_id[composer]
         g = genre_map.genres[gid]
         genres.setdefault(gid, {"id": gid, "name": g["name"], "nameEn": g.get("nameEn"),
                                 "order": g.get("order", 999), "trackCount": 0})
-        wid = f"{cid}--{slug(info['work'])}"
-        works.setdefault(wid, {"id": wid, "title": info["work"], "composerId": cid, "genreId": gid})
+        rec = recording_of(e)
+        wid = f"{cid}--{work_slug(info['work'])}" + (f"--{slug(rec)}" if rec else "")
+        title = info["work"]
+        if len(recordings[(composer, work_slug(info["work"]))]) > 1 and rec:
+            title = f"{title}（{rec}）"  # 同じ作品名の録音が複数あるときだけ、録音を書き添える
+        works.setdefault(wid, {"id": wid, "title": title, "composerId": cid, "genreId": gid})
 
-        base_title = art.title.split(" / ")[0]
-        for i, (mp3, link_text) in enumerate(art.mp3s):
-            fname = urllib.parse.unquote(mp3.rsplit("/", 1)[-1])
-            tracks.append({
-                "id": f"{art.id}-{i}" if len(art.mp3s) > 1 else art.id,
-                "title": base_title if len(art.mp3s) == 1 else f"{base_title} ({fname})",
-                "titleEn": info["titleEn"],
-                "composerId": cid,
-                "workId": wid,
-                "genreId": gid,
-                "movement": info["movement"] or None,
-                "tags": info["tags"],
-                "audioUrl": mp3,
-                "fileName": fname,
-                "articleUrl": art.url,
-                "publishedAt": art.published,
-                "durationSec": None,  # 将来拡張（SPEC §3.2）。キーは常に出力する
-            })
-            genres[gid]["trackCount"] += 1
-            composers[cid]["trackCount"] += 1
+        tracks.append({
+            "id": track_id(art, i),
+            "title": track_title(art, fname, info, composer),
+            "titleEn": info["titleEn"],
+            "composerId": cid,
+            "workId": wid,
+            "genreId": gid,
+            "movement": info["movement"] or None,
+            "tags": info["tags"],
+            "audioUrl": mp3,
+            "fileName": fname,
+            "articleUrl": art.url,
+            "publishedAt": art.published,
+            "durationSec": None,  # 将来拡張（SPEC §3.2）。キーは常に出力する
+        })
+        genres[gid]["trackCount"] += 1
+        composers[cid]["trackCount"] += 1
 
     total = len(tracks) or 1
     report["unmappedCategories"] = dict(unmapped.most_common())
