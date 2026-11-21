@@ -3,14 +3,17 @@
 
     python3 validate_catalog.py catalog.json
     python3 validate_catalog.py catalog.json --previous-manifest old-manifest.json   # 曲数の減少も検査
+    python3 validate_catalog.py catalog.json --assets-dir ../site/v1                  # 肖像画のファイルも検査
 
 検査: スキーマ / ID の重複 / 参照切れ / trackCount の整合 / URL（記事 ID と track.id の一致）/
-「その他」と「作曲者不明」の比率 / 前回からの曲数の減少。
+「その他」と「作曲者不明」の比率 / 前回からの曲数の減少 /
+肖像画（url の形式。--assets-dir があればファイルの有無と sha256、使われていない画像）。
 エラーがあれば終了コード 1。依存: jsonschema（requirements-dev.txt）。
 """
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from collections import Counter
@@ -35,8 +38,36 @@ def schema_errors(catalog: dict) -> list[str]:
             for e in sorted(v.iter_errors(catalog), key=lambda e: list(map(str, e.absolute_path)))]
 
 
+def portrait_problems(catalog: dict, assets_dir: Path | None) -> tuple[list[str], list[str]]:
+    """composers[].portrait の検査（SPEC §3.6）。assets_dir（site/v1/）があれば画像ファイルも確かめる。"""
+    errors: list[str] = []
+    warnings: list[str] = []
+    used: set[str] = set()
+    for c in catalog["composers"]:
+        p = c.get("portrait")
+        if p is None:
+            continue
+        expected = f"portraits/{c['id']}.jpg"
+        if p["url"] != expected:
+            errors.append(f"不整合: composer {c['id']} の portrait.url {p['url']}（{expected} にする）")
+        used.add(p["url"])
+        if assets_dir is None:
+            continue
+        f = assets_dir / p["url"]
+        if not f.is_file():
+            errors.append(f"肖像画のファイルがない: {f}（composer {c['id']}）")
+        elif hashlib.sha256(f.read_bytes()).hexdigest() != p["sha256"]:
+            errors.append(f"肖像画の sha256 が合わない: {f}（fetch_portraits.py とカタログを作り直す）")
+    if assets_dir is not None and (assets_dir / "portraits").is_dir():
+        for f in sorted((assets_dir / "portraits").glob("*.jpg")):
+            if f"portraits/{f.name}" not in used:
+                warnings.append(f"どの作曲家にも使われていない肖像画: {f.name}")
+    return errors, warnings
+
+
 def validate(catalog: dict, max_ratio: float = DEFAULT_MAX_RATIO,
-             previous_count: int | None = None, max_drop: float = DEFAULT_MAX_DROP) -> tuple[list[str], list[str]]:
+             previous_count: int | None = None, max_drop: float = DEFAULT_MAX_DROP,
+             assets_dir: Path | None = None) -> tuple[list[str], list[str]]:
     """(errors, warnings) を返す。"""
     errors = schema_errors(catalog)
     if errors:
@@ -89,6 +120,10 @@ def validate(catalog: dict, max_ratio: float = DEFAULT_MAX_RATIO,
         if new_id not in track_ids:
             errors.append(f"参照切れ: replacedTracks の {old_id} → {new_id}")
 
+    p_errors, p_warnings = portrait_problems(catalog, assets_dir)
+    errors += p_errors
+    warnings += p_warnings
+
     dup_audio = [u for u, n in Counter(t["audioUrl"] for t in tracks).items() if n > 1]
     if dup_audio:
         warnings.append(f"同じ mp3 を指す曲が複数ある: {len(dup_audio)} 件（例 {dup_audio[0]}）")
@@ -116,13 +151,15 @@ def main(argv=None) -> int:
     ap.add_argument("--previous-manifest", help="前回公開した manifest.json（曲数の減少を検査する）")
     ap.add_argument("--previous-count", type=int, help="前回の曲数（--previous-manifest の代わり）")
     ap.add_argument("--max-drop", type=float, default=DEFAULT_MAX_DROP)
+    ap.add_argument("--assets-dir", help="公開ディレクトリ（site/v1/）。肖像画のファイルの有無と sha256 を検査する")
     args = ap.parse_args(argv)
 
     catalog = json.loads(Path(args.catalog).read_text(encoding="utf-8"))
     prev = args.previous_count
     if args.previous_manifest and Path(args.previous_manifest).exists():
         prev = json.loads(Path(args.previous_manifest).read_text(encoding="utf-8")).get("trackCount")
-    errors, warnings = validate(catalog, args.max_ratio, prev, args.max_drop)
+    assets = Path(args.assets_dir) if args.assets_dir else None
+    errors, warnings = validate(catalog, args.max_ratio, prev, args.max_drop, assets)
     for w in warnings:
         print(f"警告: {w}", file=sys.stderr)
     for e in errors:

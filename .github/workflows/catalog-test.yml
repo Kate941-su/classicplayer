@@ -32,4 +32,4 @@ jobs:
         run: |
           curl -fsSL https://kate941-su.github.io/classicplayer/v1/manifest.json -o "$RUNNER_TEMP/published.json" \
             || { echo "公開中の manifest はまだない"; rm -f "$RUNNER_TEMP/published.json"; }
-          python catalog/validate_catalog.py site/v1/catalog.json --previous-manifest "$RUNNER_TEMP/published.json"
+          python catalog/validate_catalog.py site/v1/catalog.json --previous-manifest "$RUNNER_TEMP/published.json" --assets-dir site/v1

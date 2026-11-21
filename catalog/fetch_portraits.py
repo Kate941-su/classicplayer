@@ -10,14 +10,16 @@
   3. Commons のライセンス情報を確認し、PD / CC0 / CC BY / CC BY-SA だけを採用する
   4. 正方形に切り抜き、512px の JPEG（メタデータなし）として site/v1/portraits/ に保存する
   5. portraits.json（クレジット情報）と portraits.report.json を出力する。
-     --write-catalog を付けると、catalog.json の composers[].portrait に書き込む
+     catalog.json の composers[].portrait は build_catalog.py が portraits.json から埋める（SPEC §3.6）
 
-使い方:
-  python3 fetch_portraits.py --catalog catalog.json --suggest-only   # 対応候補を作るだけ（画像は取得しない）
-  # → composer_wikidata.json を確認して、正しい候補を verified: true にする
-  python3 fetch_portraits.py --catalog catalog.json --out ../site/v1 --write-catalog
+使い方（catalog/ で実行する。手順は docs/catalog-pipeline.md）:
+  uv run --python 3.12 --with-requirements requirements-dev.txt python fetch_portraits.py --catalog ../site/v1/catalog.json --suggest-only
+  # → composer_wikidata.json を確認して、正しい候補を verified: true にする（人が確認する）
+  uv run --python 3.12 --with-requirements requirements-dev.txt python fetch_portraits.py --catalog ../site/v1/catalog.json \
+      --contact https://github.com/kate941-su/classicplayer
+  # → tool/update-catalog.sh --offline でカタログに反映する
 
-依存: Pillow（pip install Pillow）
+依存: Pillow
 """
 from __future__ import annotations
 
@@ -315,7 +317,6 @@ def main(argv=None):
     ap.add_argument("--contact", default=DEFAULT_CONTACT, help="User-Agent に入れる連絡先（メールまたはURL）")
     ap.add_argument("--suggest-only", action="store_true", help="QID の候補作りだけ行う")
     ap.add_argument("--accept-unverified", action="store_true", help="未確認の対応も使う（非推奨）")
-    ap.add_argument("--write-catalog", action="store_true", help="catalog.json に portrait を書き込む")
     args = ap.parse_args(argv)
 
     if args.contact == DEFAULT_CONTACT and not args.suggest_only:
@@ -333,11 +334,8 @@ def main(argv=None):
     Path("portraits.report.json").write_text(json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
 
     if not args.suggest_only:
-        Path("portraits.json").write_text(json.dumps(portraits, ensure_ascii=False, indent=1), encoding="utf-8")
-        if args.write_catalog:
-            for c in catalog["composers"]:
-                c["portrait"] = portraits.get(c["id"])
-            cat_path.write_text(json.dumps(catalog, ensure_ascii=False, indent=1), encoding="utf-8")
+        Path("portraits.json").write_text(json.dumps(portraits, ensure_ascii=False, indent=1, sort_keys=True),
+                                          encoding="utf-8")
 
     n = len(catalog["composers"])
     print(f"作曲家 {n} 人: 取得 {len(report['ok'])} / 未対応 {len(report['unmapped'])} / "

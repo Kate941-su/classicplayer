@@ -185,9 +185,9 @@ CMSL のカテゴリをそのまま使うと、名前が長いものや細かす
 | `attributionRequired` | クレジットの表示が必要か（PD / CC0 以外か、Commons が必要としているとき true） |
 | `wikidata` | 対応づけた QID |
 
-- 肖像画のない作曲家（対応なし・未確認・画像なし・ライセンス除外）は `portrait: null`。アプリは生成アートワーク（§4.10）にフォールバックする
+- 肖像画のない作曲家（対応なし・未確認・画像なし・ライセンス除外）は `portrait: null`。スキーマでは `portrait` を必須にしない（キーのない公開済みのカタログも通すため）。`validate_catalog.py` は `url` が `portraits/{composer.id}.jpg` であることを、`--assets-dir` を付けると画像の有無と sha256 も確かめる（`tool/update-catalog.sh` と CI は付ける）。アプリは生成アートワーク（§4.10）にフォールバックする
 - `composers[].portrait` は任意の追加なので `schemaVersion` は 2 のまま（アプリは未知のキーを無視する。§3.2）。生成側は常にキーを出力する（ない場合は null）
-- `catalog.json` は `build_catalog.py` だけが作る。`build_catalog.py` が `catalog/portraits.json` を読んで `portrait` を埋める（`fetch_portraits.py --write-catalog` で公開中の `site/v1/catalog.json` を直接書き換えない。月次更新で消え、manifest の sha256 とも合わなくなるため）
+- `catalog.json` は `build_catalog.py` だけが作る。`build_catalog.py` が `catalog/portraits.json` を読んで `portrait` を埋める（`fetch_portraits.py` は `catalog.json` を書き換えない。公開中の `site/v1/catalog.json` を直接書き換えると、月次更新で消え、manifest の sha256 とも合わなくなるため）
 - 公開するのは `site/v1/portraits/*.jpg` と、`catalog.json` に入ったクレジットだけ。Wikimedia の API 応答（`catalog/cache/wikimedia/`）は公開もコミットもしない
 - 取得は 1 リクエスト/秒以下、User-Agent に連絡先を入れる（Wikimedia の User-Agent ポリシー）。公開リポジトリなので、連絡先には個人のメールではなくリポジトリの URL を使う
 

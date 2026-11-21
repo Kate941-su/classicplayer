@@ -48,7 +48,9 @@ def extract(catalog: dict, ids: list[str]) -> dict:
         **catalog,
         "genres": [{**g, "trackCount": count("genreId", g["id"])} for g in catalog["genres"] if g["id"] in genre_ids],
         "composers": sorted(
-            ({**c, "trackCount": count("composerId", c["id"])} for c in catalog["composers"] if c["id"] in composer_ids),
+            # portrait は古いカタログにはないので null で補う（生成側は常に出力する。SPEC §3.6）
+            ({**c, "trackCount": count("composerId", c["id"]), "portrait": c.get("portrait")}
+             for c in catalog["composers"] if c["id"] in composer_ids),
             key=lambda c: (-c["trackCount"], c["id"])),
         "works": [w for w in catalog["works"] if w["id"] in work_ids],
         "tracks": tracks,

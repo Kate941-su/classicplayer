@@ -41,16 +41,17 @@ CI（`catalog-test`）が通ったらマージする。`pages.yml` が GitHub Pa
 ```sh
 cd catalog
 # 1. 未登録の作曲家に Wikidata の候補を付ける（画像は取得しない）
-uv run --python 3.12 --with Pillow python fetch_portraits.py --catalog ../site/v1/catalog.json --suggest-only
+uv run --python 3.12 --with-requirements requirements-dev.txt python fetch_portraits.py --catalog ../site/v1/catalog.json --suggest-only
 # 2. composer_wikidata.json を確認する（人の作業）
 #    - 正しい候補なら "qid" を入れて "verified": true
 #    - 肖像画を使わない作曲家は "exclude": true
 #    - P18 以外の画像を使うなら "file": "<Commons のファイル名>"、顔が切れるなら "focus": [横, 縦]（0〜1）
 # 3. 画像を取得して site/v1/portraits/ と portraits.json を出力する
-uv run --python 3.12 --with Pillow python fetch_portraits.py --catalog ../site/v1/catalog.json \
+uv run --python 3.12 --with-requirements requirements-dev.txt python fetch_portraits.py --catalog ../site/v1/catalog.json \
   --contact https://github.com/kate941-su/classicplayer
 ```
 - `portraits.report.json`（コミットしない）の `unmapped` / `unverified` / `noImage` / `rejected` / `errors` を確認する。取得した画像は目視で確かめる（別人・切り抜きの失敗がないか）
-- `--write-catalog` は使わない。`portrait` は `build_catalog.py` が `portraits.json` を読んで埋める（PLAN 0.11。それまでは `catalog.json` に `portrait` は入らない）
+- 4. カタログに反映する: `tool/update-catalog.sh --offline`（`build_catalog.py` が `catalog/portraits.json` を読んで `composers[].portrait` を埋め、`validate_catalog.py --assets-dir site/v1` が画像の有無と sha256 を確かめる）。`build_catalog.py` のレポートの `portraitsUnmatched`（カタログにない作曲家 ID。表記の修正で ID が変わったとき）が空であることを確かめる
+- `fetch_portraits.py` は `catalog.json` を書き換えない（以前の `--write-catalog` は消した。公開中の `site/v1/catalog.json` を直接書き換えると、月次更新で消え、manifest の sha256 とも合わなくなるため）
 - `composer_wikidata.json`・`portraits.json`・`site/v1/portraits/*.jpg` を、カタログと同じく PR でコミットする
 - `--accept-unverified` は使わない（同名の別人の肖像画が出るおそれがある）
