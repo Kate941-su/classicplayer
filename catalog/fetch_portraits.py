@@ -211,13 +211,15 @@ def license_ok(info: dict) -> tuple[bool, str]:
 
 
 # ---------------------------------------------------------------- 画像処理
-def make_square(data: bytes, focus: tuple[float, float] = DEFAULT_FOCUS, size: int = SIZE) -> bytes:
+def make_square(data: bytes, focus: tuple[float, float] = DEFAULT_FOCUS, size: int = SIZE,
+                zoom: float = 1.0) -> bytes:
+    """focus（0〜1）を中心に正方形を切り抜く。zoom > 1 なら短い辺の 1/zoom の正方形にする（全身の写真で顔を大きくする）。"""
     from PIL import Image, ImageOps
 
     im = Image.open(io.BytesIO(data))
     im = ImageOps.exif_transpose(im).convert("RGB")
     w, h = im.size
-    side = min(w, h)
+    side = max(1, int(round(min(w, h) / max(zoom, 1.0))))
     fx, fy = focus
     left = int(round(min(max(fx * w - side / 2, 0), w - side)))
     top = int(round(min(max(fy * h - side / 2, 0), h - side)))
@@ -282,7 +284,7 @@ def run(catalog: dict, mapping: dict, get: HttpGet, out_dir: Path | None, *,
             if not info:
                 continue
             focus = tuple(m.get("focus") or DEFAULT_FOCUS)
-            jpg = make_square(get(info["thumbUrl"]), focus)
+            jpg = make_square(get(info["thumbUrl"]), focus, zoom=float(m.get("zoom") or 1.0))
             rel = f"portraits/{cid}.jpg"
             if out_dir:
                 (out_dir / "portraits").mkdir(parents=True, exist_ok=True)

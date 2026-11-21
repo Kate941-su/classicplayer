@@ -126,6 +126,23 @@ def test_make_square_focus_moves_the_crop():
     assert bottom.getpixel((256, 60))[0] > 200 and bottom.getpixel((256, 300))[2] > 200
 
 
+def test_make_square_zoom_crops_a_smaller_area():
+    # 800×1200、600 行目まで赤。zoom 4 → 200×200 を中心（縦 0.9 = 1080 行目）で切る → 980〜1180 行で全部青
+    out = Image.open(io.BytesIO(fp.make_square(png(), focus=(0.5, 0.9), zoom=4))).convert("RGB")
+    assert out.size == (512, 512)
+    assert out.getpixel((256, 5))[2] > 200 and out.getpixel((256, 506))[2] > 200
+    # zoom 1 未満は 1 と同じ
+    assert fp.make_square(png(), zoom=0.5) == fp.make_square(png())
+
+
+def test_zoom_in_mapping_is_used(tmp_path):
+    fake = FakeWikimedia(entities={"Q1": entity("Q1", images=[("A.jpg", "normal")])}, files={"A.jpg": file_info("A.jpg", "pd")})
+    mapping = {"a": {"qid": "Q1", "verified": True, "focus": [0.5, 0.9], "zoom": 4}}
+    fp.run(catalog(("a", "A", None)), mapping, fake, tmp_path)
+    out = Image.open(tmp_path / "portraits" / "a.jpg").convert("RGB")
+    assert out.getpixel((256, 5))[2] > 200   # 上端も青（拡大して下の方だけを切った）
+
+
 # ---------------------------------------------------------------- run
 def test_suggest_only_proposes_composers_without_fetching_images(tmp_path):
     fake = FakeWikimedia(

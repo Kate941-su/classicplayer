@@ -1,0 +1,1606 @@
+{
+ "l-v-beethoven": {
+  "name": "ベートーヴェン",
+  "qid": "Q255",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q255",
+    "labelJa": "ルートヴィヒ・ヴァン・ベートーヴェン",
+    "labelEn": "Ludwig van Beethoven",
+    "hasImage": true
+   }
+  ]
+ },
+ "frederic-francois-chopin": {
+  "name": "ショパン",
+  "qid": "Q1268",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q1268",
+    "labelJa": "フレデリック・ショパン",
+    "labelEn": "Frédéric Chopin",
+    "hasImage": true
+   }
+  ]
+ },
+ "w-a-mozart": {
+  "name": "モーツァルト",
+  "qid": "Q254",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q254",
+    "labelJa": "ヴォルフガング・アマデウス・モーツァルト",
+    "labelEn": "Wolfgang Amadeus Mozart",
+    "hasImage": true
+   }
+  ]
+ },
+ "j-s-bach": {
+  "name": "J.S.バッハ",
+  "qid": "Q1339",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q1339",
+    "labelJa": "ヨハン・ゼバスティアン・バッハ",
+    "labelEn": "Johann Sebastian Bach",
+    "hasImage": true
+   }
+  ]
+ },
+ "franz-peter-schubert": {
+  "name": "シューベルト",
+  "qid": "Q7312",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q7312",
+    "labelJa": "フランツ・シューベルト",
+    "labelEn": "Franz Schubert",
+    "hasImage": true
+   }
+  ]
+ },
+ "johannes-brahms": {
+  "name": "ブラームス",
+  "qid": "Q7294",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q7294",
+    "labelJa": "ヨハネス・ブラームス",
+    "labelEn": "Johannes Brahms",
+    "hasImage": true
+   }
+  ]
+ },
+ "peter-ilyich-tchaikovsky": {
+  "name": "チャイコフスキー",
+  "qid": "Q7315",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q7315",
+    "labelJa": "ピョートル・チャイコフスキー",
+    "labelEn": "Pyotr Ilyich Tchaikovsky",
+    "hasImage": true
+   }
+  ]
+ },
+ "sergei-vasil-evich-rachmaninov": {
+  "name": "ラフマニノフ",
+  "qid": "Q131861",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q131861",
+    "labelJa": "セルゲイ・ラフマニノフ",
+    "labelEn": "Sergei Rachmaninoff",
+    "hasImage": true
+   }
+  ]
+ },
+ "georges-bizet": {
+  "name": "ビゼー",
+  "qid": "Q56158",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q56158",
+    "labelJa": "ジョルジュ・ビゼー",
+    "labelEn": "Georges Bizet",
+    "hasImage": true
+   }
+  ]
+ },
+ "claude-achille-debussy": {
+  "name": "ドビュッシー",
+  "qid": "Q4700",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q4700",
+    "labelJa": "クロード・ドビュッシー",
+    "labelEn": "Claude Debussy",
+    "hasImage": true
+   }
+  ]
+ },
+ "felix-mendelssohn": {
+  "name": "メンデルスゾーン",
+  "qid": "Q46096",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q46096",
+    "labelJa": "フェリックス・メンデルスゾーン",
+    "labelEn": "Felix Mendelssohn",
+    "hasImage": true
+   },
+   {
+    "qid": "Q104333",
+    "labelJa": "メンデルスゾーン",
+    "labelEn": "Albrecht Mendelssohn Bartholdy",
+    "hasImage": true
+   }
+  ]
+ },
+ "antonín-dvořák": {
+  "name": "ドヴォルザーク",
+  "qid": "Q7298",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q7298",
+    "labelJa": "アントニン・ドヴォルザーク",
+    "labelEn": "Antonín Dvořák",
+    "hasImage": true
+   }
+  ]
+ },
+ "franz-liszt": {
+  "name": "リスト",
+  "qid": "Q41309",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q41309",
+    "labelJa": "フランツ・リスト",
+    "labelEn": "Franz Liszt",
+    "hasImage": true
+   }
+  ]
+ },
+ "maurice-ravel": {
+  "name": "ラヴェル",
+  "qid": "Q1178",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q1178",
+    "labelJa": "モーリス・ラヴェル",
+    "labelEn": "Maurice Ravel",
+    "hasImage": true
+   }
+  ]
+ },
+ "gabriel-urbain-faure": {
+  "name": "フォーレ",
+  "qid": "Q104919",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q104919",
+    "labelJa": "ガブリエル・フォーレ",
+    "labelEn": "Gabriel Fauré",
+    "hasImage": true
+   }
+  ]
+ },
+ "richard-wagner": {
+  "name": "ワーグナー",
+  "qid": "Q1511",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q1511",
+    "labelJa": "リヒャルト・ワーグナー",
+    "labelEn": "Richard Wagner",
+    "hasImage": true
+   }
+  ]
+ },
+ "anton-bruckner": {
+  "name": "ブルックナー",
+  "qid": "Q81752",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q81752",
+    "labelJa": "アントン・ブルックナー",
+    "labelEn": "Anton Bruckner",
+    "hasImage": true
+   }
+  ]
+ },
+ "gustav-holst": {
+  "name": "ホルスト",
+  "qid": "Q200867",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q200867",
+    "labelJa": "グスターヴ・ホルスト",
+    "labelEn": "Gustav Holst",
+    "hasImage": true
+   }
+  ]
+ },
+ "robert-alexander-schumann": {
+  "name": "シューマン",
+  "qid": "Q7351",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q7351",
+    "labelJa": "ロベルト・シューマン",
+    "labelEn": "Robert Schumann",
+    "hasImage": true
+   }
+  ]
+ },
+ "alexander-porfir-yevich-borodin": {
+  "name": "ボロディン",
+  "qid": "Q164004",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q164004",
+    "labelJa": "アレクサンドル・ボロディン",
+    "labelEn": "Alexander Borodin",
+    "hasImage": true
+   }
+  ]
+ },
+ "antonio-lucio-vivaldi": {
+  "name": "ヴィヴァルディ",
+  "qid": "Q1340",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q1340",
+    "labelJa": "アントニオ・ヴィヴァルディ",
+    "labelEn": "Antonio Vivaldi",
+    "hasImage": true
+   }
+  ]
+ },
+ "edvard-grieg": {
+  "name": "グリーグ",
+  "qid": "Q80621",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q80621",
+    "labelJa": "エドヴァルド・グリーグ",
+    "labelEn": "Edvard Grieg",
+    "hasImage": true
+   }
+  ],
+  "file": "Edvard Grieg (1888) by Elliot and Fry.jpg"
+ },
+ "edward-elgar": {
+  "name": "エルガー",
+  "qid": "Q179631",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q179631",
+    "labelJa": "エドワード・エルガー",
+    "labelEn": "Edward Elgar",
+    "hasImage": true
+   }
+  ]
+ },
+ "giuseppe-verdi": {
+  "name": "ヴェルディ",
+  "qid": "Q7317",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q7317",
+    "labelJa": "ジュゼッペ・ヴェルディ",
+    "labelEn": "Giuseppe Verdi",
+    "hasImage": true
+   }
+  ]
+ },
+ "george-frideric-handel": {
+  "name": "ヘンデル",
+  "qid": "Q7302",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q7302",
+    "labelJa": "ゲオルク・フリードリヒ・ヘンデル",
+    "labelEn": "George Frideric Handel",
+    "hasImage": true
+   }
+  ]
+ },
+ "mussorgsky": {
+  "name": "ムソルグスキー",
+  "qid": "Q132682",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q132682",
+    "labelJa": "モデスト・ムソルグスキー",
+    "labelEn": "Modest Petrovich Mussorgsky",
+    "hasImage": true
+   }
+  ]
+ },
+ "carl-maria-von-weber": {
+  "name": "ウェーバー",
+  "qid": "Q154812",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q154812",
+    "labelJa": "カール・マリア・フォン・ウェーバー",
+    "labelEn": "Carl Maria von Weber",
+    "hasImage": true
+   }
+  ]
+ },
+ "erik-satie": {
+  "name": "エリック・サティ",
+  "qid": "Q187192",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q187192",
+    "labelJa": "エリック・サティ",
+    "labelEn": "Erik Satie",
+    "hasImage": true
+   }
+  ]
+ },
+ "giacomo-puccini": {
+  "name": "プッチーニ",
+  "qid": "Q7311",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q7311",
+    "labelJa": "ジャコモ・プッチーニ",
+    "labelEn": "Giacomo Puccini",
+    "hasImage": true
+   },
+   {
+    "qid": "Q1522158",
+    "labelJa": null,
+    "labelEn": "Giacomo Puccini",
+    "hasImage": true
+   }
+  ]
+ },
+ "gioachino-antonio-rossini": {
+  "name": "ロッシーニ",
+  "qid": "Q9726",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q9726",
+    "labelJa": "ジョアキーノ・ロッシーニ",
+    "labelEn": "Gioachino Rossini",
+    "hasImage": true
+   }
+  ]
+ },
+ "nikolai-rimsky-korsakov": {
+  "name": "リムスキー＝コルサコフ",
+  "qid": "Q93227",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q93227",
+    "labelJa": "ニコライ・リムスキー＝コルサコフ",
+    "labelEn": "Nikolai Rimsky-Korsakov",
+    "hasImage": true
+   }
+  ]
+ },
+ "alessandro-marcello": {
+  "name": "マルチェッロ",
+  "qid": "Q336137",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q336137",
+    "labelJa": "アレッサンドロ・マルチェッロ",
+    "labelEn": "Alessandro Marcello",
+    "hasImage": true
+   }
+  ]
+ },
+ "camille-saint-saëns": {
+  "name": "サン＝サーンス",
+  "qid": "Q150445",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q150445",
+    "labelJa": "カミーユ・サン＝サーンス",
+    "labelEn": "Camille Saint-Saëns",
+    "hasImage": true
+   }
+  ]
+ },
+ "edward-macdowell": {
+  "name": "マクダウェル",
+  "qid": "Q450467",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q450467",
+    "labelJa": "エドワード・マクダウェル",
+    "labelEn": "Edward MacDowell",
+    "hasImage": true
+   }
+  ]
+ },
+ "francisco-tarrega": {
+  "name": "フランシスコ・タレガ",
+  "qid": "Q313372",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q313372",
+    "labelJa": "フランシスコ・タレガ",
+    "labelEn": "Francisco Tárrega",
+    "hasImage": true
+   }
+  ]
+ },
+ "franz-joseph-haydn": {
+  "name": "ハイドン",
+  "qid": "Q7349",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q7349",
+    "labelJa": "フランツ・ヨーゼフ・ハイドン",
+    "labelEn": "Joseph Haydn",
+    "hasImage": true
+   }
+  ]
+ },
+ "isaac-albeniz": {
+  "name": "イサーク・アルベニス",
+  "qid": "Q185812",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q185812",
+    "labelJa": "イサーク・アルベニス",
+    "labelEn": "Isaac Albéniz",
+    "hasImage": true
+   }
+  ]
+ },
+ "jean-sibelius": {
+  "name": "シベリウス",
+  "qid": "Q45682",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q45682",
+    "labelJa": "ジャン・シベリウス",
+    "labelEn": "Jean Sibelius",
+    "hasImage": true
+   }
+  ]
+ },
+ "johann-strauss-ii": {
+  "name": "ヨハン・シュトラウス2世",
+  "qid": "Q83309",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q83309",
+    "labelJa": "ヨハン・シュトラウス2世",
+    "labelEn": "Johann Strauss II",
+    "hasImage": true
+   },
+   {
+    "qid": "Q28999",
+    "labelJa": "ヨハン・シュトラウス3世",
+    "labelEn": "Johann Strauss III",
+    "hasImage": true
+   }
+  ]
+ },
+ "rentaro-taki": {
+  "name": "瀧廉太郎",
+  "qid": "Q717957",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q717957",
+    "labelJa": "瀧廉太郎",
+    "labelEn": "Rentarō Taki",
+    "hasImage": true
+   }
+  ]
+ },
+ "richard-strauss": {
+  "name": "リヒャルト・シュトラウス",
+  "qid": "Q13894",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q13894",
+    "labelJa": "リヒャルト・シュトラウス",
+    "labelEn": "Richard Strauss",
+    "hasImage": true
+   }
+  ]
+ },
+ "scott-joplin": {
+  "name": "スコット・ジョプリン",
+  "qid": "Q191499",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q191499",
+    "labelJa": "スコット・ジョプリン",
+    "labelEn": "Scott Joplin",
+    "hasImage": true
+   }
+  ]
+ },
+ "sergei-prokofiev": {
+  "name": "プロコフィエフ",
+  "qid": "Q49481",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q49481",
+    "labelJa": "セルゲイ・プロコフィエフ",
+    "labelEn": "Sergei Prokofiev",
+    "hasImage": true
+   }
+  ]
+ },
+ "agustín-barrios": {
+  "name": "バリオス",
+  "qid": "Q399102",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q399102",
+    "labelJa": "アグスティン・バリオス",
+    "labelEn": "Agustín Pío Barrios",
+    "hasImage": true
+   }
+  ]
+ },
+ "bedřich-smetana": {
+  "name": "スメタナ",
+  "qid": "Q48173",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q48173",
+    "labelJa": "ベドルジハ・スメタナ",
+    "labelEn": "Bedřich Smetana",
+    "hasImage": true
+   }
+  ]
+ },
+ "béla-bartók": {
+  "name": "バルトーク",
+  "qid": "Q83326",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q83326",
+    "labelJa": "バルトーク・ベーラ",
+    "labelEn": "Béla Bartók",
+    "hasImage": true
+   }
+  ]
+ },
+ "césar-franck": {
+  "name": "フランク",
+  "qid": "Q50187",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q50187",
+    "labelJa": "セザール・フランク",
+    "labelEn": "César Franck",
+    "hasImage": true
+   }
+  ]
+ },
+ "george-gershwin": {
+  "name": "ガーシュウィン",
+  "qid": "Q123829",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q123829",
+    "labelJa": "ジョージ・ガーシュウィン",
+    "labelEn": "George Gershwin",
+    "hasImage": true
+   }
+  ]
+ },
+ "gustav-lange": {
+  "name": "ランゲ",
+  "qid": "Q653501",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q653501",
+    "labelJa": "グスタフ・ランゲ",
+    "labelEn": "Gustav Lange",
+    "hasImage": true
+   },
+   {
+    "qid": "Q1556142",
+    "labelJa": null,
+    "labelEn": "Gustav Lange",
+    "hasImage": true
+   }
+  ]
+ },
+ "hector-berlioz": {
+  "name": "ベルリオーズ",
+  "qid": "Q1151",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q1151",
+    "labelJa": "エクトル・ベルリオーズ",
+    "labelEn": "Hector Berlioz",
+    "hasImage": true
+   }
+  ]
+ },
+ "henry-purcell": {
+  "name": "パーセル",
+  "qid": "Q9695",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q9695",
+    "labelJa": "ヘンリー・パーセル",
+    "labelEn": "Henry Purcell",
+    "hasImage": true
+   }
+  ]
+ },
+ "johann-krieger": {
+  "name": "クリーガー",
+  "qid": "Q700298",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q700298",
+    "labelJa": "ヨハン・クリーガー",
+    "labelEn": "Johann Krieger",
+    "hasImage": false
+   }
+  ]
+ },
+ "mikhail-glinka": {
+  "name": "グリンカ",
+  "qid": "Q181885",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q181885",
+    "labelJa": "ミハイル・グリンカ",
+    "labelEn": "Michael Glinka",
+    "hasImage": true
+   }
+  ],
+  "focus": [
+   0.49,
+   0.37
+  ],
+  "zoom": 1.8
+ },
+ "ottorino-respighi": {
+  "name": "レスピーギ",
+  "qid": "Q243837",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q243837",
+    "labelJa": "オットリーノ・レスピーギ",
+    "labelEn": "Ottorino Respighi",
+    "hasImage": true
+   }
+  ]
+ },
+ "tekla-bądarzewska": {
+  "name": "バダジェフスカ",
+  "qid": "Q260371",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q260371",
+    "labelJa": "テクラ・バダジェフスカ",
+    "labelEn": "Tekla Bądarzewska-Baranowska",
+    "hasImage": true
+   }
+  ]
+ },
+ "v-s-kalinnikov": {
+  "name": "カリンニコフ",
+  "qid": "Q368147",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q368147",
+    "labelJa": "ヴァシリー・カリンニコフ",
+    "labelEn": "Vasily Kalinnikov",
+    "hasImage": true
+   }
+  ]
+ },
+ "vittorio-monti": {
+  "name": "モンティ",
+  "qid": "Q342543",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q342543",
+    "labelJa": "ヴィットーリオ・モンティ",
+    "labelEn": "Vittorio Monti",
+    "hasImage": true
+   }
+  ]
+ },
+ "作曲者不明": {
+  "name": "作曲者不明",
+  "qid": null,
+  "verified": false,
+  "candidates": [],
+  "exclude": true
+ },
+ "alexander-scriabin": {
+  "name": "スクリャービン",
+  "qid": "Q185647",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q185647",
+    "labelJa": "アレクサンドル・スクリャービン",
+    "labelEn": "Alexander Scriabin",
+    "hasImage": true
+   }
+  ]
+ },
+ "amilcare-ponchielli": {
+  "name": "ポンキエッリ",
+  "qid": "Q207390",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q207390",
+    "labelJa": "アミルカレ・ポンキエッリ",
+    "labelEn": "Amilcare Ponchielli",
+    "hasImage": true
+   }
+  ]
+ },
+ "anton-rubinstein": {
+  "name": "アントン・ルビンシテイン",
+  "qid": "Q87567",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q87567",
+    "labelJa": "アントン・ルビンシテイン",
+    "labelEn": "Anton Rubinstein",
+    "hasImage": true
+   }
+  ]
+ },
+ "arcangelo-corelli": {
+  "name": "コレッリ",
+  "qid": "Q164475",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q164475",
+    "labelJa": "アルカンジェロ・コレッリ",
+    "labelEn": "Arcangelo Corelli",
+    "hasImage": true
+   }
+  ]
+ },
+ "auguste-durand": {
+  "name": "デュラン",
+  "qid": "Q2871185",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q2871185",
+    "labelJa": "オーギュスト・デュラン",
+    "labelEn": "Auguste Durand",
+    "hasImage": true
+   }
+  ]
+ },
+ "benjamin-godard": {
+  "name": "ゴダール",
+  "qid": "Q817524",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q817524",
+    "labelJa": "バンジャマン・ゴダール",
+    "labelEn": "Benjamin Godard",
+    "hasImage": true
+   },
+   {
+    "qid": "Q130377207",
+    "labelJa": "ゴダール",
+    "labelEn": "Godard",
+    "hasImage": false
+   }
+  ]
+ },
+ "carl-teike": {
+  "name": "タイケ",
+  "qid": "Q373819",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q373819",
+    "labelJa": "カール・タイケ",
+    "labelEn": "Carl Teike",
+    "hasImage": true
+   }
+  ],
+  "focus": [
+   0.47,
+   0.2
+  ],
+  "zoom": 1.7
+ },
+ "charles-crozat-converse": {
+  "name": "コンヴァース",
+  "qid": "Q323458",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q323458",
+    "labelJa": "チャールズ・コンヴァース",
+    "labelEn": "Charles Crozat Converse",
+    "hasImage": true
+   }
+  ]
+ },
+ "charles-marie-widor": {
+  "name": "ヴィドール",
+  "qid": "Q215161",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q215161",
+    "labelJa": "シャルル＝マリー・ヴィドール",
+    "labelEn": "Charles-Marie Widor",
+    "hasImage": true,
+    "note": "職業が classical composer（Q21680663）のため自動の候補から外れた。手で追加"
+   }
+  ],
+  "focus": [
+   0.53,
+   0.27
+  ],
+  "zoom": 2.2
+ },
+ "christoph-willibald-gluck": {
+  "name": "グルック",
+  "qid": "Q130759",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q130759",
+    "labelJa": "クリストフ・ヴィリバルト・グルック",
+    "labelEn": "Christoph Willibald von Gluck",
+    "hasImage": true
+   }
+  ]
+ },
+ "ciprian-porumbescu": {
+  "name": "ポルムベスク",
+  "qid": "Q389000",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q389000",
+    "labelJa": "チプリアン・ポルムベスク",
+    "labelEn": "Ciprian Porumbescu",
+    "hasImage": true
+   }
+  ]
+ },
+ "claudio-monteverdi": {
+  "name": "モンテヴェルディ",
+  "qid": "Q53068",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q53068",
+    "labelJa": "クラウディオ・モンテヴェルディ",
+    "labelEn": "Claudio Monteverdi",
+    "hasImage": true
+   }
+  ]
+ },
+ "domenico-scarlatti": {
+  "name": "スカルラッティ",
+  "qid": "Q167837",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q167837",
+    "labelJa": "ドメニコ・スカルラッティ",
+    "labelEn": "Domenico Scarlatti",
+    "hasImage": true
+   }
+  ]
+ },
+ "edmund-angerer": {
+  "name": "アンゲラー（L.モーツァルト）",
+  "qid": "Q1285933",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q1285933",
+    "labelJa": "エトムント・アンゲラー",
+    "labelEn": "Edmund Angerer",
+    "hasImage": false
+   }
+  ]
+ },
+ "enrico-toselli": {
+  "name": "トセリ",
+  "qid": "Q1150461",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q1150461",
+    "labelJa": "エンリコ・トセリ",
+    "labelEn": "Enrico Toselli",
+    "hasImage": true
+   }
+  ]
+ },
+ "enrique-granados": {
+  "name": "グラナドス",
+  "qid": "Q294225",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q294225",
+    "labelJa": "エンリケ・グラナドス",
+    "labelEn": "Enrique Granados",
+    "hasImage": true
+   }
+  ]
+ },
+ "fernando-sor": {
+  "name": "フェルナンド・ソル",
+  "qid": "Q254110",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q254110",
+    "labelJa": "フェルナンド・ソル",
+    "labelEn": "Fernando Sor",
+    "hasImage": true
+   }
+  ]
+ },
+ "frank-white-meacham": {
+  "name": "ミーチャム",
+  "qid": "Q1261201",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q1261201",
+    "labelJa": "フランク・W・ミーチャム",
+    "labelEn": "F. W. Meacham",
+    "hasImage": false
+   }
+  ]
+ },
+ "františek-drdla": {
+  "name": "ドルドラ",
+  "qid": "Q3490111",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q3490111",
+    "labelJa": "フランティシェク・ドルドラ",
+    "labelEn": "František Drdla",
+    "hasImage": true
+   },
+   {
+    "qid": "Q1290210",
+    "labelJa": "エドゥアルド・トルドラ",
+    "labelEn": "Eduard Toldrà",
+    "hasImage": true
+   }
+  ]
+ },
+ "franz-doppler": {
+  "name": "ドップラー",
+  "qid": "Q711460",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q711460",
+    "labelJa": "フランツ・ドップラー",
+    "labelEn": "Franz Doppler",
+    "hasImage": true
+   }
+  ]
+ },
+ "franz-von-suppé": {
+  "name": "スッペ",
+  "qid": "Q310431",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q310431",
+    "labelJa": "フランツ・フォン・スッペ",
+    "labelEn": "Franz von Suppè",
+    "hasImage": true
+   }
+  ]
+ },
+ "françois-couperin": {
+  "name": "クープラン",
+  "qid": "Q50186",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q50186",
+    "labelJa": "フランソワ・クープラン",
+    "labelEn": "François Couperin",
+    "hasImage": true
+   },
+   {
+    "qid": "Q14941902",
+    "labelJa": null,
+    "labelEn": "François Couperin the elder",
+    "hasImage": false
+   }
+  ]
+ },
+ "françois-joseph-gossec": {
+  "name": "ゴセック",
+  "qid": "Q313667",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q313667",
+    "labelJa": "フランソワ＝ジョセフ・ゴセック",
+    "labelEn": "François Joseph Gossec",
+    "hasImage": true
+   }
+  ]
+ },
+ "gabriel-marie": {
+  "name": "ガブリエル＝マリ",
+  "qid": "Q2301740",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q2301740",
+    "labelJa": "ガブリエル・マリ",
+    "labelEn": "Jean Gabriel Marie",
+    "hasImage": false
+   }
+  ]
+ },
+ "gaetano-braga": {
+  "name": "ブラーガ",
+  "qid": "Q1265757",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q1265757",
+    "labelJa": "ガエターノ・ブラーガ",
+    "labelEn": "Gaetano Braga",
+    "hasImage": true
+   }
+  ]
+ },
+ "gaetano-donizetti": {
+  "name": "ドニゼッティ",
+  "qid": "Q101698",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q101698",
+    "labelJa": "ガエターノ・ドニゼッティ",
+    "labelEn": "Gaetano Donizetti",
+    "hasImage": true
+   }
+  ]
+ },
+ "georg-philipp-telemann": {
+  "name": "テレマン",
+  "qid": "Q75854",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q75854",
+    "labelJa": "ゲオルク・フィリップ・テレマン",
+    "labelEn": "Georg Philipp Telemann",
+    "hasImage": true
+   }
+  ]
+ },
+ "giulio-caccini": {
+  "name": "G.カッチーニ",
+  "qid": "Q215308",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q215308",
+    "labelJa": "ジュリオ・カッチーニ",
+    "labelEn": "Giulio Caccini",
+    "hasImage": false
+   }
+  ]
+ },
+ "gustav-mahler": {
+  "name": "マーラー",
+  "qid": "Q7304",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q7304",
+    "labelJa": "グスタフ・マーラー",
+    "labelEn": "Gustav Mahler",
+    "hasImage": true
+   },
+   {
+    "qid": "Q3665686",
+    "labelJa": null,
+    "labelEn": null,
+    "hasImage": true
+   }
+  ]
+ },
+ "hiromori-hayashi": {
+  "name": "林廣守",
+  "qid": "Q3783782",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q3783782",
+    "labelJa": "林廣守",
+    "labelEn": "Hiromori Hayashi",
+    "hasImage": true
+   }
+  ]
+ },
+ "iosif-ivanovici": {
+  "name": "ヨシフ・イヴァノヴィチ",
+  "qid": "Q375477",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q375477",
+    "labelJa": "ヨシフ・イヴァノヴィチ",
+    "labelEn": "Ioan Ivanovici",
+    "hasImage": true
+   }
+  ]
+ },
+ "jacques-offenbach": {
+  "name": "オッフェンバック",
+  "qid": "Q41555",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q41555",
+    "labelJa": "ジャック・オッフェンバック",
+    "labelEn": "Jacques Offenbach",
+    "hasImage": true
+   }
+  ]
+ },
+ "jean-paul-égide-martini": {
+  "name": "マルティーニ",
+  "qid": "Q696034",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q696034",
+    "labelJa": "ジャン・ポール・マルティーニ",
+    "labelEn": "Jean-Paul-Égide Martini",
+    "hasImage": true
+   }
+  ]
+ },
+ "joachim-raff": {
+  "name": "ラフ",
+  "qid": "Q547301",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q547301",
+    "labelJa": "ヨアヒム・ラフ",
+    "labelEn": "Joachim Raff",
+    "hasImage": true
+   }
+  ]
+ },
+ "johan-halvorsen": {
+  "name": "ハルヴォルセン",
+  "qid": "Q449172",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q449172",
+    "labelJa": "ヨハン・ハルヴォルセン",
+    "labelEn": "Johan Halvorsen",
+    "hasImage": true
+   }
+  ]
+ },
+ "johann-pachelbel": {
+  "name": "パッヘルベル",
+  "qid": "Q76485",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q76485",
+    "labelJa": "ヨハン・パッヘルベル",
+    "labelEn": "Johann Pachelbel",
+    "hasImage": false
+   }
+  ]
+ },
+ "johann-strauss-i": {
+  "name": "ヨハン・シュトラウス1世",
+  "qid": "Q184178",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q184178",
+    "labelJa": "ヨハン・シュトラウス1世",
+    "labelEn": "Johann Strauss I",
+    "hasImage": true
+   },
+   {
+    "qid": "Q83309",
+    "labelJa": "ヨハン・シュトラウス2世",
+    "labelEn": "Johann Strauss II",
+    "hasImage": true
+   },
+   {
+    "qid": "Q28999",
+    "labelJa": "ヨハン・シュトラウス3世",
+    "labelEn": "Johann Strauss III",
+    "hasImage": true
+   }
+  ]
+ },
+ "johann-strauss-ii-josef-strauss": {
+  "name": "ヨハン＆ヨーゼフ・シュトラウス",
+  "qid": null,
+  "verified": false,
+  "candidates": []
+ },
+ "john-dowland": {
+  "name": "ダウランド",
+  "qid": "Q207355",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q207355",
+    "labelJa": "ジョン・ダウランド",
+    "labelEn": "John Dowland",
+    "hasImage": true
+   }
+  ]
+ },
+ "john-field": {
+  "name": "ジョン・フィールド",
+  "qid": "Q209684",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q209684",
+    "labelJa": "ジョン・フィールド",
+    "labelEn": "John Field",
+    "hasImage": true
+   }
+  ]
+ },
+ "john-newton": {
+  "name": "ジョン・ニュートン",
+  "qid": "Q357301",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q357301",
+    "labelJa": "ジョン・ニュートン",
+    "labelEn": "John Newton",
+    "hasImage": true
+   }
+  ]
+ },
+ "john-philip-sousa": {
+  "name": "スーザ",
+  "qid": "Q295935",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q295935",
+    "labelJa": "ジョン・フィリップ・スーザ",
+    "labelEn": "John Philip Sousa",
+    "hasImage": true
+   }
+  ]
+ },
+ "kosaku-yamada": {
+  "name": "山田耕筰",
+  "qid": "Q947908",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q947908",
+    "labelJa": "山田耕筰",
+    "labelEn": "Kōsaku Yamada",
+    "hasImage": true
+   }
+  ]
+ },
+ "lady-john-scott": {
+  "name": "スコット夫人",
+  "qid": "Q3931581",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q3931581",
+    "labelJa": "アリシア・アン・スポッティスウッド",
+    "labelEn": "Alicia Ann Spottiswoode",
+    "hasImage": true
+   }
+  ]
+ },
+ "leoš-janáček": {
+  "name": "ヤナーチェク",
+  "qid": "Q184933",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q184933",
+    "labelJa": "レオシュ・ヤナーチェク",
+    "labelEn": "Leoš Janáček",
+    "hasImage": true
+   }
+  ]
+ },
+ "luigi-boccherini": {
+  "name": "ボッケリーニ",
+  "qid": "Q189766",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q189766",
+    "labelJa": "ルイジ・ボッケリーニ",
+    "labelEn": "Luigi Boccherini",
+    "hasImage": true
+   }
+  ]
+ },
+ "manuel-de-falla": {
+  "name": "ファリャ",
+  "qid": "Q193283",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q193283",
+    "labelJa": "マヌエル・デ・ファリャ",
+    "labelEn": "Manuel de Falla",
+    "hasImage": true
+   }
+  ]
+ },
+ "maria-theresia-von-paradis": {
+  "name": "パラディス",
+  "qid": "Q293171",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q293171",
+    "labelJa": "マリア・テレジア・フォン・パラディス",
+    "labelEn": "Maria Theresia Paradis",
+    "hasImage": true
+   }
+  ]
+ },
+ "michio-miyagi": {
+  "name": "宮城道雄",
+  "qid": "Q1940929",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q1940929",
+    "labelJa": "宮城道雄",
+    "labelEn": "Michio Miyagi",
+    "hasImage": true
+   }
+  ]
+ },
+ "niccolò-paganini": {
+  "name": "パガニーニ",
+  "qid": "Q66075",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q66075",
+    "labelJa": "ニコロ・パガニーニ",
+    "labelEn": "Niccolò Paganini",
+    "hasImage": true
+   }
+  ]
+ },
+ "pablo-de-sarasate": {
+  "name": "サラサーテ",
+  "qid": "Q204503",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q204503",
+    "labelJa": "パブロ・デ・サラサーテ",
+    "labelEn": "Pablo de Sarasate",
+    "hasImage": true
+   }
+  ]
+ },
+ "paul-dukas": {
+  "name": "デュカス",
+  "qid": "Q215556",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q215556",
+    "labelJa": "ポール・デュカス",
+    "labelEn": "Paul Dukas",
+    "hasImage": true
+   }
+  ]
+ },
+ "pietro-mascagni": {
+  "name": "マスカーニ",
+  "qid": "Q181894",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q181894",
+    "labelJa": "ピエトロ・マスカーニ",
+    "labelEn": "Pietro Mascagni",
+    "hasImage": true
+   }
+  ]
+ },
+ "riccardo-drigo": {
+  "name": "ドリゴ",
+  "qid": "Q545830",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q545830",
+    "labelJa": "リッカルド・ドリゴ",
+    "labelEn": "Riccardo Drigo",
+    "hasImage": true
+   }
+  ]
+ },
+ "stephen-foster": {
+  "name": "フォスター",
+  "qid": "Q305202",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q305202",
+    "labelJa": "スティーブン・フォスター",
+    "labelEn": "Stephen Foster",
+    "hasImage": true
+   }
+  ]
+ },
+ "tomaso-albinoni": {
+  "name": "アルビノーニ",
+  "qid": "Q174606",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q174606",
+    "labelJa": "トマゾ・アルビノーニ",
+    "labelEn": "Tomaso Albinoni",
+    "hasImage": true
+   }
+  ]
+ },
+ "tomaso-antonio-vitali": {
+  "name": "T.A.ヴィターリ",
+  "qid": "Q966026",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q966026",
+    "labelJa": "トマソ・アントニオ・ヴィターリ",
+    "labelEn": "Tomaso Antonio Vitali",
+    "hasImage": true
+   }
+  ]
+ },
+ "zdeněk-fibich": {
+  "name": "フィビヒ",
+  "qid": "Q117110",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q117110",
+    "labelJa": "ズデニェク・フィビフ",
+    "labelEn": "Zdeněk Fibich",
+    "hasImage": true
+   }
+  ]
+ },
+ "édouard-lalo": {
+  "name": "ラロ",
+  "qid": "Q224002",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q224002",
+    "labelJa": "エドゥアール・ラロ",
+    "labelEn": "Edouard Lalo",
+    "hasImage": true
+   },
+   {
+    "qid": "Q247293",
+    "labelJa": "ラロ・シフリン",
+    "labelEn": "Lalo Schifrin",
+    "hasImage": true
+   }
+  ]
+ },
+ "émile-waldteufel": {
+  "name": "ワルトトイフェル",
+  "qid": "Q286616",
+  "verified": true,
+  "candidates": [
+   {
+    "qid": "Q286616",
+    "labelJa": "エミール・ワルトトイフェル",
+    "labelEn": "Émile Waldteufel",
+    "hasImage": true
+   }
+  ]
+ }
+}
