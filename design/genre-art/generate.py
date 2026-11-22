@@ -17,7 +17,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-KOTLIN_OUT = ROOT / "android/core/artwork/src/main/kotlin/app/cmsl/classical/core/artwork/GenreIllustrations.kt"
+KOTLIN_OUT = ROOT / "android/core/artwork/src/main/kotlin/jp/vntech/classic/core/artwork/GenreIllustrations.kt"
 SWIFT_OUT = ROOT / "ios/CMSLClassical/UI/GenreIllustrations.swift"
 GENRES = ["symphony", "orchestral", "concerto", "piano", "chamber", "vocal", "other"]
 NS = "{http://www.w3.org/2000/svg}"
@@ -201,7 +201,7 @@ def flat(ops):
 def kotlin(all_shapes):
     lines = [
         "// 生成したファイル。手で直さない（design/genre-art/generate.py で SVG から作る）",
-        "package app.cmsl.classical.core.artwork",
+        "package jp.vntech.classic.core.artwork",
         "",
         "/** ジャンルのイラスト（viewBox 0〜100）。キーはジャンル ID。描画は [IllustrationShape] を参照。 */",
         "@Suppress(\"LargeClass\", \"MagicNumber\", \"ktlint\")",

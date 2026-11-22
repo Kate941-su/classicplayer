@@ -716,7 +716,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CMSLClassical.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CMSLClassical";
@@ -738,7 +738,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic;
 				PRODUCT_NAME = CMSLClassical;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -755,7 +755,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = CMSLClassical;
@@ -772,7 +772,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = CMSLClassical;
@@ -789,7 +789,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CMSLClassical.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CMSLClassical";
@@ -811,7 +811,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic;
 				PRODUCT_NAME = CMSLClassical;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

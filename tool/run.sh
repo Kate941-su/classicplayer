@@ -15,7 +15,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-APP_ID="app.cmsl.classical"
+APP_ID="jp.vntech.classic"
 ACTIVITY="$APP_ID/.MainActivity"
 IOS_PROJECT="$ROOT/ios/CMSLClassical.xcodeproj"
 IOS_SCHEME="CMSLClassical"

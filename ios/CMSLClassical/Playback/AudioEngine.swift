@@ -1,7 +1,7 @@
 import AVFoundation
 import os
 
-private let log = Logger(subsystem: "app.cmsl.classical", category: "playback")
+private let log = Logger(subsystem: "jp.vntech.classic", category: "playback")
 
 /// 音を鳴らす部分（テストではフェイクに差し替える）。今の曲と、先読みする次の曲だけを持つ。
 @MainActor

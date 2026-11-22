@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "app.cmsl.classical.core.artwork"
+    namespace = "jp.vntech.classic.core.artwork"
 }
 
 dependencies {
