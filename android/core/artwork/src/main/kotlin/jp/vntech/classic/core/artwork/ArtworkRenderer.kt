@@ -9,49 +9,89 @@ import android.graphics.Path
 import android.graphics.RectF
 import android.graphics.Shader
 import androidx.core.graphics.createBitmap
+import androidx.core.graphics.withTranslation
 import kotlin.math.PI
 import kotlin.math.sin
 
-/** [ArtworkSpec] を正方形のビットマップに描く。座標は辺の長さを 1 とした割合で考える。 */
+/** [ArtworkSpec] をビットマップに描く。模様の座標は辺の長さを 1 とした割合、イラストは 0〜100 で考える。 */
 object ArtworkRenderer {
     private const val SATURATION = 0.38f
     private const val LIGHT_TOP = 0.34f
     private const val LIGHT_BOTTOM = 0.18f
     private const val HUE_SHIFT = 28f
     private const val ACCENT_LIGHT = 0.78f
-    private const val ACCENT_ALPHA = 150
+
+    /** 模様はイラストの後ろなので薄くする。 */
+    private const val PATTERN_ALPHA = 70
+    private const val ILLUSTRATION_LIGHT = 0.86f
+    private const val DETAIL_LIGHT = 0.2f
+    private const val VIEWBOX = 100f
     private const val STROKE = 0.018f
 
-    fun render(spec: ArtworkSpec, sizePx: Int): Bitmap {
-        val bitmap = createBitmap(sizePx, sizePx)
+    /**
+     * 幅 [widthPx]・高さ [heightPx] に描く（省略すると正方形）。背景のグラデーションと模様は枠いっぱいに敷き
+     * （模様は長い辺の正方形を中央で切り抜いた形）、ジャンルのイラストは短い辺の正方形に収めて中央に置く。
+     */
+    fun render(spec: ArtworkSpec, widthPx: Int, heightPx: Int = widthPx): Bitmap {
+        val bitmap = createBitmap(widthPx, heightPx)
         val canvas = Canvas(bitmap)
-        val s = sizePx.toFloat()
+        val w = widthPx.toFloat()
+        val h = heightPx.toFloat()
         val bg = Paint().apply {
             shader = LinearGradient(
                 0f,
                 0f,
-                s,
-                s,
+                w,
+                h,
                 hsl(spec.hue.toFloat(), SATURATION, LIGHT_TOP),
                 hsl(spec.hue + HUE_SHIFT, SATURATION, LIGHT_BOTTOM),
                 Shader.TileMode.CLAMP,
             )
         }
-        canvas.drawRect(0f, 0f, s, s, bg)
+        canvas.drawRect(0f, 0f, w, h, bg)
         val accent = hsl(spec.hue + HUE_SHIFT / 2, SATURATION, ACCENT_LIGHT)
+        val pattern = maxOf(w, h)
         val stroke = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = accent
-            alpha = ACCENT_ALPHA
+            alpha = PATTERN_ALPHA
             style = Paint.Style.STROKE
-            strokeWidth = s * STROKE
+            strokeWidth = pattern * STROKE
         }
         val fill = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = accent
-            alpha = ACCENT_ALPHA
+            alpha = PATTERN_ALPHA
             style = Paint.Style.FILL
         }
-        Patterns(canvas, s, spec.variant, stroke, fill).draw(spec.pattern)
+        canvas.withTranslation((w - pattern) / 2, (h - pattern) / 2) {
+            Patterns(this, pattern, spec.variant, stroke, fill).draw(spec.pattern)
+        }
+        drawIllustration(canvas, spec, w, h)
         return bitmap
+    }
+
+    private fun drawIllustration(canvas: Canvas, spec: ArtworkSpec, w: Float, h: Float) {
+        val side = minOf(w, h)
+        val scale = side / VIEWBOX
+        val dx = (w - side) / 2
+        val dy = (h - side) / 2
+        val colors = mapOf(
+            Ink.Accent to hsl(spec.hue + HUE_SHIFT / 2, SATURATION, ILLUSTRATION_LIGHT),
+            Ink.Detail to hsl(spec.hue + HUE_SHIFT, SATURATION, DETAIL_LIGHT),
+        )
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            strokeCap = Paint.Cap.ROUND
+            strokeJoin = Paint.Join.ROUND
+        }
+        for (shape in IllustrationShape.of(spec.illustration)) {
+            paint.color = colors.getValue(shape.ink)
+            if (shape.strokeWidth == 0f) {
+                paint.style = Paint.Style.FILL
+            } else {
+                paint.style = Paint.Style.STROKE
+                paint.strokeWidth = shape.strokeWidth * scale
+            }
+            canvas.drawPath(shape.path(scale, dx, dy), paint)
+        }
     }
 
     /** HSL（色相は度）→ ARGB。 */

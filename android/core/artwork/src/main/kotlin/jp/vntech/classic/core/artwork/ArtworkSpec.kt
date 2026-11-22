@@ -2,7 +2,7 @@ package jp.vntech.classic.core.artwork
 
 /**
  * 生成アートワークの設計（SPEC §4.10）。規則の正本は `docs/artwork.md`（iOS と共通）。
- * 作曲家 ID のハッシュから色相と細部を、ジャンルから図形パターンを決める。外部の画像は使わない。
+ * 作曲家 ID のハッシュから色相と細部を、ジャンルから図形パターンとイラストを決める。外部の画像は使わない。
  */
 data class ArtworkSpec(
     /** 0〜359。 */
@@ -10,6 +10,8 @@ data class ArtworkSpec(
     val pattern: ArtworkPattern,
     /** 図形の細部（本数・位置）を決める値。0〜255。 */
     val variant: Int,
+    /** イラストの種類（`design/genre-art/{illustration}.svg`）。既知の 6 ジャンルの ID か `other`。 */
+    val illustration: String = ILLUSTRATION_OTHER,
 ) {
     companion object {
         private const val FNV_OFFSET = 0x811c9dc5u
@@ -24,8 +26,15 @@ data class ArtworkSpec(
                 hue = (h % HUE_STEPS).toInt(),
                 pattern = ArtworkPattern.forGenre(genreId),
                 variant = ((h shr VARIANT_SHIFT) and VARIANT_MASK).toInt(),
+                illustration = illustrationFor(genreId),
             )
         }
+
+        const val ILLUSTRATION_OTHER = "other"
+        private val ILLUSTRATED = setOf("symphony", "orchestral", "concerto", "piano", "chamber", "vocal")
+
+        /** ジャンル ID → イラストの種類。未知のジャンル（baroque を含む）は「その他」（音符）。 */
+        fun illustrationFor(genreId: String): String = if (genreId in ILLUSTRATED) genreId else ILLUSTRATION_OTHER
 
         /** FNV-1a（32 ビット）。入力は UTF-8 のバイト列。 */
         fun fnv1a32(text: String): UInt {
