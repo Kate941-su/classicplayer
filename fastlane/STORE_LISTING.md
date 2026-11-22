@@ -22,7 +22,10 @@ fastlane ios check_auth        # API キーとアプリの有無を確かめる�
 fastlane android check_auth    # サービスアカウントの鍵を確かめる（読むだけ）
 fastlane ios metadata          # App Store Connect に文面とスクリーンショットを送る（審査には出さない）
 fastlane android metadata      # Google Play に文面・アイコン・フィーチャーグラフィック・スクリーンショットを送る
+fastlane ios beta              # Archive → App Store 用に書き出し → TestFlight に上げる（審査には出さない）
 ```
+
+- `ios beta`: ビルド番号は TestFlight の最新 + 1。同梱カタログは `site/v1/catalog.json`。本番用の署名（Apple Distribution と App Store 用のプロファイル）は、書き出しのときに自動署名が API キーで作る・取る（Xcode の Run や Archive の画面で Apple Development と出るのは正常）。IPA は `build/ios/`
 
 - App Store Connect: 先に「マイ App → 新規 App」で Bundle ID `jp.vntech.classic` のアプリを作る（Bundle ID は Certificates, Identifiers & Profiles で登録）
 - Google Play: Play Console でアプリを作り、最初の AAB を一度手で（内部テストなどに）上げてから、fastlane で掲載情報を送れる。サービスアカウントに、そのアプリの「ストアの掲載情報の管理」権限が要る

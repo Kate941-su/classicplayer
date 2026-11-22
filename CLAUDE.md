@@ -34,7 +34,7 @@ fastlane/   ストアの既定の掲載情報（文面・スクリーンショ�
 - アプリアイコン: `uv run --with Pillow python design/icon/make_icon.py`（元のイラスト `design/icon/source.png` はコミットしない）
 - フィクスチャの作り直し: `cd catalog && python3 extract_fixture.py <catalog.json>`（`fixtures/README.md`）
 - スクリーンショット: `cd android && ./gradlew :app:testDebugUnitTest --tests '*ScreenshotsTest' -Pcmsl.recordScreenshots` → `docs/screens/android/`
-- ストアの掲載情報（fastlane）: `tool/store_screenshots.sh`（素の画面を撮る → 見出しと端末の枠を付ける → 確認。`compose` だけで作り直しのみ）→ `fastlane ios metadata` / `fastlane android metadata`（鍵は `fastlane/.env`。`check_auth` で確認だけ）。詳細は `fastlane/STORE_LISTING.md`
+- ストアの掲載情報（fastlane）: `tool/store_screenshots.sh`（素の画面を撮る → 見出しと端末の枠を付ける → 確認。`compose` だけで作り直しのみ）→ `fastlane ios metadata` / `fastlane android metadata`、TestFlight へは `fastlane ios beta`（鍵は `fastlane/.env`。`check_auth` で確認だけ）。詳細は `fastlane/STORE_LISTING.md`
 - iOS（macOS のみ）: `cd ios && xcodebuild -scheme CMSLClassical -destination 'platform=iOS Simulator,name=iPhone 17' test`（名前は `xcrun simctl list devices available` にあるものを選ぶ）。Lint（任意）: `cd ios && swiftlint`
 - iOS のプロジェクト: 正本は `ios/project.yml`（XcodeGen）。ターゲットや設定を変えたら `cd ios && xcodegen` で `CMSLClassical.xcodeproj` を作り直し、両方コミットする（Xcode の画面で直接変えない）
 
