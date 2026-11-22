@@ -7,7 +7,8 @@ import SwiftData
 @Observable
 final class AppModel {
     static let catalogBaseURL = URL(string: "https://kate941-su.github.io/classicplayer/v1/")!
-    static let siteBaseURL = URL(string: "https://kate941-su.github.io/classicplayer/")!
+    /// プライバシーポリシー・利用規約・サポート（Kate941-su/privacy-policy-root。英語版は末尾に `/en`）。
+    static let legalBaseURL = "https://privacy-policy-root.vercel.app/classicplayer"
 
     enum RefreshStatus: Equatable { case idle, checking, updated, upToDate, failed, unsupported }
 

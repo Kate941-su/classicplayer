@@ -93,9 +93,10 @@
     <string name="info_catalog">カタログ</string>
     <string name="info_catalog_seed">同梱のカタログ（%1$s 作成、%2$s）</string>
     <string name="info_catalog_downloaded">版 %1$s（%2$s 作成、%3$s）</string>
+    <string name="info_terms_of_use">利用規約</string>
     <string name="info_contact">お問い合わせ・サポート</string>
     <string name="info_licenses">オープンソースライセンス</string>
-    <string name="site_page_suffix"></string>
+    <string name="legal_page_suffix"></string>
 
     <string name="refresh_checking">確認しています…</string>
     <string name="refresh_updated">カタログを更新しました。</string>

@@ -23,5 +23,6 @@
 ■ 音源について
 音源は CMSL クラシック名曲サウンドライブラリー（制作: ANDO TOWA）の mp3 で、Creative Commons 表示 2.1 日本ライセンスで公開されています。アプリは音源を CMSL のサーバーから直接再生します。本アプリは CMSL の公式アプリではありません。
 
-サポート: https://kate941-su.github.io/classicplayer/support/
-プライバシーポリシー: https://kate941-su.github.io/classicplayer/privacy/
+サポート: https://privacy-policy-root.vercel.app/classicplayer/support
+プライバシーポリシー: https://privacy-policy-root.vercel.app/classicplayer
+利用規約: https://privacy-policy-root.vercel.app/classicplayer/terms

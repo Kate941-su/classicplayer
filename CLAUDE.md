@@ -12,7 +12,7 @@ catalog/    Python: build_catalog.py, validate_catalog.py, make_manifest.py, ove
             fetch_portraits.py（作曲家の肖像画）, composer_wikidata.json（作曲家 → Wikidata の対応。人が確認する）, portraits.json（クレジット）
 schema/     catalog.schema.json, manifest.schema.json（両アプリ共通の契約）
 fixtures/   catalog.sample.json, manifest.sample.json, invalid/, search_cases.json（両アプリのテストで共有）
-site/       GitHub Pages: v1/manifest.json, v1/catalog.json, v1/portraits/*.jpg, privacy/, support/
+site/       GitHub Pages: v1/manifest.json, v1/catalog.json, v1/portraits/*.jpg（privacy/・support/ は転送ページだけ。文書の正本は下記）
 android/    Kotlin + Compose + Media3（Gradle マルチモジュール）
 ios/        Swift 6 + SwiftUI + AVFoundation（Xcode プロジェクト）
 docs/       SPEC.md, PLAN.md, search-normalization.md, artwork.md, manual-qa.md, screens/
@@ -41,7 +41,7 @@ fastlane/   ストアの既定の掲載情報（文面・スクリーンショ�
 
 ## 守るべき原則（SPEC §1.2）
 - 広告・解析・クラッシュ収集の SDK を**追加しない**。依存を追加するときは、ライセンス（MIT/Apache/BSD のみ）と通信の有無を PR に書く。
-- アプリから CMSL の HTML にアクセスしない。アプリがアクセスするのは `site/v1/*` と音源の mp3 だけ。音源のホストは `classical-sound.up.seesaa.net`（https）と、制作者の旧サーバー 3 つ（`classical-music.aki.gs`・`andotowa.sakura.ne.jp`・`classical-music.sakura.ne.jp`。https 非対応のため http を許可）に限る（SPEC §1.2）。ホストを変えるときは `build_catalog.py`・スキーマ・`CatalogValidator`・`network_security_config.xml`・iOS の ATS 例外・プライバシーポリシーを同じ PR で直す。
+- アプリから CMSL の HTML にアクセスしない。アプリがアクセスするのは `site/v1/*` と音源の mp3 だけ。音源のホストは `classical-sound.up.seesaa.net`（https）と、制作者の旧サーバー 3 つ（`classical-music.aki.gs`・`andotowa.sakura.ne.jp`・`classical-music.sakura.ne.jp`。https 非対応のため http を許可）に限る（SPEC §1.2）。ホストを変えるときは `build_catalog.py`・スキーマ・`CatalogValidator`・`network_security_config.xml`・iOS の ATS 例外を同じ PR で直し、プライバシーポリシー（privacy-policy-root の `policies/classicplayer.md`）も同じリリースで直す。
 - 外部の画像は作曲家の肖像画だけ（ジャンルのイラストは `design/genre-art/*.svg` を正本に、`generate.py` で作った描画データからアプリ内でベクターで描く。SVG を変えたら生成し直して両アプリの出力をコミットする）。Wikimedia Commons の PD / CC0 / CC BY / CC BY-SA のものを事前に加工して `site/v1/portraits/` に置き、アプリはそこから読む（アプリから Wikidata / Wikimedia にアクセスしない）。Wikidata との対応は `verified: true`（オーナーが確認したもの）だけを使う。肖像画はプレイヤー・ロック画面・通知にも使い、同梱シードの作曲家の分はアプリに同梱する。クレジット（作品名・作者・ライセンス・出典・加工したこと）は情報タブの「画像のクレジット」画面にまとめて表示し、消さない。肖像画がなければ生成アートワークにフォールバックする（SPEC §3.6・§4.10）
 - 永続化してよい ID は `track.id` だけ（`composer.id` と `work.id` は変わることがある）。同じ作品の別録音は新しい録音だけ残し、外した曲は `replacedTracks` でアプリが読み替える（SPEC §3.2）。
 - 再生や曲を課金で制限しない。寄付はアプリ内課金の消耗型チップだけ。外部の寄付リンクは置かない。

@@ -24,5 +24,6 @@ All pieces and features are free.
 ABOUT THE RECORDINGS
 The recordings are MP3 files from the CMSL Classical Masterpieces Sound Library (by ANDO TOWA), published under the Creative Commons Attribution 2.1 Japan license. The app streams them directly from the CMSL servers. This is not an official CMSL app.
 
-Support: https://kate941-su.github.io/classicplayer/support/en.html
-Privacy policy: https://kate941-su.github.io/classicplayer/privacy/en.html
+Support: https://privacy-policy-root.vercel.app/classicplayer/support/en
+Privacy policy: https://privacy-policy-root.vercel.app/classicplayer/en
+Terms of use: https://privacy-policy-root.vercel.app/classicplayer/terms/en

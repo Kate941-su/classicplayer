@@ -83,6 +83,7 @@ fun InfoScreen(onLicenses: () -> Unit, onImageCredits: () -> Unit) {
         val s = state ?: return@Scaffold Loading()
         val license = s.catalog.index.catalog.license
         val privacyUrl = PRIVACY_URL_PATH.localized()
+        val termsUrl = TERMS_URL_PATH.localized()
         val supportUrl = SUPPORT_URL_PATH.localized()
         LazyColumn(contentPadding = padding, modifier = Modifier.testTag("info")) {
             item {
@@ -127,6 +128,7 @@ fun InfoScreen(onLicenses: () -> Unit, onImageCredits: () -> Unit) {
             }
             item {
                 HorizontalDivider(Modifier.padding(vertical = 8.dp))
+                LinkRow(stringResource(R.string.info_terms_of_use)) { uri.openUri(termsUrl) }
                 LinkRow(stringResource(R.string.info_contact)) { uri.openUri(supportUrl) }
                 ListItem(
                     modifier = Modifier.clickable(role = Role.Button, onClick = onLicenses),
@@ -138,7 +140,7 @@ fun InfoScreen(onLicenses: () -> Unit, onImageCredits: () -> Unit) {
 }
 
 @Composable
-private fun String.localized(): String = SITE_BASE + this + stringResource(R.string.site_page_suffix)
+private fun String.localized(): String = LEGAL_BASE + this + stringResource(R.string.legal_page_suffix)
 
 @Composable
 private fun catalogDescription(c: CatalogState): String {
@@ -192,9 +194,11 @@ private fun LinkRow(text: String, onClick: () -> Unit) {
     )
 }
 
-private const val SITE_BASE = "https://kate941-su.github.io/classicplayer/"
-private const val PRIVACY_URL_PATH = "privacy/"
-private const val SUPPORT_URL_PATH = "support/"
+/** プライバシーポリシー・利用規約・サポート（Kate941-su/privacy-policy-root。英語版は末尾に `/en`）。 */
+private const val LEGAL_BASE = "https://privacy-policy-root.vercel.app/classicplayer"
+private const val PRIVACY_URL_PATH = ""
+private const val TERMS_URL_PATH = "/terms"
+private const val SUPPORT_URL_PATH = "/support"
 
 /** オープンソースライセンス一覧。依存を追加したらここにも足す（ライセンスは MIT/Apache/BSD のみ）。 */
 private val LICENSES = listOf(
