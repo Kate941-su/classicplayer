@@ -1,0 +1,85 @@
+{
+  "_comment": "ストア画像の設定。tool/store_screenshots.sh が素の画面を撮り、compose.py（~/.claude/skills/store-listing）がこれを読んで見出しと端末の枠を付ける",
+  "raw_dir": {
+    "ios": "build/store_screenshots/raw-ios",
+    "android": "build/store_screenshots/raw-android"
+  },
+  "icon": "ios/CMSLClassical/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
+  "targets": ["iphone69", "ipad13", "android_phone", "android_tablet10"],
+  "locales": {
+    "ja": { "android": "ja-JP", "ios": "ja" },
+    "en": { "android": "en-US", "ios": "en-US" }
+  },
+  "theme": {
+    "bg_top": "#7A2E3A",
+    "bg_bottom": "#24090F",
+    "accent": "#F0C987",
+    "glow2": "#F0B5BE",
+    "text": "#FBF7F0",
+    "bezel": "#0B0507"
+  },
+  "shots": [
+    {
+      "name": "player",
+      "caption": {
+        "ja": "広告なしで\nクラシックを聴く",
+        "en": "Classical music,\nwith no ads"
+      },
+      "sub": {
+        "ja": "名曲をストリーミング再生。スリープタイマーつき",
+        "en": "Stream the great works, with a sleep timer"
+      }
+    },
+    {
+      "name": "home",
+      "caption": {
+        "ja": "おまかせ再生で\nすぐに聴ける",
+        "en": "Tap shuffle\nand just listen"
+      },
+      "sub": {
+        "ja": "新着の曲と 7 つのジャンルからも選べる",
+        "en": "Or pick from new arrivals and 7 genres"
+      }
+    },
+    {
+      "name": "genre",
+      "caption": {
+        "ja": "交響曲からピアノまで\n約 500 曲",
+        "en": "About 500 pieces,\nsymphonies to piano"
+      },
+      "sub": {
+        "ja": "ジャンルごとに作曲家から探せる",
+        "en": "Browse each genre by composer"
+      }
+    },
+    {
+      "name": "composer",
+      "caption": {
+        "ja": "作曲家の肖像画と\n作品の一覧",
+        "en": "Meet the composers\nand their works"
+      },
+      "sub": {
+        "ja": "ベートーヴェン、ショパン、ドヴォルザーク…",
+        "en": "Beethoven, Chopin, Dvořák and more"
+      }
+    },
+    {
+      "name": "work",
+      "caption": {
+        "ja": "楽章を通して再生\nダウンロードも",
+        "en": "Play whole works,\nor save them offline"
+      },
+      "sub": {
+        "ja": "Wi-Fi のときに保存して、オフラインで聴ける",
+        "en": "Download on Wi-Fi and listen anywhere"
+      }
+    }
+  ],
+  "feature_graphic": {
+    "title": { "ja": "クラシック名曲プレイヤー", "en": "Classical Masterpieces Player" },
+    "tagline": {
+      "ja": "広告なしで、\nクラシックだけを聴く",
+      "en": "Just classical music,\nwith no ads"
+    }
+  }
+}

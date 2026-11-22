@@ -56,3 +56,13 @@ catalog/portraits.report.json
 
 # アイコンの元のイラスト（素材の再配布にならないようコミットしない）
 design/icon/source.png
+
+# ストアの素の画面（store-listing）
+/build/
+
+# fastlane（自動で作られるもの。鍵のパスは fastlane/.env）
+!fastlane/.env.example
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/README.md
+fastlane/test_output/

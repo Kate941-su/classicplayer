@@ -17,7 +17,8 @@ android/    Kotlin + Compose + Media3（Gradle マルチモジュール）
 ios/        Swift 6 + SwiftUI + AVFoundation（Xcode プロジェクト）
 docs/       SPEC.md, PLAN.md, search-normalization.md, artwork.md, manual-qa.md, screens/
 design/    icon/make_icon.py（アプリアイコン。iOS と Android）, genre-art/*.svg と generate.py（ジャンルのイラスト → 両アプリの描画データ）
-tool/       run.sh（起動）, update-catalog.sh（カタログの月次更新）, update-seed.sh（シード）, check-android-deps.sh（依存監査）
+tool/       run.sh（起動）, update-catalog.sh（カタログの月次更新）, update-seed.sh（シード）, check-android-deps.sh（依存監査）, store_screenshots.sh（ストアの画像）
+fastlane/   ストアの既定の掲載情報（文面・スクリーンショット）と Fastfile。STORE_LISTING.md
 ```
 - Android のモジュール: `core:model`（データクラス・索引・検証）→ `core:search` / `core:data`（カタログ取得）/ `core:db`（Room・DataStore）/ `core:playback`（Media3）/ `core:artwork` → `app`（Compose UI・手動 DI の `AppContainer`）。`model`・`search`・`data` は Android に依存しない
 
@@ -26,6 +27,7 @@ tool/       run.sh（起動）, update-catalog.sh（カタログの月次更新�
 - カタログの月次更新（オーナーの手元で実行。CI からは巡回できない）: `tool/update-catalog.sh`（差分の巡回 → 検証 → `site/v1/` に出力 → 表示される手順で PR）、`--offline`（キャッシュだけで作り直す）、`--full`。手順は `docs/catalog-pipeline.md`
 - 作曲家の肖像画（オーナーの手元で実行。SPEC §3.6、手順は `docs/catalog-pipeline.md`）: `cd catalog && uv run --python 3.12 --with-requirements requirements-dev.txt python fetch_portraits.py --catalog ../site/v1/catalog.json --suggest-only`（Wikidata の候補を `composer_wikidata.json` に追記するだけ）→ オーナーが確認して `"verified": true` → `… fetch_portraits.py --catalog ../site/v1/catalog.json --contact https://github.com/kate941-su/classicplayer`（`site/v1/portraits/` と `catalog/portraits.json` を出力）→ `tool/update-catalog.sh --offline` で `composers[].portrait` に反映（`build_catalog.py` が `portraits.json` を読む。`--portraits` で場所を変えられる）
 - Android: `cd android && ./gradlew assembleDebug test lint detekt`（JDK 17 以上。`JAVA_HOME` 未設定なら `export JAVA_HOME=/opt/homebrew/opt/openjdk@21`）。整形の自動修正は `./gradlew detekt -PdetektAutoCorrect`
+- Android のリリース（AAB）: `cd android && ./gradlew :app:bundleRelease -Pcmsl.seedCatalog=$PWD/../site/v1/catalog.json` → `app/build/outputs/bundle/release/app-release.aab`。アップロード鍵は `~/keys/google/classicplayer-keystore.properties`（リポジトリ外。`-Pcmsl.keystoreProperties` で変えられる。無ければ署名なし）
 - Android の依存監査（広告・解析 SDK がないこと）: `tool/check-android-deps.sh`
 - 起動（実機・エミュレーター・シミュレーター）: `tool/run.sh`（Android 実機 → なければエミュレーター）、`tool/run.sh android|ios`、`--device <id>`、`--list`、`--fresh`（データを消す）、`--seed <catalog.json>`（同梱カタログを差し替え）、`--logs`。`--` の後ろは gradlew / xcodebuild に渡す
 - 同梱カタログ（シード）: 既定は `fixtures/catalog.sample.json`（実カタログから抜き出した 20 曲。http の旧サーバーの曲を含む。再生もできる）。全件で試すときは `tool/update-seed.sh`（公開中のカタログ）か `tool/update-seed.sh <path>` → `android/seed/catalog.json` と、シードの作曲家の肖像画 `android/seed/portraits/`（コミットしない。iOS のビルドも同じファイルを使う）。Android のビルドは肖像画を `seed/portraits/` → `site/v1/portraits/` の順に探し、sha256 が合うものを `assets/portraits/` に入れる
@@ -33,6 +35,7 @@ tool/       run.sh（起動）, update-catalog.sh（カタログの月次更新�
 - アプリアイコン: `uv run --with Pillow python design/icon/make_icon.py`（元のイラスト `design/icon/source.png` はコミットしない）
 - フィクスチャの作り直し: `cd catalog && python3 extract_fixture.py <catalog.json>`（`fixtures/README.md`）
 - スクリーンショット: `cd android && ./gradlew :app:testDebugUnitTest --tests '*ScreenshotsTest' -Pcmsl.recordScreenshots` → `docs/screens/android/`
+- ストアの掲載情報（fastlane）: `tool/store_screenshots.sh`（素の画面を撮る → 見出しと端末の枠を付ける → 確認。`compose` だけで作り直しのみ）→ `fastlane ios metadata` / `fastlane android metadata`、TestFlight へは `fastlane ios beta`（鍵は `fastlane/.env`。`check_auth` で確認だけ）。詳細は `fastlane/STORE_LISTING.md`
 - iOS（macOS のみ）: `cd ios && xcodebuild -scheme CMSLClassical -destination 'platform=iOS Simulator,name=iPhone 17' test`（名前は `xcrun simctl list devices available` にあるものを選ぶ）。Lint（任意）: `cd ios && swiftlint`
 - iOS のプロジェクト: 正本は `ios/project.yml`（XcodeGen）。ターゲットや設定を変えたら `cd ios && xcodegen` で `CMSLClassical.xcodeproj` を作り直し、両方コミットする（Xcode の画面で直接変えない）
 
