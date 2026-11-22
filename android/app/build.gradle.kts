@@ -1,4 +1,5 @@
 import java.security.MessageDigest
+import java.util.Properties
 
 plugins {
     id("cmsl.android.application")
@@ -18,8 +19,30 @@ android {
         buildConfigField("String", "CATALOG_BASE_URL", "\"https://kate941-su.github.io/classicplayer/v1/\"")
     }
 
+    // Google Play のアップロード鍵。鍵と properties はリポジトリに入れない（既定は ~/keys/google/。
+    // -Pcmsl.keystoreProperties=<path> で変えられる）。無いときは署名なしの release を作る（CI など）
+    val keystoreProperties = providers.gradleProperty("cmsl.keystoreProperties")
+        .orElse("${System.getProperty("user.home")}/keys/google/classicplayer-keystore.properties")
+        .map { file(it) }.get()
+    val uploadKey = if (keystoreProperties.isFile) {
+        Properties().apply { keystoreProperties.inputStream().use { load(it) } }
+    } else {
+        null
+    }
+    signingConfigs {
+        if (uploadKey != null) {
+            create("upload") {
+                storeFile = file(uploadKey.getProperty("storeFile"))
+                storePassword = uploadKey.getProperty("storePassword")
+                keyAlias = uploadKey.getProperty("keyAlias")
+                keyPassword = uploadKey.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.findByName("upload")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
