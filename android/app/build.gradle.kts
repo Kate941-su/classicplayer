@@ -7,10 +7,10 @@ plugins {
 }
 
 android {
-    namespace = "app.cmsl.classical"
+    namespace = "jp.vntech.classic"
 
     defaultConfig {
-        applicationId = "app.cmsl.classical"
+        applicationId = "jp.vntech.classic"
         versionCode = 1
         versionName = "0.1.0"
         // 配信先（SPEC §2）。アプリがアクセスするのはここと音源の mp3 だけ（classical-sound.up.seesaa.net と、

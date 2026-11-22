@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020F92B46D4934DCF943710A /* PortraitStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5BDE2C78628A055D4FB63C /* PortraitStoreTests.swift */; };
 		045F4A915F3C475FC7A46AA3 /* DownloadsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE7F6CAAA9933BFA5AF27E /* DownloadsSection.swift */; };
 		048966D394010A58F73626EE /* CatalogValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387069700556BDF180B9BF75 /* CatalogValidator.swift */; };
 		04F7C2B426B93DA73C972D21 /* ArtworkSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E59E3DFC2056CDC2983A83 /* ArtworkSpec.swift */; };
@@ -99,6 +100,7 @@
 		48C3F674C387547F8DA6BA30 /* PlayQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayQueue.swift; sourceTree = "<group>"; };
 		4B398D13D81F65879F630B44 /* PlayerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViews.swift; sourceTree = "<group>"; };
 		4B59F8212D4B15C2B7166F57 /* CMSLClassicalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMSLClassicalApp.swift; sourceTree = "<group>"; };
+		4B5BDE2C78628A055D4FB63C /* PortraitStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitStoreTests.swift; sourceTree = "<group>"; };
 		5B70050317AD5CD2CAD9B488 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
 		5D6EDBD1C391B87BBFA5D43B /* CMSLClassicalTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = CMSLClassicalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		600E93ABECA52DE3AF528617 /* PreferenceStores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceStores.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				3D95858ADF16F65FCA97DCF3 /* LibraryStoreTests.swift */,
 				67AF5B4063AF642F0ADA4E8A /* PlaybackControllerTests.swift */,
 				ABE210A03E0000B66BB1B5CA /* PlaybackTests.swift */,
+				4B5BDE2C78628A055D4FB63C /* PortraitStoreTests.swift */,
 				30FA8E75D5470DC3430E83E9 /* ProjectSetupTests.swift */,
 				43F24F607A3434B3C63FA5C5 /* SearchCasesTests.swift */,
 				D921F23DB43F4CD4F6607EE2 /* SleepTimerTests.swift */,
@@ -489,6 +492,7 @@
 				7BB316D36D8DBC880B914262 /* LibraryStoreTests.swift in Sources */,
 				9C1BFC359D96596257C73503 /* PlaybackControllerTests.swift in Sources */,
 				D3E9C289716822F7FBE08A32 /* PlaybackTests.swift in Sources */,
+				020F92B46D4934DCF943710A /* PortraitStoreTests.swift in Sources */,
 				48F75B2847722D5053D0F456 /* ProjectSetupTests.swift in Sources */,
 				1FC393AE5F7BEF90FC553659 /* SearchCasesTests.swift in Sources */,
 				307EE4BB9F633283F7D124CD /* SleepTimerTests.swift in Sources */,
@@ -704,7 +708,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CMSLClassical.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CMSLClassical";
@@ -726,7 +730,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic;
 				PRODUCT_NAME = CMSLClassical;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -743,7 +747,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = CMSLClassical;
@@ -760,7 +764,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical.uitests;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = CMSLClassical;
@@ -777,7 +781,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical.tests;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CMSLClassical.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CMSLClassical";
@@ -799,7 +803,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = app.cmsl.classical;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.vntech.classic;
 				PRODUCT_NAME = CMSLClassical;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

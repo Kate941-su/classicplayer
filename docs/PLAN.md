@@ -30,7 +30,7 @@
 
 | # | タスク | 完了条件 |
 |---|---|---|
-| 1.1 | プロジェクトを作成する（Compose、Material 3、Version Catalog、ktlint/detekt）。パッケージ名 `app.cmsl.classical`（仮） | `./gradlew assembleDebug lint` が通る |
+| 1.1 | プロジェクトを作成する（Compose、Material 3、Version Catalog、ktlint/detekt）。パッケージ名 `jp.vntech.classic`（iOS の Bundle ID も同じ） | `./gradlew assembleDebug lint` が通る |
 | 1.2 | `core:model`: カタログのデータクラス（kotlinx.serialization）。サンプルフィクスチャのデコードテスト | テストが通る |
 | 1.3 | `core:data`: CatalogRepository（シード → ローカル → manifest/ETag → 検証 → 差し替え）。SPEC §7 | 更新、失敗時のロールバック、24時間制限のテスト |
 | 1.4 | `core:search`: 正規化とインデックス。`search_cases.json` をすべて通す | テストが通る |

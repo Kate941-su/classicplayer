@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "app.cmsl.classical.core.db"
+    namespace = "jp.vntech.classic.core.db"
 }
 
 room {

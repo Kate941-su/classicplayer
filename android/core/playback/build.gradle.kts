@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "app.cmsl.classical.core.playback"
+    namespace = "jp.vntech.classic.core.playback"
 }
 
 dependencies {
