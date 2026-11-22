@@ -42,6 +42,12 @@ android {
                 it.systemProperty("screenshotsDir", rootProject.file("../docs/screens/android").absolutePath)
                 it.outputs.upToDateWhen { false }
             }
+            // ストアの掲載用の素の画面（公開中のカタログ）: -Pcmsl.storeScreenshots → ../build/store_screenshots/raw-android/
+            if (providers.gradleProperty("cmsl.storeScreenshots").isPresent) {
+                it.systemProperty("storeScreenshotsDir", rootProject.file("../build/store_screenshots/raw-android").absolutePath)
+                it.systemProperty("storeSeedCatalog", rootProject.file("../site/v1/catalog.json").absolutePath)
+                it.outputs.upToDateWhen { false }
+            }
         }
     }
 }

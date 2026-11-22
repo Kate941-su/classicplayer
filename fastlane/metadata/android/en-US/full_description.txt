@@ -1,0 +1,28 @@
+A player for classical masterpieces, with no ads. Choose from about 500 pieces published as free material by the CMSL Classical Masterpieces Sound Library, and stream them by genre or composer.
+
+HOW IT WORKS
+- Tap "Shuffle everything" and start listening right away
+- Pick from new arrivals on the home screen, or from the genres: symphonies, orchestral, concertos, piano, chamber & instrumental, and vocal & opera
+- Go from genre to composer to work, and play a whole work movement by movement
+- Search by title or composer
+
+FEATURES
+- No ads, no account, no data collection
+- Background playback, with controls on the lock screen
+- Queue, shuffle and repeat
+- Favorites and history (kept only on your device)
+- Download pieces and listen offline (Wi-Fi only by default)
+- Sleep timer (15 to 90 minutes, or the end of the current piece; it fades out before stopping)
+- Composer portraits (public domain and freely licensed images)
+- The catalog is updated monthly and the app picks up new pieces automatically
+- Light and dark mode, Japanese and English
+- Most piece titles are shown in Japanese, as published by the library
+
+PRICE
+All pieces and features are free.
+
+ABOUT THE RECORDINGS
+The recordings are MP3 files from the CMSL Classical Masterpieces Sound Library (by ANDO TOWA), published under the Creative Commons Attribution 2.1 Japan license. The app streams them directly from the CMSL servers. This is not an official CMSL app.
+
+Support: https://kate941-su.github.io/classicplayer/support/en.html
+Privacy policy: https://kate941-su.github.io/classicplayer/privacy/en.html

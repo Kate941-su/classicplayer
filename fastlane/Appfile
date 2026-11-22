@@ -1,0 +1,3 @@
+# ストアのアプリ ID（fastlane が読む）
+app_identifier("jp.vntech.classic") # iOS の Bundle ID
+package_name("jp.vntech.classic")   # Android の applicationId
