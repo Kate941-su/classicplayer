@@ -1159,6 +1159,23 @@
         }
       }
     },
+    "info.legalPageSuffix": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/en"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        }
+      }
+    },
     "info.licenses": {
       "extractionState": "manual",
       "localizations": {
@@ -1244,23 +1261,6 @@
         }
       }
     },
-    "info.sitePageSuffix": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "en.html"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": ""
-          }
-        }
-      }
-    },
     "info.termsBody": {
       "extractionState": "manual",
       "localizations": {
@@ -1274,6 +1274,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "音源は CMSL が公開しているフリー素材で、クリエイティブ・コモンズ 表示 2.1 日本 ライセンスのもとで利用しています。このアプリは音源ファイルを再配布せず、CMSL のサーバーから直接再生します。"
+          }
+        }
+      }
+    },
+    "info.termsOfUse": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terms of use"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "利用規約"
           }
         }
       }

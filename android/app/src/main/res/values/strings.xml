@@ -96,10 +96,11 @@
     <string name="info_catalog">Catalog</string>
     <string name="info_catalog_seed">Built-in catalog (generated %1$s, %2$s)</string>
     <string name="info_catalog_downloaded">Version %1$s (generated %2$s, %3$s)</string>
+    <string name="info_terms_of_use">Terms of use</string>
     <string name="info_contact">Contact and support</string>
     <string name="info_licenses">Open source licenses</string>
-    <!-- サイトの英語版のページ（privacy/en.html など） -->
-    <string name="site_page_suffix">en.html</string>
+    <!-- 文書の英語版のページ（privacy-policy-root の …/en） -->
+    <string name="legal_page_suffix">/en</string>
 
     <string name="refresh_checking">Checking…</string>
     <string name="refresh_updated">The catalog has been updated.</string>

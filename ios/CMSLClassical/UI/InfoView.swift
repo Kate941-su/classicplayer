@@ -26,7 +26,7 @@ struct InfoView: View {
             }
             Section("info.privacy") {
                 Text("info.privacyBody")
-                Link(destination: Self.sitePage("privacy/")) {
+                Link(destination: Self.legalPage("")) {
                     Label("info.privacyPolicy", systemImage: "hand.raised")
                 }
             }
@@ -46,7 +46,10 @@ struct InfoView: View {
                 }
             }
             Section {
-                Link(destination: Self.sitePage("support/")) {
+                Link(destination: Self.legalPage("/terms")) {
+                    Label("info.termsOfUse", systemImage: "doc.text")
+                }
+                Link(destination: Self.legalPage("/support")) {
                     Label("info.contact", systemImage: "questionmark.circle")
                 }
                 NavigationLink(value: Route.licenses) { Text("info.licenses") }
@@ -70,10 +73,9 @@ struct InfoView: View {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "-"
     }
 
-    /// サイトのページ。英語 UI では英語版（`en.html`）。
-    static func sitePage(_ path: String) -> URL {
-        URL(string: path + String(localized: "info.sitePageSuffix"), relativeTo: AppModel.siteBaseURL)?.absoluteURL
-            ?? AppModel.siteBaseURL
+    /// プライバシーポリシーなどの文書のページ。英語 UI では英語版（末尾に `/en`）。
+    static func legalPage(_ path: String) -> URL {
+        URL(string: AppModel.legalBaseURL + path + String(localized: "info.legalPageSuffix"))!
     }
 
     static func catalogDescription(_ catalog: CatalogState) -> String {
