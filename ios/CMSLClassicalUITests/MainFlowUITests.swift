@@ -37,8 +37,9 @@ final class MainFlowUITests: XCTestCase {
         save("\(prefix)-genre")
         composer.tap()
 
-        // 作曲家詳細: 肖像画とクレジット（SPEC §4.4）
-        let credit = app.links.matching(NSPredicate(format: "label CONTAINS %@", "Joseph Karl Stieler")).firstMatch
+        // 作曲家詳細: 肖像画とクレジット（SPEC §4.4）。List の行の中の Link は、OS の版によって
+        // link・button・行（cell）のどれとして公開されるかが変わる（CI の Xcode 26.6 では links に出ない）ので、種類を問わずラベルで探す
+        let credit = app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS %@", "Joseph Karl Stieler")).firstMatch
         XCTAssertTrue(credit.waitForExistence(timeout: 5))
         save("\(prefix)-composer")
 
