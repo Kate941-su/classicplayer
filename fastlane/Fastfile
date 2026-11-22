@@ -86,8 +86,15 @@ end
 platform :android do
   desc "Google Play の掲載情報と画像を送る"
   lane :metadata do
+    json_key = File.expand_path(ENV.fetch("SUPPLY_JSON_KEY"))
+    # supply は掲載情報だけを送るときも、トラックにあるリリースを 1 つ指定する必要がある（内部テストの最新を使う）
+    track = ENV.fetch("SUPPLY_TRACK", "internal")
+    version_code = google_play_track_version_codes(json_key: json_key, track: track).max
+    UI.user_error!("Google Play の #{track} トラックにリリースがありません。先に AAB を上げてください") unless version_code
     supply(
-      json_key: File.expand_path(ENV.fetch("SUPPLY_JSON_KEY")),
+      json_key: json_key,
+      track: track,
+      version_code: version_code,
       metadata_path: "./fastlane/metadata/android",
       skip_upload_apk: true,
       skip_upload_aab: true,
