@@ -1,0 +1,8 @@
+No login is required. All features are free; there are no ads and no data collection.
+
+About the audio content:
+The app streams MP3 files published as free material by the CMSL Classical Masterpieces Sound Library (https://classical-sound.seesaa.net/, by ANDO TOWA). The site states that these files may be used freely, including commercially, under the Creative Commons Attribution 2.1 Japan license. The app does not re-host the files; it plays them directly from the CMSL servers and shows the credit in the Info tab and on each piece ("About this piece").
+
+Composer portraits are public domain or freely licensed images from Wikimedia Commons, credited in Info > Image credits.
+
+To test playback: tap "Shuffle everything" on the Home tab, or open a genre, a composer and a work, then tap "Play the whole work".
