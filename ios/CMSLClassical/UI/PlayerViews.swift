@@ -61,11 +61,15 @@ struct PlayPauseButton: View {
 
     var body: some View {
         let playing = model.playback.isPlaying
+        // 曲の準備ができるまで（押せば取りやめられる）
+        let buffering = playing && model.playback.isBuffering
         Button {
             model.playback.togglePlayPause()
         } label: {
             Image(systemName: playing ? "pause.fill" : "play.fill")
                 .font(.system(size: size))
+                .opacity(buffering ? 0 : 1)
+                .overlay { if buffering { ProgressView() } }
                 .frame(width: max(44, size * 2), height: max(44, size * 2))
         }
         .accessibilityLabel(Text(playing ? "action.pause" : "action.play"))
