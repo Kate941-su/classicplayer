@@ -1,3 +1,4 @@
+import AVFoundation
 import Foundation
 import Testing
 @testable import CMSLClassical
@@ -170,5 +171,50 @@ struct PlaybackQueueTests {
         q.append("a")
         q.setCurrent(key: q.nextKey(automatic: false)!)
         #expect(q.currentIndex == 1)
+    }
+}
+
+@MainActor
+struct AssetPreparerTests {
+    final class Calls { var loads: [URL] = []; var downloads = 0 }
+    let calls = Calls()
+    let url = URL(string: "https://classical-sound.up.seesaa.net/image/a.mp3")!
+    let file = URL(filePath: "/nonexistent/a.mp3")
+
+    /// `knownAfter` 回目から長さが分かる配信元。
+    private func preparer(knownAfter: Int) -> AssetPreparer {
+        AssetPreparer(
+            attempts: 3, retryDelay: .milliseconds(1),
+            loadDuration: { [calls] asset in
+                calls.loads.append(asset.url)
+                return asset.url.isFileURL || calls.loads.count >= knownAfter ? 120 : .nan
+            },
+            download: { [calls, file] _ in
+                calls.downloads += 1
+                return file
+            }
+        )
+    }
+
+    @Test func retriesUntilDurationIsKnown() async throws {
+        let prepared = try await preparer(knownAfter: 2).prepare(url)
+        #expect(prepared.duration == 120)
+        #expect(prepared.asset.url == url)
+        #expect(calls.loads.count == 2)
+        #expect(calls.downloads == 0)
+    }
+
+    @Test func downloadsWhenDurationStaysUnknown() async throws {
+        let prepared = try await preparer(knownAfter: .max).prepare(url)
+        #expect(prepared.duration == 120)
+        #expect(prepared.asset.url == file)
+        #expect(calls.loads.count == 4)
+        #expect(calls.downloads == 1)
+    }
+
+    @Test func failsWhenAssetCannotBeLoaded() async {
+        var failing = preparer(knownAfter: 1)
+        failing.loadDuration = { _ in throw URLError(.notConnectedToInternet) }
+        await #expect(throws: URLError.self) { try await failing.prepare(url) }
     }
 }
